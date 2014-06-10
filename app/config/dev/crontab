@@ -1,0 +1,5 @@
+#每分钟处理定时脚本
+*/1 * * * * php /home/pplive/web/x-cms-dev/artisan  timing --env=dev>>/tmp/test.log
+
+#每天24：00处理定时核对EPG脚本
+0 0 * * * php /home/pplive/web/x-cms-dev/artisan  report --env=dev>>/tmp/test.log

@@ -1,0 +1,12 @@
+#/bootstrap/compiled.php
+#app/config/local
+composer.phar
+composer.lock
+*.rdb
+.DS_Store
+Thumbs.d
+#/vendor/
+#/vendor/*/
+app/storage/*/
+/.idea
+*.bak

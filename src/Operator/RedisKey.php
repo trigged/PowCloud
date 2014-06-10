@@ -1,0 +1,153 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: trigged
+ * Date: 11/12/13
+ * Time: 3:28 PM
+ * To change this template use File | Settings | File Templates.
+ */
+
+namespace Operator;
+
+
+class RedisKey
+{
+
+
+    /**
+     *hash
+     *  "base" -> "path"
+     *  "right" ->  "{\"index\":1,\"create\":0,\"update\":0,\"delete\":0,\"show\":1}"
+     *  "model" -> "dbModel"
+     *  "expire"-> "time"
+     */
+    const ROUTE = 'routes::%s';
+
+    /**
+     * design to store table struct
+     * not use
+     */
+    const INFO = 'tables::%s::info';
+
+    /**
+     * string
+     * a flag to judge redis already cache all of table data
+     * when value is true means cache all of data,otherwise not
+     */
+    const MORE_DATA = '%s::more';
+
+    /**
+     * zset
+     * to cache table data
+     * the value is table id field,score is table rank filed
+     */
+    const Index = '%s::index';
+
+    /**
+     * zset
+     * to pub timing data
+     * table_name:id
+     *
+     */
+    const TIMING_PUB = 'TIMING_PUB';
+
+
+    /**
+     * HASH
+     * to store timing data info
+     *  key-> table_name:id: ; value ->type:title
+     */
+    const TIMING_PUB_INFO = 'TIMING_PUB_INFO';
+
+    /**
+     * hash
+     * to draw chat of api
+     *  "2014-01-24:time" ->"5"
+     *  "2014-01-24:count" -> "1"
+     */
+    const API_INFO = 'api::%s::%s';
+
+    /**
+     * zset
+     * to store diff form epg video
+     * value: video id, score: epg id
+     */
+    const VIDEO_CHECK = 'video_check';
+
+    /**
+     * string
+     * a flag to mark the check state
+     */
+    const VIDEO_CHECK_STATE = 'video_check_state';
+
+    const CHECK_TYPE = 'check_type';
+
+    const VIDEO_CHECK_INFO = 'video_check_info';
+
+
+    const DEFAULT_DELETE_TIME = '0000-00-00 00:00:00';
+
+    //data state ,not deleted_at means Normal
+    //has deleted_at check timing_state
+
+//    CONST SUCCESS = 2;
+//
+//    //not pub data
+//
+//    CONST NOT_TIMING = -1;
+//
+//    //has timing data or pub failed
+
+
+    //not pub data
+
+    CONST DELETED = -1;
+
+    //not use ,delete in next version
+
+    CONST HAS_PUB = 1;
+
+    //timing success,online
+
+    CONST SUCCESS = 2;
+
+    //just create data,don't display in api
+
+    CONST READY_LINE = 3;
+
+    //has timing data,prepare for pub data
+
+    CONST HAS_PUB_ONLINE = 4;
+
+    //has timing data,prepare for del data
+
+    CONST HAS_PUB_OFFLINE = 5;
+
+    CONST HAS_PUB_FIRST = 6;
+
+    //need pub,bud pub failed
+
+    CONST PUB_FAIL = 7;
+
+    //offline
+
+    CONST OFF_LINE = 8;
+
+    CONST PUB_ONLINE = 9;
+
+    /**
+     * it's support return redis key for table,used tableId and tableName
+     * @param $id
+     * @param $name
+     * @return string
+     */
+    public static function buildKey($name, $id)
+    {
+        return $name . '::' . $id;
+    }
+
+    public static function buildKeys($value, $key = '::')
+    {
+        return join($key, $value);
+    }
+}

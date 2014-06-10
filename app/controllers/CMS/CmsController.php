@@ -1,0 +1,412 @@
+<?php
+
+use Operator\RedisKey;
+
+class CmsController extends CmsBaeController
+{
+
+    public function index()
+    {
+        //suppose this action was been reflactor
+        //make sure the user has access the app permission
+        $user = Auth::user();
+        $this->menu = 'cms.dataTable';
+        $table_id = Input::get('id', '');
+        $status = Input::get('status', '');
+        $pageSize = Input::get('pageSize', 20);
+        $pageSize = $pageSize > 1000 ? 1000 : $pageSize;
+
+        switch (!!$table_id) {
+            case true:
+                $forms = Forms::where('models_id', '=', $table_id)->get();
+                $table = SchemaBuilder::find($table_id);
+                $foreign = $table->getForeignField();
+                array_push($foreign, 'foreign', 'parent');
+                if (!$table || !$forms)
+                    App::abort(404);
+                $this->menu = 'cms.table.' . $table_id;
+                //调用事件
+                Event::fire('widget', array($table->table_name, 'index'));
+                $vm = new ApiModel($table->table_name);
+                //如果是超级管理员 可以看到已经删除的数据
+                $vm->setTable($table->table_name);
+                $dataList = $vm->getDataList($table, $status, $pageSize);
+                return $this->render('cms.table', array(
+                        'table'         => $table,
+                        'table_options' => $table->models_options ? json_decode($table->models_options, true) : array(),
+                        'forms'         => $forms,
+                        'dataList'      => $dataList,
+                        'foreign'       => $foreign,
+                        'options'       => $this->getOption(),
+                        'status'        => $status,
+                        'pageSize'      => $pageSize
+                    )
+                );
+                break;
+            case false:
+                return $this->render('cms.index', array(
+                    'timing_data'       => \Operator\ReadApi::getTimingData('+inf', true),
+                    'video_check_state' => \Operator\ReadApi::get(\Operator\RedisKey::VIDEO_CHECK_STATE),
+                    'timing_count'      => \Operator\ReadApi::countZset(RedisKey::TIMING_PUB),
+                    'options'           => $this->getOption(),
+                    'roles'             => (int)$user->roles,
+                    'user'              => $user->toArray()
+                ));
+                break;
+        }
+    }
+
+    /**
+     * 转发器
+     */
+    public function dispatch()
+    {
+        return Response::json(array(
+            'code'    => -1,
+            'message' => 'request not found!',
+            'data'    => array()), 404);
+    }
+
+    public function destroy($id)
+    {
+        $table_id = Input::get('table');
+        $table = SchemaBuilder::find($table_id);
+
+        $vm = new ApiModel($table->table_name);
+        $vm = $vm->newQueryWithDeleted()->find($id);
+        if (!$vm->exists) {
+            $this->ajaxResponse(array(), 'fail', '数据不存在');
+        }
+
+        $vm->setTable($table->table_name);
+        $vm->timing_state = RedisKey::DELETED;
+        $vm->processGeo = false;
+        $vm->save();
+        $return = $vm->delete();
+
+        if ($return || $return === null) {
+            $this->ajaxResponse(array(), 'success', '删除成功');
+        }
+
+        $this->ajaxResponse(array(), 'fail', '删除失败');
+    }
+
+    /**
+     * 恢复软删除
+     * @param $tableId
+     * @param $id
+     */
+    public function restore($tableId, $id)
+    {
+        $table = SchemaBuilder::find($tableId);
+        if (!$table)
+            $this->ajaxResponse(array(), 'fail', '表不存在');
+        $vm = new ApiModel($table->table_name);
+        $vm = $vm->newQueryWithDeleted()->find($id);
+        if (!$vm)
+            $this->ajaxResponse(array(), 'fail', '访问的数据不存在');
+        $vm->oldData = $vm->toArray();
+        $vm->processGeo = false;
+        if ($vm->foreign) {
+            list($field, $foreignTable) = explode(':', $vm->foreign);
+            if ($ids = $vm->$field) {
+                foreach ($ids as $id) {
+                    $vmForeign = new ApiModel($foreignTable);
+                    $vmForeign = $vmForeign->newQueryWithDeleted()->find($id);
+                    $vmForeign->setTable($foreignTable);
+                    $vmForeign->oldData = $vmForeign->toArray();
+                    $vmForeign->processGeo = false;
+                    if (isset($vmForeign->timing_state)) {
+                        $vmForeign->timing_state = RedisKey::PUB_ONLINE;
+                    }
+                    $vmForeign->restore();
+                }
+            }
+            $vm->setTable($table->table_name);
+            if (isset($vm->timing_state)) {
+                $vm->timing_state = RedisKey::PUB_ONLINE;
+            }
+            $vm->restore();
+            $this->ajaxResponse(array(), 'success', '恢复成功');
+        } else {
+            $vm->setTable($table->table_name);
+            if (isset($vm->timing_state)) {
+                $vm->timing_state = RedisKey::PUB_ONLINE;
+            }
+            $vm->restore();
+            $this->ajaxResponse(array(), 'success', '恢复成功');
+        }
+
+        $this->ajaxResponse(array(), 'fail', '恢复失败');
+    }
+
+    public function edit($id)
+    {
+        if (!($tableId = Input::get('table')) ||
+            !($table = SchemaBuilder::find($tableId))
+        )
+            App::abort(404);
+        //调用 事件  定向新的页面
+        Event::fire('widget', array($table->table_name, 'edit'));
+        $this->menu = 'cms.table.' . $tableId;
+
+        //TODO 兼容老数据  以后删除
+        $hide = $table->getForeignField();
+        array_push($hide, 'user', 'foreign', 'parent');
+
+        //主表单
+        $forms = Forms::where('models_id', '=', $tableId)->orderBy('rank', 'desc')->get();
+        $vm = new ApiModel($table->table_name);
+        $tableData = $vm->newQueryWithDeleted()->find($id);
+
+        //外链接表Form
+
+        $foreignRelations = Forms::loadRelationForm($table, 'edit', $tableData);
+
+        return $this->render('cms.update', array(
+            'table'            => $table,
+            'tableData'        => $tableData,
+            'forms'            => $forms,
+            'hide'             => $hide,
+            'foreignRelations' => $foreignRelations,
+            'options'          => $this->getOption(),
+        ));
+    }
+
+    public function online()
+    {
+        $table_id = Input::get('table');
+        $id = Input::get('id');
+        $table = SchemaBuilder::find($table_id);
+        $vm = new ApiModel($table->table_name);
+        $vm = $vm->newQueryWithDeleted()->find($id);
+        if (!$vm->exists) {
+            $this->ajaxResponse(array(), 'fail', '数据不存在');
+        }
+        if (!isset($vm->timing_state)) {
+            $this->ajaxResponse(array(), 'fail', '数据出错');
+        }
+        $vm->setTable($table->table_name);
+        $vm->rank = time();
+        $vm->timing_state = RedisKey::PUB_ONLINE;
+        $vm->processGeo = false;
+        $return = $vm->restore();
+        if ($return || $return === null) {
+            $this->ajaxResponse(array(), 'success', '上线成功');
+        }
+
+        $this->ajaxResponse(array(), 'fail', '上线失败');
+    }
+
+    public function  offline()
+    {
+        $table_id = Input::get('table');
+        $id = Input::get('id');
+        $table = SchemaBuilder::find($table_id);
+        $vm = new ApiModel($table->table_name);
+        $vm = $vm->newQueryWithDeleted()->find($id);
+        if (!$vm->exists) {
+            $this->ajaxResponse(array(), 'fail', '数据不存在');
+        }
+
+        if (!isset($vm->timing_state)) {
+            $this->ajaxResponse(array(), 'fail', '数据出错');
+        }
+        $vm->setTable($table->table_name);
+        $vm->cascadeDelete = false;
+        $vm->delete();
+        $vm = $vm->newQueryWithDeleted()->find($id);
+        $vm->setTable($table->table_name);
+        $vm->timing_state = RedisKey::READY_LINE;
+        $vm->processGeo = false;
+        $return = $vm->save();
+
+        if ($return || $return === null) {
+
+            $this->ajaxResponse(array(), 'success', '下线成功');
+        }
+
+        $this->ajaxResponse(array(), 'fail', '下线失败');
+    }
+
+    public function create()
+    {
+
+        if (!($table_id = Input::get('id', ''))
+            || !($table = SchemaBuilder::find($table_id))
+        )
+            App::abort(404);
+        //调用事件
+        Event::fire('widget', array($table->table_name, 'create'));
+        $this->menu = 'cms.table.' . $table_id;
+        //主表单Form
+        $forms = Forms::where('models_id', '=', $table_id)->orderBy('rank', 'desc')->get();
+        //外链接表Form
+        $foreignRelations = Forms::loadRelationForm($table, 'update');
+
+        return $this->render('cms.create', array(
+                'forms'            => $forms,
+                'table'            => $table,
+                'table_id'         => $table_id,
+                'foreignRelations' => $foreignRelations,
+            )
+        );
+    }
+
+    public function store()
+    {
+        if (!($tableId = Input::get('id', ''))
+            || !($table = SchemaBuilder::find($tableId))
+        )
+            App::abort(404);
+
+        //store 调用事件
+        Event::fire('widget', array($table->table_name, 'store'));
+
+        $tableStore = Input::get($table->table_name);
+        $flag = Input::get('create_flag', 'save');
+        if ($flag === 'create') {
+            $tableStore['deleted_at'] = date('Y-m-d H:i:s', time());
+            $tableStore['timing_state'] = RedisKey::READY_LINE;
+        }
+        //主表单为空时 直接跳转
+        if (!array_filter(array_except($tableStore, array('geo'))))
+            return Redirect::action('CmsController@index', array('id' => $tableId));
+
+        $vm = new ApiModel($table->table_name, $tableStore);
+        $foreignField = $table->getForeignField();
+        //设置默认值
+        if ($foreignField)
+            $vm->setDefaultValue($foreignField);
+
+        $childStore = Input::except(array('id', $table->table_name));
+        unset($childStore['create_flag']);
+        if (count($childStore) >= 1)
+            $vm->setChildSets($childStore);
+
+        $vm->XSave($table, $foreignField);
+        return Redirect::action('CmsController@index', array('id' => $tableId));
+    }
+
+    public function update($id)
+    {
+        if (!($tableId = Input::get('table', ''))
+            || !($table = SchemaBuilder::find($tableId))
+        )
+            $this->ajaxResponse(array(), 'fail', '找不到对应的更新表', URL::action('CmsController@index', array('id' => $tableId)));
+
+        //调用事件
+        Event::fire('widget', array($table->table_name, 'update'));
+        $tableStore = Input::get($table->table_name);
+
+        if (!array_filter(array_except($tableStore, array('geo'))))
+            $this->ajaxResponse(array(), 'fail', '添加失败:请添写表单', URL::action('CmsController@index', array('id' => $tableId)));
+
+        $vm = new ApiModel($table->table_name);
+        $tableData = $vm->newQueryWithDeleted()->find($id);
+        $tableData->oldData = $tableData->toArray();
+        $tableData->setTable($table->table_name);
+
+        $foreignField = $table->getForeignField();
+        //设置默认值
+        if ($foreignField)
+            $tableData->setDefaultValue($foreignField);
+
+        $childStore = Input::except(array('id', 'table', $table->table_name));
+
+        if (count($childStore) >= 1)
+            $tableData->setChildSets($childStore);
+
+        if ($tableData->XUpdate($table, $foreignField, $tableStore))
+            $this->ajaxResponse(array(), 'success', '修改成功', URL::action('CmsController@index', array('id' => $tableId)));
+
+        $this->ajaxResponse(array(), 'fail', '修改失败', URL::action('CmsController@index', array('id' => $tableId)));
+
+    }
+
+    /**
+     * CMS 内部动态页面生成
+     *
+     * @param $id
+     */
+    public function page($id)
+    {
+
+        $page = Widget::whereRaw('status=1 AND name =? AND action = ?', array($id, 'page'))->first();
+        if ($page) {
+            \Plugin\Widget::cast($page)->run();
+            App::shutdown();
+            exit();
+        } else
+            App::abort(404);
+    }
+
+    /**
+     * 历史记录页面
+     * @param $tableId
+     * @param $id
+     *
+     * @return string
+     */
+    public function detail($tableId, $id)
+    {
+        $table = SchemaBuilder::find($tableId);
+        if (!$table) App::abort(404);
+
+        $currentVersion = new ApiModel($table->table_name);
+        $currentVersion = $currentVersion->newQuery()->find($id);
+        if (!$currentVersion) App::abort(404, '未找到数据');
+
+
+        $this->menu = 'cms.table.' . $tableId;
+        $records = Record::whereRaw('connect = ? AND table_name=? AND content_id=?', array('ApiModel', $table->table_name, $id))->paginate(10);
+
+        return $this->render('cms.detail', array(
+            'table'          => $table,
+            'currentVersion' => $currentVersion
+        ))->nest('record', 'record._record', array('records' => $records));
+    }
+
+    public function cacheRefresh($table, $target)
+    {
+
+        $vm = new ApiModel($table);
+        if ($vm = $vm->newQuery()->find($target)) {
+            \Operator\CacheController::update($table, $vm->toArray());
+        }
+        $this->ajaxResponse(array(), 'success', '更新缓存成功', true);
+    }
+
+    public function upload_callback()
+    {
+
+        echo '<html><head><title></title><script type="text/javascript" src="' . Config::get('app.picture_upload.url') . '/javascripts/upload_callback.js"></script></head><body></body></html>';
+
+    }
+
+    public function search($table_name, $filed, $condition)
+    {
+        if (empty($filed) || empty($condition)) {
+            return null;
+        }
+        $vm = new ApiModel($table_name);
+        $vm->where($filed, $condition)->get();
+        if ($vm->exists) {
+            return $vm;
+        }
+        return null;
+    }
+
+    public function upload()
+    {
+        return $this->render('cms.upload');
+    }
+
+    public function test()
+    {
+
+        print_r(Input::all());
+
+        return $this->render('cms.test');
+    }
+}
