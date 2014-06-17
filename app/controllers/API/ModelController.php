@@ -214,6 +214,11 @@ class ModelController extends Controller
             $this->result['debug']['host'] = gethostname();
             $this->result['debug']['request_id'] = CMSLog::$requestHandler;
 
+            $fields = get_object_vars($this);
+            if (isset($fields['result'])) {
+                unset($fields['result']);
+            }
+            $this->result['debug']['field'] = $fields;
         }
 
         return Response::json($this->result, $http_code, $header);

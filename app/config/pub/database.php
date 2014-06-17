@@ -11,36 +11,17 @@
  */
 return array(
     'connections' => array(
-        'base'   => array(
+        'base' => array(
             'driver'    => 'mysql',
-            'host'      => 'masterdb.tv.idc.pplive.cn',
+            'host'      => '127.0.0.1',
             'database'  => 'x_cms',
-            'username'  => 'pp_ott',
-            'password'  => 'lC33!k20j9^Dg72sF3',
+            'username'  => 'root',
+            'password'  => 'SYNAtt!@#12306',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
         ),
-        'mysql'  => array(
-            'driver'    => 'mysql',
-            'host'      => 'masterdb.tv.idc.pplive.cn',
-            'database'  => 'cms_1_data',
-            'username'  => 'pp_ott',
-            'password'  => 'lC33!k20j9^Dg72sF3',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-        ),
-        'models' => array(
-            'driver'    => 'mysql',
-            'host'      => 'masterdb.tv.idc.pplive.cn',
-            'database'  => 'cms_1_models',
-            'username'  => 'pp_ott',
-            'password'  => 'lC33!k20j9^Dg72sF3',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-        )
+
     ),
 
 
@@ -49,8 +30,8 @@ return array(
         'cluster' => false,
 
         'default' => array(
-            'host'     => 'redis.tv.idc.pplive.cn',
-            'port'     => 6380,
+            'host'     => '127.0.0.1',
+            'port'     => 6379,
             'database' => 0,
         ),
 
