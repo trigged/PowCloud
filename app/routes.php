@@ -34,9 +34,9 @@ Route::get('nginx', function () {
 });
 
 Route::get('recommend', 'RecommendController@index');
-
+Route::get('/', 'index.html');
 //dashboard
-Route::get('/', 'DashBoardController@index');
+Route::get('dashboard/', 'DashBoardController@index');
 Route::resource('dashboard', 'DashBoardController');
 Route::resource('app', 'AppController');
 Route::resource('team', 'UserController');
