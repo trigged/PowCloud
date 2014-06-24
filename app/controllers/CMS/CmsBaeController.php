@@ -7,9 +7,11 @@
  * Time: 上午11:08
  */
 
-class CmsBaeController extends BaseController{
+class CmsBaeController extends BaseController
+{
 
     public $nav = 'cms';
+
     /**
      * 从数据库动态拉取左侧菜单生成 不做action使用
      *
@@ -19,7 +21,7 @@ class CmsBaeController extends BaseController{
     {
         $tables = SchemaBuilder::all();
         $options = $this->getOption();
-        if ($options === false || $options['no_right']==1) {
+        if ($options === false || $options['no_right'] == 1) {
             return array();
         }
 
@@ -40,9 +42,6 @@ class CmsBaeController extends BaseController{
 
         }
 
-        $cmsSideFromDb['cms']['区域管理'] = array(
-            array('label' => '区域快捷键', 'url' => URL::action('GeoController@shortcut'), 'menu' => 'geo.shortcut','id'=>'40001'),
-        );
         return $cmsSideFromDb;
     }
 } 

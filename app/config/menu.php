@@ -24,7 +24,7 @@ return array(
                 array('label' => '创建表', 'url' => URL::action('SchemaBuilderController@create'), 'menu' => 'schema.create'),
                 array('label' => '表列表', 'url' => URL::action('SchemaBuilderController@index'), 'menu' => 'schema.list'),
             ),
-            '表单管理'=> array(
+            '表单管理' => array(
                 array('label' => '表单列表', 'url' => URL::action('FormsController@forms'), 'menu' => 'forms.list'),
             ),
         ),
