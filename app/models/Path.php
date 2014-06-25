@@ -5,16 +5,16 @@ class Path extends XEloquent
 
     protected $table = 'path';
 
-    protected $fillable = array('name', 'host_id', 'parent', 'expire', 'type', 'last_name');
+    protected $fillable = array('name', 'host_id', 'parent', 'expire', 'last_name');
 
     protected $guarded = array('id');
 
     protected $softDelete = true;
 
-    static $pathType = array(
-        '1' => 'restful',
-        '2' => 'url'
-    );
+//    static $pathType = array(
+//        '1' => 'restful',
+//        '2' => 'url'
+//    );
 
     static $pathRoot = array(
         'id'         => 0,

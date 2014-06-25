@@ -43,6 +43,7 @@ class SchemaBuilderController extends SystemController
             if (SchemaBuilder::where('path_id', '=', $table->path_id)->get()->count() > 0)
                 $this->ajaxResponse(array('path_id' => '路径已被绑定,请重新选择路径'), 'fail', '创建失败');
         }
+        //todo get current user and add autrelation
         if ($table->save()) {
             Log::info(Auth::user()->name . '更新表' . $table->table_name);
             $this->ajaxResponse(array(), 'success', '添加成功', URL::action('SchemaBuilderController@index'));

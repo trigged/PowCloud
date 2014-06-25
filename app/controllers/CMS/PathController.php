@@ -39,7 +39,7 @@ class PathController extends SystemController
         }
 
         $path = new Path(Input::all());
-
+        $path->type = 1;
         if (strstr($path->name, $path->parent) === false) {
             $parent = $path->parent === '/' ? '' : $path->parent;
             $path->name = $parent . '/' . trim($path->name, '/');
@@ -51,7 +51,7 @@ class PathController extends SystemController
         }
         $path->last_name = trim(str_replace($path->parent, '', $path->name), '/');
         if ($path->save()) {
-            $infoUrl = URL::action('PathController@edit', array('path' => $path->id));
+            $infoUrl = URL::action('PathController@index', array('path' => $path->id));
             $path = $path->toArray();
             $path['infoUrl'] = $infoUrl;
             echo json_encode($path);
