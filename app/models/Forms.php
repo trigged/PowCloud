@@ -7,7 +7,7 @@ class Forms extends XEloquent
 
     protected $softDelete = true;
 
-    protected $fillable = array('field', 'models_id', 'isEditable', 'rank', 'label', 'dataType', 'type', 'default_value', 'rules', 'isEditable', 'visibleByGroup', 'isVisible');
+    protected $fillable = array('field', 'models_id', 'isEditable', 'rank', 'label', 'type', 'default_value', 'rules', 'isEditable', 'visibleByGroup', 'isVisible');
 
     public function models()
     {
@@ -90,16 +90,17 @@ class Forms extends XEloquent
         return $forms;
     }
 
-    public function fireXEloquentSavingEvent($model){
+    public function fireXEloquentSavingEvent($model)
+    {
         $defaultValue = $model->default_value;
         $map = array();
-        if($model->type=='ajaxInput'){
-            if(!empty($defaultValue['target'])){
+        if ($model->type == 'ajaxInput') {
+            if (!empty($defaultValue['target'])) {
                 $defaultValue['map'] = $model->formatAjaxData($defaultValue['data']);
                 $defaultValue['data'] = '';
-            }else{
-                if(!empty($defaultValue['data'])){
-                    $data = array_slice($defaultValue['data'],0,1);
+            } else {
+                if (!empty($defaultValue['data'])) {
+                    $data = array_slice($defaultValue['data'], 0, 1);
                     $defaultValue['map'] = $model->formatAjaxData($data);
                     $defaultValue['data'] = $data[0]['data'];
                 }
@@ -110,11 +111,12 @@ class Forms extends XEloquent
         return true;
     }
 
-    public function formatAjaxData($defaultValue){
+    public function formatAjaxData($defaultValue)
+    {
         $map = array();
-        foreach ($defaultValue as $data){
-            foreach($data['map'] as $m){
-                $map[$data['data']][] = implode(':',$m);
+        foreach ($defaultValue as $data) {
+            foreach ($data['map'] as $m) {
+                $map[$data['data']][] = implode(':', $m);
             }
         }
         return $map;

@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    'url'            => 'http://cms.dev.demo1.pptv.com',
+//    'url'            => 'http://cms.dev.demo1.pptv.com',
     'picture_upload' => array(
         'url' => 'http://upload1.vision.demo1.pptv.com',
     ),

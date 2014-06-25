@@ -1,30 +1,29 @@
-<?php echo $header;?>
+<?php echo $header; ?>
 <div class="">
-    <form class="form-horizontal child_form"  method="post" onsubmit="return check_form(this)">
+    <form class="form-horizontal child_form" method="post" onsubmit="return check_form(this)">
         <fieldset>
-            <legend>修改字段:<?php echo $field->field?></legend>
+            <legend>修改字段:<?php echo $field->field ?></legend>
             <div class="control-group">
                 <label for="label" class="control-label">标签*:</label>
+
                 <div class="controls">
-                    <input name="label" class="input-medium" value="<?php echo $field->label; ?>" type="text" placeholder="标签" id="label">
+                    <input name="label" class="input-medium" value="<?php echo $field->label; ?>" type="text"
+                           placeholder="标签" id="label">
                 </div>
             </div>
-            <div class="control-group">
-                <label for="dataType" class="control-label">数据类型*:</label>
-                <div class="controls">
-                    <?php echo Form::select('dataType',Config::get('params.dataType'),$field->dataType,array('class'=>'input-small')); ?>
-                </div>
-            </div>
+
             <div class="control-group">
                 <label for="type" class="control-label">类型*:</label>
+
                 <div class="controls">
-                    <?php echo Form::select('type',Config::get('params.formField'),$field->type,array('class'=>'input-small JFieldType')); ?>
+                    <?php echo Form::select('type', Config::get('params.formField'), $field->type, array('class' => 'input-small JFieldType')); ?>
                 </div>
             </div>
             <div class="control-group">
                 <label for="default_value" class="control-label">默认值:</label>
+
                 <div class="controls JDefaultValue">
-                    <?php if($field->type=='ajaxInput' && $field->default_value): ?>
+                    <?php if ($field->type == 'ajaxInput' && $field->default_value): ?>
                         <table class="table">
                             <thead>
                             <tr>
@@ -33,36 +32,52 @@
                                 <th>字段映射关系(本地字段,远程字段)</th>
                             </tr>
                             </thead>
-                            <?php  $mapCount = count($field->default_value['map']);  ?>
+                            <?php $mapCount = count($field->default_value['map']); ?>
                             <tbody id="ajaxInput">
-                            <?php $tableIndex = 1; foreach ($field->default_value['map'] as $dataSource => $map): ?>
-                                <tr class="<?php if($tableIndex==1) echo 'JDisableDelete'; ?>">
-                                    <?php if($tableIndex==1):?>
+                            <?php $tableIndex = 1;
+                            foreach ($field->default_value['map'] as $dataSource => $map): ?>
+                                <tr class="<?php if ($tableIndex == 1) echo 'JDisableDelete'; ?>">
+                                    <?php if ($tableIndex == 1): ?>
                                         <td id="ajaxInputRowspan" rowspan="<?php echo $mapCount; ?>">
-                                            <input  type="text" name="default_value[target]" value="<?php echo $field->default_value['target']; ?>" />
-                                            &nbsp;&nbsp;<a href="javascript:;" data-tableIndex="<?php echo $mapCount+1; ?>" class="JAjaxInput" data-type="tr" data-target="ajaxInput" style="cursor:pointer;"><i class="icon-plus"></i></a>
+                                            <input type="text" name="default_value[target]"
+                                                   value="<?php echo $field->default_value['target']; ?>"/>
+                                            &nbsp;&nbsp;<a href="javascript:;"
+                                                           data-tableIndex="<?php echo $mapCount + 1; ?>"
+                                                           class="JAjaxInput" data-type="tr" data-target="ajaxInput"
+                                                           style="cursor:pointer;"><i class="icon-plus"></i></a>
                                         </td>
-                                    <?php  endif; ?>
+                                    <?php endif; ?>
                                     <td>
-                                        <input  type="text" name="default_value[data][<?php echo $tableIndex; ?>][data]" value="<?php echo $dataSource;?>" />
-                                        &nbsp;&nbsp;<a href="javascript:;" data-tableIndex="<?php echo $tableIndex;?>" data-mapIndex="<?php echo count($map)+1; ?>" class="JAjaxInput" data-type="td" data-target="ajaxInput" style="cursor:pointer;"><i class="icon-plus"></i></a>
-                                        <a href="javascript:;"  class="JAjaxInput" data-type="delete-tr" style="cursor:pointer;"><i class="icon-remove"></i></a>
+                                        <input type="text" name="default_value[data][<?php echo $tableIndex; ?>][data]"
+                                               value="<?php echo $dataSource; ?>"/>
+                                        &nbsp;&nbsp;<a href="javascript:;" data-tableIndex="<?php echo $tableIndex; ?>"
+                                                       data-mapIndex="<?php echo count($map) + 1; ?>" class="JAjaxInput"
+                                                       data-type="td" data-target="ajaxInput" style="cursor:pointer;"><i
+                                                class="icon-plus"></i></a>
+                                        <a href="javascript:;" class="JAjaxInput" data-type="delete-tr"
+                                           style="cursor:pointer;"><i class="icon-remove"></i></a>
                                     </td>
                                     <td>
-                                        <?php $mapIndex=1; foreach ($map as $m): ?>
+                                        <?php $mapIndex = 1;
+                                        foreach ($map as $m): ?>
                                             <div style="margin-bottom: 5px;">
-                                                <?php list($localField,$remoteField) = explode(':',$m); ?>
-                                                <input  type="text" name="default_value[data][<?php echo $tableIndex; ?>][map][<?php echo $mapIndex; ?>][localField]" class="input-small" value="<?php echo $localField; ?>" />&nbsp;&nbsp;&nbsp;
-                                                <input  type="text" name="default_value[data][<?php echo $tableIndex; ?>][map][<?php echo $mapIndex; ?>][remoteField]" class="input-small" value="<?php echo $remoteField;?>" />
-                                                <a href="javascript:;"  class="JAjaxInput" data-type="delete-td" style="cursor:pointer;"><i class="icon-remove"></i></a>
+                                                <?php list($localField, $remoteField) = explode(':', $m); ?>
+                                                <input type="text"
+                                                       name="default_value[data][<?php echo $tableIndex; ?>][map][<?php echo $mapIndex; ?>][localField]"
+                                                       class="input-small" value="<?php echo $localField; ?>"/>&nbsp;&nbsp;&nbsp;
+                                                <input type="text"
+                                                       name="default_value[data][<?php echo $tableIndex; ?>][map][<?php echo $mapIndex; ?>][remoteField]"
+                                                       class="input-small" value="<?php echo $remoteField; ?>"/>
+                                                <a href="javascript:;" class="JAjaxInput" data-type="delete-td"
+                                                   style="cursor:pointer;"><i class="icon-remove"></i></a>
                                             </div>
-                                            <?php $mapIndex++;endforeach;?>
+                                            <?php $mapIndex++;endforeach; ?>
                                     </td>
                                 </tr>
                                 <?php $tableIndex++; endforeach; ?>
                             </tbody>
                         </table>
-                    <?php elseif($field->type=='ajaxInput'): ?>
+                    <?php elseif ($field->type == 'ajaxInput'): ?>
                         <table class="table">
                             <thead>
                             <tr>
@@ -75,58 +90,74 @@
                             <tr class="JDisableDelete">
                                 <td rowspan="1" id="ajaxInputRowspan">
                                     <input type="text" value="" name="default_value[target]">
-                                    &nbsp;&nbsp;<a style="cursor:pointer;" data-target="ajaxInput" data-type="tr" class="JAjaxInput" data-tableindex="2" href="javascript:;"><i class="icon-plus"></i></a>
+                                    &nbsp;&nbsp;<a style="cursor:pointer;" data-target="ajaxInput" data-type="tr"
+                                                   class="JAjaxInput" data-tableindex="2" href="javascript:;"><i
+                                            class="icon-plus"></i></a>
                                 </td>
                                 <td>
                                     <input type="text" value="" name="default_value[data][1][data]">
-                                    &nbsp;&nbsp;<a style="cursor:pointer;" data-target="ajaxInput" data-type="td" class="JAjaxInput" data-mapindex="2" data-tableindex="1" href="javascript:;"><i class="icon-plus"></i></a>
-                                    <a style="cursor:pointer;" data-type="delete-tr" class="JAjaxInput" href="javascript:;"><i class="icon-remove"></i></a>
+                                    &nbsp;&nbsp;<a style="cursor:pointer;" data-target="ajaxInput" data-type="td"
+                                                   class="JAjaxInput" data-mapindex="2" data-tableindex="1"
+                                                   href="javascript:;"><i class="icon-plus"></i></a>
+                                    <a style="cursor:pointer;" data-type="delete-tr" class="JAjaxInput"
+                                       href="javascript:;"><i class="icon-remove"></i></a>
                                 </td>
                                 <td>
                                     <div style="margin-bottom: 5px;">
-                                        <input type="text" value="" class="input-small" name="default_value[data][1][map][1][localField]">&nbsp;&nbsp;&nbsp;
-                                        <input type="text" value="" class="input-small" name="default_value[data][1][map][1][remoteField]">
-                                        <a style="cursor:pointer;" data-type="delete-td" class="JAjaxInput" href="javascript:;"><i class="icon-remove"></i></a>
+                                        <input type="text" value="" class="input-small"
+                                               name="default_value[data][1][map][1][localField]">&nbsp;&nbsp;&nbsp;
+                                        <input type="text" value="" class="input-small"
+                                               name="default_value[data][1][map][1][remoteField]">
+                                        <a style="cursor:pointer;" data-type="delete-td" class="JAjaxInput"
+                                           href="javascript:;"><i class="icon-remove"></i></a>
                                     </div>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                    <?php  else: ?>
-                        <input  name="default_value" class="input-xxlarge" type="text" value="<?php echo htmlspecialchars($field->default_value,ENT_QUOTES); ?>" placeholder="默认值" id="default_value">
+                    <?php else: ?>
+                        <input name="default_value" class="input-xxlarge" type="text"
+                               value="<?php echo htmlspecialchars($field->default_value, ENT_QUOTES); ?>"
+                               placeholder="默认值" id="default_value">
                     <?php endif; ?>
                 </div>
             </div>
 
             <div class="control-group">
                 <label for="rules" class="control-label">验证规则:</label>
+
                 <div class="controls">
-                    <?php  echo Form::textarea('rules',$field->rules,array('class'=>'input-xxlarge')) ?>
+                    <?php echo Form::textarea('rules', $field->rules, array('class' => 'input-xxlarge')) ?>
                 </div>
             </div>
             <div class="control-group">
                 <label for="rank" class="control-label">排序:</label>
+
                 <div class="controls">
-                    <input  name="rank" class="input-mini" type="text" value="<?php echo $field->rank ?>" placeholder="默认值" id="rank">
+                    <input name="rank" class="input-mini" type="text" value="<?php echo $field->rank ?>"
+                           placeholder="默认值" id="rank">
                 </div>
             </div>
             <div class="control-group">
                 <label for="isVisible" class="control-label">列表是否可见:</label>
+
                 <div class="controls">
-                    <?php echo Form::select('isVisible', array(1=>'可见', 0=>'不可见'), (int)$field->isVisible, array('class'=>'input-small')); ?>
+                    <?php echo Form::select('isVisible', array(1 => '可见', 0 => '不可见'), (int)$field->isVisible, array('class' => 'input-small')); ?>
                 </div>
             </div>
             <div class="control-group">
                 <label for="isEditable" class="control-label">是否可输入:</label>
+
                 <div class="controls">
-                    <?php echo Form::select('isEditable', array(1=>'可输入', 0=>'不可输入'), (int)$field->isEditable, array('class'=>'input-small')); ?>
+                    <?php echo Form::select('isEditable', array(1 => '可输入', 0 => '不可输入'), (int)$field->isEditable, array('class' => 'input-small')); ?>
                 </div>
             </div>
 
             <div class="control-group">
                 <label for="isEditable" class="control-label">角色可见:</label>
+
                 <div class="controls">
-                    <?php echo Form::select('visibleByGroup',array('0'=>'无限制')+Group::getGroups() ,(int)$field->visibleByGroup, array('class'=>'input-small')); ?>
+                    <?php echo Form::select('visibleByGroup', array('0' => '无限制') + Group::getGroups(), (int)$field->visibleByGroup, array('class' => 'input-small')); ?>
                 </div>
             </div>
 
@@ -137,22 +168,22 @@
         </fieldset>
     </form>
 </div>
-<?php echo $footer;?>
+<?php echo $footer; ?>
 <?php echo $ajaxInput; ?>
 <script>
-    function check_form(form){
+    function check_form(form) {
         $.ajax({
-            url  : '<?php echo URL::action('FormsController@update',array('form'=>$field->id));?>',
-            data : $(form).serialize(),
-            type : 'PUT',
-            beforeSend : function(){
-                $('#JS_Sub').attr('disabled',true);
+            url: '<?php echo URL::action('FormsController@update',array('form'=>$field->id));?>',
+            data: $(form).serialize(),
+            type: 'PUT',
+            beforeSend: function () {
+                $('#JS_Sub').attr('disabled', true);
             },
-            success: function(re){
+            success: function (re) {
                 re = $.parseJSON(re);
-                if(re.status =='fail'){
+                if (re.status == 'fail') {
                     alert(re.message);
-                    $('#JS_Sub').attr('disabled',false);
+                    $('#JS_Sub').attr('disabled', false);
                     return false;
                 }
                 alert('更新字段成功');

@@ -28,7 +28,7 @@ $values = array(
         'url'      => 'http://cms/test2',
         'params'   => array('format' => 'json', 'version' => 1),
         'dyparams' => array('type'),
-        'map'      => '',
+        'map'      => '""',
     ),
 
 );
@@ -64,17 +64,6 @@ class AjaxParser
         }
         //todo then map the filed to the result!
 
-    }
-
-    private function get_value_in_path($path, $data, $split = '.')
-    {
-        $result = $data;
-        foreach (explode($split, $path) as $value) {
-            if (isset($result[$value])) {
-                $result = $result[$value];
-            }
-        }
-        return $result;
     }
 
     function call_api($url, $method = 'GET', $data = false)
@@ -118,6 +107,17 @@ class AjaxParser
         }
         return $result;
     }
+
+//    private function get_value_in_path($path, $data, $split = '.')
+//    {
+//        $result = $data;
+//        foreach (explode($split, $path) as $value) {
+//            if (isset($result[$value])) {
+//                $result = $result[$value];
+//            }
+//        }
+//        return $result;
+//    }
 }
 
 //$aj = new AjaxParser();
@@ -205,3 +205,31 @@ var_dump(date('y-m-d', strtotime("last month")));
 echo "-1 month :";
 var_dump(date('y-m-t', strtotime("-1 month")));
 
+$query = "insert into `forms` (`default_value`, `field`, `label`, `models_id`, `rank`, `rules`, `type`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?)) ";
+$values = array(0  => '""',
+                1  => 'name',
+                2  => '分类',
+                3  => '1',
+                4  => '""',
+                5  => '""',
+                6  => 'text',
+                7  => '""',
+                8  => 'price',
+                9  => '标题',
+                10 => '1',
+                11 => '""',
+                12 => '""',
+                13 => 'text',
+                14 => '""',
+                15 => 'img',
+                16 => '内部产品代号',
+                17 => '1',
+                18 => '""',
+                19 => '""',
+                20 => 'text',
+);
+
+$sql = str_replace(array('%', '?'), array('%%', '%s'), $query);
+var_dump($sql);
+$full_sql = vsprintf($sql, $values);
+printf($full_sql);

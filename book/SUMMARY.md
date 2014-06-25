@@ -9,5 +9,6 @@
    * [Comments](basics/comments.md)
    * [Variables](basics/variables.md)
    * [Types](basics/types.md)
+   * [罗汉](/README.md)
    * [Equality](basics/equality.md)
 
