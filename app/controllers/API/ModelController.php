@@ -391,8 +391,8 @@ class ModelController extends Controller
             }
 
 
-            //check foreign
-            $this->processForeignData($data);
+            //check children
+            $this->processChildrenData($data);
             $this->processOnlinePlay($data);
             if (isset($data['template'])) {
                 //check template
@@ -472,12 +472,12 @@ class ModelController extends Controller
      * @param $data
      * 处理含有外键关系的数据  special_video
      */
-    public function processForeignData(&$data)
+    public function processChildrenData(&$data)
     {
-        if (isset($data['foreign'])) {
-            $has = explode(":", $data['foreign']);
+        if (isset($data['children'])) {
+            $has = explode(":", $data['children']);
             if (!$this->debug) {
-                unset($data['foreign']);
+                unset($data['children']);
             }
             if (count($has) === 2) {
                 $field = $has[0];
@@ -642,7 +642,7 @@ class ModelController extends Controller
      * Show the form for creating a new resource.
      * @return Response
      */
-    //TODO:  consider the foreign and parent situation ! and the default value
+    //TODO:  consider the children and parent situation ! and the default value
 
 
     public function create()
@@ -654,8 +654,8 @@ class ModelController extends Controller
 //            if (is_string($property)) {
 //                $property = (array)$property;
 //            }
-//            if (isset($property['foreign'])) {
-//                $value = explode(':', $property['foreign']);
+//            if (isset($property['children'])) {
+//                $value = explode(':', $property['children']);
 //                if (count($value) >= 2) {
 //                    $field = $value[0];
 //                    $table = $value[1];

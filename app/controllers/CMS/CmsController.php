@@ -20,8 +20,8 @@ class CmsController extends CmsBaeController
             case true:
                 $forms = Forms::where('models_id', '=', $table_id)->get();
                 $table = SchemaBuilder::find($table_id);
-                $foreign = $table->getForeignField();
-                array_push($foreign, 'foreign', 'parent');
+                $children = $table->getForeignField();
+                array_push($children, 'children', 'parent');
                 if (!$table || !$forms)
                     App::abort(404);
                 $this->menu = 'cms.table.' . $table_id;
@@ -36,7 +36,7 @@ class CmsController extends CmsBaeController
                         'table_options' => $table->models_options ? json_decode($table->models_options, true) : array(),
                         'forms'         => $forms,
                         'dataList'      => $dataList,
-                        'foreign'       => $foreign,
+                        'children'      => $children,
                         'options'       => $this->getOption(),
                         'status'        => $status,
                         'pageSize'      => $pageSize
@@ -107,13 +107,13 @@ class CmsController extends CmsBaeController
             $this->ajaxResponse(array(), 'fail', '访问的数据不存在');
         $vm->oldData = $vm->toArray();
         $vm->processGeo = false;
-        if ($vm->foreign) {
-            list($field, $foreignTable) = explode(':', $vm->foreign);
+        if ($vm->children) {
+            list($field, $children_table) = explode(':', $vm->children);
             if ($ids = $vm->$field) {
                 foreach ($ids as $id) {
-                    $vmForeign = new ApiModel($foreignTable);
+                    $vmForeign = new ApiModel($children_table);
                     $vmForeign = $vmForeign->newQueryWithDeleted()->find($id);
-                    $vmForeign->setTable($foreignTable);
+                    $vmForeign->setTable($children_table);
                     $vmForeign->oldData = $vmForeign->toArray();
                     $vmForeign->processGeo = false;
                     if (isset($vmForeign->timing_state)) {
@@ -152,24 +152,24 @@ class CmsController extends CmsBaeController
 
         //TODO 兼容老数据  以后删除
         $hide = $table->getForeignField();
-        array_push($hide, 'user', 'foreign', 'parent');
+        array_push($hide, 'user', 'children', 'parent');
 
         //主表单
         $forms = Forms::where('models_id', '=', $tableId)->orderBy('rank', 'desc')->get();
         $vm = new ApiModel($table->table_name);
-        $tableData = $vm->newQueryWithDeleted()->find($id);
+        $table_data = $vm->newQueryWithDeleted()->find($id);
 
         //外链接表Form
 
-        $foreignRelations = Forms::loadRelationForm($table, 'edit', $tableData);
+        $children_relations = Forms::loadRelationForm($table, 'edit', $table_data);
 
         return $this->render('cms.update', array(
-            'table'            => $table,
-            'tableData'        => $tableData,
-            'forms'            => $forms,
-            'hide'             => $hide,
-            'foreignRelations' => $foreignRelations,
-            'options'          => $this->getOption(),
+            'table'              => $table,
+            'tableData'          => $table_data,
+            'forms'              => $forms,
+            'hide'               => $hide,
+            'children_relations' => $children_relations,
+            'options'            => $this->getOption(),
         ));
     }
 
@@ -242,13 +242,13 @@ class CmsController extends CmsBaeController
         //主表单Form
         $forms = Forms::where('models_id', '=', $table_id)->orderBy('rank', 'desc')->get();
         //外链接表Form
-        $foreignRelations = Forms::loadRelationForm($table, 'update');
+        $children_relations = Forms::loadRelationForm($table, 'update');
 
         return $this->render('cms.create', array(
-                'forms'            => $forms,
-                'table'            => $table,
-                'table_id'         => $table_id,
-                'foreignRelations' => $foreignRelations,
+                'forms'              => $forms,
+                'table'              => $table,
+                'table_id'           => $table_id,
+                'children_relations' => $children_relations,
             )
         );
     }
@@ -274,17 +274,17 @@ class CmsController extends CmsBaeController
             return Redirect::action('CmsController@index', array('id' => $tableId));
 
         $vm = new ApiModel($table->table_name, $tableStore);
-        $foreignField = $table->getForeignField();
+        $children_field = $table->getForeignField();
         //设置默认值
-        if ($foreignField)
-            $vm->setDefaultValue($foreignField);
+        if ($children_field)
+            $vm->setDefaultValue($children_field);
 
         $childStore = Input::except(array('id', $table->table_name));
         unset($childStore['create_flag']);
         if (count($childStore) >= 1)
             $vm->setChildSets($childStore);
 
-        $vm->XSave($table, $foreignField);
+        $vm->XSave($table, $children_field);
         return Redirect::action('CmsController@index', array('id' => $tableId));
     }
 
@@ -307,17 +307,17 @@ class CmsController extends CmsBaeController
         $tableData->oldData = $tableData->toArray();
         $tableData->setTable($table->table_name);
 
-        $foreignField = $table->getForeignField();
+        $children_field = $table->getForeignField();
         //设置默认值
-        if ($foreignField)
-            $tableData->setDefaultValue($foreignField);
+        if ($children_field)
+            $tableData->setDefaultValue($children_field);
 
         $childStore = Input::except(array('id', 'table', $table->table_name));
 
         if (count($childStore) >= 1)
             $tableData->setChildSets($childStore);
 
-        if ($tableData->XUpdate($table, $foreignField, $tableStore))
+        if ($tableData->XUpdate($table, $children_field, $tableStore))
             $this->ajaxResponse(array(), 'success', '修改成功', URL::action('CmsController@index', array('id' => $tableId)));
 
         $this->ajaxResponse(array(), 'fail', '修改失败', URL::action('CmsController@index', array('id' => $tableId)));

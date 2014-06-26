@@ -10,75 +10,76 @@
                 <legend>添加数据</legend>
                 <?php foreach ($forms as $form): ?>
 
-                    <?php if ((int)$form->visibleByGroup !== 0 && (int)$form->visibleByGroup !== (int)Auth::user()->group_id){
-                        echo \Utils\FormBuilderHelper::hidden($form);
-                        continue;
-                    }?>
-
-                    <?php if ($form->type == 'formTip') {
-                        echo \Utils\FormBuilderHelper::formTip($form);
-                        continue;
-                    } ?>
-
-                    <?php if ($form->type == 'timingState') { ?>
-                    <div class="control-group timing-radio">
-                    <label for="name" class="control-label" style="display:none"><?php echo $form->label ?>:</label>
-                    <div class="controls">
-                    <?php
-                    echo \Utils\FormBuilderHelper::timingState($form);
-                    echo "</div>";
-                    echo "</div>";
+                <?php if ((int)$form->visibleByGroup !== 0 && (int)$form->visibleByGroup !== (int)Auth::user()->group_id) {
+                    echo \Utils\FormBuilderHelper::hidden($form);
                     continue;
-                    } ?>
+                }?>
 
+                <?php if ($form->type == 'formTip') {
+                    echo \Utils\FormBuilderHelper::formTip($form);
+                    continue;
+                } ?>
 
-                    <?php if ($form->type == 'image' && $form->default_value): ?>
+                <?php if ($form->type == 'timingState') { ?>
+                <div class="control-group timing-radio">
+                    <label for="name" class="control-label" style="display:none"><?php echo $form->label ?>:</label>
+
+                    <div class="controls">
                         <?php
-                        $label_val = array_filter(explode(',', $form->default_value));
-                        ?>
-                        <?php foreach ($label_val as $sub): ?>
+                        echo \Utils\FormBuilderHelper::timingState($form);
+                        echo "</div>";
+                        echo "</div>";
+                        continue;
+                        } ?>
+
+
+                        <?php if ($form->type == 'image' && $form->default_value): ?>
+                            <?php
+                            $label_val = array_filter(explode(',', $form->default_value));
+                            ?>
+                            <?php foreach ($label_val as $sub): ?>
+                                <div class="control-group">
+                                    <label for="name" class="control-label"><?php echo $sub ?>:</label>
+
+                                    <div class="controls">
+                                        <?php
+                                        if ($form->rules)
+                                            \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules);
+                                        //注册验证规则 以便JS可以验证
+                                        $namespace = $table->table_name ? $table->table_name . '[' . $form->field . ']' : $form->field;
+                                        $class = 'input-xxlarge';
+                                        $input = '<input type="text" name="' . $namespace . '[]" placeholder="单击上传" value=""  class="' . $class . ' image-uploader"  />';
+                                        echo $input;
+                                        ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php elseif ($form->field && $form->type !== 'formTip') : ?>
                             <div class="control-group">
-                                <label for="name" class="control-label"><?php echo $sub ?>:</label>
+                                <label for="name" class="control-label"><?php echo $form->label ?>:</label>
 
                                 <div class="controls">
                                     <?php
                                     if ($form->rules)
-                                        \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules);
-                                    //注册验证规则 以便JS可以验证
-                                    $namespace = $table->table_name ? $table->table_name . '[' . $form->field . ']' : $form->field;
-                                    $class = 'input-xxlarge';
-                                    $input = '<input type="text" name="' . $namespace . '[]" placeholder="单击上传" value=""  class="' . $class . ' image-uploader"  />';
-                                    echo $input;
+                                        Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules);
+                                    echo call_user_func_array(array('\Utils\FormBuilderHelper', $form->type), array($form));
                                     ?>
                                 </div>
                             </div>
+                        <?php endif; ?>
                         <?php endforeach; ?>
-                    <?php elseif ($form->field && $form->type !== 'formTip') : ?>
-                        <div class="control-group">
-                            <label for="name" class="control-label"><?php echo $form->label ?>:</label>
-
-                            <div class="controls">
-                                <?php
-                                if ($form->rules)
-                                    Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules);
-                                echo call_user_func_array(array('\Utils\FormBuilderHelper', $form->type), array($form));
-                                ?>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
             </fieldset>
-            <?php if ($foreignRelations): ?>
-                <?php foreach ($foreignRelations as $foreignRelation): ?>
+            <?php if ($children_relations): ?>
+                <?php foreach ($children_relations as $children_relation): ?>
                     <fieldset>
-                        <legend><?php echo $foreignRelation['table']->table_alias; ?></legend>
-                        <table id="table-<?php echo $foreignRelation['table']->table_name; ?>"
-                               data-count="<?php echo count($foreignRelation['data']); ?>"
+                        <legend><?php echo $children_relation['table']->table_alias; ?></legend>
+                        <table id="table-<?php echo $children_relation['table']->table_name; ?>"
+                               data-count="<?php echo count($children_relation['data']); ?>"
                                class="table  dynamic-child-table">
                             <thead>
                             <tr>
                                 <td>#序号</td>
-                                <?php foreach ($foreignRelation['forms'] as $form): ?>
+                                <?php foreach ($children_relation['forms'] as $form): ?>
                                     <?php if ((int)$form->visibleByGroup !== 0 && (int)$form->visibleByGroup !== (int)Auth::user()->group_id) continue; ?>
                                     <td><?php echo $form->label ?></td>
                                 <?php endforeach; ?>
@@ -87,10 +88,10 @@
                             </thead>
                             <tbody>
                             <?php $index = 1;
-                            foreach ($foreignRelation['data'] as $data): \Utils\DataColumnHelper::registerFormNamespace($foreignRelation['table']->table_name . '[' . $index . ']') ?>
+                            foreach ($children_relation['data'] as $data): \Utils\DataColumnHelper::registerFormNamespace($children_relation['table']->table_name . '[' . $index . ']') ?>
                                 <tr class="data">
                                     <td><span class="data-index"><?php echo $index++; ?></span></td>
-                                    <?php foreach ($foreignRelation['forms'] as $form): ?>
+                                    <?php foreach ($children_relation['forms'] as $form): ?>
                                         <?php if ((int)$form->visibleByGroup !== 0 && (int)$form->visibleByGroup !== (int)Auth::user()->group_id) {
                                             echo \Utils\FormBuilderHelper::hidden($form);
                                             continue;
@@ -105,16 +106,18 @@
                                     <?php endforeach; ?>
                                     <td>
                                         <a href="javascript:void(0);"
-                                           data-table="<?php echo $foreignRelation['table']->table_name; ?>" title="上升"
+                                           data-table="<?php echo $children_relation['table']->table_name; ?>"
+                                           title="上升"
                                            class="tr_rank" data-direction="up"><i class="icon-chevron-up"></i></a>
                                         <a href="javascript:void(0);"
-                                           data-table="<?php echo $foreignRelation['table']->table_name; ?>" title="下降"
+                                           data-table="<?php echo $children_relation['table']->table_name; ?>"
+                                           title="下降"
                                            class="tr_rank" data-direction="down"><i class="icon-chevron-down"></i></a>
                                         <a href="javascript:void (0);"
-                                           data-table="<?php echo $foreignRelation['table']->table_name; ?>"
+                                           data-table="<?php echo $children_relation['table']->table_name; ?>"
                                            class="tr_remove"><i class="icon-remove"></i></a>
                                         <a href="javascript:void (0);"
-                                           data-table="<?php echo $foreignRelation['table']->table_name; ?>"
+                                           data-table="<?php echo $children_relation['table']->table_name; ?>"
                                            class="tr_add"><i class="icon-plus"></i></a>
                                     </td>
                                 </tr>
@@ -125,19 +128,24 @@
                 <?php endforeach; ?>
             <?php endif; ?>
             <div class="form-actions">
-                <button class="btn btn-info"  onclick="document.getElementById('JStatus').value='create';" type="submit">保存</button>
-                <button class="btn btn-primary"  onclick="document.getElementById('JStatus').value='save';"type="submit">创建</button>
-                <a href="<?php echo URL::action('CmsController@index', array('id' => $table->id)); ?>"class="btn">取消</a>
+                <button class="btn btn-info" onclick="document.getElementById('JStatus').value='create';" type="submit">
+                    保存
+                </button>
+                <button class="btn btn-primary" onclick="document.getElementById('JStatus').value='save';"
+                        type="submit">创建
+                </button>
+                <a href="<?php echo URL::action('CmsController@index', array('id' => $table->id)); ?>"
+                   class="btn">取消</a>
             </div>
         </form>
         <?php echo \Utils\FormBuilderHelper::end('cms_form', 'beforeSubmit'); ?>
         <script>
-            function beforeSubmit(form,formValidate){
-                if(!$(form).attr('data-submit') && formValidate.form()){
-                    $(form).attr('data-submit',1);
-                    $(formValidate.submitButton).attr('disabled','disabled').html('正在提交中.....');
+            function beforeSubmit(form, formValidate) {
+                if (!$(form).attr('data-submit') && formValidate.form()) {
+                    $(form).attr('data-submit', 1);
+                    $(formValidate.submitButton).attr('disabled', 'disabled').html('正在提交中.....');
                     form.submit();
-                }else
+                } else
                     return false;
             }
         </script>

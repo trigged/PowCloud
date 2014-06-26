@@ -67,9 +67,9 @@ class FormsController extends SystemController
 
             $vm = new ApiModel($table->table_name);
 
-            $foreign_filed = $table->getForeignField();
-            if ($foreign_filed) {
-                foreach ($foreign_filed as $fid) {
+            $children_filed = $table->getForeignField();
+            if ($children_filed) {
+                foreach ($children_filed as $fid) {
                     array_push($vm->hiddenField, $fid);
                 }
             }

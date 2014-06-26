@@ -34,13 +34,13 @@ class ApiModel extends Eloquent
      */
     public $oldData = array();
 
-    public $hiddenField = array('id', 'rank', 'timing_state', 'timing_time', 'user_name', 'parent', 'foreign', 'created_at', 'updated_at', 'deleted_at');
+    public $hiddenField = array('id', 'rank', 'timing_state', 'timing_time', 'user_name', 'parent', 'children', 'created_at', 'updated_at', 'deleted_at');
 
     protected $table = null;
 
     protected $connection = 'models';
 
-    protected $guarded = array('id', 'foreign', 'parent');
+    protected $guarded = array('id', 'children', 'parent');
 
     protected $softDelete = true;
 
@@ -137,10 +137,10 @@ class ApiModel extends Eloquent
 
     public function hasChildData()
     {
-        if (!empty($this->foreign)) {
-            $foreign = explode(':', $this->foreign);
-            if (!empty($foreign[0])) {
-                if (!empty($this->{$foreign[0]})) {
+        if (!empty($this->children)) {
+            $children = explode(':', $this->children);
+            if (!empty($children[0])) {
+                if (!empty($this->{$children[0]})) {
                     return true;
                 } else
                     return false;
@@ -263,7 +263,7 @@ class ApiModel extends Eloquent
 
 
     /*
-     * 根据每张表里的parent foreign
+     * 根据每张表里的parent children
      * 级联删除作为
      */
 
@@ -286,13 +286,13 @@ class ApiModel extends Eloquent
                 $data->$field = json_encode($field_ids);
                 $data->setTable($table);
                 if (!$data->save())
-                    Log::error('更新:' . $table . ':foreign:失败');
+                    Log::error('更新:' . $table . ':children:失败');
             }
         }
 
         //判断有没有子表
-        if (isset($this->foreign) && $this->foreign) {
-            list($field, $table) = explode(':', $this->foreign);
+        if (isset($this->children) && $this->children) {
+            list($field, $table) = explode(':', $this->children);
             if (isset($this->$field) && $this->$field) {
                 foreach ($this->$field as $field_id) {
                     $this->apiModelDelete($table, $field_id, $field);
@@ -302,7 +302,7 @@ class ApiModel extends Eloquent
     }
 
     /*
-     * 根据每张表里的parent foreign
+     * 根据每张表里的parent children
      * 级联更新
     */
 
@@ -322,8 +322,8 @@ class ApiModel extends Eloquent
 
         //var_dump($this->oldData);die();
         $diff = array();
-        if ($this->oldData && isset($this->foreign) && $this->foreign) {
-            list($field, $table) = explode(':', $this->foreign);
+        if ($this->oldData && isset($this->children) && $this->children) {
+            list($field, $table) = explode(':', $this->children);
             if (isset($this->oldData[$field]) && json_decode($this->oldData[$field]) != null) {
                 $this->oldData[$field] = json_decode($this->oldData[$field], true);
                 $diff = array_diff($this->oldData[$field], $this->$field);
@@ -337,19 +337,19 @@ class ApiModel extends Eloquent
         }
     }
 
-    public function setDefaultValue($foreignFields)
+    public function setDefaultValue($children_fields)
     {
-        $foreign = array();
-        foreach ($foreignFields as $foreignTable => $foreignField) {
-            $this->$foreignField = json_encode(array());
-            $foreign[] = $foreignField . ':' . $foreignTable;
+        $children = array();
+        foreach ($children_fields as $children_table => $children_field) {
+            $this->$children_field = json_encode(array());
+            $children[] = $children_field . ':' . $children_table;
         }
-        $this->foreign = implode(',', $foreign);
+        $this->children = implode(',', $children);
     }
 
-    public function setChildSets($childStore)
+    public function setChildSets($children_store)
     {
-        foreach ($childStore as $tableName => $tableData) {
+        foreach ($children_store as $tableName => $tableData) {
             foreach ($tableData as $d) {
                 if (array_filter($d)) {
                     if (empty($d['id']))
@@ -371,7 +371,7 @@ class ApiModel extends Eloquent
         }
     }
 
-    public function XSave($table, $foreignField)
+    public function XSave($table, $children_field)
     {
         if (!$this->childSets) {
             return $this->save();
@@ -381,7 +381,7 @@ class ApiModel extends Eloquent
         try {
             $this->cascadeDelete = false;
             $this->save();
-            $this->getChildIds($table, $foreignField, true);
+            $this->getChildIds($table, $children_field, true);
             $this->exists = true;
             $this->disableEvent = true;
             $this->save();
@@ -399,13 +399,13 @@ class ApiModel extends Eloquent
         }
     }
 
-    protected function getChildIds($table, $foreignField, $rank = false)
+    protected function getChildIds($table, $children_field, $rank = false)
     {
         $rankTail = count($this->childSets);
         foreach ($this->childSets as $tableName => $childSet) {
             foreach ($childSet as $d) {
                 if (!$d['instance']) continue;
-                $d['instance']->parent = $foreignField[$tableName] . ':' . $table->table_name . ':' . $this->id;
+                $d['instance']->parent = $children_field[$tableName] . ':' . $table->table_name . ':' . $this->id;
                 if ($d['id']) {
                     $d['instance']->setTable($tableName);
                     if (empty($d['newData']['geo']))
@@ -419,24 +419,24 @@ class ApiModel extends Eloquent
                 }
             }
         }
-        if ($foreignField) {
-            foreach ($foreignField as $foreignTable => $field) {
-                if (isset($childIds[$foreignTable]) && $childIds[$foreignTable]) {
-                    $this->$field = json_encode($childIds[$foreignTable]);
+        if ($children_field) {
+            foreach ($children_field as $children_table => $field) {
+                if (isset($childIds[$children_table]) && $childIds[$children_table]) {
+                    $this->$field = json_encode($childIds[$children_table]);
                 }
             }
         }
     }
 
-    public function XUpdate($table, $foreignField, $tableStore)
+    public function XUpdate($table, $children_field, $tableStore)
     {
 
         if (!$this->childSets)
             return $this->update($tableStore);
         DB::connection('models')->beginTransaction();
         try {
-            $this->getChildIds($table, $foreignField);
-            $this->update(array_except($tableStore, $foreignField));
+            $this->getChildIds($table, $children_field);
+            $this->update(array_except($tableStore, $children_field));
             DB::connection('models')->commit();
             return true;
         } catch (\Exception $e) {

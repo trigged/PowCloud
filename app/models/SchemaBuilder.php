@@ -187,15 +187,15 @@ class SchemaBuilder extends XEloquent
     public function getForeignField()
     {
         $property = json_decode($this->property, true);
-        $foreign_field = array();
-        if (isset($property['foreign']) && !empty($property['foreign']['default'])) {
-            $foreignArray = explode(',', $property['foreign']['default']);
-            foreach ($foreignArray as $foreign) {
-                list($filed, $table) = explode(':', $foreign);
-                $foreign_field[$table] = $filed;
+        $children_field = array();
+        if (isset($property['children']) && !empty($property['children']['default'])) {
+            $children_array = explode(',', $property['children']['default']);
+            foreach ($children_array as $children) {
+                list($filed, $table) = explode(':', $children);
+                $children_field[$table] = $filed;
             }
         }
 
-        return $foreign_field;
+        return $children_field;
     }
 }

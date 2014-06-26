@@ -226,9 +226,9 @@ null
         if (isset($property['parent'])) {
             unset($property['parent']);
         }
-        $foreign = null;
-        if (isset($property['foreign'])) {
-            $tmp = $property['foreign']['default'];
+        $children = null;
+        if (isset($property['children'])) {
+            $tmp = $property['children']['default'];
             $value = explode(':', $tmp);
             if (count($value) == 2) {
                 $field = $value[0];
@@ -240,9 +240,9 @@ null
                 }
 
                 $table = ReadApi::getTableInfo($sub_table_name);
-                $foreign = self::getModels($table['id'], $sub_table_name, $table['property']);
+                $children = self::getModels($table['id'], $sub_table_name, $table['property']);
             }
-            unset($property['foreign']);
+            unset($property['children']);
         }
         $property['id'] = null;
         foreach ($property as $field => $value) {
@@ -258,8 +258,8 @@ null
         $result .= "\r\n}";
         self::$model = $result;
         $result = $table_name . ' :' . $result;
-        if ($foreign) {
-            $result .= "\r\n\r\n" . $foreign;
+        if ($children) {
+            $result .= "\r\n\r\n" . $children;
         }
         return $result;
     }

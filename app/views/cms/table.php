@@ -49,7 +49,7 @@
                     <?php if (!empty($table_options['list.table.id_display']) && $table_options['list.table.id_display'] == 1): ?>
                         <td><?php echo str_replace('列表', '', $table->table_alias); ?>ID</td>
                     <?php endif; ?>
-                    <?php foreach ($forms as $form): if ($form->field && $form->isVisible && !in_array($form->field, $foreign)): ?>
+                    <?php foreach ($forms as $form): if ($form->field && $form->isVisible && !in_array($form->field, $children)): ?>
                         <td style="display:<?php echo($form->isVisible || $form->isVisible == '' ? '' : 'none') ?>"><?php echo $form->label ?></td>
                     <?php endif;endforeach; ?>
                     <?php if ($status === 'timing'): ?>
@@ -105,7 +105,7 @@
                             <td class="index"><?php echo $data->id ?></td>
                         <?php endif; ?>
 
-                        <?php foreach ($forms as $form):if ($form->field && $form->isVisible && !in_array($form->field, $foreign)): ?>
+                        <?php foreach ($forms as $form):if ($form->field && $form->isVisible && !in_array($form->field, $children)): ?>
                             <td style="display:<?php echo($form->isVisible || $form->isVisible == '' ? '' : 'none') ?>">
                                 <?php echo call_user_func_array(array('\Utils\DataColumnHelper', $form->type), array('', $form->dataType, $data->{$form->field}, $form->default_value)); ?>
                             </td>

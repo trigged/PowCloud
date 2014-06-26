@@ -77,12 +77,12 @@ class Forms extends XEloquent
      */
     public static function loadRelationForm(SchemaBuilder $table, $type = "update", $tableData = array())
     {
-        $foreignField = $table->getForeignField();
+        $children_field = $table->getForeignField();
         $forms = array();
-        if ($foreignField) {
-            foreach ($foreignField as $foreignTable => $field) {
+        if ($children_field) {
+            foreach ($children_field as $children_table => $field) {
                 $dataId = empty($tableData->$field) ? array() : $tableData->$field;
-                if ($ff = self::loadForm($foreignTable, $field, $type, $dataId))
+                if ($ff = self::loadForm($children_table, $field, $type, $dataId))
                     $forms[$field] = $ff;
             }
         }
