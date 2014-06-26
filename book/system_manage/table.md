@@ -89,30 +89,30 @@ http://domain/books
 * 数据模板 有时你想要让数据来自于多张表然后按照顺序（模板）输出，这个你只需要再新建一张表，只填写一个`template text` 即可，然后在表单中具体的设置具体的表的顺序即可（表单的我们会在下篇介绍）
 
 * 集合关系输出，在现实场景中你经常会需要接口返回集合数据,请在
-`父表`加上 `foreign` 字段,内容为 `当前表的字段名:外键表的表名`,
+`父表`加上 `children` 字段,内容为 `当前表的字段名:外键表的表名`,
 同时请在`子属`表加上 `parent` 字段, 内容为 `主表字段名:主表表名`，但是要注意一点属性`不支持text`类型；
 
 讲到这里，有的少侠可能已经晕乎了，不要着急，让我们来举个例子少侠一看便知：
 
 ``` javascript
-// 这个模型返回一个作者下面所有个人书籍的信息
+// 假设我们需要一个API，这个API返回一个作者下面所有个人书籍的信息，结构大致如下
 
-author:{
- name: xxx,
- age：  xxx,
- sex:  xxx,
-     books: [
-   {
-      name:  xxx,
-      price: xxx,
-      info:  xxx.
-   },
-   {
-       name:  xxx,
-       price: xxx,
-       info:  xxx.
-   },
-   ......
+"author":{
+ "name": "xxx",
+ "age":  "xxx",
+ "sex":  "xxx",
+ "books": [
+    {
+        "name":  "xxx",
+        "price": "xxx",
+        "info":  "xxx".
+    },
+    {
+        "name":  "xxx",
+        "price": "xxx",
+        "info":  "xxx".
+    },
+    ......
    ]
 }
 
