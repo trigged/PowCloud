@@ -5,10 +5,4 @@
    * [路径管理](system_manage/path.md)
    * [表管理](system_manage/table.md)
    * [表单管理](system_manage/sheet.md)
-* [Basics](basics/README.md)
-   * [Comments](basics/comments.md)
-   * [Variables](basics/variables.md)
-   * [Types](basics/types.md)
-   * [罗汉](/README.md)
-   * [Equality](basics/equality.md)
 

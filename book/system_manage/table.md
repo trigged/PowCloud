@@ -116,17 +116,21 @@ http://domain/books
    ]
 }
 
+这种嵌套解构，我们称为集合关系
 像这种集合关系你需要2张表author 和 author_book，加上2个特殊字段即可搞定，没错我们就是利用的默认值的功能
-第一张表在author中加入`foreign string|books:author_book`;
-然后在第二张表中加入`parent string|books:author`
+第一张表(author)在author中加入
+children string|books:author_books;
+books text;
+然后在第二张表(author_books)中加入
+parent string|books:author
 
 ```
 
 
 
 
-![foreign](../assets/foreign.png)
-![parent](../assets/parent.png)
+![author_book1](../assets/author_book1.png)
+
 
 
 少侠如果你看到这里，恭喜已经打卡任督二脉中的一脉了，让我们一鼓作气，继续挑战吧！
@@ -137,12 +141,13 @@ http://domain/books
 
 这里会略微复杂，因为需要2个字段来完成功能，在建表填写字段的时候需要加上`action_limit`和`action_flag` 2个字段
 
-*  action_limit	输出限定条件,参数名：动作：值 例如 ：version:<:3 ，version 参数小于3 ,目前支持的条件有 >,<,=,>=,<=,目前不支持多条件
+*  action_limit	输出限定条件,参数名:操作符:值 例如 ：version:<:3 ，version 参数小于3 ,目前支持的操作符有 >,<,=,>=,<=,目前不支持多条件
 
-*  action_flag	输出限定动作,display(不显示) 或者 title:1 (设定title =1 ，目前不支持多动作）
+*  action_flag	输出限定动作,display(不显示) 或者 title:1 (设定title =1 ，目前不支持多动作，和托条件）
 
 让我们还是举个例子说明：
 ``` javascript
+
 
 //假设这个接口的请求地址是这样的：http://www.xxxx.com/xxx?format=json&version=1&token=k23ds3a8d55ka/dsd
 // 请允许我向这些这些作者致敬
@@ -173,13 +178,13 @@ http://domain/books
 }
 
 1. 对所有数据做限定 ：如果我们希望当 `version` 这个参数大于3的时候，把所有的作者的性别都改成女（-，-！）你只需要在在填写这些字段时候加上默认值
-    ‘output_limit string|version:>:3’
-    ‘output_flag  string|sex:女’
+    ‘action_limit string|version:>:3’
+    ‘action_flag  string|sex:女’
     然后你重新刷新下接口调用，神奇的一幕就发生了，所有的sex 都变成女了，
 
 2. 对特定的数据做限定，如果我们希望当 `version` 这个参数大于3的时候，把辰东的性别都改成女（这不是长生界的残怨！），注意这里不要加默认值：直接添加这2个字段就好
-`output_limit string`
-`output_flag  string`
+`action_limit string`
+`action_flag  string`
 
 然后在数据编辑界面对应的数据中填写值即可，这个数据编辑界面我们在稍后的文档中会介绍，这里只要少侠记住这个概念即可
 
@@ -200,13 +205,14 @@ http://domain/books
 
 |关键字|说明|示例|
 |------|---|---|
+|ID|数据唯一标示|1
 |deleted_at|删除时间|2013-12-17 10:41:34
 |updated_at|更新时间|2013-12-17 10:41:34
 |created_at|创建时间|2013-12-17 10:41:34
 |timing_time|数据定时时间|2013-12-17 10:41:34
 |timing_state|数据状态|1
 |user_name|修改人|xxxx
-|foreign| 集合属性|videos:special_video(字段:表名)
+|children| 集合属性|videos:special_video(字段:表名)
 |parent| 集合属性|videos:special:1(字段:表名:id)
 |rank| 排序|1395373666
 |template| 模板|表名，表名
