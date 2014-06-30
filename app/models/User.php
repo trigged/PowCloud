@@ -11,6 +11,10 @@ use Illuminate\Auth\UserInterface;
 class User extends Eloquent implements UserInterface, RemindableInterface
 {
 
+    const  ENABLE = 'true';
+
+    const  DISABLE = 'false';
+
     /**
      * The database table used by the model.
      *
@@ -19,7 +23,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface
     protected $table = 'user';
 
     protected $guarded = array('id');
-
 
     protected $connection = 'base';
 
@@ -53,19 +56,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         return $this->email;
     }
 
-
     public function group()
     {
 
         return $this->belongsTo('Group');
     }
 
-
     public function updateTimestamps()
     {
         return parent::updateTimestamps();
     }
-
 
     public function getDisplayModifyTime()
     {

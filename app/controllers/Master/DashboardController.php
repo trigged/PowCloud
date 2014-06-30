@@ -16,16 +16,18 @@ class DashBoardController extends MasterController
         $user = Auth::user();
         $app_ids = ATURelationModel::where('user_id', $user->id)->lists('app_id');
         \Utils\CMSLog::debug(sprintf('user :%s, app_ids:%s', $user->name, json_encode($app_ids)));
-        if (empty($app_ids) || count($app_ids) === 0)
-            return Response::view('errors.403', array(), 403);
-        else {
-            Session::put($this->allow_app_id_key, $app_ids);
+
+        Session::put($this->allow_app_id_key, $app_ids);
+        $apps = null;
+        if (!count($app_ids) == 0) {
+
             $apps = AppModel::whereIn('id', $app_ids)->get();
 
-            return View::make('dashboard.index', array('models' => $apps))
-                ->nest('header', 'dashboard.header')
-                ->nest('footer', 'dashboard.footer');
         }
+
+        return View::make('dashboard.index', array('models' => $apps, 'enable' => $user->status))
+            ->nest('header', 'dashboard.header')
+            ->nest('footer', 'dashboard.footer');
     }
 
     public function addMember()

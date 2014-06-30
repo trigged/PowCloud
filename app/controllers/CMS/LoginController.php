@@ -1,5 +1,4 @@
 <?php
-use Library\PHPCas;
 
 /**
  * Created by JetBrains PhpStorm.
@@ -9,25 +8,57 @@ use Library\PHPCas;
  * To change this template use File | Settings | File Templates.
  */
 
-class LoginController extends MasterController
+class LoginController extends Controller
 {
 
     const AREA_IP = 'http://ip.taobao.com/service/getIpInfo.php?ip=';
 
-    public function register()
+    public function registerUser()
     {
         $username = Input::get('username');
         $pwd = Input::get('password');
         $email = Input::get('email');
-        if (User::where('name', $username)->get()->exists()) {
-            return Redirect::action('LoginController@login', array('info' => '用户名已经存在，大侠换个名字吧', 'code' => -1)); //todo
+        //check username
+        $name_count = User::where('name', $username)->count();
+        if ($name_count > 0) {
+            $this->ajaxResponse('', '用户名已经存在，大侠换个名字吧', '/register');
         }
+        //check email exists
+        $email_count = User::where('email', $email)->count();
+        if ($email_count > 0) {
+            $this->ajaxResponse('', '改邮箱已经注册过了，大侠还是换一个吧或者直接登录', '/register');
+        }
+        $tel = Input::get('tel');
         $user = new User();
         $user->name = $username;
+        #$user->token = \Utils\UseHelper::makeToken($user->id);
+        if (!Config::get('app.allow_register')) {
+            $user->status = User::DISABLE;
+        }
         $user->email = $email;
+        $user->tel = $tel;
         $user->pwd = sha1($pwd);
-        $user->token = \Utils\UseHelper::makeToken($user->id);
-        return Redirect::action('DashBoardController@index', array('info' => '注册成功！', 'code' => 1)); //todo
+        $user->save();
+        $this->ajaxResponse('', '注册成功', '/dashboard');
+    }
+
+    protected function ajaxResponse($data = array(), $status = 'success', $message = '', $redirect = '')
+    {
+        $return = array(
+            'status'   => $status,
+            'message'  => $message,
+            'data'     => $data,
+            'redirect' => $redirect,
+        );
+
+//        if($successRedirect || $failRedirect)
+//            \Utils\Env::messageTip("messageTip", $status, $message);
+        echo json_encode($return);
+
+        //在强制退出支 触发结束事件
+        App::shutdown();
+
+        exit(1);
     }
 
     public function login()
@@ -35,11 +66,16 @@ class LoginController extends MasterController
         return View::make('cms.login');
     }
 
+    public function register()
+    {
+        return View::make('cms.register');
+    }
+
     public function loginStore()
     {
         $username = Input::get('username');
         $pwd = sha1(Input::get('password'));
-        $query = User::where('name', $username)->where('pwd', $pwd)->toSql();
+
         $user = User::where('name', $username)->where('pwd', $pwd)->get()->first();
         if (!$user) {
             return Redirect::action('LoginController@login', array('info' => '江湖榜找不到大侠，大侠还是去注册一个账号吧！', 'code' => -1));
@@ -85,7 +121,6 @@ class LoginController extends MasterController
         return $ip;
     }
 
-
     public function test()
     {
         if (isset($_POST['username'])) {
@@ -100,8 +135,7 @@ class LoginController extends MasterController
     {
         Auth::logout();
         Session::clear();
-        PHPCas::logout();
-        return Redirect::to('/');
+//        PHPCas::logout();
+        return Redirect::to('/dashboard');
     }
-
 }

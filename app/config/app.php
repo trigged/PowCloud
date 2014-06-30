@@ -186,7 +186,7 @@ return array(
     'picture_upload'      => array(
         'url' => 'http://upload.vision.pptv.com'
     ),
-
+    'allow_register'      => false,
     'template_connection' => 'database.connections.mysql',
     'connections_path'    => 'database.connections.',
     'template_models'     => 'cms_%s_models',

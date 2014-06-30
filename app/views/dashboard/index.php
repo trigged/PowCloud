@@ -25,8 +25,11 @@
     <div class="row-fluid" style="margin-bottom: 10px;">
         <div class="span-12">
             <div class="pull-right">
-                <a href="<?php echo URL::action('DashBoardController@addApp') ?>" class="btn btn-small btn-primary"
-                   type="button">添加应用</a>
+                <?php
+                if ($enable != 'false') {
+                    echo '<a href="' . URL::action('DashBoardController@addApp') . '" class="btn btn-small btn-primary"type="button">添加应用</a>';
+                }
+                ?>
             </div>
         </div>
     </div>

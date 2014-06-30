@@ -177,20 +177,26 @@
     <div id="form-div">
 
 
-        <form action="<?php echo URL::action('LoginController@loginStore'); ?>" method="post">
+        <form action="<?php echo URL::action('LoginController@registerUser'); ?>" method="post">
 
             <p class="name"> 用户名：
-                <input name="username" type="text"
-                       class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Name"
-                       id="name"/>
+                <input name="username" type="text" class="feedback-input" placeholder="您的江湖名称" id="name"/>
             </p>
 
             <p class="password"> 密码:
-                <input name="password" type="password" class="feedback-input" id="password" placeholder="password"/>
+                <input name="password" type="password" class="feedback-input" id="password" placeholder="您的江湖暗号"/>
+            </p>
+
+            <p class="password"> 邮箱地址:
+                <input name="email" type="email" class="feedback-input" id="email" placeholder="您的邮箱地址"/>
+            </p>
+
+            <p class="password"> 电话号码:
+                <input name="tel" type="tel" class="feedback-input" id="tel" placeholder="您的电话号码"/>
             </p>
 
             <div class="submit">
-                <input type="submit" value="登陆" id="button-blue"/>
+                <input type="submit" value="起航" id="button-blue"/>
             </div>
         </form>
     </div>

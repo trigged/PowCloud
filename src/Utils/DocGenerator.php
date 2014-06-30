@@ -34,7 +34,7 @@ class DocGenerator
 
     ';
 
-    static $template_not_support = "\r\n`this model not allow access this interface (这个方法不允许访问,model 没有开启这个权限)`";
+    static $template_not_support = "\r\n`503 这个方法不允许访问, 没有开启这个权限`";
 
     static $html = '<!DOCTYPE html>
 <html>
@@ -63,7 +63,7 @@ class DocGenerator
     static $template_result = '
 ### standard result
 
-All request return the **standard result**,the result **data** see each interface response
+
 所有的请求均返回以下结构,data 的具体内容见每一个接口返回的 response
 
 ```

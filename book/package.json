@@ -1,12 +1,12 @@
 {
-    "name": "Javascript",
+    "name": "POW API",
     "version": "0.0.6",
     "description": "",
     "repository": {
         "type": "git",
-        "url": "https://github.com/GitbookIO/javascript.git"
+        "url": "https://github.com/trigged/"
     },
-    "author": "Samy Pesse <samypesse@gmail.com>",
+    "author": "trigged <trigged@gmail.com>",
     "license": "Apache 2",
     "dependencies": {},
     "devDependencies": {

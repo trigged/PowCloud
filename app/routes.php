@@ -50,9 +50,11 @@ Route::post('storeApp', 'DashBoardController@storeApp');
 Route::post('updateApp', 'DashBoardController@updateApp');
 
 //login
+Route::get('register', 'LoginController@register');
 Route::get('logout', 'LoginController@logout');
 Route::get('login', 'LoginController@login');
 Route::post('login/loginStore', 'LoginController@loginStore');
+Route::post('login/registerUser', 'LoginController@registerUser');
 
 
 //Host
@@ -69,8 +71,8 @@ Route::delete('tableSchema/{table}/{field}', 'SchemaBuilderController@destroyFie
 Route::resource('/table', 'SchemaBuilderController');
 
 //Forms
-Route::post('/forms/{form}/field/rank','FormsController@rank');
-Route::get('forms','FormsController@forms');
+Route::post('/forms/{form}/field/rank', 'FormsController@rank');
+Route::get('forms', 'FormsController@forms');
 Route::post('/form/storeField/{table}', 'FormsController@storeField');
 Route::get('/form/addField/{table}', 'FormsController@addField');
 Route::resource('/form', 'FormsController');

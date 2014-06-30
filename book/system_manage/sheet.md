@@ -19,7 +19,6 @@
   - textQuick       会在界面上比较特殊的文本选择控件和`template` 搭配使用，选择的值在默认值中设定，多值用`,` 分隔
   - colorSelect     会在界面上显示颜色选择控件，选择的值在默认值中设定，多值用`,` 分隔
   - formTip         会在界面上显示提示控件，提示的文本由默认值指定
-  - dateTimePicker  会在界面上显示定时发布控件和 timingState 搭配使用，2者必须同时声明
-  - timingState     会在界面上显示定时发布控件和 dateTimePicker 搭配使用，2者必须同时声明
+
 
 
