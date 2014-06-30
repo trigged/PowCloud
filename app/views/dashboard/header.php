@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>X-CMS</title>
+    <title>POW Server</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Loading Bootstrap -->
@@ -36,7 +36,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="#">X-CMS</a>
+            <a class="brand" href="#">POW Server</a>
 
             <div class="nav-collapse  pull-right">
                 <p class="navbar-text">

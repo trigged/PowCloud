@@ -33,7 +33,7 @@
             <?php endif; ?>
         </ul>
         <?php if ($dataList && $dataList->count() > 0): ?>
-        <div class="dataTablesList">
+        <div class="dataTablesList table-responsive">
             <!-- CM_TABLE_HEADER HOOK begin -->
             <?php echo Event::fire('cms.hook', array($table->table_name, Hook::CMS_TABLE_HEADER, array('pageSize' => $pageSize, 'table' => $table, 'status' => $status)), true); ?>
             <!-- CM_TABLE_HEADER HOOK end -->
@@ -49,7 +49,7 @@
                     <?php if (!empty($table_options['list.table.id_display']) && $table_options['list.table.id_display'] == 1): ?>
                         <td><?php echo str_replace('列表', '', $table->table_alias); ?>ID</td>
                     <?php endif; ?>
-                    <?php foreach ($forms as $form): if ($form->field && $form->isVisible && !in_array($form->field, $children)): ?>
+                    <?php foreach ($forms as $form): if ($form->field && $form->isVisible && !in_array($form->field, $foreign)): ?>
                         <td style="display:<?php echo($form->isVisible || $form->isVisible == '' ? '' : 'none') ?>"><?php echo $form->label ?></td>
                     <?php endif;endforeach; ?>
                     <?php if ($status === 'timing'): ?>
@@ -60,7 +60,9 @@
                     <?php if ((int)Auth::user()->roles === 3): ?>
                         <td>缓存</td>
                     <?php endif; ?>
-                    <td>修改人</td>
+                    <?php if (!empty($table_options['list.table.modifier']) && $table_options['list.table.modifier'] == 1): ?>
+                        <td>修改人</td>
+                    <?php endif; ?>
                     <td>更新时间</td>
                     <td>操作</td>
                 </tr>
@@ -121,7 +123,9 @@
                                 <?php echo \Operator\ReadApi::getTableObject($table->table_name, $data->id, false) ? '<span class="label label-success">有</span>' : '<span class="label label-warning">无</span>' ?>
                             </td>
                         <?php endif; ?>
-                        <td><?php echo $data->user_name; ?></td>
+                        <?php if (!empty($table_options['list.table.modifier']) && $table_options['list.table.modifier'] == 1): ?>
+                            <td><?php echo $data->user_name; ?></td>
+                        <?php endif; ?>
                         <td><?php echo $data->updated_at; ?></td>
                         <td>
                             <?php if ((int)Auth::user()->roles === 3 && $status === "deleted" && (int)date('Y', strtotime($data->deleted_at)) > 0): ?>
