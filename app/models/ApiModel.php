@@ -458,7 +458,7 @@ class ApiModel extends Eloquent
                 $addCondition = ' AND `' . $field . '` like "%' . $keyword . '%"';
             }
         }
-        if ((int)Auth::user()->roles === 3 && $status === 'deleted') {
+        if (ATURelationModel::where('app_id', Session::get('app_id'))->where('user_id', (int)Auth::user()->id)->first()->roles === 3 && $status === 'deleted') {
             $dataList = $this->newQueryWithDeleted()->whereRaw(ApiModel::DELETED_AT . ' != "' . RedisKey::DEFAULT_DELETE_TIME . '"  and  timing_state =' . RedisKey::DELETED . $addCondition)->orderByRaw('rank DESC,' . ApiModel::DELETED_AT . ' ASC')->paginate($pageSize);
         } elseif ($status === 'waiting') {
             $dataList = $this->newQueryWithDeleted()->whereRaw('timing_state = 3 ' . $addCondition)->orderBy('rank', 'desc')->paginate($pageSize);

@@ -9,7 +9,7 @@ class SystemController extends BaseController
     {
         parent::__construct();
 
-        if (Auth::user() && (int)Auth::user()->roles !== 3) {
+        if (Auth::user() && $this->getRoles() !== 3) {
             header('Location:' . URL::action('CmsController@index'));
         }
     }

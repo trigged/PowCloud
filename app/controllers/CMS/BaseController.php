@@ -16,6 +16,10 @@ class BaseController extends Controller
 
     protected $menu = '';
 
+    protected $app_id = '';
+
+    protected $atu_model = null;
+
     protected $_webconfig = array();
 
     protected $allow_app_id_key = 'allow_app_id';
@@ -26,6 +30,7 @@ class BaseController extends Controller
         $app_id = (int)Input::get('app_id');
         if ($app_id && $app_id !== 0) {
             Session::set('app_id', $app_id);
+            $this->app_id = $app_id;
         }
         if (!$this->userHasAppRight()) {
             PHPCas::client(SAML_VERSION_1_1, Config::get('cas.host'), Config::get('cas.port'), Config::get('cas.context'));
@@ -61,6 +66,7 @@ class BaseController extends Controller
             return false;
         }
         $app_id = Session::get('app_id');
+        $this->app_id = $app_id;
         if (Session::has($this->allow_app_id_key)) {
             $app_ids = Session::get($this->allow_app_id_key);
             if ($app_ids && in_array($app_id, $app_ids)) {
@@ -79,13 +85,27 @@ class BaseController extends Controller
             'data'    => array()), 404);
     }
 
+    public function AtuModel()
+    {
+        if ($this->atu_model == null) {
+            $this->atu_model = ATURelationModel::where('app_id', $this->app_id)->where('user_id', Auth::user()->id)->first();
+        }
+        return $this->atu_model;
+    }
+
+    public function getRoles()
+    {
+        return (int)$this->AtuModel()->roles;
+    }
+
+    public function getGroupID()
+    {
+        return (int)$this->AtuModel()->group_id;
+    }
+
     public function getOption()
     {
-        $user = Auth::user();
-        if (!isset($user->group_id)) {
-            return false;
-        }
-        $group_option = GroupOperation::where('group_id', $user->group_id)->get()->toArray();
+        $group_option = GroupOperation::where('group_id', $this->getGroupID())->get()->toArray();
 
         $options = array();
         $options['no_right'] = true;
@@ -108,7 +128,7 @@ class BaseController extends Controller
     public function setNavs()
     {
 
-        if ((int)Auth::user()->roles === 3) {
+        if ($this->getRoles() === 3) {
             $this->navs = Config::get('menu.nav');
         } else {
             $this->navs['cms'] = Config::get('menu.nav.cms');

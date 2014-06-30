@@ -22,4 +22,9 @@ class ATURelationModel extends Eloquent
         return ATURelationModel::where('app_id', $app_id)->where('user_id', $user_id)->exists();
     }
 
+    public function user()
+    {
+        return $this->belongsTo('User');
+    }
+
 }

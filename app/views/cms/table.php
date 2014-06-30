@@ -24,7 +24,7 @@
                     待发布
                 </a>
             </li>
-            <?php if ((int)Auth::user()->roles === 3): ?>
+            <?php if ($roles === 3): ?>
                 <li class="<?php echo $status === 'deleted' ? 'active' : ''; ?>">
                     <a href="<?php echo URL::action('CmsController@index', array('id' => $table->id, 'status' => 'deleted')) ?>">
                         已删除数据
@@ -57,7 +57,7 @@
                         <td>状态</td>
                     <?php endif; ?>
 
-                    <?php if ((int)Auth::user()->roles === 3): ?>
+                    <?php if ($roles === 3): ?>
                         <td>缓存</td>
                     <?php endif; ?>
                     <?php if (!empty($table_options['list.table.modifier']) && $table_options['list.table.modifier'] == 1): ?>
@@ -107,7 +107,7 @@
                             <td class="index"><?php echo $data->id ?></td>
                         <?php endif; ?>
 
-                        <?php foreach ($forms as $form):if ($form->field && $form->isVisible && !in_array($form->field, $children)): ?>
+                        <?php foreach ($forms as $form):if ($form->field && $form->isVisible && !in_array($form->field, $foreign)): ?>
                             <td style="display:<?php echo($form->isVisible || $form->isVisible == '' ? '' : 'none') ?>">
                                 <?php echo call_user_func_array(array('\Utils\DataColumnHelper', $form->type), array('', $form->dataType, $data->{$form->field}, $form->default_value)); ?>
                             </td>
@@ -118,7 +118,7 @@
                             <td><?php echo $state; ?></td>
                         <?php endif; ?>
 
-                        <?php if ((int)Auth::user()->roles === 3): ?>
+                        <?php if ($roles === 3): ?>
                             <td>
                                 <?php echo \Operator\ReadApi::getTableObject($table->table_name, $data->id, false) ? '<span class="label label-success">有</span>' : '<span class="label label-warning">无</span>' ?>
                             </td>
@@ -128,7 +128,7 @@
                         <?php endif; ?>
                         <td><?php echo $data->updated_at; ?></td>
                         <td>
-                            <?php if ((int)Auth::user()->roles === 3 && $status === "deleted" && (int)date('Y', strtotime($data->deleted_at)) > 0): ?>
+                            <?php if ($roles === 3 && $status === "deleted" && (int)date('Y', strtotime($data->deleted_at)) > 0): ?>
                                 <a class="JS_tableDataOp" title="恢复数据" data-method="POST" href="javascript:void (0)"
                                    data-url="<?php echo URL::action('CmsController@restore', array('table' => $table->id, 'id' => $data->id)); ?>">
                                     <i class="icon-repeat"></i>
@@ -155,7 +155,7 @@
                                     <?php echo \Utils\DataColumnHelper::rank('rank', $data->id, $table->table_name . '_data_' . $data->id, $data); ?>
                                 <?php endif; ?>
 
-                                <?php if ((int)Auth::user()->roles === 3): ?>
+                                <?php if ($roles === 3): ?>
                                     <a title="查看历史版本"
                                        href="<?php echo URL::action('CmsController@detail', array('table' => $table->id, 'id' => $data->id)); ?>"><i
                                             class="icon-file"></i></a>

@@ -139,6 +139,7 @@ class DashBoardController extends MasterController
                 $atuRelation = new ATURelationModel();
                 $atuRelation->app_id = $app->id;
                 $atuRelation->user_id = $app->user_id;
+                $atuRelation->roles = 3;
                 $atuRelation->save();
                 DB::connection('base')->commit();
                 $result = \Utils\DBMaker::createDataBase(\Utils\AppChose::getDbModelsName($app->id));

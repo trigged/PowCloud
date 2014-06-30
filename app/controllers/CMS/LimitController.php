@@ -8,23 +8,32 @@ class LimitController extends SystemController
 
     public $nav = 'limit';
 
-    public function index()
+    public function __construct()
     {
-        $this->render('limit.list');
+        parent::__construct();
+
+//        $this->app_id = Session::get('app_id');
     }
 
-    protected function  checkAdmin() {
-        $group_id = Auth::user()->group_id;
-        $role = Auth::user()->roles;
+    public function index()
+    {
+
+        $this->render('limit.list');
+
+    }
+
+    protected function  checkAdmin()
+    {
+        $group_id = $this->getGroupID();
+        $role = $this->getRoles();
         $groupName = Group::find($group_id);
-        $groupName = $groupName?$groupName->groupName:'';
+        $groupName = $groupName ? $groupName->groupName : '';
 
         if ($groupName == 'admin' || $role == self::ADMIN) {
             $isAdmin = true;
         } else {
             $isAdmin = false;
         }
-
         return $isAdmin;
     }
 
@@ -36,7 +45,7 @@ class LimitController extends SystemController
         $isAdmin = $this->checkAdmin();
         return $this->render('limit.group', array(
             'groupModels' => $groupModels,
-            'isAdmin' => $isAdmin,
+            'isAdmin'     => $isAdmin,
         ));
     }
 
@@ -60,7 +69,7 @@ class LimitController extends SystemController
 
         $limitData = array();
         foreach ($goModels as $goModel) {
-            if(!$table = SchemaBuilder::find($goModel->models_id))
+            if (!$table = SchemaBuilder::find($goModel->models_id))
                 continue;
             $table_name = $table->table_name;
             $limitData[$table_name]['read'] = $goModel->read;
@@ -135,7 +144,6 @@ class LimitController extends SystemController
         } else {
             return true;
         }
-
     }
 
 
@@ -214,20 +222,33 @@ class LimitController extends SystemController
         $this->menu = 'limit.user';
         $groupId = Input::get('group');
         $username = Input::get('username');
+        $limits = array();
+
         if (empty($groupId) || $groupId == -1) {
-            $limits = User::paginate(5);
+            //$limits = User::paginate(5);
+            $userIds = ATURelationModel::where('app_id', $this->app_id)->lists('user_id');
             $groupId = -1;
         } else {
-            $limits = User::where('group_id', '=', Input::get('group'))->paginate(5);
+            $userIds = ATURelationModel::where('app_id', $this->app_id)->where('group_id', $groupId)->lists('user_id');
         }
+
+        if (!empty($userIds)) {
+            $limits = User::whereIn('id', $userIds)->paginate(5);
+        }
+
+
         if (isset($username)) {
-            $limits = User::where('name', '=', $username)->paginate(5);
+            $userIds = ATURelationModel::where('app_id', $this->app_id)->lists('user_id');
+            if (!empty($userIds)) {
+                $limits = User::whereIn('id', $userIds)->where('name', $username)->first();
+            }
         }
+
         return $this->render('limit.user', array(
             'limits'      => $limits,
             'isAdmin'     => $this->checkAdmin(),
             'groupsArray' => $this->getGroupsArray(),
-            'group' =>$groupId,
+            'group'       => $groupId,
         ));
     }
 
@@ -237,12 +258,16 @@ class LimitController extends SystemController
             app::abort(404);
         }
         $user = User::find($id);
-        return $this->render('limit.editUser', array('user' => $user));
+        $atu = ATURelationModel::where('app_id', $this->app_id)->where('user_id', $id)->first();
+
+        return $this->render('limit.editUser', array(
+            'user'     => $user,
+            'group_id' => $atu->group_id,
+        ));
     }
 
     public function updateUser($id)
     {
-
         if (!isset($id) && $id) {
             $this->ajaxResponse(array(), 'fail', '获取id失败');
         }
@@ -251,12 +276,13 @@ class LimitController extends SystemController
         $user->name = $userInfo['name'];
         $user->mail = $userInfo['email'];
         $user->department = $userInfo['department'];
-        $user->group_id = $userInfo['group_id'];
-        if (!$user->save()) {
+        $atu = ATURelationModel::where('app_id', $this->app_id)->where('user_id', $id)->first();
+        $atu->group_id = $userInfo['group_id'];
+        if (!$user->save() || !$atu->save()) {
             $this->ajaxResponse(array(), 'fail', '保存失败');
         }
 
-        $this->ajaxResponse(array(), 'success', '更新成功！', Url::action('LimitController@user'));
+        $this->ajaxResponse(array(), 'success', '更新成功！' . $atu->group_id, Url::action('LimitController@user'));
     }
 
     public function test($id)
@@ -267,11 +293,12 @@ class LimitController extends SystemController
     public function setAdmin($id)
     {
         if (isset($id)) {
-            $model = User::find($id);
             $group = Group::where('groupName', '=', 'admin')->first();
-            $model->group_id = $group->id;
+            $atu = ATURelationModel::where('app_id', $this->app_id)->where('user_id', $id)->first();
 
-            if ($model->save()) {
+            $atu->group_id = $group->id;
+
+            if ($atu->save()) {
                 return Redirect::action('LimitController@user');
             }
         }
@@ -281,25 +308,23 @@ class LimitController extends SystemController
 
     public function cancelAdmin($id)
     {
-
         if (isset($id)) {
-            $model = User::find($id);
-            $model->group_id = null;
+            $atu = ATURelationModel::where('app_id', $this->app_id)->where('user_id', $id)->first();
+            $atu->group_id = null;
 
-            if ($model->save()) {
+            if ($atu->save()) {
                 return Redirect::action('LimitController@user');
             }
         }
 
         return $this->render('limit.user');
-
-
     }
 
     public function destroy($id)
     {
         //删除group表中数据和groupOperation表中数据
         //todo
+        $isSave = true;
         $group = Group::find($id);
         if ($group->groupName == 'admin') {
             $this->ajaxResponse(array(), 'fail', '不可删除管理员组');
@@ -310,15 +335,20 @@ class LimitController extends SystemController
                 $model->delete();
             }
 
-            $user = User::where('group_id', '=', $id)->first();
-            $user->group_id = null;
-            if ($user->save()) {
-                $this->ajaxResponse(array(), 'success', '删除成功！');
-            } else {
-                $this->ajaxResponse(array(), 'fail', '将用户中group_id保存为null失败');
+            $atus = ATURelationModel::where('app_id', $this->app_id)->where('group_id', $id)->get();
+            if (!empty($atus)) {
+                foreach ($atus as $atu) {
+                    $atu->group_id = null;
+                    if (!$atu->save()) {
+                        $isSave = false;
+                    }
+                }
+                if ($isSave) {
+                    $this->ajaxResponse(array(), 'success', '删除成功！');
+                } else {
+                    $this->ajaxResponse(array(), 'fail', '将用户中group_id保存为null失败' . $atus);
+                }
             }
-
-
         }
 
         $this->ajaxResponse(array(), 'fail', '删除失败！');

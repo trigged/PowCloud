@@ -59,7 +59,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface
     public function group()
     {
 
-        return $this->belongsTo('Group');
+        return $this->hasOne('ATURelationModel', 'group_id');
     }
 
     public function updateTimestamps()

@@ -39,6 +39,7 @@ class CmsController extends CmsBaeController
                         'children'      => $children,
                         'options'       => $this->getOption(),
                         'status'        => $status,
+                        'roles'         => $this->getRoles(),
                         'pageSize'      => $pageSize
                     )
                 );
@@ -49,7 +50,7 @@ class CmsController extends CmsBaeController
                     'video_check_state' => \Operator\ReadApi::get(\Operator\RedisKey::VIDEO_CHECK_STATE),
                     'timing_count'      => \Operator\ReadApi::countZset(RedisKey::TIMING_PUB),
                     'options'           => $this->getOption(),
-                    'roles'             => (int)$user->roles,
+                    'roles'             => $this->getRoles(),
                     'user'              => $user->toArray()
                 ));
                 break;
