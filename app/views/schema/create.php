@@ -1,6 +1,20 @@
 <?php echo $header; ?>
 <div class="row-fluid">
 <div class="span7">
+    <div class="note note-success">
+        <h4 class="block">小技巧</h4>
+
+        <p>
+            当表创建完成后如果绑定了访问路径并且开启了restful 的Create 权限，你可以通过API来添加数据或者通过配置表单，然后在数据管理中通过界面添加
+            如没有绑定路径则可以通过配置表单然后通过内容管理添加数据
+
+        </p>
+
+        <p>
+            <a href="http://doc.powapi.com/system_manage/table.html" target="_blank"> 相关文档地址</a>.
+        </p>
+
+    </div>
     <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
     <form id="schema_form" class="form-horizontal" method="post">
         <h4>创建表结构</h4>
@@ -136,6 +150,7 @@
         }, "请填写属性");'
     );//注册表单JS
     ?>
+
 </div>
 <div class="span5">
     <div id="accordion2" class="accordion">
@@ -189,6 +204,7 @@
         </div>
     </div>
 </div>
+
 <script>
     $(function () {
         $('#path_id').change(function () {
