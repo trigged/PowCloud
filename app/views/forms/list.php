@@ -8,6 +8,7 @@
             <a href="<?php echo URL::action('FormsController@addField', array('table' => $table->id)) ?>"
                class="btn btn-primary" type="button">添加字段</a>
         </div>
+
         <table id="forms_table" class="table table-hover sortable">
             <thead>
             <tr>
@@ -24,12 +25,14 @@
             <tbody
             <tbody data-table="forms_table"
                    data-rank="<?php echo URL::action('FormsController@rank', array('form' => $table->id)); ?>">
-            <?php foreach ($forms as $index => $form): ?>
+            <?php
+            $value = Config::get('params.formField');
+            foreach ($forms as $index => $form): ?>
                 <tr data-rank="<?php echo $index ?>" data-id="<?php echo $form->id ?>">
                     <td class="index"><?php echo $form->id; ?></td>
                     <td><?php echo $form->field; ?></td>
                     <td><?php echo $form->label; ?></td>
-                    <td><?php echo $form->type; ?></td>
+                    <td><?php echo $value[$form->type]; ?></td>
                     <td><?php echo $form->default_value; ?></td>
                     <td><?php echo $form->rules; ?></td>
                     <td>

@@ -1,26 +1,27 @@
 <?php
 
 return array(
-    'epgCheck'  => array('special_video', 'home_video', 'home_large', 'home_special', 'launcher_large', 'launcher_small', 'launcher_navigation'),
-
+    //control_type -> display value
     'formField' => array(
-        'text'           => 'text',
+        'text'        => '文本显示',
+        'image'       => '图片',
+        'imageArray'  => '多张图片',
+        'textArea'    => '大型文本(适合文章)',
+        'select'      => '选择控件',
+        'textQuick'   => '文本快速输入(template 字段专用)',
+        'colorSelect' => '颜色选择控件',
+        'formTip'     => '提示文本',
+//        'dateTimePicker' => '定时控件',
+//        'timingState'    => '数据状态',
         //'file' => 'file',
-        'image'          => 'image',
         //'email' => 'email',
         //'checkbox' => 'checkbox',
         //'radio' => 'radio',
-        'select'         => 'select',
+//        'upload2QN'         => 'upload2QN',
         //'selectRange' => 'selectRange',
         //'selectMonth' => 'selectMonth',
 //        'areaFilter'        => 'areaFilter',
 //        'ajaxInput'         => 'ajaxInput',
-        'textQuick'      => 'textQuick',
-//        'upload2QN'         => 'upload2QN',
-        'colorSelect'    => 'colorSelect',
-        'formTip'        => 'formTip',
-        'dateTimePicker' => 'dateTimePicker',
-        'timingState'    => 'timingState',
 //        'generateRandomNum' => 'generateRandomNum'
     ),
 
