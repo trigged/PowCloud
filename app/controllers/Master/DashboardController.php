@@ -144,22 +144,22 @@ class DashBoardController extends MasterController
                 DB::connection('base')->commit();
                 $result = \Utils\DBMaker::createDataBase(\Utils\AppChose::getDbModelsName($app->id));
                 if ($result !== true) {
-                    $this->ajaxResponse(array(), 'fail', $result, Url::action('DashBoardController@index'));
+                    $this->ajaxResponse(array(), 'fail', $result, URL::action('DashBoardController@index'));
                 }
                 $result = \Utils\DBMaker::createDataBase(\Utils\AppChose::getDbDataName($app->id), true);
                 if ($result !== true) {
-                    $this->ajaxResponse(array(), 'fail', $result, Url::action('DashBoardController@index'));
+                    $this->ajaxResponse(array(), 'fail', $result, URL::action('DashBoardController@index'));
                 }
 
-                $this->ajaxResponse(array(), 'success', '添加应用' . $app->name . '成功', Url::action('DashBoardController@index'));
+                $this->ajaxResponse(array(), 'success', '添加应用' . $app->name . '成功', URL::action('DashBoardController@index'));
             } catch (\Exception $e) {
                 DB::connection('base')->rollBack();
-                $this->ajaxResponse(array(), 'fail', $e->getMessage(), Url::action('DashBoardController@index'), Url::action('DashBoardController@index'));
+                $this->ajaxResponse(array(), 'fail', $e->getMessage(), URL::action('DashBoardController@index'), URL::action('DashBoardController@index'));
             }
         } else {
             $error = '请填写应用名称';
         }
-        $this->ajaxResponse(array(), 'fail', $error, Url::action('DashBoardController@index'), Url::action('DashBoardController@index'));
+        $this->ajaxResponse(array(), 'fail', $error, URL::action('DashBoardController@index'), URL::action('DashBoardController@index'));
     }
 
     public function updateApp()
