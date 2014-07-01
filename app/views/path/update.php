@@ -4,7 +4,7 @@
             <label for="name" class="control-label">path*:</label>
 
             <div class="controls">
-                <input name="name" disabled class="input-medium" value="<?php echo $path->name; ?>" type="text"
+                <input name="name" readonly class="input-medium" value="<?php echo $path->name; ?>" type="text"
                        placeholder="主机名称" id="name">
             </div>
         </div>
@@ -14,13 +14,6 @@
 
                 <div class="controls">
                     <?php echo Form::select('host_id', Host::getHostList(), $path->host_id); ?>
-                </div>
-            </div>
-            <div class="control-group">
-                <label for="type" class="control-label">类型*:</label>
-
-                <div class="controls">
-                    <?php echo Form::select('type', Path::$pathType, $path->type); ?>
                 </div>
             </div>
         <?php endif; ?>
