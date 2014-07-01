@@ -46,12 +46,11 @@ class CmsController extends CmsBaeController
                 break;
             case false:
                 return $this->render('cms.index', array(
-                    'timing_data'       => \Operator\ReadApi::getTimingData('+inf', true),
-                    'video_check_state' => \Operator\ReadApi::get(\Operator\RedisKey::VIDEO_CHECK_STATE),
-                    'timing_count'      => \Operator\ReadApi::countZset(RedisKey::TIMING_PUB),
-                    'options'           => $this->getOption(),
-                    'roles'             => $this->getRoles(),
-                    'user'              => $user->toArray()
+                    'timing_data'  => \Operator\ReadApi::getTimingData('+inf', true),
+                    'timing_count' => \Operator\ReadApi::countZset(RedisKey::TIMING_PUB),
+                    'options'      => $this->getOption(),
+                    'roles'        => $this->getRoles(),
+                    'user'         => $user->toArray()
                 ));
                 break;
         }

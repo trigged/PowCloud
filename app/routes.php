@@ -93,9 +93,9 @@ Route::get('geo_areal_filter', 'ExtController@areaList');
 Route::get('geo_areal_radio_filter', 'ExtController@areaRadioList');
 Route::post('table_rank_sort', 'ExtController@rank');
 Route::get('formhtml', 'ExtController@formHtml');
-Route::post('synchroData', 'ExtController@synchroData');
-Route::post('refreshTimingCheck', 'ExtController@refreshTimingCheck');
-Route::get('processBar', 'ExtController@processBar');
+#Route::post('synchroData', 'ExtController@synchroData');
+#Route::post('refreshTimingCheck', 'ExtController@refreshTimingCheck');
+#Route::get('processBar', 'ExtController@processBar');
 
 //Geo
 Route::put('geo_shortcut/{id}/update', 'GeoController@shortcut_update');

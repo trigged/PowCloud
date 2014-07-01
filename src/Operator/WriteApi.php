@@ -44,20 +44,6 @@ class WriteApi
         self::redis()->hmset(sprintf(RedisKey::ROUTE, $path), $date);
     }
 
-    public static function startState_check()
-    {
-        self::writeCurrentState_check('start');
-    }
-
-    public static function writeCurrentState_check($state)
-    {
-        self::redis()->set(RedisKey::VIDEO_CHECK_STATE, $state);
-    }
-
-    public static function stopState_check()
-    {
-        self::writeCurrentState_check('end');
-    }
 
     /**
      * 清空 table 在 redis 数据
@@ -140,33 +126,6 @@ class WriteApi
         return self::redis()->hdel(RedisKey::TIMING_PUB_INFO, $key);
     }
 
-    public static function setVideoStateCheckInfo($modelName, $video_id, $info)
-    {
-        return self::redis()->hmset(RedisKey::VIDEO_CHECK_INFO . '_' . $modelName, $video_id, $info);
-    }
-
-    public static function delVideoStateCheckInfo($video_id, $modelName)
-    {
-        return self::redis()->hdel(RedisKey::VIDEO_CHECK_INFO . '_' . $modelName, $video_id);
-    }
-
-    public static function addVideoStateCheck($epg_id, $video_id, $modelName)
-    {
-        return self::redis()->zadd(RedisKey::VIDEO_CHECK . '_' . $modelName, $epg_id, $video_id);
-
-    }
-
-    public static function delVideoStateCheck($id, $modelName)
-    {
-        return self::redis()->zrem(RedisKey::VIDEO_CHECK . '_' . $modelName, $id);
-
-    }
-
-    public static function flashVideoStateCheck($model_name)
-    {
-        self::redis()->del(RedisKey::VIDEO_CHECK . '_' . $model_name);
-        self::redis()->del(RedisKey::VIDEO_CHECK_INFO . '_' . $model_name);
-    }
 
     public static function set($key, $value)
     {

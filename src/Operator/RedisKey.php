@@ -51,7 +51,6 @@ class RedisKey
      */
     const TIMING_PUB = 'TIMING_PUB';
 
-
     /**
      * HASH
      * to store timing data info
@@ -66,24 +65,6 @@ class RedisKey
      *  "2014-01-24:count" -> "1"
      */
     const API_INFO = 'api::%s::%s';
-
-    /**
-     * zset
-     * to store diff form epg video
-     * value: video id, score: epg id
-     */
-    const VIDEO_CHECK = 'video_check';
-
-    /**
-     * string
-     * a flag to mark the check state
-     */
-    const VIDEO_CHECK_STATE = 'video_check_state';
-
-    const CHECK_TYPE = 'check_type';
-
-    const VIDEO_CHECK_INFO = 'video_check_info';
-
 
     const DEFAULT_DELETE_TIME = '0000-00-00 00:00:00';
 

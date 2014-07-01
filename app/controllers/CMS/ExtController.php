@@ -175,31 +175,6 @@ class ExtController extends BaseController
         $this->ajaxResponse(array(), 'success', 'success', '成功');
     }
 
-    public function processBar()
-    {
-        $count = \Operator\ReadApi::get(\Operator\RedisKey::VIDEO_CHECK_STATE);
-        $value = explode('/', $count);
-        $process = null;
-        if (count($value) === 2) {
-            $process = (float)$value[0] / (float)$value[1] * 100.0 . '%';
-        }
 
-        $modelsName = Config::get('params.epgCheck');
-        $video_check_count = 0;
-
-        foreach ($modelsName as $modelName) {
-            $video_check_count += \Operator\ReadApi::countZset(\Operator\RedisKey::VIDEO_CHECK . '_' . $modelName);
-        }
-
-        return Response::json(array(
-            'html'              => View::make('ext.checkEpg', array(
-                'modelsName'        => $modelsName,
-                'video_check_state' => $count,
-                'video_check_count' => $video_check_count,
-                'video_progress'    => $process,))->render(),
-            'video_check_state' => $count,
-            'video_check_count' => $video_check_count,
-        ));
-    }
 }
 

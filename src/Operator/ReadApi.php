@@ -167,15 +167,6 @@ class ReadApi
         return self::redis()->hgetall(sprintf(RedisKey::API_INFO, $table, $method));
     }
 
-    public static function getVideoStateCheckInfo($video_id, $modelName)
-    {
-        return self::redis()->hget(RedisKey::VIDEO_CHECK_INFO . '_' . $modelName, $video_id);
-    }
-
-    public static function getVideoCheckData($modelName, $withScores = null)
-    {
-        return self::redis()->zrangebyscore(RedisKey::VIDEO_CHECK . '_' . $modelName, '-inf', '+inf');
-    }
 
     public static function get($key)
     {
