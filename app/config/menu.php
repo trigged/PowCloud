@@ -47,14 +47,13 @@ return array(
             ),
         ),
         'monitor'  => array(
-            'db管理'  => array(
+            '服务管理'  => array(
                 array('label' => 'mysql', 'url' => URL::action('MonitorController@mysql'), 'menu' => 'monitor.mysql'),
                 array('label' => 'redis', 'url' => URL::action('MonitorController@redis'), 'menu' => 'monitor.redis'),
                 array('label' => 'cache', 'url' => URL::action('MonitorController@cache'), 'menu' => 'monitor.cache'),
 
             ),
-            'API监控' => array(
-                array('label' => 'API执行', 'url' => URL::action('MonitorController@api'), 'menu' => 'monitor.api'),
+            'API监控' => array(//                array('label' => 'API执行', 'url' => URL::action('MonitorController@api'), 'menu' => 'monitor.api'),
 
             ),
             '服务器监控' => array(
