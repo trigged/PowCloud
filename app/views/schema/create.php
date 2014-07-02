@@ -91,7 +91,7 @@
         </div>
         <div id="JRestCtrl">
             <div class="control-group">
-                <label for="" class="control-label">restful:</label>
+                <label for="" class="control-label">API 访问:</label>
 
                 <div class="controls">
                     <label class="radio inline">

@@ -26,6 +26,8 @@ class DocGenerator
 
     static $domain = 'domain';
 
+    static $params = '?version=1&token=';
+
     static $template_about = '
 
 ## About
@@ -53,7 +55,7 @@ class DocGenerator
 ';
 
     static $template_model = '
-## models
+## 模型
 
 ```
 %s
@@ -61,7 +63,7 @@ class DocGenerator
 ';
 
     static $template_result = '
-### standard result
+### API 返回
 
 
 所有的请求均返回以下结构,data 的具体内容见每一个接口返回的 response
@@ -78,7 +80,7 @@ class DocGenerator
 ### all
 
 ```
-[GET] request: http://%s%s
+[GET] request: http://%s%s%s
 ```
 
 ```
@@ -96,7 +98,7 @@ response :
 ### create
 
 ```
-[POST] request: http://%s%s
+[POST] request: http://%s%s%s
 
 POST_DATA  {"data":model}
 ```
@@ -111,7 +113,7 @@ response :
     static $template_update = '
 ### update
 ```
-[PUT] request: http://%s%sid
+[PUT] request: http://%s%s/id%s
 POST_DATA  {"field":value}
 ```
 
@@ -127,7 +129,7 @@ response :
 ### delete
 
 ```
-[DELETE] request: http://%s%s/id
+[DELETE] request: http://%s%s/id%s
 ```
 
 ```
@@ -141,7 +143,7 @@ null
         return 'create markdown html';
     }
 
-    public static function getDoc($table_name)
+    public static function getDoc($table_name, $app_id)
     {
         $table = ReadApi::getTableInfo($table_name);
         $path = \Path::find($table['path_id']);
@@ -159,6 +161,7 @@ null
             }
         }
 
+        self::buildParams($app_id);
 
         $doc = '';
         $model = self::getModels($table['id'], $table_name, $table['property']);
@@ -195,6 +198,13 @@ null
 
         $my_html = MarkdownExtended($doc);
         return sprintf(self::$html, $my_html);
+
+    }
+
+    static function  buildParams($app_id)
+    {
+        $token = UseHelper::makeToken($app_id);
+        self::$params .= $token;
 
     }
 
@@ -266,7 +276,7 @@ null
 
     static function index()
     {
-        return sprintf(self::$template_index, self::$domain, self::$path, self::$model);
+        return sprintf(self::$template_index, self::$domain, self::$path, self::$params, self::$model);
     }
 
     static function notSupport($method)
@@ -277,17 +287,17 @@ null
 
     static function create()
     {
-        return sprintf(self::$template_create, self::$domain, self::$path, self::$model);
+        return sprintf(self::$template_create, self::$domain, self::$path, self::$params, self::$model);
 
     }
 
     static function update()
     {
-        return sprintf(self::$template_update, self::$domain, self::$path, self::$model);
+        return sprintf(self::$template_update, self::$domain, self::$path, self::$params, self::$model);
     }
 
     static function delete()
     {
-        return sprintf(self::$template_delete, self::$domain, self::$path);
+        return sprintf(self::$template_delete, self::$domain, self::$path, self::$params);
     }
 }
