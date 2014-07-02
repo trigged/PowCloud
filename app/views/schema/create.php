@@ -181,12 +181,12 @@
         <div class="accordion-group">
             <div class="accordion-heading">
                 <a href="#collapseThree" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
-                    整型
+                    数字类型
                 </a>
             </div>
             <div class="accordion-body collapse" id="collapseThree" style="height: 0px;">
                 <div class="accordion-inner">
-                    integer
+                    integer,double,decimal
                 </div>
             </div>
         </div>

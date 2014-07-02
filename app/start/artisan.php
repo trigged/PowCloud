@@ -13,6 +13,3 @@
 
 Artisan::add(new pathDaemon());
 Artisan::add(new timingData());
-Artisan::add(new reportData());
-Artisan::add(new EpgLiveCheck());
-Artisan::add(new LiveListItemCheck());
