@@ -6,7 +6,7 @@ return array(
         'advanced' => array('url' => URL::action('AdvancedController@index'), 'label' => '高级模式'),
         'limit'    => array('url' => URL::action('LimitController@user'), 'label' => '权限管理'),
         'monitor'  => array('url' => URL::action('MonitorController@index'), 'label' => '数据监控'),
-        'help'     => array('url' => 'http://p.demo1.pptv.com/w/pptv_launcher/xcmsguide/', 'target' => '_blank', 'label' => '帮助文档'),
+        'help'     => array('url' => 'http://doc.powapi.com', 'target' => '_blank', 'label' => '帮助文档'),
     ),
 
     'side' => array(

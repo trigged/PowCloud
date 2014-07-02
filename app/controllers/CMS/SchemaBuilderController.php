@@ -271,9 +271,13 @@ class SchemaBuilderController extends SystemController
 
     public function docs($table)
     {
-
         echo \Utils\DocGenerator::getDoc($table, $this->app_id);
+    }
 
+    public function apiInfo($table)
+    {
+//        $this->render('schema.api_info',array());
+        return $this->render('schema.api_info', array());
     }
 
     public function docsHtml($table)

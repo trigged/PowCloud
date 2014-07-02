@@ -155,11 +155,10 @@ class BaseController extends Controller
         $header['leftMenu'] = $this->getSide($this->nav);
         $header['menu'] = $this->menu;
         $header['nav'] = $this->nav;
-        $header['webconfig']['picture_upload_url'] = Config::get('app.picture_upload.url');
+//        $header['webconfig']['picture_upload_url'] = Config::get('app.picture_upload.url');
         return View::make($view, $data)
             ->nest('header', 'layout.header', $header)
-            ->nest('footer', 'layout.footer')
-            ->nest('setup', 'layout.setup_guid');
+            ->nest('footer', 'layout.footer');
     }
 
     public function getSide($where)

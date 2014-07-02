@@ -69,6 +69,7 @@ Route::get('tableSchema/{table}', 'SchemaBuilderController@tableSchema');
 Route::any('tableSchema/{table}/addFiled', 'SchemaBuilderController@addField');
 Route::delete('tableSchema/{table}/{field}', 'SchemaBuilderController@destroyField');
 Route::resource('/table', 'SchemaBuilderController');
+Route::get('table/api_info/{table}', 'SchemaBuilderController@apiInfo');
 
 //Forms
 Route::post('/forms/{form}/field/rank', 'FormsController@rank');
