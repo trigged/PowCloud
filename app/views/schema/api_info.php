@@ -2,7 +2,7 @@
 <div class="row-fluid">
     <ul class="nav nav-tabs" style="margin-top: 10px;">
         <li class="<?php echo !$status ? 'active' : ''; ?>">
-            <a href="<?php echo URL::action('CmsController@index', array('id' => $table->id)) ?>">正常数据</a>
+            <a href="<?php echo URL::action('CmsController@index', array('id' => $table->id)) ?>">调用示例</a>
         </li>
         <li class="<?php echo $status === 'timing' ? 'active' : ''; ?>">
             <a href="<?php echo URL::action('CmsController@index', array('id' => $table->id, 'status' => 'timing')) ?>">
