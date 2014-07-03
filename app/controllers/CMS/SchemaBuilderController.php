@@ -43,9 +43,16 @@ class SchemaBuilderController extends SystemController
             if (SchemaBuilder::where('path_id', '=', $table->path_id)->get()->count() > 0)
                 $this->ajaxResponse(array('path_id' => '路径已被绑定,请重新选择路径'), 'fail', '创建失败');
         }
-        //todo get current user and add autrelation
         if ($table->save()) {
             Log::info(Auth::user()->name . '更新表' . $table->table_name);
+            //set group option
+            $group_id = $this->getGroupID();
+            $g_option = new GroupOperation();
+            $g_option->group_id = $group_id;
+            $g_option->read = (int)GroupOperation::HAS_RIGHT;
+            $g_option->edit = (int)GroupOperation::HAS_RIGHT;
+            $g_option->models_id = (int)$table->id;
+            $g_option->save();
             $this->ajaxResponse(array(), 'success', '添加成功', URL::action('SchemaBuilderController@index'));
         }
         $this->ajaxResponse($table->errors, 'fail', '创建失败');

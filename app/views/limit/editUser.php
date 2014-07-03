@@ -6,10 +6,25 @@
                 <label for="name" class="control-label">用户名*:</label>
 
                 <div class="controls">
-                    <input name="name" class="input-medium" value="<?php echo $user->name; ?>" type="text"
+                    <input name="name" class="input-medium" readonly value="<?php echo $user->name; ?>" type="text"
                            placeholder="用户名" id="name">
                 </div>
             </div>
+
+            <div class="control-group">
+                <label for="email" class="control-label">邮箱*:</label>
+
+                <div class="controls">
+                    <input name="email" class="input-medium" readonly value="<?php echo $user->mail; ?>" type="text"
+                           placeholder="用户邮箱" id="email">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button id="JS_Sub" class="btn btn-primary">更新</button>
+                <a href="javascript:void (0)" class="btn" onclick="history.back();">取消</a>
+            </div>
+
             <div class="control-group">
                 <label for="groupName" class="control-label">选择用户组:</label>
 
@@ -17,28 +32,7 @@
                     <?php echo Form::select('group_id', array('' => '') + Group::lists('groupName', 'id'), $group_id) ?>
                 </div>
             </div>
-            <div class="control-group">
-                <label for="email" class="control-label">邮箱*:</label>
 
-                <div class="controls">
-                    <input name="email" class="input-medium" value="<?php echo $user->mail; ?>" type="text"
-                           placeholder="用户邮箱" id="email">
-                </div>
-            </div>
-            <div class="control-group">
-                <label for="department" class="control-label">部门:</label>
-
-                <div class="controls">
-                    <input name="department" class="input-medium" value="<?php echo $user->department; ?>" type="text"
-                           placeholder="部门" id="department">
-                </div>
-            </div>
-
-
-            <div class="form-actions">
-                <button id="JS_Sub" class="btn btn-primary">更新</button>
-                <a href="javascript:void (0)" class="btn" onclick="history.back();">取消</a>
-            </div>
         </form>
     </div>
     <script>

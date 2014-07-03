@@ -62,7 +62,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php for ($tableIndex = 1; $tableIndex <= 2; $tableIndex++): ?>
+                    <?php for ($tableIndex = 1; $tableIndex <= 1; $tableIndex++): ?>
                         <tr data-index="<?php echo $tableIndex ?>" id="row-<?php echo $tableIndex ?>"
                             class="propertyInput">
                             <td>
