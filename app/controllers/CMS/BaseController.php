@@ -1,7 +1,6 @@
 <?php
 
 
-use Library\PHPCas;
 
 class BaseController extends Controller
 {
@@ -24,6 +23,8 @@ class BaseController extends Controller
 
     protected $allow_app_id_key = 'allow_app_id';
 
+    protected $_current_user_id = null;
+
     public function __construct()
     {
 
@@ -33,11 +34,8 @@ class BaseController extends Controller
             $this->app_id = $app_id;
         }
         if (!$this->userHasAppRight()) {
-            PHPCas::client(SAML_VERSION_1_1, Config::get('cas.host'), Config::get('cas.port'), Config::get('cas.context'));
-            PHPCas::setNoCasServerValidation();
             Auth::logout();
             Session::clear();
-            PHPCas::logout();
             return Redirect::to('/');
         }
 
@@ -45,7 +43,6 @@ class BaseController extends Controller
         if (!Auth::guest()) {
 
             $this->setNavs();
-//            \Utils\AppChose::updateConf();
             if ($this->nav && !isset($this->navs[$this->nav]))
                 header('Location:' . URL::action('DashBoardController@index'));
 
@@ -85,6 +82,11 @@ class BaseController extends Controller
             'data'    => array()), 404);
     }
 
+    public function getRoles()
+    {
+        return (int)$this->AtuModel()->roles;
+    }
+
     public function AtuModel()
     {
         if ($this->atu_model == null) {
@@ -93,14 +95,12 @@ class BaseController extends Controller
         return $this->atu_model;
     }
 
-    public function getRoles()
+    public function getCurrentUserID()
     {
-        return (int)$this->AtuModel()->roles;
-    }
-
-    public function getGroupID()
-    {
-        return (int)$this->AtuModel()->group_id;
+        if ($this->_current_user_id == null) {
+            $this->_current_user_id = Auth::user()->id;
+        }
+        return $this->_current_user_id;
     }
 
     public function getOption()
@@ -116,6 +116,11 @@ class BaseController extends Controller
             }
         }
         return $options;
+    }
+
+    public function getGroupID()
+    {
+        return (int)$this->AtuModel()->group_id;
     }
 
     public function getNavs()
@@ -155,7 +160,6 @@ class BaseController extends Controller
         $header['leftMenu'] = $this->getSide($this->nav);
         $header['menu'] = $this->menu;
         $header['nav'] = $this->nav;
-//        $header['webconfig']['picture_upload_url'] = Config::get('app.picture_upload.url');
         return View::make($view, $data)
             ->nest('header', 'layout.header', $header)
             ->nest('footer', 'layout.footer');

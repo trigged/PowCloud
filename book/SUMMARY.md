@@ -8,5 +8,8 @@
 * [系统进阶](skill/README.md)
    * [如何创建可以访问的API](skill/access_api.md)
    * [如何添加数据](skill/manage_data.md)
+* [高级模式](advanced/README.md)
+    * [widget](advanced/widget.md)
+    * [hooks](advanced/hooks.md)
 * [FAQ 常见问题](faq/README.md)
 

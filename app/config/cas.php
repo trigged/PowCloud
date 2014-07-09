@@ -8,12 +8,10 @@
  */
 
 return array(
-    'host'       => 'sso-cas.pplive.cn',
     'port'       => 8443,
-    'context'    => '/cas',
     'real_hosts' => array(),
     'admin'      => array(
-        'dajursdai', 'troyfan', 'triggedtang', 'elninowang'
+        'triggedtang',
     ),
     'debug'      => true
 );

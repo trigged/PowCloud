@@ -40,14 +40,14 @@
                            data-target="#docs" data-toggle="modal"><span class="label label-info">文档</span></a></td>
                     <td><?php echo $table->path_id ?></td>
                     <td>
-                        <a href="<?php
-                        if ($table->restful == 1) {
-                            echo URL::action('SchemaBuilderController@apiInfo', array('table' => $table->table_name));
-                        }
-                        ?>" target="_blank"><span
-                                class="label label-<?php echo $table->restful == 1 ? 'info' : 'disable'; ?>">
+                        <!--                        <a href="--><?php
+//                        if ($table->restful == 1) {
+//                            echo URL::action('SchemaBuilderController@apiInfo', array('table' => $table->table_name));
+//                        }
+//                        ?><!--" target="_blank">-->
+                            <span class="label label-<?php echo $table->restful == 1 ? 'info' : 'disable'; ?>">
                         <?php echo $table->restful == 1 ? '支持' : '不支持(未绑定路由)'; ?>
-                        </a>
+                                <!--                        </a>-->
                     </td>
                     <td>
                         <span class="label label-<?php echo $table->index === null ? 'disable' : 'info'; ?>">list</span>

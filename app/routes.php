@@ -33,9 +33,12 @@ Route::get('nginx', function () {
     return Route::dispatch($request)->getContent();
 });
 
-Route::get('recommend', 'RecommendController@index');
-Route::get('/', 'index.html');
-//dashboard
+Route::get("polling", "DashBoardController@polling");
+Route::get('push', function () {
+    return Response::view("index");
+});
+
+
 Route::get('dashboard/', 'DashBoardController@index');
 Route::resource('dashboard', 'DashBoardController');
 Route::resource('app', 'AppController');
