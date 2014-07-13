@@ -14,18 +14,17 @@ class DashBoardController extends MasterController
     public function index()
     {
         $user = Auth::user();
-        $app_ids = ATURelationModel::where('user_id', $user->id)->lists('app_id');
+        $app_ids = ATURelationModel::where('user_id', $user->id)->lists('roles','app_id');
         \Utils\CMSLog::debug(sprintf('user :%s, app_ids:%s', $user->name, json_encode($app_ids)));
 
         Session::put($this->allow_app_id_key, $app_ids);
         $apps = null;
         if (!count($app_ids) == 0) {
-
-            $apps = AppModel::whereIn('id', $app_ids)->get();
-
+            $apps = AppModel::whereIn('id', array_keys($app_ids))->get();
         }
 
-        return View::make('dashboard.index', array('models' => $apps, 'enable' => $user->status))
+
+        return View::make('dashboard.index', array('apps' => $apps, 'appIds' => $app_ids, 'enable' => $user->status))
             ->nest('header', 'dashboard.header')
             ->nest('footer', 'dashboard.footer');
     }

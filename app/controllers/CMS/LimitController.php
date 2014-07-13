@@ -8,11 +8,13 @@ class LimitController extends SystemController
 
     public $nav = 'limit';
 
+    protected $app_id = '';
+
     public function __construct()
     {
         parent::__construct();
 
-//        $this->app_id = Session::get('app_id');
+        $this->app_id = Session::get('app_id');
     }
 
     public function index()
@@ -240,7 +242,7 @@ class LimitController extends SystemController
         if (isset($username)) {
             $userIds = ATURelationModel::where('app_id', $this->app_id)->lists('user_id');
             if (!empty($userIds)) {
-                $limits = User::whereIn('id', $userIds)->where('name', $username)->first();
+                $limits = User::whereIn('id', $userIds)->where('name',$username)->get();
             }
         }
 
@@ -263,6 +265,8 @@ class LimitController extends SystemController
         return $this->render('limit.editUser', array(
             'user'     => $user,
             'group_id' => $atu->group_id,
+            'userRole' => $atu->roles,
+            'role'     => $this->getRoles()
         ));
     }
 
@@ -278,6 +282,7 @@ class LimitController extends SystemController
         $user->department = $userInfo['department'];
         $atu = ATURelationModel::where('app_id', $this->app_id)->where('user_id', $id)->first();
         $atu->group_id = $userInfo['group_id'];
+        $atu->roles = (int)$userInfo['sa'] === 1 ? Limit::ROLE_SUPER : Limit::ROLE_NORMAL;
         if (!$user->save() || !$atu->save()) {
             $this->ajaxResponse(array(), 'fail', '保存失败');
         }

@@ -62,7 +62,7 @@ if (!$isAdmin) {
             </table>
         </div>
 
-        <?php echo $limits ? $limits->appends(array('group' => $group))->links() : ''; ?>
+        <?php echo (isset($_GET['username'])?'':$limits?$limits->appends(array('group'=>$group))->links():'') ?>
     </div>
 
 

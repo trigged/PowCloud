@@ -20,6 +20,21 @@
                 </div>
             </div>
 
+
+            <?php if(Limit::ROLE_SUPER===(int)$role): ?>
+                <div class="control-group">
+                    <label for="sa" class="control-label">启用超级管理员权限:</label>
+                    <div class="controls">
+                        <label class="radio inline">
+                            <input class="" type="radio" name="sa" value="1"  <?php if((int)$userRole===Limit::ROLE_SUPER) echo 'checked="checked"'; ?> id=""/> 开启
+                        </label>
+                        <label class="radio inline">
+                            <input class="" type="radio" name="sa" id="" value="0"  <?php if((int)$userRole!==Limit::ROLE_SUPER) echo 'checked="checked"'; ?> /> 关闭
+                        </label>
+                    </div>
+                </div>
+            <?php endif; ?>
+
             <div class="form-actions">
                 <button id="JS_Sub" class="btn btn-primary">更新</button>
                 <a href="javascript:void (0)" class="btn" onclick="history.back();">取消</a>

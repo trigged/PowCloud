@@ -11,11 +11,11 @@
 <?php echo $header; ?>
 <!--left menu begin-->
 <div class="span2">
-    <?php if ($models): ?>
+    <?php if ($apps): ?>
         <ul class="nav nav-list bs-docs-sidenav affix">
-            <?php foreach ($models as $model): ?>
-                <li class=""><a href="#appItem-<?php echo $model->id; ?>"><i
-                            class="icon-chevron-right"></i> <?php echo $model->name; ?></a></li>
+            <?php foreach ($apps as $app): ?>
+                <li class=""><a href="#appItem-<?php echo $app->id; ?>"><i
+                            class="icon-chevron-right"></i> <?php echo $app->name; ?></a></li>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
@@ -33,35 +33,35 @@
             </div>
         </div>
     </div>
-    <?php if ($models):foreach ($models as $model): ?>
-        <section id="appItem-<?php echo $model->id; ?>">
+    <?php if ($apps):foreach ($apps as $app): ?>
+        <section id="appItem-<?php echo $app->id; ?>">
             <!--app item begin-->
             <div class="row-fluid item">
 
                 <div class="span6 item item-team">
                     <a style="text-decoration: none; color: #34495e"
-                       href="<?php echo URL::action('CmsController@index', array('app_id' => $model->id)) ?>">
+                       href="<?php echo URL::action('CmsController@index', array('app_id' => $app->id)) ?>">
                         <div class="appTitle appLink">
                             <h4>
-                                <?php echo $model->name; ?>
+                                <?php echo $app->name; ?>
                             </h4>
                         </div>
                     </a>
 
-                    <div class="appInfo  <?php if ($model->user_id !== Auth::user()->id) {
+                    <div class="appInfo  <?php if ($app->user_id !== Auth::user()->id) {
                         echo "noInfo";
                     } ?> ">
-                        <?php if ($model->user_id == Auth::user()->id): ?>
+                        <?php if ($app->user_id == Auth::user()->id): ?>
                             <blockquote>
                                 <p class="lead">APP Info</p>
 
                                 <p>
-                                    APP ID :<?php echo $model->id ?>
+                                    APP ID :<?php echo $app->id ?>
                                 </p>
 
                                 <p>
                                     APP token
-                                    :<?php echo \Utils\UseHelper::makeToken($model->id, \Utils\UseHelper::$default_key) ?>
+                                    :<?php echo \Utils\UseHelper::makeToken($app->id, \Utils\UseHelper::$default_key) ?>
                                 </p>
                             </blockquote>
                         <?php endif; ?>
@@ -74,16 +74,16 @@
                         <h4>项目成员</h4>
                     </div>
                     <div class="item-member-body">
-                        <?php if ($model->appUser): ?>
+                        <?php if ($app->appUser): ?>
                             <ul class="member">
-                                <?php foreach ($model->appUser as $user): ?>
+                                <?php foreach ($app->appUser as $user): ?>
                                     <?php $user = User::find($user->user_id);
                                     if ($user && $user->exists): ?>
                                         <li>
                                             <a title="<?php echo $user->name; ?>" class="handle-members"
                                                data-toggle="modal" data-target="#myModal"
                                                data-header-title="移除成员" data-footer-title="移除"
-                                               data-app-id="<?php echo $model->id; ?>"
+                                               data-app-id="<?php echo $app->id; ?>"
                                                data-user-id="<?php echo $user->id; ?>"
                                                type="button" href="#" class="show-member">
                                                 <span class="JAvatar"><?php echo md5($user->id); ?></span>
@@ -92,13 +92,13 @@
                                                title="<?php echo $user->name; ?>"><?php echo $user->name; ?></a>
                                         </li>
                                     <?php endif; endforeach; ?>
-                                <?php if ($model->user_id == Auth::user()->id): ?>
+                                <?php if ($app->user_id == Auth::user()->id || (int)$appIds[$app->id] === Limit::ROLE_SUPER): ?>
                                     <li>
                                         <a class="btn btn-primary handle-members plus-members"
                                            style="padding-top: 12px; padding-bottom: 12px;" data-toggle="modal"
                                            data-target="#myModal"
                                            data-header-title="增加成员" data-footer-title="增加"
-                                           data-app-id="<?php echo $model->id; ?>"
+                                           data-app-id="<?php echo $app->id; ?>"
                                            data-user-id="" type="button">
                                             <span class="fui-plus"></span>
                                         </a>
@@ -109,11 +109,11 @@
                     </div>
                 </div>
             </div>
-            <?php if ($model->Author === Auth::user()->name): ?>
+            <?php if ($app->Author === Auth::user()->name): ?>
                 <div class="row-fluid" style="margin-bottom: 10px;">
                     <div class="span-12">
                         <div class="pull-right">
-                            <a href="<?php echo URL::action('DashBoardController@editApp', array('app_id' => $model->id)) ?>"
+                            <a href="<?php echo URL::action('DashBoardController@editApp', array('app_id' => $app->id)) ?>"
                                class="btn btn-small" type="button">修改应用</a>
                         </div>
                     </div>
