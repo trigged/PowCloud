@@ -501,7 +501,6 @@ class ModelController extends Controller
                                     $count = $this->count;
                                 }
                                 shuffle($result);
-
                                 $indexs = array_rand($result, $count);
                                 if (count($indexs) === 1) {
                                     $data[$field] = array($result[$indexs]);
