@@ -45,7 +45,7 @@ EOT;
         if ($success) {
             $js .= "\n submitHandler:function(form){ {$success}(form,{$formId}Validate); },";
         }
-        if(self::$validateRules){
+        if (self::$validateRules) {
             foreach (self::$validateRules as $name => $rule) {
                 $ruleConfig .= "\n" . '"' . $name . '":{' . $rule['rule'] . '},';
                 if (isset($rule['message'])) {
@@ -119,9 +119,9 @@ EOT;
         $options = array();
         if ($optionsArray) {
             foreach ($optionsArray as $index => $option) {
-                if (($pos=strpos($option, ':')) !== false) {
-                    $display = substr($option,0,$pos);
-                    $o = substr($option,$pos+1);
+                if (($pos = strpos($option, ':')) !== false) {
+                    $display = substr($option, 0, $pos);
+                    $o = substr($option, $pos + 1);
                     $list[] = $display;
                     $options['data-' . $index] = $o;
                 } else
@@ -211,11 +211,13 @@ EOT;
         return $input;
     }
 
-    public static function generateRandomNum($form='', $value='')
+    public static function generateRandomNum($form = '', $value = '')
     {
-        if (!empty($value)) {list($begin,$end,$random) = explode(":", $value);}
+        if (!empty($value)) {
+            list($begin, $end, $random) = explode(":", $value);
+        }
 
-        $input = '<span>开始</span><input class="input-mini" type="text" id="begin" value="' . (isset($begin)?$begin:'') . '"/><span>结束</span><input class="input-mini" type="text" id="end" value="' . (isset($end)?$end:'') . '"/><input id="show-random" class="input-mini" disabled type="text" value="' . (isset($random)?$random:'') . '" /><button id="generate" class="btn randomBtn btn-primary">产生</button>';
+        $input = '<span>开始</span><input class="input-mini" type="text" id="begin" value="' . (isset($begin) ? $begin : '') . '"/><span>结束</span><input class="input-mini" type="text" id="end" value="' . (isset($end) ? $end : '') . '"/><input id="show-random" class="input-mini" disabled type="text" value="' . (isset($random) ? $random : '') . '" /><button id="generate" class="btn randomBtn btn-primary">产生</button>';
         $input .= '<input type="hidden" value="' . $value . '" name="' . self::getFieldName($form->field) . '" />';
         $js = '<script>$(function () {$("#generate").click(function (event) {event.preventDefault(); minNum = $("#begin").val();if (!$.isNumeric(minNum)) {alert("请输入数字");$("#begin").val("");return;} maxNum=$("#end").val();if (!$.isNumeric(maxNum)) {alert("请输入数字！");$("#end").val("");return;} if (minNum >= maxNum) {alert("最小值大于最大值，请重新输入！"); $("#begin, #end").val("");return;} minNum = parseInt(minNum);maxNum = parseInt(maxNum); randomNum = Math.floor(Math.random() * (maxNum - minNum +1)) + minNum;$("#show-random").val(randomNum);$("input[name=\'' . self::getFieldName($form->field) . '\']").prop("disabled",false).val(minNum+":"+maxNum+":"+randomNum)}); });</script>';
 
@@ -236,7 +238,7 @@ EOT;
     {
 
         $rules = json_encode($rules);
-
+        $beforeSend = $beforeSend ? $beforeSend : 'beforeSend'; //设置默认回调
         return $javascript = <<<EOT
     <script>
         $().ready(function(){
@@ -261,6 +263,7 @@ EOT;
                         data : $(form).serialize(),
                         type : '{$requestMethod}',
                         beforeSend : function(){
+
                             var bs = '{$beforeSend}'?(typeof({$beforeSend})=='function'?true:false):false;
                             if(bs){
                                return {$beforeSend};
@@ -457,12 +460,12 @@ EOT;
 
     }
 
-    public static function timingState($form, $value='', $model='')
+    public static function timingState($form, $value = '', $model = '')
     {
         $timingState = '<div style="display:none" class="timing-radio">
-        <label class="inline radio"><input type="radio" name="' . self::getFieldName($form->field) . '" id="optionsRadios1" value="4" data-toggle="radio" ' . (($value==4)?'checked':''). '>上线</label>
-        <label style="display:'. ($value==\Operator\RedisKey::READY_LINE && !empty($model) && !$model->hasNormalData() ?'none':'').'" class="inline radio"><input  style="display:'. ($value==\Operator\RedisKey::READY_LINE && !empty($model) && !$model->hasNormalData()?'none':'').'" type="radio" name="' . self::getFieldName($form->field) . '" id="optionsRadios2" value="5" data-toggle="radio" ' . (($value==5)?'checked':''). '>下线</label>
-        <label class="inline radio"><input type="radio" name="' . self::getFieldName($form->field) . '" id="optionsRadios2" value="6" data-toggle="radio" ' . (($value==6)?'checked':''). '>置顶</label>
+        <label class="inline radio"><input type="radio" name="' . self::getFieldName($form->field) . '" id="optionsRadios1" value="4" data-toggle="radio" ' . (($value == 4) ? 'checked' : '') . '>上线</label>
+        <label style="display:' . ($value == \Operator\RedisKey::READY_LINE && !empty($model) && !$model->hasNormalData() ? 'none' : '') . '" class="inline radio"><input  style="display:' . ($value == \Operator\RedisKey::READY_LINE && !empty($model) && !$model->hasNormalData() ? 'none' : '') . '" type="radio" name="' . self::getFieldName($form->field) . '" id="optionsRadios2" value="5" data-toggle="radio" ' . (($value == 5) ? 'checked' : '') . '>下线</label>
+        <label class="inline radio"><input type="radio" name="' . self::getFieldName($form->field) . '" id="optionsRadios2" value="6" data-toggle="radio" ' . (($value == 6) ? 'checked' : '') . '>置顶</label>
         </div>';
 
         $js = '<script>$(function () {var checked_val; checked_val = $("div.timing-radio input[type=radio]:checked").val(); if (checked_val) {$(".timing-radio").css("display","block");$("#JSCheckEnable").prop("disabled", true);$("div.timing-radio input[type=radio]").each(function () {$(this).prop("disabled", true)});}})</script>';
@@ -479,8 +482,9 @@ EOT;
         return '<input class="input-mini"  value="' . $value . '" type="text" name="' . self::$namespace . '[' . $form->field . ']" ><button data-data="' . (isset($options['data']) ? $options['data'] : '') . '" data-target="' . (isset($options['target']) ? $options['target'] : '') . '" data-field="' . $form->id . '" data-url="' . \URL::action('ExtController@ajax_analyse') . '" data-namespace="' . self::$namespace . '" data-table="' . $form->models_id . '" class="btn  btn-primary ajaxBtn ajaxBtn_analyse" type="button">分析</button>';
     }
 
-    public static function hidden($form,$value=''){
-        $value = $value!==''?$value:$form->default_value;
-        return '<input type="hidden" value="'.$value.'" name="'.self::getFieldName($form->field).'" />';
+    public static function hidden($form, $value = '')
+    {
+        $value = $value !== '' ? $value : $form->default_value;
+        return '<input type="hidden" value="' . $value . '" name="' . self::getFieldName($form->field) . '" />';
     }
 }
