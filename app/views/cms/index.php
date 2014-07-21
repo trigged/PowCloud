@@ -69,7 +69,7 @@ if ($roles === 3) :?>
             echo '<p> &nbsp;&nbsp;&nbsp;&nbsp;你最近一次登录地点在:' . $user['last_area'] . '</p>';
         }
         ?>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://doc.pow/"
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://doc.powapi.com/"
                                       target="_blank">CMS后台操作指南</a></p>
 
         <p>&nbsp;&nbsp;&nbsp;<code>若登录异常,请及时修改域密码并且联系管理员</code></p>
