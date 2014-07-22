@@ -193,7 +193,8 @@ null
             $delete = self::notSupport('delete');
         }
         $model = sprintf(self::$template_model, $model);
-        $doc .= $title . $model . self::$template_result . $all . $create . $update . $delete . self::$template_about;
+//        $doc .= $title . $model . self::$template_result . $all . $create . $update . $delete . self::$template_about;
+        $doc .= $title . $model . self::$template_result . $all . $create . $update . $delete;
         require_once('markdown_extended.php');
 
         $my_html = MarkdownExtended($doc);

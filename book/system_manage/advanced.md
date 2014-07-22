@@ -1,6 +1,6 @@
 # 风云变
 
-随着少侠修为越发提高,我们会需要更加上乘的武功心法助我们驰骋江湖,在这里我们将介绍表管理中一些高阶功能,助少侠一臂之力
+随着少侠修为越发提高,会需要更加上乘的武功心法来驰骋江湖,在这里我们将介绍表管理中一些高阶功能,助少侠一臂之力
 
 
 ## 数据模板
@@ -56,16 +56,58 @@ parent string|books:author
 ![author_book1](../assets/author_book1.png)
 
 
-
+## 输出控制
 少侠如果你看到这里，恭喜已经打卡任督二脉中的一脉了，让我们一鼓作气，继续挑战吧！
 
 
-* 限定条件输出（版本控制）,这里的版本控制不是指代码的vcs，而是API输出的版本控制。在很多场景下会有api升级后需要向下兼容的情况，希望api 的数据针对不同的版本输出不同的内容
-例如有些数据对低版本的客户端不输出等，当然地方是可选的，如果少侠没有版本控制的困恼可以跳过这个地方，不会影响系统的正常使用，只是掌握了它你可以更灵活的控制API 升级
+有时候我们希望 API 的一些数据会根据传入的参数的变化而变化
+比如我们期望一些数据在早期版本(早先已经发出去的版本无法解析这些新数据)但是在新的版本可以正常出现,这种情况就是输出控制最佳的用处
+
+```
+假设我们有一个水果的接口,会输出现有的水果
+ http://domain/fruits?version=1.0
+{
+  code:1
+  message:success
+  data:{
+    apple,
+    orange,
+    banana,
+  }
+}
+
+
+假设后来我们加入了watermelon,希望 version 小于2的都看不到这个数据并且不会对原来的数据产生影响
+
+ http://domain/fruits?version=2.0
+{
+  code:1
+  message:success
+  data:{
+    apple,
+    orange,
+    banana,
+    watermelon
+  }
+}
+
+ http://domain/fruits?version=1.0
+{
+  code:1
+  message:success
+  data:{
+    apple,
+    orange,
+    banana,
+  }
+}
+
+```
+
 
 这里会略微复杂，因为需要2个字段来完成功能，在建表填写字段的时候需要加上`action_limit`和`action_flag` 2个字段
 
-*  action_limit	输出限定条件,参数名:操作符:值 例如 ：version:<:3 ，version 参数小于3 ,目前支持的操作符有 >,<,=,>=,<=,目前不支持多条件
+*  action_limit	输出限定条件,参数名:操作符:值 例如 ：version:<:2 ，version 参数小于2 ,目前支持的操作符有 >,<,=,>=,<=,目前不支持多条件
 
 *  action_flag	输出限定动作,display(不显示) 或者 title:1 (设定title =1 ，目前不支持多动作，和多条件）
 
@@ -73,7 +115,8 @@ parent string|books:author
 ``` javascript
 
 
-//假设这个接口的请求地址是这样的：http://www.xxxx.com/xxx?format=json&version=1&token=k23ds3a8d55ka/dsd
+//假设这个接口的请求地址是这样的：
+http://domain/xxx?format=json&version=1&token=k23ds3a8d55ka/dsd
 // 请允许我向这些这些作者致敬
 
 {
@@ -110,6 +153,6 @@ parent string|books:author
 `action_limit string`
 `action_flag  string`
 
-然后在数据编辑界面对应的数据中填写值即可，这个数据编辑界面我们在稍后的文档中会介绍，这里只要少侠记住这个概念即可
-
+大致如下图所示
 ```
+![author_book1](../assets/action_limit.png)
