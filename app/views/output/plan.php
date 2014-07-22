@@ -1,4 +1,13 @@
 <html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Loading Bootstrap -->
+    <link href="<?php echo URL::asset('css/bootstrap.css'); ?>" rel="stylesheet">
+    <link href="<?php echo URL::asset('css/bootstrap-responsive.css'); ?>" rel="stylesheet">
+</head>
 <body>
 
 <?php
@@ -9,7 +18,7 @@ if (isset($data)) {
             $text .= $value . "   ";
         }
         if (!empty($text)) {
-            echo "<h3 align=\"center\">$text</h3>";
+            echo '<h3 class="text-center">' . $text . '</h3>';
         }
     }
 
