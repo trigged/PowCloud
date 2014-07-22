@@ -9,7 +9,7 @@ if (isset($data)) {
             $text .= $value . "   ";
         }
         if (!empty($text)) {
-            echo "<h3>$text</h3>";
+            echo "<h3 align=\"center\">$text</h3>";
         }
     }
 
