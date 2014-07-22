@@ -9,7 +9,7 @@
 
         <p>
 
-            <a href="http://p.demo1.pptv.com/w/tv_collection/server_protocol/" target="_blank"> 相关文档地址</a>.
+            <a href="http://doc.powapi.com/" target="_blank"> 相关文档地址</a>.
         </p>
 
     </div>

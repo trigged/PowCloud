@@ -731,7 +731,8 @@ class ModelController extends Controller
         $query = DB::connection('models')->table($this->table_name);
         foreach ($conditions as $key => $value) {
             if ($value === 0 || !empty($value)) {
-                $query = $query->where($key, $value);
+                $query = $query->where($key, 'like', "%" . $value . "%");
+
             }
         }
         CMSLog::debug("find sql: " . $query->toSql());

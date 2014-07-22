@@ -10,6 +10,7 @@
 namespace Utils;
 
 
+use Config;
 use Illuminate\Support\Facades\Log;
 
 class CMSLog extends Log
@@ -20,13 +21,14 @@ class CMSLog extends Log
      * @return string
      */
 
-    public static  $requestHandler = null;
-
+    public static $requestHandler = null;
 
 
     public static function debug($message, $context = array())
     {
-        parent::debug('ReqHandler :'.self::$requestHandler.', '. $message, $context);
+        if (Config::get('app.debug')) {
+            parent::debug('ReqHandler :' . self::$requestHandler . ', ' . $message, $context);
+        }
     }
 
 
