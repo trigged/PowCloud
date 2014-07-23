@@ -207,6 +207,9 @@ class ModelController extends Controller
         if ($this->format === 'xml') {
             return Response::make($this->array_to_xml($this->result), $http_code, $header);
         } elseif ($this->format === 'plan') {
+            if ($this->max_count = 1) {
+                $data = array($data);
+            }
             return Response::view('output.plan', array('data' => $data));
         }
 
