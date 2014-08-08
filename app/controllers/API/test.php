@@ -232,4 +232,17 @@ $values = array(0  => '""',
 $sql = str_replace(array('%', '?'), array('%%', '%s'), $query);
 var_dump($sql);
 $full_sql = vsprintf($sql, $values);
-printf($full_sql);
+$test = '123456';
+var_dump($test);
+var_dump(substr($test, -1));
+var_dump($test);
+var_dump(substr($test, 0, -1));
+
+$start = 1406518522;
+
+$time1 = time();
+
+var_dump($time1);
+var_dump($time1 - $start);
+
+

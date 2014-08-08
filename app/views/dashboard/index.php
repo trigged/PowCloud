@@ -1,9 +1,26 @@
 <style>
-
-
     .appLink:hover {
         background-color: #2accab;
         outline: none;
+    }
+
+    .feedback-input {
+        color: #3c3c3c;
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: 500;
+        font-size: 18px;
+        border-radius: 0;
+        line-height: 22px;
+        background-color: #fbfbfb;
+        padding: 13px 13px 13px 54px;
+        width: 100%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box;
+        border: 3px solid #3AC1C7;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 
 </style>
@@ -37,7 +54,6 @@
         <section id="appItem-<?php echo $app->id; ?>">
             <!--app item begin-->
             <div class="row-fluid item">
-
                 <div class="span6 item item-team">
                     <a style="text-decoration: none; color: #34495e"
                        href="<?php echo URL::action('CmsController@index', array('app_id' => $app->id)) ?>">
@@ -80,7 +96,8 @@
                                     <?php $user = User::find($user->user_id);
                                     if ($user && $user->exists): ?>
                                         <li>
-                                            <a title="<?php echo $user->name; ?>" class="handle-members"
+                                            <a title="<?php echo $user->name; ?>" class="user_info"
+
                                                data-toggle="modal" data-target="#myModal"
                                                data-header-title="移除成员" data-footer-title="移除"
                                                data-app-id="<?php echo $app->id; ?>"
@@ -94,12 +111,9 @@
                                     <?php endif; endforeach; ?>
                                 <?php if ($app->user_id == Auth::user()->id || (int)$appIds[$app->id] === Limit::ROLE_SUPER): ?>
                                     <li>
-                                        <a class="btn btn-primary handle-members plus-members"
+                                        <a class="btn btn-primary  handle-members  plus-members"
                                            style="padding-top: 12px; padding-bottom: 12px;" data-toggle="modal"
-                                           data-target="#myModal"
-                                           data-header-title="增加成员" data-footer-title="增加"
-                                           data-app-id="<?php echo $app->id; ?>"
-                                           data-user-id="" type="button">
+                                           data-target="#myModal" data-app-id="<?php echo $app->id; ?>">
                                             <span class="fui-plus"></span>
                                         </a>
                                     </li>
@@ -119,91 +133,77 @@
                     </div>
                 </div>
             <?php endif; ?>
-            <!--app item end-->
+
         </section>
     <?php endforeach;endif; ?>
 
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">增加成员</h4>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer" style="text-align:center">
-                    <button type="button" class="btn btn-default btn-member" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary btn-member btn-member-handle default-member"></button>
-                </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+         hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">随我闯江湖</h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="hero-unit">
+                <h2>APP权限设置</h2>
+                <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
+                <form class="form-horizontal" method="post" id="invite">
+                    <fieldset>
+                        <p>
+                            <input class="feedback-input" name="email" id="email_input" placeholder="小伙伴的邮箱地址"/>
+                            <input class="feedback-input" name="app_id" id="app_input" value="" type="hidden"/>
+                            <input class="feedback-input" name="action" id="user_action" value="" type="hidden"/>
+                        </p>
+                        <?php echo \Utils\FormBuilderHelper::staticEnd('invite',
+                            array( //表单规则
+                                'email' => array('required' => true),
+                            ),
+                            URL::action('UserMessageController@invite'),
+                            'POST'
+                        );//注册表单JS
+                        ?>
+                        <p>
+                            <button id="JS_Sub" class="btn btn-primary btn-large"></button>
+                        </p>
+                    </fieldset>
+                </form>
             </div>
+
         </div>
     </div>
 
+
     <script type="text/javascript">
-        $('.item-member-body').hover(function () {
-            //0 2px 0 #fff,0 -2px 0 #f2f2ea
-//          $('.item-member-body').style.backgroundColor = ' #f2f2ea';
-            $('.item-member-body').css('backgroundColor', '#000000');
-        });
-
-
         $(function () {
             $('.handle-members').click(function () {
                 app_id = $(this).attr('data-app-id');
                 user_id = $(this).attr('data-user-id');
-
-                $('.btn-member-handle').prop('disabled', false);
-                selector = $(this).parent().nextAll().andSelf();
-                selector.each(function () {
-                    if ($(this).children().hasClass('plus-members')) {
-                        $('.btn-member-handle').prop('disabled', false);
-                        if (!$('.btn-member-handle').hasClass('btn-primary')) {
-                            $('.btn-member-handle').addClass('btn-primary')
-                        }
-                    } else {
-                        $('.btn-member-handle').removeClass('btn-primary').prop('disabled', true);
-                    }
-                });
-
-                if (user_id == <?php echo Auth::user()->id; ?>) {
-                    $('.btn-member-handle').prop('disabled', true);
-                    $('.btn-member-handle').removeClass('btn-primary')
-                }
+                $('#app_input').val(app_id);
+                $('#user_action').val(<?php echo UserMessage::ACTION_INVITE?>);
+                $('#JS_Sub').text("发送邀请");
+                $('#email_input').show();
 
 
-                $('.modal-title').text($(this).attr('data-header-title'));
-                $('.modal-footer .btn-member-handle').text($(this).attr('data-footer-title')).removeClass('default-member').addClass('store-member');
-                $.get("<?php echo URL::action('DashBoardController@addMember') ?>", {'app_id': app_id, 'user_id': user_id}).done(function (data) {
-
-
-                    $('.modal-body').html(data.addMembers);
-                    $('.store-member').off('click');
-                    $('.store-member').click(function (event) {
-                        user_ids = $("#user_ids").val();
-                        post_param = ['<?php echo URL::action("DashBoardController@storeMember")?>', {'user_ids': user_ids, 'app_id': app_id}];
-
-                        if (user_ids === undefined) {
-                            post_param = $.post('<?php echo URL::action("DashBoardController@delete")?>', {'user_id': user_id, 'app_id': app_id});
-                        } else {
-                            post_param = $.post('<?php echo URL::action("DashBoardController@storeMember")?>', {'user_ids': user_ids, 'app_id': app_id});
-                        }
-
-                        post_param.done(function (data) {
-                            location.reload();
-                        }).error(function () {
-                                alert('something wrong!');
-                            });
-                    });
-                }).error(function () {
-                        alert('something wrong!');
-                    });
+                //change html contnet
+                console.log(app_id);
+                console.log(user_id);
             });
-        });
+            $('.user_info').click(function () {
+                app_id = $(this).attr('data-app-id');
+                user_id = $(this).attr('data-user-id');
+                $('#app_input').val(app_id);
+                $('#user_action').val(<?php echo UserMessage::ACTION_REMOVE?>);
+                $('#JS_Sub').text("去除权限");
+                $('#email_input').hide();
+                //change title and html content
+                console.log('user_info app_id: ', app_id);
+                console.log('user_info user_id:', user_id);
+            });
 
-        $('.item-member-body').hover(function () {
-            $('.item-member-body').css('backgroundColor', '#000000');
         });
     </script>
+
+
 <?php echo $footer; ?>

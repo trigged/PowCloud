@@ -6,8 +6,6 @@ $(function () {
 
     $('input.image-uploader').live('click', function () {
         if ($('#image-uploader-container').size() == 0) {
-            var uploadHtml = '<div id="image-uploader-container" style="position:absolute; display:none; z-index: 9999;  text-align:left; height:40px; width:430px; overflow:hidden; background-color:#fff; border:solid 1px #ccc;"><iframe src="' + webconfig.picture_upload_url + '/v1/upload_widget?return=http://' + location.host + '/upload_callback&callback=uploadCallback" frameborder="0" id="image-uploader-iframe" scrolling="no" width="400" height="50"></iframe><input type="button" value="取消" id="image-uploader-cancel-btn" style="position:absolute; padding:0; top:10px; _top:15px; cursor:pointer; right:5px;" /></div>';
-            $(document.body).append(uploadHtml);
 
             $('#image-uploader-cancel-btn').click(function () {
                 $('#image-uploader-container').hide();
@@ -83,20 +81,20 @@ $(function () {
         geoForce = null;
         geoType = null;
         //console.log(localGeo);
-        if (localGeo!==null) {
-            data = {'force[]': localForce, 'data[]': localGeo, 'namespace': namespace, 'type': localGeoType!==null ? 1 : 0};
+        if (localGeo !== null) {
+            data = {'force[]': localForce, 'data[]': localGeo, 'namespace': namespace, 'type': localGeoType !== null ? 1 : 0};
         } else
             data += '&namespace=' + namespace;
 
         var len = $('td', $(tar)).length;
-        var ajaxFlag = localGeoType!== null ? 0 : $(tar).attr('data-area');
+        var ajaxFlag = localGeoType !== null ? 0 : $(tar).attr('data-area');
         if (ajaxFlag != 1) {
             $.ajax({
                 url: $(this).attr('data-url'),
                 data: data,
                 type: 'GET',
                 success: function (re) {
-                    if (localGeo!==null  && $(tar).next().hasClass('area_list_ajax'))
+                    if (localGeo !== null && $(tar).next().hasClass('area_list_ajax'))
                         $(tar).next().remove();
                     if (!$(tar).next().hasClass('area_list_ajax'))
                         $(tar).after('<tr class="area_list_ajax"><td colspan="' + len + '">' + re + '</td></tr>')
@@ -142,7 +140,7 @@ $(function () {
 
         //设置索引
         var area_filter_tr = $(parent).find('.area_filter_tr').length;
-        if (area_filter_tr>0) {
+        if (area_filter_tr > 0) {
             $('.area_filter_tr', $(parentCopy)).attr('data-namespace', table + '[' + index + ']');//这个可能会存的特列
             $('.area_filter_tr', $(parentCopy)).attr('data-value', '');
             $('.area_filter_tr', $(parentCopy)).parent().html($('.area_filter_tr', $(parentCopy)).parent().html().replace('有', '无'));
@@ -277,7 +275,7 @@ $(function () {
                                             check_checkbox(namespace + '[geo][data][]', json.data['geo'].data, json.data['geo'].type);
                                             resetGeoForce(namespace + '[geo][data][]', namespace + '[geo][force]', json.data['geo'].force, json.data['geo'].type);
                                             if (tdFilter.length > 0) {
-                                                if(tdFilter.html().indexOf('无')==-1){
+                                                if (tdFilter.html().indexOf('无') == -1) {
                                                     $(tdFilter).html(tdFilter.html().replace('有', '无'));
                                                     $('.area_filter_tr', tdFilter).trigger('click');
                                                 }
@@ -294,9 +292,9 @@ $(function () {
                         alert(json.message);
                     }
                 }
-            }).complete(function(){
-                 current.attr('disabled', false).html('分析');
-            });
+            }).complete(function () {
+                    current.attr('disabled', false).html('分析');
+                });
         } else
             alert('无法分析，请与管理员联系');
     });
@@ -418,7 +416,7 @@ function check_checkbox(name, data, checked) {
 function resetGeoForce(foreach, target, data, type) {
     var forceData = [];
     $('input[name="' + foreach + '"]').each(function () {
-        if(data!==false){
+        if (data !== false) {
             if (data.length > 0 && type == 1) {
                 if ($.inArray(parseInt($(this).val()), data) == -1) {
                     $(this).next().attr('data-select', 1);
@@ -427,10 +425,10 @@ function resetGeoForce(foreach, target, data, type) {
                     $(this).next().attr('data-select', 0);
                     $(this).next().attr('src', $(this).next().attr('data-strong'));
                 }
-            }else if(type == 1){
+            } else if (type == 1) {
                 $(this).next().attr('data-select', 1);
                 $(this).next().attr('src', $(this).next().attr('data-strong-select'));
-            }else{
+            } else {
                 $(this).next().attr('data-select', 0);
                 $(this).next().attr('src', $(this).next().attr('data-strong'));
             }

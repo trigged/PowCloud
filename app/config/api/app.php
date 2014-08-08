@@ -1,7 +1,6 @@
 <?php
 
 return array(
-    'url'            => 'http://tv.admin.synacast.com/',
     'picture_upload' => array(
         'url' => 'http://upload.vision.pptv.com',
     ),

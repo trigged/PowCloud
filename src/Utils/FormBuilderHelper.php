@@ -167,6 +167,22 @@ EOT;
         return $js . $input . $label;
     }
 
+    public static function textArea($form, $value = '', $class = "input-large")
+    {
+        $value = is_array($value) ? json_encode($value) : $value;
+        $name = self::getFieldName($form->field);
+
+        $htmlOption = array('id' => self::getFiledId($form->field), 'class' => $class);
+
+        if ((int)$form->isEditable === 0)
+            $htmlOption['readonly'] = 'readonly';
+
+        return \Form::textarea($name,
+            $value === 0 || $value ? $value : $form->default_value,
+            $htmlOption
+        );
+    }
+
     public static function image($form, $value = '', $class = "input-xxlarge")
     {
         $value = $value ? $value : $form->default_value;
@@ -175,19 +191,19 @@ EOT;
             return self::imageArray($form, $value, $class);
         } else {
 
-            return '<input type="text" name="' . self::getFieldName($form->field) . '" placeholder="单击上传" value="' . $value . '"  class="' . $class . ' image-uploader" data-validate="' . $form->field . '" />';
+            return '<input type="text" name="' . self::getFieldName($form->field) . '" placeholder="有效图片地址" value="' . $value . '"  class="' . $class . ' image-uploader" data-validate="' . $form->field . '" />';
         }
     }
 
-    public static function imageArray($form, $value, $class = '')
+    public static function imageArray($form, $value, $class = "input-xxlarge")
     {
         $input = '';
         if ($value && is_array($value)) {
             foreach ($value as $v) {
-                $input .= '<input  type="text" name="' . self::getFieldName($form->field) . '[]" placeholder="单击上传" value="' . $v . '"  class="' . $class . ' image-uploader" />';
+                $input .= '<input  type="text" name="' . self::getFieldName($form->field) . '[]" placeholder="有效图片地址" value="' . $v . '"  class="' . $class . ' image-uploader" />';
             }
         } else
-            $input = '<input type="text" name="' . self::getFieldName($form->field) . '[]" placeholder="单击上传" value="' . $value . '"  class="' . $class . ' image-uploader"  />';
+            $input = '<input type="text" name="' . self::getFieldName($form->field) . '[]" placeholder="有效图片地址" value="' . $value . '"  class="' . $class . ' image-uploader"  />';
 
         $js_link = '<a class="JS_repeat" title="继续添加" href="javascript:void(0) "><i class="icon-plus"></i></a>';
 
@@ -274,7 +290,8 @@ EOT;
                             re = $.parseJSON(re);
                             if(re.status =='fail'){
                                 var errors = re.data;
-                                validate.showErrors(errors);
+//                                validate.showErrors(errors);
+                                alert(re.message);
                                 $('#JS_Sub').attr('disabled',false);
                                 return false;
                             }

@@ -22,6 +22,9 @@ Route::get('route', function () {
     return RouteManager::findController('/test');
 });
 
+Route::get('mail', function () {
+    return Response::view('emails.info', array());
+});
 
 Route::get('403', function () {
 
@@ -51,6 +54,11 @@ Route::post('storeMember', 'DashBoardController@storeMember');
 Route::get('addApp', 'DashBoardController@addApp');
 Route::post('storeApp', 'DashBoardController@storeApp');
 Route::post('updateApp', 'DashBoardController@updateApp');
+
+//user message
+Route::any('user_message/invite', 'UserMessageController@invite');
+Route::any('user_message/receive', 'UserMessageController@receive');
+
 
 //login
 Route::get('register', 'LoginController@register');
@@ -142,7 +150,7 @@ Route::get('hook/{hook}', 'CodeFragmentController@hookDetail');
 Route::get('hook/{hook}/edit', 'CodeFragmentController@editHook');
 Route::get('hook', 'CodeFragmentController@hook');
 
-Route::get('upload_callback', 'CmsController@upload_callback');
+
 Route::get('system', 'SystemController@system');
 Route::resource('advanced', 'AdvancedController');
 

@@ -38,7 +38,6 @@ class MasterController extends Controller
         $header['leftMenu'] = $this->getSide($this->nav);
         $header['menu'] = $this->menu;
         $header['nav'] = $this->nav;
-        $header['webconfig']['picture_upload_url'] = Config::get('app.picture_upload.url');
         return View::make($view, $data)
             ->nest('header', 'layout.header', $header)
             ->nest('footer', 'layout.footer')
@@ -52,17 +51,18 @@ class MasterController extends Controller
      * @param string $message 需要返回的信息
      * @param string $redirect 是否需要跳转，如是要跳转需设置这个值
      */
-    protected function ajaxResponse($data = array(), $status = 'success', $message = '', $redirect = '')
+    protected function ajaxResponse($data = array(), $status = 'success', $message = '', $successRedirect = '', $failRedirect = '')
     {
         $return = array(
-            'status'   => $status,
-            'message'  => $message,
-            'data'     => $data,
-            'redirect' => $redirect,
+            'status'          => $status,
+            'message'         => $message,
+            'data'            => $data,
+            'successRedirect' => $successRedirect,
+            'failRedirect'    => $failRedirect
         );
+        if ($successRedirect || $failRedirect)
+            \Utils\Env::messageTip("messageTip", $status, $message);
 
-//        if($successRedirect || $failRedirect)
-//            \Utils\Env::messageTip("messageTip", $status, $message);
         echo json_encode($return);
 
         //在强制退出支 触发结束事件

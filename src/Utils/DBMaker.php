@@ -416,8 +416,10 @@ CREATE TABLE `widget` (
 
             foreach ($table_strut as $name => $params) {
                 $method = $params[0];
-                if (!method_exists($table, $method))
+                if (!method_exists($table, $method)) {
+                    CMSLog::debug(sprintf("table error method not exists,name: %s, params %s", $name, $params));
                     throw new \Exception($method . ' 不是符合要求', 400);
+                }
             }
 
             foreach ($table_strut as $name => $params) {
