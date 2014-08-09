@@ -61,7 +61,7 @@
             </tbody>
         </table>
 
-        <?php echo $forms ? $forms->links() : ''; ?>
+        <?php echo $forms ? $forms->appends(array('table' => $table->id))->links() : ''; ?>
     </div>
     <script src="<?php echo URL::asset('js/module/table.js'); ?>"></script>
 
