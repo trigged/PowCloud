@@ -105,7 +105,7 @@ printf("Now: %s", Carbon::now());
 <a name="install-nocomposer"/>
 ### Without Composer
 
-Why are you not using [composer](http://getcomposer.org/)? Download [Carbon.php](https://github.com/briannesbitt/Carbon/blob/master/Carbon/Carbon.php) from the repo and save the file into your project path somewhere.
+Why are you not using [composer](http://getcomposer.org/)? Download [Carbon.php](https://github.com/briannesbitt/Carbon/blob/master/src/Carbon/Carbon.php) from the repo and save the file into your project path somewhere.
 
 ```php
 <?php
@@ -177,13 +177,13 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2013-11-21 16:05:46
+echo $now;                               // 2014-07-17 23:36:17
 $today = Carbon::today();
-echo $today;                             // 2013-11-21 00:00:00
+echo $today;                             // 2014-07-17 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2013-11-22 00:00:00
+echo $tomorrow;                          // 2014-07-19 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2013-11-20 00:00:00
+echo $yesterday;                         // 2014-07-16 00:00:00
 ```
 
 The next group of static helpers are the `createXXX()` helpers. Most of the static `create` functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an `InvalidArgumentException` with an informative message.  The message is obtained from an [DateTime::getLastErrors()](http://php.net/manual/en/datetime.getlasterrors.php) call.
@@ -261,7 +261,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2013-11-21 16:05:46
+echo Carbon::now();                                    // 2014-07-17 23:36:17
 ```
 
 A more meaning full example:
@@ -340,10 +340,11 @@ var_dump($dt->minute);                                       // int(26)
 var_dump($dt->second);                                       // int(11)
 var_dump($dt->dayOfWeek);                                    // int(3)
 var_dump($dt->dayOfYear);                                    // int(248)
+var_dump($dt->weekOfMonth);                                  // int(1)
 var_dump($dt->weekOfYear);                                   // int(36)
 var_dump($dt->daysInMonth);                                  // int(30)
 var_dump($dt->timestamp);                                    // int(1346901971)
-var_dump(Carbon::createFromDate(1975, 5, 21)->age);          // int(38) calculated vs now in the same tz
+var_dump(Carbon::createFromDate(1975, 5, 21)->age);          // int(39) calculated vs now in the same tz
 var_dump($dt->quarter);                                      // int(3)
 
 // Returns an int of seconds difference from UTC (+/- sign included)
@@ -363,7 +364,7 @@ var_dump(Carbon::now('America/Vancouver')->local);           // bool(false)
 
 // Indicates if the instance is in the UTC timezone
 var_dump(Carbon::now()->utc);                                // bool(false)
-var_dump(Carbon::now('Europe/London')->utc);                 // bool(true)
+var_dump(Carbon::now('Europe/London')->utc);                 // bool(false)
 var_dump(Carbon::createFromTimestampUTC(0)->utc);            // bool(true)
 
 // Gets the DateTimeZone instance
@@ -459,9 +460,9 @@ echo $dt;                                          // 1975-12-25 14:15:16
 Unfortunately the base class DateTime does not have any localization support.  To begin localization support a `formatLocalized($format)` method has been added.  The implementation makes a call to [strftime](http://www.php.net/strftime) using the current instance timestamp.  If you first set the current locale with [setlocale()](http://www.php.net/setlocale) then the string returned will be formatted in the correct locale.
 
 ```php
-setlocale(LC_TIME, 'German');                     
+setlocale(LC_TIME, 'German');
 echo $dt->formatLocalized('%A %d %B %Y');          // Donnerstag 25 Dezember 1975
-setlocale(LC_TIME, '');                           
+setlocale(LC_TIME, '');
 echo $dt->formatLocalized('%A %d %B %Y');          // Thursday 25 December 1975
 ```
 
@@ -527,6 +528,22 @@ $second = Carbon::create(2012, 9, 5, 5);
 var_dump(Carbon::create(2012, 9, 5, 3)->between($first, $second));          // bool(true)
 var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second));          // bool(true)
 var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second, false));   // bool(false)
+```
+
+Woah! Did you forget min() and max() ? Nope. That is covered as well by the suitably named `min()` and `max()` methods.  As usual the default parameter is now if null is specified.
+
+```php
+$dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);
+$dt2 = Carbon::create(2014, 1, 30, 0, 0, 0);
+echo $dt1->min($dt2);                              // 2012-01-01 00:00:00
+
+$dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);
+$dt2 = Carbon::create(2014, 1, 30, 0, 0, 0);
+echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
+
+// now is the default param
+$dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
+echo $dt1->max();                                  // 2014-07-17 23:36:17
 ```
 
 To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to `now()` (ex. isToday()) in some manner the `now()` is created in the same timezone as the instance.
@@ -632,6 +649,9 @@ echo $dt->diffInMinutes($dt->copy()->addSeconds(120));                 // 2
 // diffInYears(), diffInMonths(), diffInDays()
 // diffInHours(), diffInMinutes(), diffInSeconds()
 ```
+```php
+// Carbon::average(Carbon $dt = null)
+```
 
 <a name="api-humandiff"/>
 ### Difference for Humans
@@ -678,6 +698,8 @@ echo Carbon::now()->subDays(24)->diffForHumans();              // 3 weeks ago
 
 These group of methods perform helpful modifications to the current instance.  Most of them are self explanatory from their names... or at least should be.  You'll also notice that the startOfXXX(), next() and previous() methods set the time to 00:00:00 and the endOfXXX() methods set the time to 23:59:59.
 
+The only one slightly different is the `average()` function.  It moves your instance to the middle date between itself and the provided Carbon argument.
+
 ```php
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
 echo $dt->startOfDay();                            // 2012-01-31 00:00:00
@@ -690,6 +712,24 @@ echo $dt->startOfMonth();                          // 2012-01-01 00:00:00
 
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
 echo $dt->endOfMonth();                            // 2012-01-31 23:59:59
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->startOfYear();                           // 2012-01-01 00:00:00
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->endOfYear();                             // 2012-12-31 23:59:59
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->startOfDecade();                         // 2010-01-01 00:00:00
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->endOfDecade();                           // 2019-12-31 23:59:59
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->startOfCentury();                        // 2000-01-01 00:00:00
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->endOfCentury();                          // 2099-12-31 23:59:59
 
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
 echo $dt->startOfWeek();                           // 2012-01-30 00:00:00
@@ -713,10 +753,15 @@ var_dump($dt->dayOfWeek == Carbon::WEDNESDAY);     // bool(true)
 $dt = Carbon::create(2012, 1, 1, 12, 0, 0);
 echo $dt->previous();                              // 2011-12-25 00:00:00
 
+$start = Carbon::create(2014, 1, 1, 0, 0, 0);
+$end = Carbon::create(2014, 1, 30, 0, 0, 0);
+echo $start->average($end);                        // 2014-01-15 12:00:00
+
 // others that are defined that are similar
 //   firstOfMonth(), lastOfMonth(), nthOfMonth()
 //   firstOfQuarter(), lastOfQuarter(), nthOfQuarter()
 //   firstOfYear(), lastOfYear(), nthOfYear()
+
 ```
 
 <a name="api-constants"/>
@@ -817,3 +862,5 @@ You can view the history of the Carbon project in the [history file](https://git
 ### Why the name Carbon?
 
 Read about [Carbon Dating](http://en.wikipedia.org/wiki/Radiocarbon_dating)
+
+![](https://cruel-carlota.pagodabox.com/55ce479cc1edc5e0cc5b4b6f9a7a9200)

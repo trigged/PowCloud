@@ -11,6 +11,39 @@
 namespace Monolog\Formatter;
 
 use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
 
 /**
  * Formats incoming records into an HTML table
@@ -30,9 +63,9 @@ class HtmlFormatter extends NormalizerFormatter
         Logger::NOTICE    => '#3a87ad',
         Logger::WARNING   => '#c09853',
         Logger::ERROR     => '#f0ad4e',
-        Logger::CRITICAL  => '#b94a48',
-        Logger::ALERT     => '#d9534f',
-        Logger::EMERGENCY => '#ffffff',
+        Logger::CRITICAL  => '#FF7708',
+        Logger::ALERT     => '#C12A19',
+        Logger::EMERGENCY => '#000000',
     );
 
     /**
@@ -53,15 +86,15 @@ class HtmlFormatter extends NormalizerFormatter
     private function addRow($th, $td = ' ')
     {
         $th = htmlspecialchars($th, ENT_NOQUOTES, 'UTF-8');
-        $td = '<pre>'.htmlspecialchars($td, ENT_NOQUOTES, 'UTF-8').'</pre>';
+        $td = '<pre>' . htmlspecialchars($td, ENT_NOQUOTES, 'UTF-8') . '</pre>';
 
-        return "<tr style=\"padding: 4px;spacing: 0;text-align: left;\">\n<th style=\"background: #cccccc\" width=\"100px\">$th:</th>\n<td style=\"padding: 4px;spacing: 0;text-align: left;background: #eeeeee\">".$td."</td>\n</tr>";
+        return "<tr style=\"padding: 4px;spacing: 0;text-align: left;\">\n<th style=\"background: #cccccc\" width=\"100px\">$th:</th>\n<td style=\"padding: 4px;spacing: 0;text-align: left;background: #eeeeee\">" . $td . "</td>\n</tr>";
     }
 
     /**
      * Create a HTML h1 tag
      *
-     * @param  string  $title Text to be in the h1
+     * @param  string $title Text to be in the h1
      * @param  integer $level Error level
      * @return string
      */
@@ -69,8 +102,9 @@ class HtmlFormatter extends NormalizerFormatter
     {
         $title = htmlspecialchars($title, ENT_NOQUOTES, 'UTF-8');
 
-        return '<h1 style="background: '.$this->logLevels[$level].';color: #ffffff;padding: 5px;">'.$title.'</h1>';
+        return '<h1 style="background: ' . $this->logLevels[$level] . ';color: #ffffff;padding: 5px;">' . $title . '</h1>';
     }
+
     /**
      * Formats a log record.
      *
@@ -82,7 +116,7 @@ class HtmlFormatter extends NormalizerFormatter
         $output = $this->addTitle($record['level_name'], $record['level']);
         $output .= '<table cellspacing="1" width="100%">';
 
-        $output .= $this->addRow('Message', (string) $record['message']);
+        $output .= $this->addRow('Message', (string)$record['message']);
         $output .= $this->addRow('Time', $record['datetime']->format('Y-m-d\TH:i:s.uO'));
         $output .= $this->addRow('Channel', $record['channel']);
         if ($record['context']) {
@@ -92,7 +126,7 @@ class HtmlFormatter extends NormalizerFormatter
             $output .= $this->addRow('Extra', $this->convertToString($record['extra']));
         }
 
-        return $output.'</table>';
+        return $output . '</table>';
     }
 
     /**
@@ -114,7 +148,7 @@ class HtmlFormatter extends NormalizerFormatter
     protected function convertToString($data)
     {
         if (null === $data || is_scalar($data)) {
-            return (string) $data;
+            return (string)$data;
         }
 
         $data = $this->normalize($data);

@@ -13,6 +13,42 @@
  * 自动检测接口元素 (检索条件)
  * 拖动元素*/
 
+
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+
 $values = array(
     array(
         'type'   => 1, //has many req
@@ -229,20 +265,19 @@ $values = array(0  => '""',
                 20 => 'text',
 );
 
-$sql = str_replace(array('%', '?'), array('%%', '%s'), $query);
-var_dump($sql);
-$full_sql = vsprintf($sql, $values);
-$test = '123456';
-var_dump($test);
-var_dump(substr($test, -1));
-var_dump($test);
-var_dump(substr($test, 0, -1));
 
-$start = 1406518522;
+$ak = 'ApeZGJsGl3vfyGtP72Vkkcd5vpAgLZ6v8sw4iFw7';
+$sk = '7Vbm-DeATjGB7Pmm1nyWXQWRwe8AI-nHDf60P8Iw';
+$bk = 'bangshuiguo';
+$client = Qiniu::create(array(
+    'access_key' => $ak,
+    'secret_key' => $sk,
+    'bucket'     => $bk
+));
 
-$time1 = time();
+// 查看文件状态
+$res = $client->stat('jobs.jpg');
 
-var_dump($time1);
-var_dump($time1 - $start);
+print_r($res);
 
-
+?>

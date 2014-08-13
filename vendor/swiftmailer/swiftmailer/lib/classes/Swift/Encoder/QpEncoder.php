@@ -39,26 +39,26 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
      * @var string[]
      */
     protected static $_qpMap = array(
-        0   => '=00', 1   => '=01', 2   => '=02', 3   => '=03', 4   => '=04',
-        5   => '=05', 6   => '=06', 7   => '=07', 8   => '=08', 9   => '=09',
-        10  => '=0A', 11  => '=0B', 12  => '=0C', 13  => '=0D', 14  => '=0E',
-        15  => '=0F', 16  => '=10', 17  => '=11', 18  => '=12', 19  => '=13',
-        20  => '=14', 21  => '=15', 22  => '=16', 23  => '=17', 24  => '=18',
-        25  => '=19', 26  => '=1A', 27  => '=1B', 28  => '=1C', 29  => '=1D',
-        30  => '=1E', 31  => '=1F', 32  => '=20', 33  => '=21', 34  => '=22',
-        35  => '=23', 36  => '=24', 37  => '=25', 38  => '=26', 39  => '=27',
-        40  => '=28', 41  => '=29', 42  => '=2A', 43  => '=2B', 44  => '=2C',
-        45  => '=2D', 46  => '=2E', 47  => '=2F', 48  => '=30', 49  => '=31',
-        50  => '=32', 51  => '=33', 52  => '=34', 53  => '=35', 54  => '=36',
-        55  => '=37', 56  => '=38', 57  => '=39', 58  => '=3A', 59  => '=3B',
-        60  => '=3C', 61  => '=3D', 62  => '=3E', 63  => '=3F', 64  => '=40',
-        65  => '=41', 66  => '=42', 67  => '=43', 68  => '=44', 69  => '=45',
-        70  => '=46', 71  => '=47', 72  => '=48', 73  => '=49', 74  => '=4A',
-        75  => '=4B', 76  => '=4C', 77  => '=4D', 78  => '=4E', 79  => '=4F',
-        80  => '=50', 81  => '=51', 82  => '=52', 83  => '=53', 84  => '=54',
-        85  => '=55', 86  => '=56', 87  => '=57', 88  => '=58', 89  => '=59',
-        90  => '=5A', 91  => '=5B', 92  => '=5C', 93  => '=5D', 94  => '=5E',
-        95  => '=5F', 96  => '=60', 97  => '=61', 98  => '=62', 99  => '=63',
+        0   => '=00', 1 => '=01', 2 => '=02', 3 => '=03', 4 => '=04',
+        5   => '=05', 6 => '=06', 7 => '=07', 8 => '=08', 9 => '=09',
+        10  => '=0A', 11 => '=0B', 12 => '=0C', 13 => '=0D', 14 => '=0E',
+        15  => '=0F', 16 => '=10', 17 => '=11', 18 => '=12', 19 => '=13',
+        20  => '=14', 21 => '=15', 22 => '=16', 23 => '=17', 24 => '=18',
+        25  => '=19', 26 => '=1A', 27 => '=1B', 28 => '=1C', 29 => '=1D',
+        30  => '=1E', 31 => '=1F', 32 => '=20', 33 => '=21', 34 => '=22',
+        35  => '=23', 36 => '=24', 37 => '=25', 38 => '=26', 39 => '=27',
+        40  => '=28', 41 => '=29', 42 => '=2A', 43 => '=2B', 44 => '=2C',
+        45  => '=2D', 46 => '=2E', 47 => '=2F', 48 => '=30', 49 => '=31',
+        50  => '=32', 51 => '=33', 52 => '=34', 53 => '=35', 54 => '=36',
+        55  => '=37', 56 => '=38', 57 => '=39', 58 => '=3A', 59 => '=3B',
+        60  => '=3C', 61 => '=3D', 62 => '=3E', 63 => '=3F', 64 => '=40',
+        65  => '=41', 66 => '=42', 67 => '=43', 68 => '=44', 69 => '=45',
+        70  => '=46', 71 => '=47', 72 => '=48', 73 => '=49', 74 => '=4A',
+        75  => '=4B', 76 => '=4C', 77 => '=4D', 78 => '=4E', 79 => '=4F',
+        80  => '=50', 81 => '=51', 82 => '=52', 83 => '=53', 84 => '=54',
+        85  => '=55', 86 => '=56', 87 => '=57', 88 => '=58', 89 => '=59',
+        90  => '=5A', 91 => '=5B', 92 => '=5C', 93 => '=5D', 94 => '=5E',
+        95  => '=5F', 96 => '=60', 97 => '=61', 98 => '=62', 99 => '=63',
         100 => '=64', 101 => '=65', 102 => '=66', 103 => '=67', 104 => '=68',
         105 => '=69', 106 => '=6A', 107 => '=6B', 108 => '=6C', 109 => '=6D',
         110 => '=6E', 111 => '=6F', 112 => '=70', 113 => '=71', 114 => '=72',
@@ -91,7 +91,7 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
         245 => '=F5', 246 => '=F6', 247 => '=F7', 248 => '=F8', 249 => '=F9',
         250 => '=FA', 251 => '=FB', 252 => '=FC', 253 => '=FD', 254 => '=FE',
         255 => '=FF'
-        );
+    );
 
     protected static $_safeMapShare = array();
 
@@ -106,7 +106,7 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
      * Creates a new QpEncoder for the given CharacterStream.
      *
      * @param Swift_CharacterStream $charStream to use for reading characters
-     * @param Swift_StreamFilter    $filter     if input should be canonicalized
+     * @param Swift_StreamFilter $filter     if input should be canonicalized
      */
     public function __construct(Swift_CharacterStream $charStream, Swift_StreamFilter $filter = null)
     {
@@ -143,8 +143,7 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
     protected function initSafeMap()
     {
         foreach (array_merge(
-            array(0x09, 0x20), range(0x21, 0x3C), range(0x3E, 0x7E)) as $byte)
-        {
+                     array(0x09, 0x20), range(0x21, 0x3C), range(0x3E, 0x7E)) as $byte) {
             $this->_safeMap[$byte] = chr($byte);
         }
     }
@@ -156,7 +155,7 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
      * If the first line needs to be shorter, indicate the difference with
      * $firstLineOffset.
      *
-     * @param string  $string to encode
+     * @param string $string to encode
      * @param integer $firstLineOffset, optional
      * @param integer $maxLineLength,   optional 0 indicates the default of 76 chars
      *
@@ -174,7 +173,7 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
         $lNo = 0;
         $lines[$lNo] = '';
         $currentLine =& $lines[$lNo++];
-        $size=$lineLen=0;
+        $size = $lineLen = 0;
 
         $this->_charStream->flushContents();
         $this->_charStream->importString($string);
@@ -201,13 +200,13 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
             }
 
             $enc = $this->_encodeByteSequence($bytes, $size);
-            if ($currentLine && $lineLen+$size >= $thisLineLength) {
+            if ($currentLine && $lineLen + $size >= $thisLineLength) {
                 $lines[$lNo] = '';
                 $currentLine =& $lines[$lNo++];
                 $thisLineLength = $maxLineLength;
-                $lineLen=0;
+                $lineLen = 0;
             }
-            $lineLen+=$size;
+            $lineLen += $size;
             $currentLine .= $enc;
         }
 
@@ -230,21 +229,21 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
      * Encode the given byte array into a verbatim QP form.
      *
      * @param integer[] $bytes
-     * @param integer   $size
+     * @param integer $size
      *
      * @return string
      */
     protected function _encodeByteSequence(array $bytes, &$size)
     {
         $ret = '';
-        $size=0;
+        $size = 0;
         foreach ($bytes as $b) {
             if (isset($this->_safeMap[$b])) {
                 $ret .= $this->_safeMap[$b];
                 ++$size;
             } else {
                 $ret .= self::$_qpMap[$b];
-                $size+=3;
+                $size += 3;
             }
         }
 
@@ -274,7 +273,7 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
     {
         $string = str_replace(array("\t=0D=0A", " =0D=0A", "=0D=0A"),
             array("=09\r\n", "=20\r\n", "\r\n"), $string
-            );
+        );
         switch ($end = ord(substr($string, -1))) {
             case 0x09:
             case 0x20:

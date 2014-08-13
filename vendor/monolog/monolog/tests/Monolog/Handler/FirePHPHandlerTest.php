@@ -11,8 +11,74 @@
 
 namespace Monolog\Handler;
 
-use Monolog\TestCase;
 use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
 
 /**
  * @covers Monolog\Handler\FirePHPHandler
@@ -22,6 +88,7 @@ class FirePHPHandlerTest extends TestCase
     public function setUp()
     {
         TestFirePHPHandler::reset();
+        $_SERVER['HTTP_USER_AGENT'] = 'Monolog Test; FirePHP/1.0';
     }
 
     public function testHeaders()
@@ -63,8 +130,8 @@ class FirePHPHandlerTest extends TestCase
         );
 
         $expected2 = array(
-            'X-Wf-1-1-1-3'       => 'test',
-            'X-Wf-1-1-1-4'       => 'test',
+            'X-Wf-1-1-1-3' => 'test',
+            'X-Wf-1-1-1-4' => 'test',
         );
 
         $this->assertEquals($expected, $handler->getHeaders());
@@ -79,6 +146,7 @@ class TestFirePHPHandler extends FirePHPHandler
     public static function reset()
     {
         self::$initialized = false;
+        self::$sendHeaders = true;
         self::$messageIndex = 1;
     }
 

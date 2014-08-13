@@ -12,6 +12,39 @@
 namespace Monolog\Handler;
 
 use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
+use Monolog\Formatter\WildfireFormatter;
 
 /**
  * Simple FirePHP Handler (http://www.firephp.org/), which uses the Wildfire protocol.
@@ -56,7 +89,7 @@ class FirePHPHandler extends AbstractProcessingHandler
     /**
      * Base header creation function used by init headers & record headers
      *
-     * @param  array  $meta    Wildfire Plugin, Protocol & Structure Indexes
+     * @param  array $meta    Wildfire Plugin, Protocol & Structure Indexes
      * @param  string $message Log message
      * @return array  Complete header string ready for the client as key and message as value
      */
@@ -71,7 +104,7 @@ class FirePHPHandler extends AbstractProcessingHandler
      * Creates message header from record
      *
      * @see createHeader()
-     * @param  array  $record
+     * @param  array $record
      * @return string
      */
     protected function createRecordHeader(array $record)
@@ -131,19 +164,28 @@ class FirePHPHandler extends AbstractProcessingHandler
      */
     protected function write(array $record)
     {
+        if (!self::$sendHeaders) {
+            return;
+        }
+
         // WildFire-specific headers must be sent prior to any messages
         if (!self::$initialized) {
+            self::$initialized = true;
+
             self::$sendHeaders = $this->headersAccepted();
+            if (!self::$sendHeaders) {
+                return;
+            }
 
             foreach ($this->getInitHeaders() as $header => $content) {
                 $this->sendHeader($header, $content);
             }
-
-            self::$initialized = true;
         }
 
         $header = $this->createRecordHeader($record);
-        $this->sendHeader(key($header), current($header));
+        if (trim(current($header)) !== '') {
+            $this->sendHeader(key($header), current($header));
+        }
     }
 
     /**
@@ -153,9 +195,11 @@ class FirePHPHandler extends AbstractProcessingHandler
      */
     protected function headersAccepted()
     {
-        return !isset($_SERVER['HTTP_USER_AGENT'])
-               || preg_match('{\bFirePHP/\d+\.\d+\b}', $_SERVER['HTTP_USER_AGENT'])
-               || isset($_SERVER['HTTP_X_FIREPHP_VERSION']);
+        if (!empty($_SERVER['HTTP_USER_AGENT']) && preg_match('{\bFirePHP/\d+\.\d+\b}', $_SERVER['HTTP_USER_AGENT'])) {
+            return true;
+        }
+
+        return isset($_SERVER['HTTP_X_FIREPHP_VERSION']);
     }
 
     /**
@@ -164,7 +208,7 @@ class FirePHPHandler extends AbstractProcessingHandler
     public function __get($property)
     {
         if ('sendHeaders' !== $property) {
-            throw new \InvalidArgumentException('Undefined property '.$property);
+            throw new \InvalidArgumentException('Undefined property ' . $property);
         }
 
         return static::$sendHeaders;
@@ -176,7 +220,7 @@ class FirePHPHandler extends AbstractProcessingHandler
     public function __set($property, $value)
     {
         if ('sendHeaders' !== $property) {
-            throw new \InvalidArgumentException('Undefined property '.$property);
+            throw new \InvalidArgumentException('Undefined property ' . $property);
         }
 
         static::$sendHeaders = $value;

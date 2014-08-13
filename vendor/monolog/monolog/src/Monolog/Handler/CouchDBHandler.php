@@ -12,6 +12,72 @@
 namespace Monolog\Handler;
 
 use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
 use Monolog\Logger;
 
 /**
@@ -46,7 +112,7 @@ class CouchDBHandler extends AbstractProcessingHandler
             $basicAuth = sprintf('%s:%s@', $this->options['username'], $this->options['password']);
         }
 
-        $url = 'http://'.$basicAuth.$this->options['host'].':'.$this->options['port'].'/'.$this->options['dbname'];
+        $url = 'http://' . $basicAuth . $this->options['host'] . ':' . $this->options['port'] . '/' . $this->options['dbname'];
         $context = stream_context_create(array(
             'http' => array(
                 'method'        => 'POST',
@@ -67,6 +133,6 @@ class CouchDBHandler extends AbstractProcessingHandler
      */
     protected function getDefaultFormatter()
     {
-        return new JsonFormatter();
+        return new JsonFormatter(JsonFormatter::BATCH_MODE_JSON, false);
     }
 }

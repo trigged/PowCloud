@@ -12,9 +12,58 @@
 */
 
 
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+
 Route::get('env', function () {
-    $env = getenv('CMS_ENV') ? getenv('CMS_ENV') : null;
-    return sprintf('nginx env: %s,app env: %s', $env, App::environment());
+
+    $ak = 'ApeZGJsGl3vfyGtP72Vkkcd5vpAgLZ6v8sw4iFw7';
+    $sk = '7Vbm-DeATjGB7Pmm1nyWXQWRwe8AI-nHDf60P8Iw';
+    $bk = 'bangshuiguo';
+    $client = Qiniu::create(array(
+        'access_key' => $ak,
+        'secret_key' => $sk,
+        'bucket'     => $bk
+    ));
+
+// 查看文件状态
+    $res = $client->stat('tumblr_liu1uqlDaZ1qci2flo1_1280.jpg');
+
+    return Response::json($res);
+//    $env = getenv('CMS_ENV') ? getenv('CMS_ENV') : null;
+//    return sprintf('nginx env: %s,app env: %s', $env, App::environment());
 });
 
 Route::get('route', function () {

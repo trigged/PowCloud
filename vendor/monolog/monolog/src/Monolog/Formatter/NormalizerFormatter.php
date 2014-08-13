@@ -12,6 +12,39 @@
 namespace Monolog\Formatter;
 
 use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
+use Exception;
 
 /**
  * Normalizes incoming records to remove objects/resources so it's easier to dump to various targets
@@ -29,7 +62,10 @@ class NormalizerFormatter implements FormatterInterface
      */
     public function __construct($dateFormat = null)
     {
-        $this->dateFormat = $dateFormat ?: static::SIMPLE_DATE;
+        $this->dateFormat = $dateFormat ? : static::SIMPLE_DATE;
+        if (!function_exists('json_encode')) {
+            throw new \RuntimeException('PHP\'s json extension is required to use Monolog\'s NormalizerFormatter');
+        }
     }
 
     /**
@@ -89,22 +125,21 @@ class NormalizerFormatter implements FormatterInterface
             return '[resource]';
         }
 
-        return '[unknown('.gettype($data).')]';
+        return '[unknown(' . gettype($data) . ')]';
     }
 
     protected function normalizeException(Exception $e)
     {
         $data = array(
-            'class' => get_class($e),
+            'class'   => get_class($e),
             'message' => $e->getMessage(),
-            'file' => $e->getFile().':'.$e->getLine(),
+            'file'    => $e->getFile() . ':' . $e->getLine(),
         );
 
         $trace = $e->getTrace();
-        array_shift($trace);
         foreach ($trace as $frame) {
             if (isset($frame['file'])) {
-                $data['trace'][] = $frame['file'].':'.$frame['line'];
+                $data['trace'][] = $frame['file'] . ':' . $frame['line'];
             } else {
                 $data['trace'][] = json_encode($frame);
             }

@@ -12,6 +12,39 @@
 namespace Monolog\Processor;
 
 use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
 
 /**
  * Injects line/file:class/function where the log message came from
@@ -60,10 +93,10 @@ class IntrospectionProcessor
         $record['extra'] = array_merge(
             $record['extra'],
             array(
-                'file'      => isset($trace[$i-1]['file']) ? $trace[$i-1]['file'] : null,
-                'line'      => isset($trace[$i-1]['line']) ? $trace[$i-1]['line'] : null,
-                'class'     => isset($trace[$i]['class']) ? $trace[$i]['class'] : null,
-                'function'  => isset($trace[$i]['function']) ? $trace[$i]['function'] : null,
+                'file'     => isset($trace[$i - 1]['file']) ? $trace[$i - 1]['file'] : null,
+                'line'     => isset($trace[$i - 1]['line']) ? $trace[$i - 1]['line'] : null,
+                'class'    => isset($trace[$i]['class']) ? $trace[$i]['class'] : null,
+                'function' => isset($trace[$i]['function']) ? $trace[$i]['function'] : null,
             )
         );
 

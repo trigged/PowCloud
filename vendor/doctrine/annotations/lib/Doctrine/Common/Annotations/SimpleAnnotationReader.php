@@ -19,8 +19,6 @@
 
 namespace Doctrine\Common\Annotations;
 
-use Doctrine\Common\Annotations\Annotation\Target;
-
 /**
  * Simple Annotation Reader.
  *
@@ -53,6 +51,8 @@ class SimpleAnnotationReader implements Reader
      * Adds a namespace in which we will look for annotations.
      *
      * @param string $namespace
+     *
+     * @return void
      */
     public function addNamespace($namespace)
     {
@@ -60,52 +60,31 @@ class SimpleAnnotationReader implements Reader
     }
 
     /**
-     * Gets the annotations applied to a class.
-     *
-     * @param \ReflectionClass $class The ReflectionClass of the class from which
-     *                               the class annotations should be read.
-     *
-     * @return array An array of Annotations.
+     * {@inheritDoc}
      */
     public function getClassAnnotations(\ReflectionClass $class)
     {
-        return $this->parser->parse($class->getDocComment(), 'class '.$class->getName());
+        return $this->parser->parse($class->getDocComment(), 'class ' . $class->getName());
     }
 
     /**
-     * Gets the annotations applied to a method.
-     *
-     * @param \ReflectionMethod $method The ReflectionMethod of the method from which
-     *                                   the annotations should be read.
-     *
-     * @return array An array of Annotations.
+     * {@inheritDoc}
      */
     public function getMethodAnnotations(\ReflectionMethod $method)
     {
-        return $this->parser->parse($method->getDocComment(), 'method '.$method->getDeclaringClass()->name.'::'.$method->getName().'()');
+        return $this->parser->parse($method->getDocComment(), 'method ' . $method->getDeclaringClass()->name . '::' . $method->getName() . '()');
     }
 
     /**
-     * Gets the annotations applied to a property.
-     *
-     * @param \ReflectionProperty $property The ReflectionProperty of the property
-     *                                     from which the annotations should be read.
-     *
-     * @return array An array of Annotations.
+     * {@inheritDoc}
      */
     public function getPropertyAnnotations(\ReflectionProperty $property)
     {
-        return $this->parser->parse($property->getDocComment(), 'property '.$property->getDeclaringClass()->name.'::$'.$property->getName());
+        return $this->parser->parse($property->getDocComment(), 'property ' . $property->getDeclaringClass()->name . '::$' . $property->getName());
     }
 
     /**
-     * Gets a class annotation.
-     *
-     * @param \ReflectionClass $class The ReflectionClass of the class from which
-     *                               the class annotations should be read.
-     * @param string $annotationName The name of the annotation.
-     *
-     * @return mixed The Annotation or NULL, if the requested annotation does not exist.
+     * {@inheritDoc}
      */
     public function getClassAnnotation(\ReflectionClass $class, $annotationName)
     {
@@ -119,12 +98,7 @@ class SimpleAnnotationReader implements Reader
     }
 
     /**
-     * Gets a method annotation.
-     *
-     * @param \ReflectionMethod $method
-     * @param string $annotationName The name of the annotation.
-     *
-     * @return mixed The Annotation or NULL, if the requested annotation does not exist.
+     * {@inheritDoc}
      */
     public function getMethodAnnotation(\ReflectionMethod $method, $annotationName)
     {
@@ -138,11 +112,7 @@ class SimpleAnnotationReader implements Reader
     }
 
     /**
-     * Gets a property annotation.
-     *
-     * @param \ReflectionProperty $property
-     * @param string $annotationName The name of the annotation.
-     * @return mixed The Annotation or NULL, if the requested annotation does not exist.
+     * {@inheritDoc}
      */
     public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName)
     {

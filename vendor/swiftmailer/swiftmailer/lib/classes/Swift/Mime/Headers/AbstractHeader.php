@@ -236,11 +236,11 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
     /**
      * Produces a compliant, formatted RFC 2822 'phrase' based on the string given.
      *
-     * @param Swift_Mime_Header        $header
-     * @param string                   $string  as displayed
-     * @param string                   $charset of the text
+     * @param Swift_Mime_Header $header
+     * @param string $string  as displayed
+     * @param string $charset of the text
      * @param Swift_Mime_HeaderEncoder $encoder
-     * @param boolean                  $shorten the first line to make remove for header name
+     * @param boolean $shorten the first line to make remove for header name
      *
      * @return string
      */
@@ -255,7 +255,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
             if (preg_match('/^' . $this->getGrammar()->getDefinition('text') . '*$/D', $phraseStr)) {
                 $phraseStr = $this->getGrammar()->escapeSpecials(
                     $phraseStr, array('"'), $this->getGrammar()->getSpecials()
-                    );
+                );
                 $phraseStr = '"' . $phraseStr . '"';
             } else { // ... otherwise it needs encoding
                 //Determine space remaining on line if first line
@@ -275,8 +275,8 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
      * Encode needed word tokens within a string of input.
      *
      * @param Swift_Mime_Header $header
-     * @param string            $input
-     * @param string            $usedLength optional
+     * @param string $input
+     * @param string $usedLength optional
      *
      * @return string
      */
@@ -358,7 +358,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
     /**
      * Get a token as an encoded word for safe insertion into headers.
      *
-     * @param string  $token           token to encode
+     * @param string $token           token to encode
      * @param integer $firstLineOffset optional
      *
      * @return string
@@ -372,7 +372,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
         }
         $encodingWrapperLength = strlen(
             '=?' . $charsetDecl . '?' . $this->_encoder->getName() . '??='
-            );
+        );
 
         if ($firstLineOffset >= 75) { //Does this logic need to be here?
             $firstLineOffset = 0;
@@ -381,7 +381,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
         $encodedTextLines = explode("\r\n",
             $this->_encoder->encodeString(
                 $token, $firstLineOffset, 75 - $encodingWrapperLength, $this->_charset
-                )
+            )
         );
 
         if (strtolower($this->_charset) !== 'iso-2022-jp') { // special encoding for iso-2022-jp using mb_encode_mimeheader
@@ -486,8 +486,8 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
             //Line longer than specified maximum or token was just a new line
             if (("\r\n" == $token) ||
                 ($i > 0 && strlen($currentLine . $token) > $this->_lineLength)
-                && 0 < strlen($currentLine))
-            {
+                && 0 < strlen($currentLine)
+            ) {
                 $headerLines[] = '';
                 $currentLine =& $headerLines[$lineCount++];
             }

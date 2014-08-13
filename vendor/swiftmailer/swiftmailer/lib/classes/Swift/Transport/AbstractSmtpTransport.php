@@ -38,7 +38,7 @@ abstract class Swift_Transport_AbstractSmtpTransport implements Swift_Transport
     /**
      * Creates a new EsmtpTransport using the given I/O buffer.
      *
-     * @param Swift_Transport_IoBuffer     $buf
+     * @param Swift_Transport_IoBuffer $buf
      * @param Swift_Events_EventDispatcher $dispatcher
      */
     public function __construct(Swift_Transport_IoBuffer $buf, Swift_Events_EventDispatcher $dispatcher)
@@ -85,7 +85,7 @@ abstract class Swift_Transport_AbstractSmtpTransport implements Swift_Transport
      */
     public function setSourceIp($source)
     {
-        $this->_sourceIp=$source;
+        $this->_sourceIp = $source;
     }
 
     /**
@@ -144,14 +144,14 @@ abstract class Swift_Transport_AbstractSmtpTransport implements Swift_Transport
      * The return value is the number of recipients who were accepted for delivery.
      *
      * @param Swift_Mime_Message $message
-     * @param string[]           $failedRecipients An array of failures by-reference
+     * @param string[] $failedRecipients An array of failures by-reference
      *
      * @return int
      */
     public function send(Swift_Mime_Message $message, &$failedRecipients = null)
     {
         $sent = 0;
-        $failedRecipients = (array) $failedRecipients;
+        $failedRecipients = (array)$failedRecipients;
 
         if ($evt = $this->_eventDispatcher->createSendEvent($this, $message)) {
             $this->_eventDispatcher->dispatchEvent($evt, 'beforeSendPerformed');
@@ -163,12 +163,12 @@ abstract class Swift_Transport_AbstractSmtpTransport implements Swift_Transport
         if (!$reversePath = $this->_getReversePath($message)) {
             throw new Swift_TransportException(
                 'Cannot send message without a sender address'
-                );
+            );
         }
 
-        $to = (array) $message->getTo();
-        $cc = (array) $message->getCc();
-        $bcc = (array) $message->getBcc();
+        $to = (array)$message->getTo();
+        $cc = (array)$message->getCc();
+        $bcc = (array)$message->getBcc();
 
         $message->setBcc(array());
 
@@ -215,7 +215,8 @@ abstract class Swift_Transport_AbstractSmtpTransport implements Swift_Transport
 
             try {
                 $this->executeCommand("QUIT\r\n", array(221));
-            } catch (Swift_TransportException $e) {}
+            } catch (Swift_TransportException $e) {
+            }
 
             try {
                 $this->_buffer->terminate();
@@ -264,15 +265,15 @@ abstract class Swift_Transport_AbstractSmtpTransport implements Swift_Transport
      * If no response codes are given, the response will not be validated.
      * If codes are given, an exception will be thrown on an invalid response.
      *
-     * @param string   $command
-     * @param int[]    $codes
+     * @param string $command
+     * @param int[] $codes
      * @param string[] $failures An array of failures by-reference
      *
      * @return string
      */
     public function executeCommand($command, $codes = array(), &$failures = null)
     {
-        $failures = (array) $failures;
+        $failures = (array)$failures;
         $seq = $this->_buffer->write($command);
         $response = $this->_getFullResponse($seq);
         if ($evt = $this->_eventDispatcher->createCommandEvent($this, $command, $codes)) {
@@ -296,7 +297,7 @@ abstract class Swift_Transport_AbstractSmtpTransport implements Swift_Transport
     {
         $this->executeCommand(
             sprintf("HELO %s\r\n", $this->_domain), array(250)
-            );
+        );
     }
 
     /** Send the MAIL FROM command */
@@ -304,7 +305,7 @@ abstract class Swift_Transport_AbstractSmtpTransport implements Swift_Transport
     {
         $this->executeCommand(
             sprintf("MAIL FROM: <%s>\r\n", $address), array(250)
-            );
+        );
     }
 
     /** Send the RCPT TO command */
@@ -312,7 +313,7 @@ abstract class Swift_Transport_AbstractSmtpTransport implements Swift_Transport
     {
         $this->executeCommand(
             sprintf("RCPT TO: <%s>\r\n", $address), array(250, 251, 252)
-            );
+        );
     }
 
     /** Send the DATA command */
@@ -376,8 +377,8 @@ abstract class Swift_Transport_AbstractSmtpTransport implements Swift_Transport
         $valid = (empty($wanted) || in_array($code, $wanted));
 
         if ($evt = $this->_eventDispatcher->createResponseEvent($this, $response,
-            $valid))
-        {
+            $valid)
+        ) {
             $this->_eventDispatcher->dispatchEvent($evt, 'responseReceived');
         }
 
@@ -387,7 +388,7 @@ abstract class Swift_Transport_AbstractSmtpTransport implements Swift_Transport
                     'Expected response code ' . implode('/', $wanted) . ' but got code ' .
                     '"' . $code . '", with message "' . $response . '"',
                     $code)
-                );
+            );
         }
     }
 
@@ -404,7 +405,7 @@ abstract class Swift_Transport_AbstractSmtpTransport implements Swift_Transport
             $this->_throwException(
                 new Swift_TransportException(
                     $e->getMessage())
-                );
+            );
         } catch (Swift_TransportException $e) {
             $this->_throwException($e);
         }
@@ -468,7 +469,7 @@ abstract class Swift_Transport_AbstractSmtpTransport implements Swift_Transport
             $message->setBcc(array($forwardPath => $name));
             $sent += $this->_doMailTransaction(
                 $message, $reversePath, array($forwardPath), $failedRecipients
-                );
+            );
         }
 
         return $sent;
@@ -478,8 +479,8 @@ abstract class Swift_Transport_AbstractSmtpTransport implements Swift_Transport
     private function _lookupHostname()
     {
         if (!empty($_SERVER['SERVER_NAME'])
-            && $this->_isFqdn($_SERVER['SERVER_NAME']))
-        {
+            && $this->_isFqdn($_SERVER['SERVER_NAME'])
+        ) {
             $this->_domain = $_SERVER['SERVER_NAME'];
         } elseif (!empty($_SERVER['SERVER_ADDR'])) {
             $this->_domain = sprintf('[%s]', $_SERVER['SERVER_ADDR']);

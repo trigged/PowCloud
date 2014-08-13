@@ -6,17 +6,17 @@ namespace Doctrine\Tests\Common\Annotations\Fixtures;
  * @Annotation
  * @Target("ALL")
  * @Attributes({
-      @Attribute("mixed",                type = "mixed"),
-      @Attribute("boolean",              type = "boolean"),
-      @Attribute("bool",                 type = "bool"),
-      @Attribute("float",                type = "float"),
-      @Attribute("string",               type = "string"),
-      @Attribute("integer",              type = "integer"),
-      @Attribute("array",                type = "array"),
-      @Attribute("arrayOfIntegers",      type = "array<integer>"),
-      @Attribute("annotation",           type = "Doctrine\Tests\Common\Annotations\Fixtures\AnnotationTargetAll"),
-      @Attribute("arrayOfAnnotations",   type = "array<Doctrine\Tests\Common\Annotations\Fixtures\AnnotationTargetAll>"),
-  })
+@Attribute("mixed",                type = "mixed"),
+@Attribute("boolean",              type = "boolean"),
+@Attribute("bool",                 type = "bool"),
+@Attribute("float",                type = "float"),
+@Attribute("string",               type = "string"),
+@Attribute("integer",              type = "integer"),
+@Attribute("array",                type = "array"),
+@Attribute("arrayOfIntegers",      type = "array<integer>"),
+@Attribute("annotation",           type = "Doctrine\Tests\Common\Annotations\Fixtures\AnnotationTargetAll"),
+@Attribute("arrayOfAnnotations",   type = "array<Doctrine\Tests\Common\Annotations\Fixtures\AnnotationTargetAll>"),
+})
  */
 final class AnnotationWithAttributes
 {
@@ -29,14 +29,23 @@ final class AnnotationWithAttributes
     }
 
     private $mixed;
+
     private $boolean;
+
     private $bool;
+
     private $float;
+
     private $string;
+
     private $integer;
+
     private $array;
+
     private $annotation;
+
     private $arrayOfIntegers;
+
     private $arrayOfAnnotations;
 
     /**

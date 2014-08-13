@@ -63,7 +63,7 @@ class LoginController extends Controller
 
         //在强制退出支 触发结束事件
         App::shutdown();
-
+        exit(1);
 
     }
 

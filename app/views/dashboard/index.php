@@ -178,6 +178,7 @@
     <script type="text/javascript">
         $(function () {
             $('.handle-members').click(function () {
+                $('#JS_Sub').attr('disabled', false);
                 app_id = $(this).attr('data-app-id');
                 user_id = $(this).attr('data-user-id');
                 $('#app_input').val(app_id);
@@ -191,6 +192,7 @@
                 console.log(user_id);
             });
             $('.user_info').click(function () {
+                $('#JS_Sub').attr('disabled', false);
                 app_id = $(this).attr('data-app-id');
                 user_id = $(this).attr('data-user-id');
                 $('#app_input').val(app_id);

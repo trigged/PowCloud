@@ -22,6 +22,7 @@ namespace Monolog\Formatter;
 class LogstashFormatter extends NormalizerFormatter
 {
     const V0 = 0;
+
     const V1 = 1;
 
     /**
@@ -60,7 +61,7 @@ class LogstashFormatter extends NormalizerFormatter
         // logstash requires a ISO 8601 format date with optional millisecond precision.
         parent::__construct('Y-m-d\TH:i:s.uP');
 
-        $this->systemName = $systemName ?: gethostname();
+        $this->systemName = $systemName ? : gethostname();
         $this->applicationName = $applicationName;
         $this->extraPrefix = $extraPrefix;
         $this->contextPrefix = $contextPrefix;
@@ -87,12 +88,12 @@ class LogstashFormatter extends NormalizerFormatter
     {
         $message = array(
             '@timestamp' => $record['datetime'],
-            '@message' => $record['message'],
-            '@tags' => array($record['channel']),
-            '@source' => $this->systemName,
-            '@fields' => array(
+            '@message'   => $record['message'],
+            '@tags'      => array($record['channel']),
+            '@source'    => $this->systemName,
+            '@fields'    => array(
                 'channel' => $record['channel'],
-                'level' => $record['level']
+                'level'   => $record['level']
             )
         );
 
@@ -121,12 +122,12 @@ class LogstashFormatter extends NormalizerFormatter
     {
         $message = array(
             '@timestamp' => $record['datetime'],
-            '@version' => 1,
-            'message' => $record['message'],
-            'host' => $this->systemName,
-            'type' => $record['channel'],
-            'channel' => $record['channel'],
-            'level' => $record['level_name']
+            '@version'   => 1,
+            'message'    => $record['message'],
+            'host'       => $this->systemName,
+            'type'       => $record['channel'],
+            'channel'    => $record['channel'],
+            'level'      => $record['level_name']
         );
 
         if ($this->applicationName) {

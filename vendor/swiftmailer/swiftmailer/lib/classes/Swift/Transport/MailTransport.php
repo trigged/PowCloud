@@ -37,7 +37,7 @@ class Swift_Transport_MailTransport implements Swift_Transport
     /**
      * Create a new MailTransport with the $log.
      *
-     * @param Swift_Transport_MailInvoker  $invoker
+     * @param Swift_Transport_MailInvoker $invoker
      * @param Swift_Events_EventDispatcher $eventDispatcher
      */
     public function __construct(Swift_Transport_MailInvoker $invoker, Swift_Events_EventDispatcher $eventDispatcher)
@@ -103,13 +103,13 @@ class Swift_Transport_MailTransport implements Swift_Transport
      * The return value is the number of recipients who were accepted for delivery.
      *
      * @param Swift_Mime_Message $message
-     * @param string[]           $failedRecipients An array of failures by-reference
+     * @param string[] $failedRecipients An array of failures by-reference
      *
      * @return int
      */
     public function send(Swift_Mime_Message $message, &$failedRecipients = null)
     {
-        $failedRecipients = (array) $failedRecipients;
+        $failedRecipients = (array)$failedRecipients;
 
         if ($evt = $this->_eventDispatcher->createSendEvent($this, $message)) {
             $this->_eventDispatcher->dispatchEvent($evt, 'beforeSendPerformed');
@@ -119,10 +119,10 @@ class Swift_Transport_MailTransport implements Swift_Transport
         }
 
         $count = (
-            count((array) $message->getTo())
-            + count((array) $message->getCc())
-            + count((array) $message->getBcc())
-            );
+            count((array)$message->getTo())
+            + count((array)$message->getCc())
+            + count((array)$message->getBcc())
+        );
 
         $toHeader = $message->getHeaders()->get('To');
         $subjectHeader = $message->getHeaders()->get('Subject');
@@ -130,7 +130,7 @@ class Swift_Transport_MailTransport implements Swift_Transport
         if (!$toHeader) {
             throw new Swift_TransportException(
                 'Cannot send message without a recipient'
-                );
+            );
         }
         $to = $toHeader->getFieldBody();
         $subject = $subjectHeader ? $subjectHeader->getFieldBody() : '';
@@ -168,8 +168,8 @@ class Swift_Transport_MailTransport implements Swift_Transport
         }
 
         if ($this->_invoker->mail($to, $subject, $body, $headers,
-            sprintf($this->_extraParams, $reversePath)))
-        {
+            sprintf($this->_extraParams, $reversePath))
+        ) {
             if ($evt) {
                 $evt->setResult(Swift_Events_SendEvent::RESULT_SUCCESS);
                 $evt->setFailedRecipients($failedRecipients);
@@ -178,10 +178,10 @@ class Swift_Transport_MailTransport implements Swift_Transport
         } else {
             $failedRecipients = array_merge(
                 $failedRecipients,
-                array_keys((array) $message->getTo()),
-                array_keys((array) $message->getCc()),
-                array_keys((array) $message->getBcc())
-                );
+                array_keys((array)$message->getTo()),
+                array_keys((array)$message->getCc()),
+                array_keys((array)$message->getBcc())
+            );
 
             if ($evt) {
                 $evt->setResult(Swift_Events_SendEvent::RESULT_FAILED);

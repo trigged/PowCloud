@@ -3,21 +3,322 @@
 namespace ClassPreloader\Command;
 
 use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
+use ClassPreloader\Config;
 use ClassPreloader\Parser\DirVisitor;
-use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
+use ClassPreloader\Parser\DirVisitor;
 use ClassPreloader\Parser\FileVisitor;
-use Symfony\Component\Filesystem\Filesystem;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\FileVisitor;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use ClassPreloader\Parser\NodeTraverser;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
 
 class PreCompileCommand extends Command
 {
     protected $input;
+
     protected $output;
+
     protected $printer;
+
     protected $traverser;
+
     protected $parser;
 
     public function __construct()
@@ -46,7 +347,7 @@ The <info>%command.name%</info> command iterates over each script, normalizes
 the file to be wrapped in namespaces, and combines each file into a single PHP
 file.
 EOF
-        );
+            );
     }
 
     /**
@@ -59,10 +360,10 @@ EOF
         if (!$this->traverser) {
             $this->traverser = new NodeTraverser();
             if ($this->input->getOption('fix_dir')) {
-                $this->traverser->addVisitor(new DirVisitor($file));
+                $this->traverser->addVisitor(new DirVisitor());
             }
             if ($this->input->getOption('fix_file')) {
-                $this->traverser->addVisitor(new FileVisitor($file));
+                $this->traverser->addVisitor(new FileVisitor());
             }
         }
 
@@ -72,10 +373,10 @@ EOF
     /**
      * Get a pretty printed string of code from a file while applying visitors
      *
-     * @param string        $file      Name of the file to get code from
-     * @param NodeTraverser $traverser Node traverser
+     * @param string $file Name of the file to get code from
      *
      * @return string
+     * @throws \RuntimeException
      */
     protected function getCode($file)
     {
@@ -126,6 +427,7 @@ EOF
      * @param mixed $config Configuration option
      *
      * @return array
+     * @throws \InvalidArgumentException
      */
     protected function getFileList($config)
     {
@@ -167,6 +469,8 @@ EOF
      * Prepare the output file and directory
      *
      * @param string $outputFile The full path to the output file
+     *
+     * @throws \RuntimeException
      */
     protected function prepareOutput($outputFile)
     {

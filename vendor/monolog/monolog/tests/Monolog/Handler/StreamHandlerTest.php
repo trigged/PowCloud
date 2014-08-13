@@ -11,8 +11,74 @@
 
 namespace Monolog\Handler;
 
-use Monolog\TestCase;
 use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
+use Monolog\TestCase;
 
 class StreamHandlerTest extends TestCase
 {
@@ -54,6 +120,17 @@ class StreamHandlerTest extends TestCase
     }
 
     /**
+     * @covers Monolog\Handler\StreamHandler::__construct
+     * @covers Monolog\Handler\StreamHandler::write
+     */
+    public function testWriteLocking()
+    {
+        $temp = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'monolog_locked_log';
+        $handler = new StreamHandler($temp, Logger::DEBUG, true, null, true);
+        $handler->handle($this->getRecord());
+    }
+
+    /**
      * @expectedException LogicException
      * @covers Monolog\Handler\StreamHandler::__construct
      * @covers Monolog\Handler\StreamHandler::write
@@ -82,7 +159,7 @@ class StreamHandlerTest extends TestCase
      */
     public function testWriteNonExistingResource()
     {
-        $handler = new StreamHandler('/foo/bar/baz/'.rand(0, 10000));
+        $handler = new StreamHandler('/foo/bar/baz/' . rand(0, 10000));
         $handler->handle($this->getRecord());
     }
 }

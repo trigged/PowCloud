@@ -12,6 +12,72 @@
 namespace Monolog;
 
 use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
 use Psr\Log\LogLevel;
 
 /**
@@ -28,13 +94,17 @@ class ErrorHandler
     private $logger;
 
     private $previousExceptionHandler;
+
     private $uncaughtExceptionLevel;
 
     private $previousErrorHandler;
+
     private $errorLevelMap;
 
     private $fatalLevel;
+
     private $reservedMemory;
+
     private static $fatalErrors = array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR);
 
     public function __construct(LoggerInterface $logger)
@@ -48,9 +118,9 @@ class ErrorHandler
      * By default it will handle errors, exceptions and fatal errors
      *
      * @param  LoggerInterface $logger
-     * @param  array|false     $errorLevelMap  an array of E_* constant to LogLevel::* constant mapping, or false to disable error handling
-     * @param  int|false       $exceptionLevel a LogLevel::* constant, or false to disable exception handling
-     * @param  int|false       $fatalLevel     a LogLevel::* constant, or false to disable fatal error handling
+     * @param  array|false $errorLevelMap  an array of E_* constant to LogLevel::* constant mapping, or false to disable error handling
+     * @param  int|false $exceptionLevel a LogLevel::* constant, or false to disable exception handling
+     * @param  int|false $fatalLevel     a LogLevel::* constant, or false to disable fatal error handling
      * @return ErrorHandler
      */
     public static function register(LoggerInterface $logger, $errorLevelMap = array(), $exceptionLevel = null, $fatalLevel = null)
@@ -83,7 +153,7 @@ class ErrorHandler
         $prev = set_error_handler(array($this, 'handleError'), $errorTypes);
         $this->errorLevelMap = array_replace($this->defaultErrorLevelMap(), $levelMap);
         if ($callPrevious) {
-            $this->previousErrorHandler = $prev ?: true;
+            $this->previousErrorHandler = $prev ? : true;
         }
     }
 
@@ -123,7 +193,7 @@ class ErrorHandler
     {
         $this->logger->log(
             $this->uncaughtExceptionLevel === null ? LogLevel::ERROR : $this->uncaughtExceptionLevel,
-            'Uncaught exception',
+            sprintf('Uncaught Exception %s: "%s" at %s line %s', get_class($e), $e->getMessage(), $e->getFile(), $e->getLine()),
             array('exception' => $e)
         );
 
@@ -142,7 +212,7 @@ class ErrorHandler
         }
 
         $level = isset($this->errorLevelMap[$code]) ? $this->errorLevelMap[$code] : LogLevel::CRITICAL;
-        $this->logger->log($level, self::codeToString($code).': '.$message, array('file' => $file, 'line' => $line));
+        $this->logger->log($level, self::codeToString($code) . ': ' . $message, array('code' => $code, 'message' => $message, 'file' => $file, 'line' => $line));
 
         if ($this->previousErrorHandler === true) {
             return false;
@@ -162,8 +232,8 @@ class ErrorHandler
         if ($lastError && in_array($lastError['type'], self::$fatalErrors)) {
             $this->logger->log(
                 $this->fatalLevel === null ? LogLevel::ALERT : $this->fatalLevel,
-                'Fatal Error ('.self::codeToString($lastError['type']).'): '.$lastError['message'],
-                array('file' => $lastError['file'], 'line' => $lastError['line'])
+                'Fatal Error (' . self::codeToString($lastError['type']) . '): ' . $lastError['message'],
+                array('code' => $lastError['type'], 'message' => $lastError['message'], 'file' => $lastError['file'], 'line' => $lastError['line'])
             );
         }
     }

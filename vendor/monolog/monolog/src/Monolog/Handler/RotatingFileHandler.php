@@ -12,6 +12,39 @@
 namespace Monolog\Handler;
 
 use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
 
 /**
  * Stores logs to files that are rotated every day and a limited number of files are kept.
@@ -25,27 +58,34 @@ use Monolog\Logger;
 class RotatingFileHandler extends StreamHandler
 {
     protected $filename;
+
     protected $maxFiles;
+
     protected $mustRotate;
+
     protected $nextRotation;
+
     protected $filenameFormat;
+
     protected $dateFormat;
 
     /**
-     * @param string  $filename
-     * @param integer $maxFiles The maximal amount of files to keep (0 means unlimited)
-     * @param integer $level    The minimum logging level at which this handler will be triggered
-     * @param Boolean $bubble   Whether the messages that are handled can bubble up the stack or not
+     * @param string $filename
+     * @param integer $maxFiles       The maximal amount of files to keep (0 means unlimited)
+     * @param integer $level          The minimum logging level at which this handler will be triggered
+     * @param Boolean $bubble         Whether the messages that are handled can bubble up the stack or not
+     * @param int|null $filePermission Optional file permissions (default (0644) are only for owner read/write)
+     * @param Boolean $useLocking     Try to lock log file before doing any writes
      */
-    public function __construct($filename, $maxFiles = 0, $level = Logger::DEBUG, $bubble = true)
+    public function __construct($filename, $maxFiles = 0, $level = Logger::DEBUG, $bubble = true, $filePermission = null, $useLocking = false)
     {
         $this->filename = $filename;
-        $this->maxFiles = (int) $maxFiles;
+        $this->maxFiles = (int)$maxFiles;
         $this->nextRotation = new \DateTime('tomorrow');
         $this->filenameFormat = '{filename}-{date}';
         $this->dateFormat = 'Y-m-d';
 
-        parent::__construct($this->getTimedFilename(), $level, $bubble);
+        parent::__construct($this->getTimedFilename(), $level, $bubble, $filePermission, $useLocking);
     }
 
     /**
@@ -64,6 +104,8 @@ class RotatingFileHandler extends StreamHandler
     {
         $this->filenameFormat = $filenameFormat;
         $this->dateFormat = $dateFormat;
+        $this->url = $this->getTimedFilename();
+        $this->close();
     }
 
     /**
@@ -105,7 +147,7 @@ class RotatingFileHandler extends StreamHandler
         }
 
         // Sorting the files by name to remove the older ones
-        usort($logFiles, function($a, $b) {
+        usort($logFiles, function ($a, $b) {
             return strcmp($b, $a);
         });
 
@@ -126,7 +168,7 @@ class RotatingFileHandler extends StreamHandler
         );
 
         if (!empty($fileInfo['extension'])) {
-            $timedFilename .= '.'.$fileInfo['extension'];
+            $timedFilename .= '.' . $fileInfo['extension'];
         }
 
         return $timedFilename;
@@ -141,7 +183,7 @@ class RotatingFileHandler extends StreamHandler
             $fileInfo['dirname'] . '/' . $this->filenameFormat
         );
         if (!empty($fileInfo['extension'])) {
-            $glob .= '.'.$fileInfo['extension'];
+            $glob .= '.' . $fileInfo['extension'];
         }
 
         return $glob;

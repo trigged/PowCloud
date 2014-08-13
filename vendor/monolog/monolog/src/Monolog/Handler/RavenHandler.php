@@ -11,14 +11,145 @@
 
 namespace Monolog\Handler;
 
-use Monolog\Formatter\LineFormatter;
 use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\LineFormatter;
 use Monolog\Logger;
-use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Monolog\Logger;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
+use Raven_Client;
 use Raven_Client;
 
 /**
- * Handler to send messages to a Sentry (https://github.com/dcramer/sentry) server
+ * Handler to send messages to a Sentry (https://github.com/getsentry/sentry) server
  * using raven-php (https://github.com/getsentry/raven-php)
  *
  * @author Marc Abramowitz <marc@marc-abramowitz.com>
@@ -51,8 +182,8 @@ class RavenHandler extends AbstractProcessingHandler
 
     /**
      * @param Raven_Client $ravenClient
-     * @param integer      $level       The minimum logging level at which this handler will be triggered
-     * @param Boolean      $bubble      Whether the messages that are handled can bubble up the stack or not
+     * @param integer $level       The minimum logging level at which this handler will be triggered
+     * @param Boolean $bubble      Whether the messages that are handled can bubble up the stack or not
      */
     public function __construct(Raven_Client $ravenClient, $level = Logger::DEBUG, $bubble = true)
     {
@@ -69,7 +200,7 @@ class RavenHandler extends AbstractProcessingHandler
         $level = $this->level;
 
         // filter records based on their level
-        $records = array_filter($records, function($record) use ($level) {
+        $records = array_filter($records, function ($record) use ($level) {
             return $record['level'] >= $level;
         });
 
@@ -78,7 +209,7 @@ class RavenHandler extends AbstractProcessingHandler
         }
 
         // the record with the highest severity is the "main" one
-        $record = array_reduce($records, function($highest, $record) {
+        $record = array_reduce($records, function ($highest, $record) {
             if ($record['level'] >= $highest['level']) {
                 return $record;
             }
@@ -93,7 +224,7 @@ class RavenHandler extends AbstractProcessingHandler
         }
 
         if ($logs) {
-            $record['context']['logs'] = (string) $this->getBatchFormatter()->formatBatch($logs);
+            $record['context']['logs'] = (string)$this->getBatchFormatter()->formatBatch($logs);
         }
 
         $this->handle($record);
@@ -130,6 +261,15 @@ class RavenHandler extends AbstractProcessingHandler
     {
         $options = array();
         $options['level'] = $this->logLevels[$record['level']];
+        $options['tags'] = array();
+        if (!empty($record['extra']['tags'])) {
+            $options['tags'] = array_merge($options['tags'], $record['extra']['tags']);
+            unset($record['extra']['tags']);
+        }
+        if (!empty($record['context']['tags'])) {
+            $options['tags'] = array_merge($options['tags'], $record['context']['tags']);
+            unset($record['context']['tags']);
+        }
         if (!empty($record['context'])) {
             $options['extra']['context'] = $record['context'];
         }

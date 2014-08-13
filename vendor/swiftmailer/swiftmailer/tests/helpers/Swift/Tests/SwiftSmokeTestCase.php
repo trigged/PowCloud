@@ -15,7 +15,7 @@ class Swift_Tests_SwiftSmokeTestCase extends Swift_Tests_SwiftUnitTestCase
     {
         $this->skipUnless(SWIFT_SMOKE_TRANSPORT_TYPE,
             '%s: Smoke tests are skipped if tests/smoke.conf.php is not editted'
-            );
+        );
     }
 
     protected function _getMailer()
@@ -27,13 +27,11 @@ class Swift_Tests_SwiftSmokeTestCase extends Swift_Tests_SwiftUnitTestCase
                     ->setPort(SWIFT_SMOKE_SMTP_PORT)
                     ->setUsername(SWIFT_SMOKE_SMTP_USER)
                     ->setPassword(SWIFT_SMOKE_SMTP_PASS)
-                    ->setEncryption(SWIFT_SMOKE_SMTP_ENCRYPTION)
-                    ;
+                    ->setEncryption(SWIFT_SMOKE_SMTP_ENCRYPTION);
                 break;
             case 'sendmail':
                 $transport = Swift_DependencyContainer::getInstance()->lookup('transport.sendmail')
-                    ->setCommand(SWIFT_SMOKE_SENDMAIL_COMMAND)
-                    ;
+                    ->setCommand(SWIFT_SMOKE_SENDMAIL_COMMAND);
                 break;
             case 'mail':
             case 'nativemail':

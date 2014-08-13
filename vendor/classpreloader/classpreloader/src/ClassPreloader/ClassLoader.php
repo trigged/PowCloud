@@ -48,8 +48,6 @@ class ClassLoader
 
     /**
      * Registers this instance as an autoloader.
-     *
-     * @param bool $prepend Whether to prepend the autoloader or not
      */
     public function register()
     {
@@ -67,7 +65,7 @@ class ClassLoader
     /**
      * Loads the given class or interface.
      *
-     * @param  string    $class The name of the class
+     * @param  string $class The name of the class
      * @return bool|null True, if loaded
      */
     public function loadClass($class)
