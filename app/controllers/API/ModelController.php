@@ -350,14 +350,22 @@ class ModelController extends Controller
     public function processData(&$data)
     {
         //try to convert int type field
-        foreach ($data as &$value) {
-            $this->num += 1;
-            if ($value === '0'or  (int)$value !== 0) {
-                if (is_numeric($value)) {
-                    $value = (int)$value;
+        //get all filed type
+
+        $table_info = ReadApi::getTableInfo($this->table_name);
+        if ($table_info && isset($table_info['property'])) {
+            $property = json_decode($table_info['property'], true);
+            foreach ($property as $key => $pro) {
+                if ($pro[0] == 'integer') {
+                    $data[$key] = (int)$data[$key];
+                } elseif ($pro[0] == 'double') {
+                    $data[$key] = (double)$data[$key];
+
                 }
             }
         }
+
+
         if (is_object($data)) {
             $data = (array)$data;
         }
