@@ -108,7 +108,7 @@ class DataLinkController extends CmsBaeController
                         $data_link_item->data_link_id = $id;
                         $data_link_item->table_id = $table_info['id'];
                         $data_link_item->table_name = $table_info['table_name'];
-                        $data_link_item->table_alias = $table_info['alias'];
+                        $data_link_item->table_alias = $table_info['table_alias'];
                         $data_link_item->data_id = $data_id;
                         $data_link_item->save();
                     } else {
