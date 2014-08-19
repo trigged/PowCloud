@@ -351,6 +351,9 @@ class ModelController extends Controller
     {
         //try to convert int type field
         //get all filed type
+        if (is_object($data)) {
+            $data = (array)$data;
+        }
 
         $table_info = ReadApi::getTableInfo($this->table_name);
         if ($table_info && isset($table_info['property'])) {
@@ -366,9 +369,6 @@ class ModelController extends Controller
         }
 
 
-        if (is_object($data)) {
-            $data = (array)$data;
-        }
         if (is_array($data)) {
             if ($this->version < 3.2 && Route::currentRouteName() == 'home.index') {
                 $data['id'] = 0;
