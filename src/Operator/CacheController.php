@@ -19,6 +19,7 @@ class CacheController
     public static function flashTable($table_name)
     {
         WriteApi::flushTableCache($table_name);
+        ReadApi::getTableInfo($table_name, true);
         self::handlerPaging($table_name, 0, 20);
     }
 

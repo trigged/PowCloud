@@ -37,10 +37,10 @@ class ReadApi
         return self::redis()->exists($key);
     }
 
-    public static function getTableInfo($table_name)
+    public static function getTableInfo($table_name, $flag = false)
     {
         $value = self::redis()->hgetall(sprintf(RedisKey::INFO, $table_name));
-        if ($value == null) {
+        if ($value == null || $flag) {
             $value = SchemaBuilder::where('table_name', $table_name)->first();
             if (is_object($value)) {
                 $value = $value->toArray();
@@ -166,7 +166,6 @@ class ReadApi
     {
         return self::redis()->hgetall(sprintf(RedisKey::API_INFO, $table, $method));
     }
-
 
     public static function get($key)
     {
