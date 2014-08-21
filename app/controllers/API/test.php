@@ -230,6 +230,19 @@ $values = array(0  => '""',
 );
 
 $sql = str_replace(array('%', '?'), array('%%', '%s'), $query);
-var_dump($sql);
+//var_dump($sql);
 $full_sql = vsprintf($sql, $values);
-printf($full_sql);
+//printf($full_sql);
+$launcher = '{"content_id":["integer"],"title":["string"],"bgimg":["string","200"],"relation_id":["integer"],"geo":["text"]}';
+$special = '{"title":["string"],"bgimg":["string","200"],"cover_img":["string","200"],"geo":["text"],"videos":["text"],"foreign":{"0":"string","default":"videos:special_video"},"assist_bgimg":["string"]}';
+
+$launcher_test = json_decode($launcher, true);
+$special_test = json_decode($special, true);
+$test1 = array('a' => 1, 'b' => 2, 'c' => array('m'));
+$test2 = array('d' => 111, 'a' => 1, 'b' => 11, 'c' => array('m', 'n'));
+//var_dump(array_intersect($test1, $test2));
+var_dump(array_intersect_key($test2, $test1));
+var_dump(array_intersect_key($test1, $test2));
+echo "--------------\n";
+//var_dump(array_keys(array_intersect_key($launcher_test, $special_test)));
+//var_dump(array_keys(array_intersect_key($special_test, $launcher_test)));
