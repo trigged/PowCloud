@@ -101,8 +101,8 @@ class CmsController extends CmsBaeController
         $table = SchemaBuilder::find($tableId);
         if (!$table)
             $this->ajaxResponse(array(), 'fail', '表不存在');
-        $vm = new ApiModel($table->table_name);
-        $vm = $vm->newQueryWithDeleted()->find($id);
+        $vm = ApiModel::find($table->table_name, $id);
+//        $vm = $vm->newQueryWithDeleted()->find($id);
         if (!$vm)
             $this->ajaxResponse(array(), 'fail', '访问的数据不存在');
         $vm->oldData = $vm->toArray();
@@ -122,14 +122,14 @@ class CmsController extends CmsBaeController
                     $vmForeign->restore();
                 }
             }
-            $vm->setTable($table->table_name);
+//            $vm->setTable($table->table_name);
             if (isset($vm->timing_state)) {
                 $vm->timing_state = RedisKey::PUB_ONLINE;
             }
             $vm->restore();
             $this->ajaxResponse(array(), 'success', '恢复成功');
         } else {
-            $vm->setTable($table->table_name);
+//            $vm->setTable($table->table_name);
             if (isset($vm->timing_state)) {
                 $vm->timing_state = RedisKey::PUB_ONLINE;
             }
