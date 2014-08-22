@@ -5,6 +5,7 @@ use Utils\DBMaker;
  * @property mixed restful
  * @property mixed user_id
  * @property mixed table_name
+ * @property mixed property
  * @property mixed index
  * @property mixed update
  * @property mixed create

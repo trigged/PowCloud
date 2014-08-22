@@ -84,6 +84,9 @@ Route::resource('/form', 'FormsController');
 //path
 Route::resource('/path', 'PathController');
 
+//data link
+Route::resource('/data_link', 'DataLinkController');
+
 //Record
 Route::get('/record/{record}/detail', 'RecordController@detail');
 Route::post('/record/{record}/recover', 'RecordController@recover');

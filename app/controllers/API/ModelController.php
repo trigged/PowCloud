@@ -370,9 +370,6 @@ class ModelController extends Controller
 
 
         if (is_array($data)) {
-            if ($this->version < 3.2 && Route::currentRouteName() == 'home.index') {
-                $data['id'] = 0;
-            }
             if ($this->skip_data && $this->skip_field && $skip_value = $data[$this->skip_field]) {
                 if (in_array($skip_value, $this->skip_data)) {
                     return false;
