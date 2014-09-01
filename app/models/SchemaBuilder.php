@@ -101,6 +101,11 @@ class SchemaBuilder extends XEloquent
         return $this->hasMany('Forms', 'models_id');
     }
 
+    public static function getByTableName($table_name)
+    {
+        return SchemaBuilder::where('table_name', $table_name)->first();
+    }
+
     /**
      * 变换表单数据格式
      */

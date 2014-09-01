@@ -35,9 +35,6 @@ class BaseController extends Controller
         }
         if (!$this->userHasAppRight()) {
             Auth::logout();
-//            Session::clear();
-//            return Redirect::to('/');
-//            header('Location:' . URL::action('DashBoardController@index'));
             exit(1);
         }
 

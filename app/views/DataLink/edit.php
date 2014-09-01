@@ -35,12 +35,25 @@
                 </div>
 
                 <div class="control-group" id='items'>
-                    <?php if (count($items) > 0): ?>
-                        <a id='choose_all' href="javascript:void(0);" class="btn btn-danger" onclick="allChose()">all
-                            star</a>
-                    <?php endif; ?>
 
                     <?php foreach ($items as $item): ?>
+                        <div class="dropdown  ">
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"
+                                style="display: block; position: static; margin-bottom: 5px; *width: 180px;">
+                                <li class="disabled info"><a tabindex="-1" href="#">Disabled link</a></li>
+                                <li><a tabindex="-1" target="_blank"
+                                       href="<?php echo URL::action('CmsController@edit', array('table' => $item->table_id, 'cms' => $item->data_id)) ?>"><?php echo $item->table_alias . '-' . $item->data_id ?></a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a tabindex="-1" href="#">Action</a>
+                                    <iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe>
+                                </li>
+                                <li><a tabindex="-1" href="#">Another action</a></li>
+                                <li><a tabindex="-1" href="#">Something else here</a></li>
+
+                            </ul>
+                        </div>
+
                         <label class="checkbox inline">
                             <input type="checkbox" id="inlineCheckbox1" class="checkbox_set"
                                    name="<?php echo $item->data_id . '-' . $item->table_name ?>">
@@ -56,6 +69,7 @@
                 </div>
             </fieldset>
         </form>
+
         <script>
             var items = [];
             function addItmes() {
@@ -67,20 +81,46 @@
                     return alert('请不要重复输入数据');
                 }
 
-                items.push(value);
+
+//                items.push(value);
                 var table_name = value.substring(0, value.indexOf(":"));
                 var data_id = value.substring(value.indexOf(":") + 1);
-                var check_item = '<label class="checkbox inline"> <input type="checkbox" id="inlineCheckbox1" class="checkbox_set" checked value="' + value + ' " name="' + "link_items[]" + '"> <a href="#" target="_blank"></a> ' + value + ' </label>';
-                if (!$('#choose_all').length > 0) {
-                    $('#items').html(' <a id="choose_all" href="javascript:void(0);" class="btn btn-danger" onclick="allChose()">全选</a>');
+                if (table_name == "<?php echo $data_link->table_name?>" && data_id == "<?php echo  $data_link->data_id ?>") {
+                    return alert("请不要输入主数据");
                 }
-
-                $('#items').append(check_item);
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo  URL::action('DataLinkController@checkMappingItem')  ?>",
+                    data: {"master_table": "<?php echo $data_link->table_name  ?>",
+                        "mapping_table": table_name,
+                        "mapping_id": data_id
+                    },
+                    success: function (data) {
+                        var result = jQuery.parseJSON(data);
+                        console.log('status', result['status']);
+                        if (result['status'] == 'success') {
+                            console.log(result['data']);
+                            $('#items').append(result['data']);
+                        }
+                        else {
+                            alert(result['message']);
+                        }
+                    }
+                }).done(function () {
+                        console.log('done');
+                    }).fail(function (result) {
+                        console.log('fail');
+                        alert(result);
+                    });
                 return false;
             }
-            function allChose() {
-                $(".checkbox_set").attr("checked", !$(".checkbox_set").attr("checked"));
-            }
+
+            $('.dropdown-menu li').click(function () {
+                if ($(this).attr('data-value') !== 'table_name') {
+                    $(this).remove();
+                }
+            });
+
         </script>
 
         <?php echo \Utils\FormBuilderHelper::staticEnd('shortcut_form',

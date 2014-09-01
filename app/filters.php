@@ -53,9 +53,10 @@ App::before(function (\Illuminate\Http\Request $request) {
             'message' => 'request not found  or path missing',
             'data'    => array()), 404);
 
-    } elseif (true) {
-        Route::$method($path, 'DashBoardController@index');
     }
+//    elseif (true) {
+//        Route::$method($path, 'DashBoardController@index');
+//    }
 });
 
 

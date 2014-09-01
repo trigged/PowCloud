@@ -6,6 +6,15 @@ class DataLinkController extends CmsBaeController
 
     public $menu = 'data.link';
 
+    public $template_start = ' <div class="dropdown  ">  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"
+    style="display: block; position: static; margin-bottom: 5px; *width: 180px;">
+    <li  data-value="table_name"><a tabindex="-1" href="%s" target="_blank">%s(点击查看详情)</a></li>
+    <li class="divider"></li>';
+
+    public $template_li = '<li><a tabindex="-1" href="javascript:void(0)">%s(点击删除同步此字段)</a></li>';
+
+    public $template_end = ' </ul></div>';
+
     /**
      * Display a listing of the resource.
      *
@@ -132,6 +141,47 @@ class DataLinkController extends CmsBaeController
     public function destroy($id)
     {
         //
+    }
+
+    public function addLinkItem()
+    {
+
+    }
+
+    public function checkMappingItem()
+    {
+        $master_table_name = Input::get('master_table');
+        $mapping_table_name = Input::get('mapping_table');
+        $mapping_data_id = Input::get('mapping_id');
+
+        if (!$mapping_table_name || !$mapping_data_id) {
+            //todo return params error info
+            $this->ajaxResponse(array(), 'error', '参数错误');
+        }
+
+        $mapping_data = ApiModel::find($mapping_table_name, $mapping_data_id);
+        if (!$mapping_data || !$mapping_data->exists) {
+            //todo return data missing
+            $this->ajaxResponse(array(), 'error', '子数据不存在');
+        }
+        $master_table = SchemaBuilder::getByTableName($master_table_name);
+        $mapping_table = SchemaBuilder::getByTableName($mapping_table_name);
+        if (!$master_table || !$master_table->exists || !$mapping_table) {
+            //todo return data missing
+            $this->ajaxResponse(array(), 'error', '子表不存在');
+        }
+        $master_property = json_decode($master_table->property, true);
+        $model_property = json_decode($mapping_table->property, true);
+        $mapping_property = '';
+        $same_key = array_keys(array_intersect_key($master_property, $model_property));
+        foreach ($same_key as $key) {
+            if (isset($master_property[$key][0]) && isset($model_property[$key][0]) &&
+                $master_property[$key][0] == $model_property[$key][0]
+            ) {
+                $mapping_property .= sprintf($this->template_li, $key);
+            }
+        }
+        $this->ajaxResponse(sprintf($this->template_start, URL::action('CmsController@edit', array('table' => $mapping_table->id, 'cms' => $mapping_data_id)), $mapping_table->table_alias . '.' . $mapping_data_id) . $mapping_property . $this->template_end, 'success', '子数据不存在');
     }
 
 }
