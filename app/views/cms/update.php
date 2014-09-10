@@ -75,8 +75,8 @@
                         echo '<ul  class="nav nav-pills">';
                         foreach ($data_link_info as $info) {
                             $url = URL::action('CmsController@edit', array('cms' => $info['data_id'], 'table' => $info['table_id']));
-                            $name = 'table_info[' . $info['table_id'] . '][]';
-                            echo sprintf('<li><a href="%s" target="_blank" name="%s"><input type="hidden" name="%s" value="%s" /> %s</a></li>', $url, $name, $name, $info['table_name'] . ':' . $info['data_id'], $info['table_alias'] . '.' . $info['data_id']);
+                            echo sprintf('<input type="hidden" name="link_items[%s][%s]" value="%s" />', $info['table_name'], $info['data_id'], htmlspecialchars($info['options']));
+                            echo sprintf('<li><a href="%s" target="_blank"  > %s</a></li>', $url, $info['table_alias'] . '.' . $info['data_id']);
                         }
                         echo '</ul>';
                     }?>

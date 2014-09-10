@@ -167,7 +167,7 @@ class CmsController extends CmsBaeController
         $data_link = DataLink::where('table_name', $table->table_name)->where('data_id', $id)->first();
         $data_info = array();
         if ($data_link && $data_link->exists) {
-            $data_info = DataLinkItem::where('data_link_id', $data_link->id)->get(array('table_alias', 'table_name', 'data_id', 'table_id'));
+            $data_info = DataLinkItem::where('data_link_id', $data_link->id)->get(array('table_alias', 'table_name', 'data_id', 'table_id', 'options'));
         }
         return $this->render('cms.update', array(
             'table'              => $table,
@@ -319,9 +319,9 @@ class CmsController extends CmsBaeController
         if ($children_field)
             $tableData->setDefaultValue($children_field);
 
-        $childStore = Input::except(array('id', 'table', 'table_info', $table->table_name));
-        $table_info = Input::get('table_info');
-        $this->mapping_data($table, $table_info, $tableStore);
+        $childStore = Input::except(array('id', 'table', 'link_items', $table->table_name));
+        $link_items = Input::get('link_items');
+        $this->mapping_data($link_items, $tableStore);
 
         if (count($childStore) >= 1)
             $tableData->setChildSets($childStore);
@@ -338,41 +338,19 @@ class CmsController extends CmsBaeController
      * @param $table_info
      * @param $tableStore
      */
-    public function mapping_data($table, $table_info, $tableStore)
+    public function mapping_data($link_options, $tableStore)
     {
-        $master_property = json_decode($table->property, true);
-        $mapping_property = array();
-        foreach ($table_info as $table_id => $data_ids) {
-            foreach ($data_ids as $data_id) {
-                list($table_name, $data_id) = explode(':', $data_id);
-                if ($table_name == null || $data_id == null) {
-                    continue;
-                }
-                //check exists mapping relation
-                if (!$mapping_property[$table_id]) {
-                    $model = SchemaBuilder::find($table_id);
-                    if ($model && $model->exists) {
-                        //build mapping relation
-                        $model_property = json_decode($model->property, true);
-                        $same_key = array_keys(array_intersect_key($master_property, $model_property));
-                        foreach ($same_key as $key) {
-                            if (isset($master_property[$key][0]) && isset($model_property[$key][0]) &&
-                                $master_property[$key][0] == $model_property[$key][0]
-                            ) {
-                                $mapping_property[$table_id][] = $key;
-                            }
-                        }
-                    }
-                }
+        //table_name data_id optopns
 
+        foreach ($link_options as $table_name => $data_ids) {
+            foreach ($data_ids as $data_id => $options) {
                 //change data
                 $mapping_data = ApiModel::find($table_name, $data_id);
-                if ($mapping_data && $mapping_data->exists) {
-                    foreach ($mapping_property[$table_id] as $filed) {
-                        $mapping_data[$filed] = $tableStore[$filed];
-                    }
-                    $mapping_data->save();
+                $option_filed = json_decode(htmlspecialchars_decode($options), true);
+                foreach ($option_filed as $filed) {
+                    $mapping_data[$filed] = $tableStore[$filed];
                 }
+                $mapping_data->save();
             }
         }
     }

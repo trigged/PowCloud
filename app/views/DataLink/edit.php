@@ -35,31 +35,32 @@
                 </div>
 
                 <div class="control-group" id='items'>
-
                     <?php foreach ($items as $item): ?>
                         <div class="dropdown  ">
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"
                                 style="display: block; position: static; margin-bottom: 5px; *width: 180px;">
-                                <li class="disabled info"><a tabindex="-1" href="#">Disabled link</a></li>
+
+                                <a class="close" style="color: red ; opacity: 0.6;"
+                                   href="javascript:void(0)" data-value="<?php echo $item->id ?>"
+                                   onclick="deleteItem(this)">&times;</a>
+
                                 <li><a tabindex="-1" target="_blank"
                                        href="<?php echo URL::action('CmsController@edit', array('table' => $item->table_id, 'cms' => $item->data_id)) ?>"><?php echo $item->table_alias . '-' . $item->data_id ?></a>
                                 </li>
                                 <li class="divider"></li>
-                                <li><a tabindex="-1" href="#">Action</a>
-                                    <iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe>
-                                </li>
-                                <li><a tabindex="-1" href="#">Another action</a></li>
-                                <li><a tabindex="-1" href="#">Something else here</a></li>
-
+                                <?php
+                                echo sprintf('<input type="hidden" name="link_items[%s][%s][id]" value="%s">', $item->table_name, $item->data_id, $item->id);
+                                $item_options = json_decode($item->options, true);
+                                foreach ($item_options as $options) {
+                                    //$key, $mapping_table_name, $mapping_data_id, $key);
+                                    echo sprintf('<li><a tabindex="-1"  href="javascript:void(0)">%s(点击删除同步此字段)</a>
+    <input type="hidden" name="link_items[%s][%s][]" value="%s">
+    </li>', $options, $item->table_name, $item->data_id, $options);
+                                }
+                                ?>
                             </ul>
                         </div>
 
-                        <label class="checkbox inline">
-                            <input type="checkbox" id="inlineCheckbox1" class="checkbox_set"
-                                   name="<?php echo $item->data_id . '-' . $item->table_name ?>">
-                            <a href='<?php echo URL::action('CmsController@edit', array('table' => $item->table_id, 'cms' => $item->data_id)) ?>'
-                               target="_blank"><?php echo $item->table_alias . '-' . $item->data_id ?></a>
-                        </label>
                     <?php endforeach ?>
                 </div>
 
@@ -82,7 +83,7 @@
                 }
 
 
-//                items.push(value);
+                items.push(value);
                 var table_name = value.substring(0, value.indexOf(":"));
                 var data_id = value.substring(value.indexOf(":") + 1);
                 if (table_name == "<?php echo $data_link->table_name?>" && data_id == "<?php echo  $data_link->data_id ?>") {
@@ -97,9 +98,8 @@
                     },
                     success: function (data) {
                         var result = jQuery.parseJSON(data);
-                        console.log('status', result['status']);
                         if (result['status'] == 'success') {
-                            console.log(result['data']);
+
                             $('#items').append(result['data']);
                         }
                         else {
@@ -120,6 +120,26 @@
                     $(this).remove();
                 }
             });
+
+
+            function deleteItem(item) {
+                var delete_id = $(item).attr('data-value');
+                console.log("closed");
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo  URL::action('DataLinkController@deleteItem')  ?>",
+                    data: {"id": delete_id },
+                    success: function (data) {
+                        var result = jQuery.parseJSON(data);
+                        alert(result['message']);
+                        $(item).parent().remove();
+                    }
+                }).done(function () {
+
+                    }).fail(function (result) {
+                        alert(result);
+                    });
+            }
 
         </script>
 

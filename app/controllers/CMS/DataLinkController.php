@@ -3,15 +3,17 @@
 class DataLinkController extends CmsBaeController
 {
 
-
     public $menu = 'data.link';
 
-    public $template_start = ' <div class="dropdown  ">  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"
+    public $template_start = ' <div class="dropdown" >  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"
     style="display: block; position: static; margin-bottom: 5px; *width: 180px;">
+    <a class="close" style="color: red ; opacity: 0.6;" href="javascript:void(0)" data-value="-1"  onclick="deleteItem(this)" >&times;</a>
     <li  data-value="table_name"><a tabindex="-1" href="%s" target="_blank">%s(点击查看详情)</a></li>
     <li class="divider"></li>';
 
-    public $template_li = '<li><a tabindex="-1" href="javascript:void(0)">%s(点击删除同步此字段)</a></li>';
+    public $template_li = '<li><a tabindex="-1"  href="javascript:void(0)">%s(点击删除同步此字段)</a>
+    <input type="hidden" name="link_items[%s][%s][]" value="%s">
+    </li>';
 
     public $template_end = ' </ul></div>';
 
@@ -87,7 +89,7 @@ class DataLinkController extends CmsBaeController
         if (!$data_link->exists) {
             $this->ajaxResponse('', 'fail', '数据不存在');
         }
-        $items = DataLinkItem::where("data_link_id", $id)->get(array('table_id', 'table_alias', 'data_id', 'table_name', 'id'));
+        $items = DataLinkItem::where("data_link_id", $id)->get(array('table_id', 'table_alias', 'data_id', 'table_name', 'id', 'options'));
         return $this->render('DataLink.edit', array(
             'data_link' => $data_link,
             'items'     => $items
@@ -96,6 +98,8 @@ class DataLinkController extends CmsBaeController
 
     /**
      * Update the specified resource in storage.
+     *
+     * link_items[table_name][data_id] = array(filed1, filed2,...)
      *
      * @param  int $id
      * @return Response
@@ -107,29 +111,35 @@ class DataLinkController extends CmsBaeController
             $this->ajaxResponse('', 'fail', '数据不存在');
         }
         $info = '';
-        foreach ($link_items as $item) {
-            list($table_name, $data_id) = explode(':', $item);
-            if (!empty($table_name) && !empty($data_id)) {
-                $table_info = \Operator\ReadApi::getTableInfo($table_name);
-                if ($table_info) {
-                    if (ApiModel::find($table_name, $data_id)->exists) {
-                        $data_link_item = new DataLinkItem();
-                        $data_link_item->data_link_id = $id;
-                        $data_link_item->table_id = $table_info['id'];
-                        $data_link_item->table_name = $table_info['table_name'];
-                        $data_link_item->table_alias = $table_info['table_alias'];
-                        $data_link_item->data_id = $data_id;
+        foreach ($link_items as $table_name => $data) {
+            foreach ($data as $data_id => $fileds) {
+                if (isset($fileds['id']) && $item_id = $fileds['id']) {
+                    $data_link_item = DataLinkItem::find($item_id);
+                    if ($data_link_item->exists) {
+                        unset($fileds['id']);
+                        $data_link_item->options = json_encode($fileds);
                         $data_link_item->save();
-                    } else {
-                        $info .= ' ' . $table_name . '找不到: ' . $data_id . '的记录';
+                        continue;
                     }
+                }
+                if (ApiModel::find($table_name, $data_id)->exists) {
+                    $table_info = \Operator\ReadApi::getTableInfo($table_name);
+//                    DataLinkItem::find();
+                    $data_link_item = new DataLinkItem();
+                    $data_link_item->data_link_id = $id;
+                    $data_link_item->table_id = $table_info['id'];
+                    $data_link_item->table_name = $table_info['table_name'];
+                    $data_link_item->table_alias = $table_info['table_alias'];
+                    $data_link_item->data_id = $data_id;
+                    $data_link_item->options = json_encode($fileds);
+                    $data_link_item->save();
                 } else {
-                    $info .= ' 找不到 :' . $table_name . '的表';
+                    $info .= ' ' . $table_name . '找不到: ' . $data_id . '的记录';
                 }
             }
         }
-
-        $this->ajaxResponse(array(), 'success', '创建字关键变更成功 ,部分失效数据不会加入记录' . $info, URL::action('DataLinkController@index'));
+//        $this->ajaxResponse('', 'fail', '数据不存在');
+        $this->ajaxResponse(array(), 'success', '创建字关键变更成功' . $info, URL::action('DataLinkController@index'));
     }
 
     /**
@@ -178,10 +188,31 @@ class DataLinkController extends CmsBaeController
             if (isset($master_property[$key][0]) && isset($model_property[$key][0]) &&
                 $master_property[$key][0] == $model_property[$key][0]
             ) {
-                $mapping_property .= sprintf($this->template_li, $key);
+                $mapping_property .= sprintf($this->template_li, $key, $mapping_table_name, $mapping_data_id, $key);
             }
         }
-        $this->ajaxResponse(sprintf($this->template_start, URL::action('CmsController@edit', array('table' => $mapping_table->id, 'cms' => $mapping_data_id)), $mapping_table->table_alias . '.' . $mapping_data_id) . $mapping_property . $this->template_end, 'success', '子数据不存在');
+        $html = sprintf($this->template_start, URL::action('CmsController@edit', array('table' => $mapping_table->id, 'cms' => $mapping_data_id)), $mapping_table->table_alias . '.' . $mapping_data_id)
+            . $mapping_property . $this->template_end;
+        $this->ajaxResponse($html, 'success', '子数据不存在');
+
+    }
+
+    public function deleteItem()
+    {
+        $item_id = Input::get('id');
+
+        try {
+            if ($item_id != -1) {
+                DataLinkItem::destroy($item_id);
+            }
+
+
+            $this->ajaxResponse('', 'success', '删除成功');
+        } catch (\Exception $e) {
+            $this->ajaxResponse('', 'success', '删除失败');
+        }
+
+
     }
 
 }

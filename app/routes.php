@@ -82,6 +82,8 @@ Route::resource('/path', 'PathController');
 
 //data link
 Route::post('/data_link/check', 'DataLinkController@checkMappingItem');
+Route::post('/data_link/delete', 'DataLinkController@deleteItem');
+
 Route::resource('/data_link', 'DataLinkController');
 
 //Record

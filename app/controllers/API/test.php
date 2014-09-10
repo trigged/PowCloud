@@ -244,5 +244,11 @@ $test2 = array('d' => 111, 'a' => 1, 'b' => 11, 'c' => array('m', 'n'));
 var_dump(array_intersect_key($test2, $test1));
 var_dump(array_intersect_key($test1, $test2));
 echo "--------------\n";
+
+
+$json_test1 = json_encode(array("title", "img"));
+var_dump($json_test1);
+var_dump(htmlspecialchars($json_test1));
+var_dump(htmlspecialchars_decode(htmlspecialchars($json_test1)));
 //var_dump(array_keys(array_intersect_key($launcher_test, $special_test)));
 //var_dump(array_keys(array_intersect_key($special_test, $launcher_test)));
