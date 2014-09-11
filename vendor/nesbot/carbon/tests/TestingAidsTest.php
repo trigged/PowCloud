@@ -10,39 +10,6 @@
  */
 
 use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
 
 class TestingAidsTest extends TestFixture
 {
@@ -134,15 +101,6 @@ class TestingAidsTest extends TestFixture
 
         $this->assertEquals('2013-10-01 05:15:05', Carbon::parse('first day of next month')->toDateTimeString());
         $this->assertEquals('2013-09-30 05:15:05', Carbon::parse('last day of this month')->toDateTimeString());
-    }
-
-    public function testParseRelativeWithMinusSignsInDate()
-    {
-        $notNow = Carbon::parse('2013-09-01 05:15:05');
-        Carbon::setTestNow($notNow);
-
-        $this->assertEquals('2000-01-03 00:00:00', Carbon::parse('2000-1-3')->toDateTimeString());
-        $this->assertEquals('2000-10-10 00:00:00', Carbon::parse('2000-10-10')->toDateTimeString());
     }
 
     public function testTimeZoneWithTestValueSet()

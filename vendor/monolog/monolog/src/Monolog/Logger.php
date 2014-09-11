@@ -12,140 +12,8 @@
 namespace Monolog;
 
 use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\StreamHandler;
 use Monolog\Handler\StreamHandler;
 use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\InvalidArgumentException;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -235,19 +103,16 @@ class Logger implements LoggerInterface
     );
 
     /**
-     * @var \DateTimeZone
+     * @var DateTimeZone
      */
     protected static $timezone;
 
-    /**
-     * @var string
-     */
     protected $name;
 
     /**
      * The handler stack
      *
-     * @var HandlerInterface[]
+     * @var array of Monolog\Handler\HandlerInterface
      */
     protected $handlers;
 
@@ -256,14 +121,14 @@ class Logger implements LoggerInterface
      *
      * To process records of a single handler instead, add the processor on that specific handler
      *
-     * @var callable[]
+     * @var array of callables
      */
     protected $processors;
 
     /**
      * @param string $name       The logging channel
-     * @param HandlerInterface[] $handlers   Optional stack of handlers, the first one in the array is called first, etc.
-     * @param callable[] $processors Optional array of processors
+     * @param array $handlers   Optional stack of handlers, the first one in the array is called first, etc.
+     * @param array $processors Optional array of processors
      */
     public function __construct($name, array $handlers = array(), array $processors = array())
     {
@@ -305,14 +170,6 @@ class Logger implements LoggerInterface
     }
 
     /**
-     * @return HandlerInterface[]
-     */
-    public function getHandlers()
-    {
-        return $this->handlers;
-    }
-
-    /**
      * Adds a processor on to the stack.
      *
      * @param callable $callback
@@ -337,14 +194,6 @@ class Logger implements LoggerInterface
         }
 
         return array_shift($this->processors);
-    }
-
-    /**
-     * @return callable[]
-     */
-    public function getProcessors()
-    {
-        return $this->processors;
     }
 
     /**

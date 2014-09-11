@@ -12,41 +12,6 @@
 */
 
 
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-
 Route::get('env', function () {
 
     $ak = 'ApeZGJsGl3vfyGtP72Vkkcd5vpAgLZ6v8sw4iFw7';

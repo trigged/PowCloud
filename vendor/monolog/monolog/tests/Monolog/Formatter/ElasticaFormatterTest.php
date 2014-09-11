@@ -11,7 +11,7 @@
 
 namespace Monolog\Formatter;
 
-use Monolog\Logger;
+use Monolog\Formatter\ElasticaFormatter;
 use Monolog\Logger;
 
 class ElasticaFormatterTest extends \PHPUnit_Framework_TestCase

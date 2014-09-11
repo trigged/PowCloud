@@ -12,72 +12,6 @@
 namespace Monolog\Handler;
 
 use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
 use Monolog\TestCase;
 
 class StreamHandlerTest extends TestCase
@@ -116,17 +50,6 @@ class StreamHandlerTest extends TestCase
     public function testWriteCreatesTheStreamResource()
     {
         $handler = new StreamHandler('php://memory');
-        $handler->handle($this->getRecord());
-    }
-
-    /**
-     * @covers Monolog\Handler\StreamHandler::__construct
-     * @covers Monolog\Handler\StreamHandler::write
-     */
-    public function testWriteLocking()
-    {
-        $temp = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'monolog_locked_log';
-        $handler = new StreamHandler($temp, Logger::DEBUG, true, null, true);
         $handler->handle($this->getRecord());
     }
 

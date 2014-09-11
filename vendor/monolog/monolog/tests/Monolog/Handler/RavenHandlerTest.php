@@ -12,106 +12,8 @@
 namespace Monolog\Handler;
 
 use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\RavenHandler;
 use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
 use Monolog\TestCase;
 
 class RavenHandlerTest extends TestCase
@@ -170,18 +72,6 @@ class RavenHandlerTest extends TestCase
 
         $this->assertEquals($ravenClient::WARNING, $ravenClient->lastData['level']);
         $this->assertContains($record['message'], $ravenClient->lastData['message']);
-    }
-
-    public function testTag()
-    {
-        $ravenClient = $this->getRavenClient();
-        $handler = $this->getHandler($ravenClient);
-
-        $tags = array(1, 2, 'foo');
-        $record = $this->getRecord(Logger::INFO, "test", array('tags' => $tags));
-        $handler->handle($record);
-
-        $this->assertEquals($tags, $ravenClient->lastData['tags']);
     }
 
     public function testException()

@@ -11,6 +11,8 @@
 
 namespace Monolog\Formatter;
 
+use Monolog\Formatter\NormalizerFormatter;
+
 /**
  * Formats data into an associative array of scalar values.
  * Objects and arrays will be JSON encoded.

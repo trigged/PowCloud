@@ -11,39 +11,6 @@
 namespace Patchwork;
 
 use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
-use Normalizer as n;
 
 /**
  * UTF-8 Grapheme Cluster aware string manipulations implementing the quasi complete
@@ -136,14 +103,14 @@ class Utf8
                 }
 
                 if (preg_match('/[\x80-\xFF]/', $var)) {
-                    if (n::isNormalized($var, $normalization_form)) $n = '-';
+                    if (n::isNormalized($var, $normalization_form)) $n = '';
                     else {
                         $n = n::normalize($var, $normalization_form);
-                        if (isset($n[0])) $var = $n;
-                        else $var = static::utf8_encode($var);
+                        if (false === $n) $var = static::utf8_encode($var);
+                        else $var = $n;
                     }
 
-                    if ($var[0] >= "\x80" && isset($n[0], $leading_combining[0]) && preg_match('/^\p{Mn}/u', $var)) {
+                    if ($var[0] >= "\x80" && false !== $n && isset($leading_combining[0]) && preg_match('/^\p{Mn}/u', $var)) {
                         // Prevent leading combining chars
                         // for NFC-safe concatenations.
                         $var = $leading_combining . $var;
@@ -250,9 +217,8 @@ class Utf8
         /**/
         if (50418 > PHP_VERSION_ID || 50500 == PHP_VERSION_ID) /**/ {
             // Don't use grapheme_stripos because of https://bugs.php.net/61860
-            if (!preg_match('//u', $s .= '')) return false;
             if ($offset < 0) $offset = 0;
-            if (!$needle = mb_stripos($s, $needle .= '', $offset, 'UTF-8')) return $needle;
+            if (!$needle = mb_stripos($s, $needle, $offset, 'UTF-8')) return $needle;
             return grapheme_strlen(iconv_substr($s, 0, $needle, 'UTF-8'));
             /**/
         } /**/ else /**/ {
@@ -266,9 +232,8 @@ class Utf8
         /**/
         if (50418 > PHP_VERSION_ID || 50500 == PHP_VERSION_ID) /**/ {
             // Don't use grapheme_strripos because of https://bugs.php.net/61860
-            if (!preg_match('//u', $s .= '')) return false;
             if ($offset < 0) $offset = 0;
-            if (!$needle = mb_strripos($s, $needle .= '', $offset, 'UTF-8')) return $needle;
+            if (!$needle = mb_strripos($s, $needle, $offset, 'UTF-8')) return $needle;
             return grapheme_strlen(iconv_substr($s, 0, $needle, 'UTF-8'));
             /**/
         } /**/ else /**/ {
@@ -310,49 +275,57 @@ class Utf8
 
     static function wordwrap($s, $width = 75, $break = "\n", $cut = false)
     {
-        if (false === wordwrap('-', $width, $break, $cut)) return false;
+        // This implementation could be extended to handle unicode word boundaries,
+        // but that's enough work for today (see http://www.unicode.org/reports/tr29/)
 
-        is_string($break) or $break = (string)$break;
-
-        $w = '';
+        $width = (int)$width;
         $s = explode($break, $s);
-        $iLen = count($s);
-        $chars = array();
 
-        if (1 === $iLen && '' === $s[0])
-            return '';
+        $iLen = count($s);
+        $result = array();
+        $line = '';
+        $lineLen = 0;
 
         for ($i = 0; $i < $iLen; ++$i) {
-            if ($i) {
-                $chars[] = $break;
-                $w .= '#';
-            }
+            $words = explode(' ', $s[$i]);
+            $line && $result[] = $line;
+            $lineLen = grapheme_strlen($line);
+            $jLen = count($words);
 
-            $c = $s[$i];
-            unset($s[$i]);
+            for ($j = 0; $j < $jLen; ++$j) {
+                $w = $words[$j];
+                $wLen = grapheme_strlen($w);
 
-            foreach (self::str_split($c) as $c) {
-                $chars[] = $c;
-                $w .= ' ' === $c ? ' ' : '?';
+                if ($lineLen + $wLen < $width) {
+                    if ($j) $line .= ' ';
+                    $line .= $w;
+                    $lineLen += $wLen + 1;
+                } else {
+                    if ($j || $i) $result[] = $line;
+                    $line = '';
+                    $lineLen = 0;
+
+                    if ($cut && $wLen > $width) {
+                        $w = self::str_split($w);
+
+                        do {
+                            $result[] = implode('', array_slice($w, 0, $width));
+                            $line = implode('', $w = array_slice($w, $width));
+                            $lineLen = $wLen -= $width;
+                        } while ($wLen > $width);
+
+                        $w = implode('', $w);
+                    }
+
+                    $line = $w;
+                    $lineLen = $wLen;
+                }
             }
         }
 
-        $s = '';
-        $j = 0;
-        $b = $i = -1;
-        $w = wordwrap($w, $width, '#', $cut);
+        $line && $result[] = $line;
 
-        while (false !== $b = strpos($w, '#', $b + 1)) {
-            for (++$i; $i < $b; ++$i) {
-                $s .= $chars[$j];
-                unset($chars[$j++]);
-            }
-
-            if ($break === $chars[$j] || ' ' === $chars[$j]) unset($chars[$j++]);
-            $s .= $break;
-        }
-
-        return $s . implode('', $chars);
+        return implode($break, $result);
     }
 
     static function chr($c)

@@ -11,39 +11,7 @@
 
 namespace Monolog\Formatter;
 
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
+use Monolog\Formatter\LogstashFormatter;
 use Monolog\Logger;
 
 class LogstashFormatterTest extends \PHPUnit_Framework_TestCase

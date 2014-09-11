@@ -12,72 +12,6 @@
 namespace Monolog\Handler;
 
 use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
 use Monolog\Logger;
 
 /**
@@ -133,6 +67,6 @@ class CouchDBHandler extends AbstractProcessingHandler
      */
     protected function getDefaultFormatter()
     {
-        return new JsonFormatter(JsonFormatter::BATCH_MODE_JSON, false);
+        return new JsonFormatter();
     }
 }

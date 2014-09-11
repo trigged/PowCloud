@@ -11,39 +11,6 @@
 namespace Monolog\Formatter;
 
 use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
 
 /**
  * Formats incoming records into an HTML table
@@ -63,9 +30,9 @@ class HtmlFormatter extends NormalizerFormatter
         Logger::NOTICE    => '#3a87ad',
         Logger::WARNING   => '#c09853',
         Logger::ERROR     => '#f0ad4e',
-        Logger::CRITICAL  => '#FF7708',
-        Logger::ALERT     => '#C12A19',
-        Logger::EMERGENCY => '#000000',
+        Logger::CRITICAL  => '#b94a48',
+        Logger::ALERT     => '#d9534f',
+        Logger::EMERGENCY => '#ffffff',
     );
 
     /**

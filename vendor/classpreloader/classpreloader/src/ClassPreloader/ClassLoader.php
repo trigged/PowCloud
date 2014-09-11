@@ -48,6 +48,8 @@ class ClassLoader
 
     /**
      * Registers this instance as an autoloader.
+     *
+     * @param bool $prepend Whether to prepend the autoloader or not
      */
     public function register()
     {

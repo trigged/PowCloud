@@ -3,39 +3,6 @@
 namespace ClassPreloader;
 
 use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
-use Parser\AbstractNodeVisitor;
 
 /**
  * Class loader configuration object
@@ -63,9 +30,9 @@ class Config implements \IteratorAggregate
     protected $inclusiveFilters = array();
 
     /**
-     * Add the filename owned by the config
+     * Set the filenames owned by the config
      *
-     * @param string $filename File name
+     * @param array $filenames File name
      *
      * @return self
      */

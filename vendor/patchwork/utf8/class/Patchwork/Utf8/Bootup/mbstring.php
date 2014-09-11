@@ -9,39 +9,6 @@
  */
 
 use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
-use Patchwork\PHP\Shim as s;
 const MB_OVERLOAD_MAIL = 1;
 const MB_OVERLOAD_STRING = 2;
 const MB_OVERLOAD_REGEX = 4;
@@ -79,37 +46,12 @@ function mb_internal_encoding($enc = INF)
 }
 
 ;
-function mb_language($lang = INF)
-{
-    return s\Mbstring::mb_language($lang);
-}
-
 function mb_list_encodings()
 {
     return s\Mbstring::mb_list_encodings();
 }
 
 ;
-function mb_encoding_aliases($encoding)
-{
-    return s\Mbstring::mb_encoding_aliases($encoding);
-}
-
-function mb_check_encoding($var = INF, $encoding = INF)
-{
-    return s\Mbstring::mb_check_encoding($var, $encoding);
-}
-
-function mb_detect_encoding($str, $encoding_list = INF, $strict = false)
-{
-    return s\Mbstring::mb_detect_encoding($str, $encoding_list, $strict);
-}
-
-function mb_detect_order($encoding_list = INF)
-{
-    return s\Mbstring::mb_detect_order($encoding_list);
-}
-
 function mb_parse_str($s, &$result = array())
 {
     return parse_str($s, $result);

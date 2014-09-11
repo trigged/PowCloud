@@ -6,11 +6,13 @@
 
     "require": {
         "php": ">=5.3.3",
-        "symfony/console": "~2.1",
-        "symfony/filesystem": "~2.1",
-        "symfony/finder": "~2.1",
-        "nikic/php-parser": "~0.9"
+        "symfony/console": ">2.0",
+        "symfony/filesystem": ">2.0",
+        "symfony/finder": ">2.0",
+        "nikic/php-parser": "*"
     },
+
+    "minimum-stability": "beta",
 
     "autoload": {
         "psr-0": {
@@ -22,7 +24,7 @@
 
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "1.0.0-dev"
         }
     }
 }

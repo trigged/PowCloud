@@ -10,39 +10,6 @@
  */
 
 use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
 
 class MyCarbon extends Carbon
 {
@@ -138,12 +105,7 @@ class StringsTest extends TestFixture
     public function testToCOOKIEString()
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-        if (\DateTime::COOKIE === 'l, d-M-y H:i:s T')
-            $cookieString = 'Thursday, 25-Dec-75 14:15:16 EST';
-        else
-            $cookieString = 'Thursday, 25-Dec-1975 14:15:16 EST';
-
-        $this->assertSame($cookieString, $d->toCOOKIEString());
+        $this->assertSame('Thursday, 25-Dec-75 14:15:16 EST', $d->toCOOKIEString());
     }
 
     public function testToISO8601String()

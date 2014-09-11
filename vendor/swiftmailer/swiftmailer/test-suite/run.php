@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 
 require_once dirname(__FILE__) . '/config.php';
@@ -46,3 +45,4 @@ if (!empty($argv[1]) && !preg_match('~!?/.*?/~', $argv[1])) {
 } else {
     $runner->runAllTests();
 }
+

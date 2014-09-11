@@ -12,39 +12,6 @@
 namespace Monolog\Processor;
 
 use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
 
 class MemoryPeakUsageProcessorTest extends TestCase
 {
@@ -58,18 +25,5 @@ class MemoryPeakUsageProcessorTest extends TestCase
         $record = $processor($this->getRecord());
         $this->assertArrayHasKey('memory_peak_usage', $record['extra']);
         $this->assertRegExp('#[0-9.]+ (M|K)?B$#', $record['extra']['memory_peak_usage']);
-    }
-
-    /**
-     * @covers Monolog\Processor\MemoryPeakUsageProcessor::__invoke
-     * @covers Monolog\Processor\MemoryProcessor::formatBytes
-     */
-    public function testProcessorWithoutFormatting()
-    {
-        $processor = new MemoryPeakUsageProcessor(true, false);
-        $record = $processor($this->getRecord());
-        $this->assertArrayHasKey('memory_peak_usage', $record['extra']);
-        $this->assertInternalType('int', $record['extra']['memory_peak_usage']);
-        $this->assertGreaterThan(0, $record['extra']['memory_peak_usage']);
     }
 }

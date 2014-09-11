@@ -55,11 +55,6 @@ final class AnnotationWithVarType
     public $arrayOfIntegers;
 
     /**
-     * @var string[]
-     */
-    public $arrayOfStrings;
-
-    /**
      * @var array<Doctrine\Tests\Common\Annotations\Fixtures\AnnotationTargetAll>
      */
     public $arrayOfAnnotations;

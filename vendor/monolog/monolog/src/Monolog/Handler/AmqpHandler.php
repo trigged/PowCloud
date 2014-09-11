@@ -12,105 +12,25 @@
 namespace Monolog\Handler;
 
 use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\JsonFormatter;
 use Monolog\Logger;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use PhpAmqpLib\Message\AMQPMessage;
 
 class AmqpHandler extends AbstractProcessingHandler
 {
     /**
-     * @var AMQPExchange|AMQPChannel $exchange
+     * @var \AMQPExchange $exchange
      */
     protected $exchange;
 
     /**
-     * @var string
-     */
-    protected $exchangeName;
-
-    /**
-     * @param AMQPExchange|AMQPChannel $exchange     AMQPExchange (php AMQP ext) or PHP AMQP lib channel, ready for use
+     * @param \AMQPExchange $exchange     AMQP exchange, ready for use
      * @param string $exchangeName
      * @param int $level
      * @param bool $bubble       Whether the messages that are handled can bubble up the stack or not
      */
-    public function __construct($exchange, $exchangeName = 'log', $level = Logger::DEBUG, $bubble = true)
+    public function __construct(\AMQPExchange $exchange, $exchangeName = 'log', $level = Logger::DEBUG, $bubble = true)
     {
-        if ($exchange instanceof AMQPExchange) {
-            $exchange->setName($exchangeName);
-        } elseif ($exchange instanceof AMQPChannel) {
-            $this->exchangeName = $exchangeName;
-        } else {
-            throw new \InvalidArgumentException('PhpAmqpLib\Channel\AMQPChannel or AMQPExchange instance required');
-        }
         $this->exchange = $exchange;
+        $this->exchange->setName($exchangeName);
 
         parent::__construct($level, $bubble);
     }
@@ -124,34 +44,19 @@ class AmqpHandler extends AbstractProcessingHandler
 
         $routingKey = sprintf(
             '%s.%s',
-            // TODO 2.0 remove substr call
             substr($record['level_name'], 0, 4),
             $record['channel']
         );
 
-        if ($this->exchange instanceof AMQPExchange) {
-            $this->exchange->publish(
-                $data,
-                strtolower($routingKey),
-                0,
-                array(
-                    'delivery_mode' => 2,
-                    'Content-type'  => 'application/json'
-                )
-            );
-        } else {
-            $this->exchange->basic_publish(
-                new AMQPMessage(
-                    (string)$data,
-                    array(
-                        'delivery_mode' => 2,
-                        'content_type'  => 'application/json'
-                    )
-                ),
-                $this->exchangeName,
-                strtolower($routingKey)
-            );
-        }
+        $this->exchange->publish(
+            $data,
+            strtolower($routingKey),
+            0,
+            array(
+                'delivery_mode' => 2,
+                'Content-type'  => 'application/json'
+            )
+        );
     }
 
     /**
@@ -159,6 +64,6 @@ class AmqpHandler extends AbstractProcessingHandler
      */
     protected function getDefaultFormatter()
     {
-        return new JsonFormatter(JsonFormatter::BATCH_MODE_JSON, false);
+        return new JsonFormatter();
     }
 }

@@ -12,39 +12,6 @@
 namespace Monolog\Formatter;
 
 use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
-use Exception;
 
 /**
  * Normalizes incoming records to remove objects/resources so it's easier to dump to various targets
@@ -63,9 +30,6 @@ class NormalizerFormatter implements FormatterInterface
     public function __construct($dateFormat = null)
     {
         $this->dateFormat = $dateFormat ? : static::SIMPLE_DATE;
-        if (!function_exists('json_encode')) {
-            throw new \RuntimeException('PHP\'s json extension is required to use Monolog\'s NormalizerFormatter');
-        }
     }
 
     /**
@@ -137,6 +101,7 @@ class NormalizerFormatter implements FormatterInterface
         );
 
         $trace = $e->getTrace();
+        array_shift($trace);
         foreach ($trace as $frame) {
             if (isset($frame['file'])) {
                 $data['trace'][] = $frame['file'] . ':' . $frame['line'];

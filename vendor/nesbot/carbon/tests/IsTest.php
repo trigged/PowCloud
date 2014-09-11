@@ -10,39 +10,6 @@
  */
 
 use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
-use Carbon\Carbon;
 
 class IsTest extends TestFixture
 {
@@ -139,6 +106,5 @@ class IsTest extends TestFixture
     public function testIsPast()
     {
         $this->assertFalse(Carbon::now()->addSecond()->isPast());
-        $this->assertFalse(Carbon::now()->isPast());
     }
 }

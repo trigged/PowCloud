@@ -12,72 +12,6 @@
 namespace Monolog\Handler;
 
 use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
 use Monolog\TestCase;
 
 class MongoDBHandlerTest extends TestCase
@@ -92,7 +26,7 @@ class MongoDBHandlerTest extends TestCase
 
     public function testHandle()
     {
-        $mongo = $this->getMock('Mongo', array('selectCollection'), array(), '', false);
+        $mongo = $this->getMock('Mongo', array('selectCollection'));
         $collection = $this->getMock('stdClass', array('save'));
 
         $mongo->expects($this->once())

@@ -3,72 +3,6 @@
 namespace Doctrine\Tests\Common\Annotations;
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
-use Doctrine\Common\Annotations\FileCacheReader;
 use Doctrine\Common\Annotations\FileCacheReader;
 
 class FileCacheReaderTest extends AbstractReaderTest
@@ -99,7 +33,7 @@ class FileCacheReaderTest extends AbstractReaderTest
 
         $this->assertFalse(is_dir($this->cacheDir));
 
-        new FileCacheReader(new AnnotationReader(), $this->cacheDir);
+        $cache = new FileCacheReader(new AnnotationReader(), $this->cacheDir);
 
         $this->assertTrue(is_dir($this->cacheDir));
     }

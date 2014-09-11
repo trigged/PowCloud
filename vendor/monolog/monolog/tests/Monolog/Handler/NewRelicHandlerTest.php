@@ -12,118 +12,16 @@
 namespace Monolog\Handler;
 
 use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
-use Monolog\Logger;
 use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Monolog\TestCase;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
-use Psr\Log\LogLevel;
 use Psr\Log\LogLevel;
 
 class NewRelicHandlerTest extends TestCase
 {
     public static $appname;
 
-    public static $customParameters;
-
     public function setUp()
     {
-        self::$appname = null;
-        self::$customParameters = array();
+        $this::$appname = null;
     }
 
     /**
@@ -141,38 +39,10 @@ class NewRelicHandlerTest extends TestCase
         $handler->handle($this->getRecord(Logger::ERROR));
     }
 
-    public function testThehandlerCanAddContextParamsToTheNewRelicTrace()
+    public function testThehandlerCanAddParamsToTheNewRelicTrace()
     {
         $handler = new StubNewRelicHandler();
         $handler->handle($this->getRecord(Logger::ERROR, 'log message', array('a' => 'b')));
-        $this->assertEquals(array('a' => 'b'), self::$customParameters);
-    }
-
-    public function testThehandlerCanAddExtraParamsToTheNewRelicTrace()
-    {
-        $record = $this->getRecord(Logger::ERROR, 'log message');
-        $record['extra'] = array('c' => 'd');
-
-        $handler = new StubNewRelicHandler();
-        $handler->handle($record);
-
-        $this->assertEquals(array('c' => 'd'), self::$customParameters);
-    }
-
-    public function testThehandlerCanAddExtraContextAndParamsToTheNewRelicTrace()
-    {
-        $record = $this->getRecord(Logger::ERROR, 'log message', array('a' => 'b'));
-        $record['extra'] = array('c' => 'd');
-
-        $handler = new StubNewRelicHandler();
-        $handler->handle($record);
-
-        $expected = array(
-            'a' => 'b',
-            'c' => 'd',
-        );
-
-        $this->assertEquals($expected, self::$customParameters);
     }
 
     public function testTheAppNameIsNullByDefault()
@@ -180,7 +50,7 @@ class NewRelicHandlerTest extends TestCase
         $handler = new StubNewRelicHandler();
         $handler->handle($this->getRecord(Logger::ERROR, 'log message'));
 
-        $this->assertEquals(null, self::$appname);
+        $this->assertEquals(null, $this::$appname);
     }
 
     public function testTheAppNameCanBeInjectedFromtheConstructor()
@@ -188,7 +58,7 @@ class NewRelicHandlerTest extends TestCase
         $handler = new StubNewRelicHandler(LogLevel::ALERT, false, 'myAppName');
         $handler->handle($this->getRecord(Logger::ERROR, 'log message'));
 
-        $this->assertEquals('myAppName', self::$appname);
+        $this->assertEquals('myAppName', $this::$appname);
     }
 
     public function testTheAppNameCanBeOverriddenFromEachLog()
@@ -196,7 +66,7 @@ class NewRelicHandlerTest extends TestCase
         $handler = new StubNewRelicHandler(LogLevel::ALERT, false, 'myAppName');
         $handler->handle($this->getRecord(Logger::ERROR, 'log message', array('appname' => 'logAppName')));
 
-        $this->assertEquals('logAppName', self::$appname);
+        $this->assertEquals('logAppName', $this::$appname);
     }
 }
 
@@ -226,9 +96,7 @@ function newrelic_set_appname($appname)
     return NewRelicHandlerTest::$appname = $appname;
 }
 
-function newrelic_add_custom_parameter($key, $value)
+function newrelic_add_custom_parameter()
 {
-    NewRelicHandlerTest::$customParameters[$key] = $value;
-
     return true;
 }
