@@ -50,17 +50,13 @@ Route::get('nginx', function () {
     return Route::dispatch($request)->getContent();
 });
 
-Route::get("polling", "DashBoardController@polling");
-Route::get('push', function () {
-    return Response::view("index");
-});
 
+//Route::get('dashboard', 'DashBoardController@index');
 
-Route::get('dashboard/', 'DashBoardController@index');
 Route::resource('dashboard', 'DashBoardController');
 Route::resource('app', 'AppController');
 Route::resource('team', 'UserController');
-Route::get('dashboard', 'DashBoardController@index');
+
 Route::get('addMember', 'DashBoardController@addMember');
 Route::post('delete', 'DashBoardController@delete');
 Route::get('editApp', 'DashBoardController@editApp');
@@ -105,6 +101,12 @@ Route::resource('/form', 'FormsController');
 
 //path
 Route::resource('/path', 'PathController');
+
+//data link
+Route::post('/data_link/check', 'DataLinkController@checkMappingItem');
+Route::post('/data_link/delete', 'DataLinkController@deleteItem');
+
+Route::resource('/data_link', 'DataLinkController');
 
 //Record
 Route::get('/record/{record}/detail', 'RecordController@detail');

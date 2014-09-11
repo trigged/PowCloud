@@ -68,6 +68,18 @@
                         </div>
                     <?php endif; ?>
                     <?php endforeach; ?>
+
+
+                    <?php if (!empty($data_link_info)) {
+                        echo '<div class="alert alert-info">此数据设置了级联更新,数据变化会导致从属数据同步,会影响的数据如下: </div>';
+                        echo '<ul  class="nav nav-pills">';
+                        foreach ($data_link_info as $info) {
+                            $url = URL::action('CmsController@edit', array('cms' => $info['data_id'], 'table' => $info['table_id']));
+                            echo sprintf('<input type="hidden" name="link_items[%s][%s]" value="%s" />', $info['table_name'], $info['data_id'], htmlspecialchars($info['options']));
+                            echo sprintf('<li><a href="%s" target="_blank"  > %s</a></li>', $url, $info['table_alias'] . '.' . $info['data_id']);
+                        }
+                        echo '</ul>';
+                    }?>
         </fieldset>
         <?php if ($children_relations): ?>
             <?php foreach ($children_relations as $children_relation): ?>
@@ -128,6 +140,12 @@
                 </fieldset>
             <?php endforeach; ?>
         <?php endif; ?>
+
+
+
+
+
+
         <div class="form-actions">
             <?php if (isset($options[$table->id]) && $options[$table->id]['edit'] == 2): ?>
                 <button class="btn btn-primary" type="submit" id="JS_Sub">更新</button>

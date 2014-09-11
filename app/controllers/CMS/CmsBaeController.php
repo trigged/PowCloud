@@ -41,7 +41,9 @@ class CmsBaeController extends BaseController
             }
 
         }
-
+        $cmsSideFromDb['cms']['数据级联管理'] = array(
+            array('label' => '数据变更', 'url' => URL::action('DataLinkController@index'), 'menu' => 'data.change',),
+        );
         return $cmsSideFromDb;
     }
 } 

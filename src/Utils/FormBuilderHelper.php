@@ -206,7 +206,7 @@ EOT;
             $input = '<input type="text" name="' . self::getFieldName($form->field) . '[]" placeholder="有效图片地址" value="' . $value . '"  class="' . $class . ' image-uploader"  />';
 
         $js_link = '<a class="JS_repeat" title="继续添加" href="javascript:void(0) "><i class="icon-plus"></i></a>';
-
+        $js_remove = '<a class="JS_remove" title="继续添加" href="javascript:void(0) "><i class="icon-remove"></i></a>';
         $js = " <script>
         $(function(){
             $('.JS_repeat').click(function(){
@@ -214,9 +214,15 @@ EOT;
                 html.attr('value','');
                 $(this).before(html);
             });
+            $('.JS_remove').click('click' , function() {
+                 $(this).prev().prev().remove();
+//                 $(this).remove();
+
+                return false;
+            });
         })
     </script>";
-        return $input . $js_link . $js;
+        return $input . $js_link . $js_remove . $js;
     }
 
     public static function upload2QN($form, $value, $class = '')

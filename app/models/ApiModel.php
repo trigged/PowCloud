@@ -46,11 +46,21 @@ class ApiModel extends Eloquent
 
     public function __construct($name = null, array $attributes = array())
     {
-        if ($name === null)
-            throw new InvalidArgumentException('请设置table_name');
-        $this->table = $name;
-
+//        if ($name === null)
+//            throw new InvalidArgumentException('请设置table_name');
+        if ($name) {
+            $this->table = $name;
+        }
         parent::__construct($attributes);
+    }
+
+    public static function Find($table_name, $id, $columns = array('*'))
+    {
+        $instance = new static($table_name);
+        $instance = $instance->newQuery()->find($id, $columns);
+        $instance->table = $table_name;
+        return $instance;
+
     }
 
     public static function boot()

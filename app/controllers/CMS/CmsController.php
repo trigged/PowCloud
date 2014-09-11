@@ -101,8 +101,8 @@ class CmsController extends CmsBaeController
         $table = SchemaBuilder::find($tableId);
         if (!$table)
             $this->ajaxResponse(array(), 'fail', '表不存在');
-        $vm = new ApiModel($table->table_name);
-        $vm = $vm->newQueryWithDeleted()->find($id);
+        $vm = ApiModel::find($table->table_name, $id);
+//        $vm = $vm->newQueryWithDeleted()->find($id);
         if (!$vm)
             $this->ajaxResponse(array(), 'fail', '访问的数据不存在');
         $vm->oldData = $vm->toArray();
@@ -122,14 +122,14 @@ class CmsController extends CmsBaeController
                     $vmForeign->restore();
                 }
             }
-            $vm->setTable($table->table_name);
+//            $vm->setTable($table->table_name);
             if (isset($vm->timing_state)) {
                 $vm->timing_state = RedisKey::PUB_ONLINE;
             }
             $vm->restore();
             $this->ajaxResponse(array(), 'success', '恢复成功');
         } else {
-            $vm->setTable($table->table_name);
+//            $vm->setTable($table->table_name);
             if (isset($vm->timing_state)) {
                 $vm->timing_state = RedisKey::PUB_ONLINE;
             }
@@ -163,6 +163,12 @@ class CmsController extends CmsBaeController
 
         $children_relations = Forms::loadRelationForm($table, 'edit', $table_data);
 
+
+        $data_link = DataLink::where('table_name', $table->table_name)->where('data_id', $id)->first();
+        $data_info = array();
+        if ($data_link && $data_link->exists) {
+            $data_info = DataLinkItem::where('data_link_id', $data_link->id)->get(array('table_alias', 'table_name', 'data_id', 'table_id', 'options'));
+        }
         return $this->render('cms.update', array(
             'table'              => $table,
             'tableData'          => $table_data,
@@ -170,6 +176,7 @@ class CmsController extends CmsBaeController
             'hide'               => $hide,
             'children_relations' => $children_relations,
             'options'            => $this->getOption(),
+            'data_link_info'     => $data_info,
         ));
     }
 
@@ -312,7 +319,9 @@ class CmsController extends CmsBaeController
         if ($children_field)
             $tableData->setDefaultValue($children_field);
 
-        $childStore = Input::except(array('id', 'table', $table->table_name));
+        $childStore = Input::except(array('id', 'table', 'link_items', $table->table_name));
+        $link_items = Input::get('link_items');
+        $this->mapping_data($link_items, $tableStore);
 
         if (count($childStore) >= 1)
             $tableData->setChildSets($childStore);
@@ -322,6 +331,28 @@ class CmsController extends CmsBaeController
 
         $this->ajaxResponse(array(), 'fail', '修改失败', URL::action('CmsController@index', array('id' => $tableId)));
 
+    }
+
+    /**
+     * @param $table
+     * @param $table_info
+     * @param $tableStore
+     */
+    public function mapping_data($link_options, $tableStore)
+    {
+        //table_name data_id optopns
+
+        foreach ($link_options as $table_name => $data_ids) {
+            foreach ($data_ids as $data_id => $options) {
+                //change data
+                $mapping_data = ApiModel::find($table_name, $data_id);
+                $option_filed = json_decode(htmlspecialchars_decode($options), true);
+                foreach ($option_filed as $filed) {
+                    $mapping_data[$filed] = $tableStore[$filed];
+                }
+                $mapping_data->save();
+            }
+        }
     }
 
     /**

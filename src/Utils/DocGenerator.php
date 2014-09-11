@@ -204,7 +204,7 @@ null
 
     static function  buildParams($app_id)
     {
-        $token = UseHelper::makeToken($app_id);
+        $token = UseHelper::makeToken($app_id, UseHelper::$default_key);
         self::$params .= $token;
 
     }

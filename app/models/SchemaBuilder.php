@@ -5,6 +5,7 @@ use Utils\DBMaker;
  * @property mixed restful
  * @property mixed user_id
  * @property mixed table_name
+ * @property mixed property
  * @property mixed index
  * @property mixed update
  * @property mixed create
@@ -98,6 +99,11 @@ class SchemaBuilder extends XEloquent
     {
 
         return $this->hasMany('Forms', 'models_id');
+    }
+
+    public static function getByTableName($table_name)
+    {
+        return SchemaBuilder::where('table_name', $table_name)->first();
     }
 
     /**

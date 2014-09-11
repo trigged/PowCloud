@@ -35,8 +35,7 @@ class BaseController extends Controller
         }
         if (!$this->userHasAppRight()) {
             Auth::logout();
-            Session::clear();
-            return Redirect::to('/');
+            exit(1);
         }
 
         \Utils\AppChose::updateConf();
@@ -66,7 +65,7 @@ class BaseController extends Controller
         $this->app_id = $app_id;
         if (Session::has($this->allow_app_id_key)) {
             $app_ids = Session::get($this->allow_app_id_key);
-            if ($app_ids && array_key_exists($this->app_id,$app_ids)) {
+            if ($app_ids && array_key_exists($this->app_id, $app_ids)) {
                 return true;
             }
             return false;
