@@ -23,7 +23,7 @@ function get_greeting()
 {
     $hour = date('H');
     if ($hour >= 18) {
-        echo '晚上好~!';
+        echo '晚上好1~!';
     } elseif ($hour >= 14) {
         echo '下午好~';
     } else if (12 <= $hour && $hour < 14) {
