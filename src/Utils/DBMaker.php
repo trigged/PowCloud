@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
 
 class DBMaker
 {
-
+    //ALTER TABLE `cms_2_data`.`data_link_item`  ADD COLUMN `options` VARCHAR(45) NULL AFTER `deleted_at`;
 
     const DB_CREATE = 'CREATE DATABASE `%s`;';
 
