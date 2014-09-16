@@ -39,9 +39,9 @@ class DynamoDbHandler extends AbstractProcessingHandler
 
     /**
      * @param DynamoDbClient $client
-     * @param string         $table
-     * @param integer        $level
-     * @param boolean        $bubble
+     * @param string $table
+     * @param integer $level
+     * @param boolean $bubble
      */
     public function __construct(DynamoDbClient $client, $table, $level = Logger::DEBUG, $bubble = true)
     {
@@ -65,7 +65,7 @@ class DynamoDbHandler extends AbstractProcessingHandler
 
         $this->client->putItem(array(
             'TableName' => $this->table,
-            'Item' => $formatted
+            'Item'      => $formatted
         ));
     }
 
@@ -75,7 +75,7 @@ class DynamoDbHandler extends AbstractProcessingHandler
      */
     protected function filterEmptyFields(array $record)
     {
-        return array_filter($record, function($value) {
+        return array_filter($record, function ($value) {
             return !empty($value) || false === $value || 0 === $value;
         });
     }

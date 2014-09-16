@@ -29,7 +29,7 @@ class NormalizerFormatter implements FormatterInterface
      */
     public function __construct($dateFormat = null)
     {
-        $this->dateFormat = $dateFormat ?: static::SIMPLE_DATE;
+        $this->dateFormat = $dateFormat ? : static::SIMPLE_DATE;
     }
 
     /**
@@ -89,22 +89,22 @@ class NormalizerFormatter implements FormatterInterface
             return '[resource]';
         }
 
-        return '[unknown('.gettype($data).')]';
+        return '[unknown(' . gettype($data) . ')]';
     }
 
     protected function normalizeException(Exception $e)
     {
         $data = array(
-            'class' => get_class($e),
+            'class'   => get_class($e),
             'message' => $e->getMessage(),
-            'file' => $e->getFile().':'.$e->getLine(),
+            'file'    => $e->getFile() . ':' . $e->getLine(),
         );
 
         $trace = $e->getTrace();
         array_shift($trace);
         foreach ($trace as $frame) {
             if (isset($frame['file'])) {
-                $data['trace'][] = $frame['file'].':'.$frame['line'];
+                $data['trace'][] = $frame['file'] . ':' . $frame['line'];
             } else {
                 $data['trace'][] = json_encode($frame);
             }

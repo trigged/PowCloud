@@ -11,8 +11,8 @@
 
 namespace Monolog\Handler;
 
-use Monolog\Logger;
 use Monolog\Formatter\JsonFormatter;
+use Monolog\Logger;
 
 /**
  * Sends errors to Loggly.

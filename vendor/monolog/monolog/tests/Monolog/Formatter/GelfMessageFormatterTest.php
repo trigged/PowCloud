@@ -11,8 +11,8 @@
 
 namespace Monolog\Formatter;
 
-use Monolog\Logger;
 use Monolog\Formatter\GelfMessageFormatter;
+use Monolog\Logger;
 
 class GelfMessageFormatterTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,13 +30,13 @@ class GelfMessageFormatterTest extends \PHPUnit_Framework_TestCase
     {
         $formatter = new GelfMessageFormatter();
         $record = array(
-            'level' => Logger::ERROR,
+            'level'      => Logger::ERROR,
             'level_name' => 'ERROR',
-            'channel' => 'meh',
-            'context' => array(),
-            'datetime' => new \DateTime("@0"),
-            'extra' => array(),
-            'message' => 'log',
+            'channel'    => 'meh',
+            'context'    => array(),
+            'datetime'   => new \DateTime("@0"),
+            'extra'      => array(),
+            'message'    => 'log',
         );
 
         $message = $formatter->format($record);
@@ -65,13 +65,13 @@ class GelfMessageFormatterTest extends \PHPUnit_Framework_TestCase
     {
         $formatter = new GelfMessageFormatter();
         $record = array(
-            'level' => Logger::ERROR,
+            'level'      => Logger::ERROR,
             'level_name' => 'ERROR',
-            'channel' => 'meh',
-            'context' => array('from' => 'logger'),
-            'datetime' => new \DateTime("@0"),
-            'extra' => array('file' => 'test', 'line' => 14),
-            'message' => 'log',
+            'channel'    => 'meh',
+            'context'    => array('from' => 'logger'),
+            'datetime'   => new \DateTime("@0"),
+            'extra'      => array('file' => 'test', 'line' => 14),
+            'message'    => 'log',
         );
 
         $message = $formatter->format($record);
@@ -88,13 +88,13 @@ class GelfMessageFormatterTest extends \PHPUnit_Framework_TestCase
     {
         $formatter = new GelfMessageFormatter();
         $record = array(
-            'level' => Logger::ERROR,
+            'level'      => Logger::ERROR,
             'level_name' => 'ERROR',
-            'channel' => 'meh',
-            'context' => array('from' => 'logger'),
-            'datetime' => new \DateTime("@0"),
-            'extra' => array('key' => 'pair'),
-            'message' => 'log'
+            'channel'    => 'meh',
+            'context'    => array('from' => 'logger'),
+            'datetime'   => new \DateTime("@0"),
+            'extra'      => array('key' => 'pair'),
+            'message'    => 'log'
         );
 
         $message = $formatter->format($record);
@@ -126,17 +126,17 @@ class GelfMessageFormatterTest extends \PHPUnit_Framework_TestCase
     {
         $formatter = new GelfMessageFormatter();
         $record = array(
-            'level' => Logger::ERROR,
+            'level'      => Logger::ERROR,
             'level_name' => 'ERROR',
-            'channel' => 'meh',
-            'context' => array('from' => 'logger', 'exception' => array(
+            'channel'    => 'meh',
+            'context'    => array('from' => 'logger', 'exception' => array(
                 'class' => '\Exception',
                 'file'  => '/some/file/in/dir.php:56',
                 'trace' => array('/some/file/1.php:23', '/some/file/2.php:3')
             )),
-            'datetime' => new \DateTime("@0"),
-            'extra' => array(),
-            'message' => 'log'
+            'datetime'   => new \DateTime("@0"),
+            'extra'      => array(),
+            'message'    => 'log'
         );
 
         $message = $formatter->format($record);
@@ -155,13 +155,13 @@ class GelfMessageFormatterTest extends \PHPUnit_Framework_TestCase
     {
         $formatter = new GelfMessageFormatter();
         $record = array(
-            'level' => Logger::ERROR,
+            'level'      => Logger::ERROR,
             'level_name' => 'ERROR',
-            'channel' => 'meh',
-            'context' => array('from' => 'logger'),
-            'datetime' => new \DateTime("@0"),
-            'extra' => array('key' => 'pair'),
-            'message' => 'log'
+            'channel'    => 'meh',
+            'context'    => array('from' => 'logger'),
+            'datetime'   => new \DateTime("@0"),
+            'extra'      => array('key' => 'pair'),
+            'message'    => 'log'
         );
 
         $message = $formatter->format($record);

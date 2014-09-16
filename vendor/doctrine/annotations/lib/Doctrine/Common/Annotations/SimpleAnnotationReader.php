@@ -69,7 +69,7 @@ class SimpleAnnotationReader implements Reader
      */
     public function getClassAnnotations(\ReflectionClass $class)
     {
-        return $this->parser->parse($class->getDocComment(), 'class '.$class->getName());
+        return $this->parser->parse($class->getDocComment(), 'class ' . $class->getName());
     }
 
     /**
@@ -82,7 +82,7 @@ class SimpleAnnotationReader implements Reader
      */
     public function getMethodAnnotations(\ReflectionMethod $method)
     {
-        return $this->parser->parse($method->getDocComment(), 'method '.$method->getDeclaringClass()->name.'::'.$method->getName().'()');
+        return $this->parser->parse($method->getDocComment(), 'method ' . $method->getDeclaringClass()->name . '::' . $method->getName() . '()');
     }
 
     /**
@@ -95,7 +95,7 @@ class SimpleAnnotationReader implements Reader
      */
     public function getPropertyAnnotations(\ReflectionProperty $property)
     {
-        return $this->parser->parse($property->getDocComment(), 'property '.$property->getDeclaringClass()->name.'::$'.$property->getName());
+        return $this->parser->parse($property->getDocComment(), 'property ' . $property->getDeclaringClass()->name . '::$' . $property->getName());
     }
 
     /**

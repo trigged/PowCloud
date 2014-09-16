@@ -11,8 +11,8 @@
 
 namespace Monolog\Handler;
 
-use Monolog\TestCase;
 use Monolog\Logger;
+use Monolog\TestCase;
 
 /**
  * @covers Monolog\Handler\RotatingFileHandler
@@ -40,21 +40,21 @@ class AmqpHandlerTest extends TestCase
 
         $expected = array(
             array(
-                'message' => 'test',
-                'context' => array(
+                'message'    => 'test',
+                'context'    => array(
                     'data' => array(),
-                    'foo' => 34,
+                    'foo'  => 34,
                 ),
-                'level' => 300,
+                'level'      => 300,
                 'level_name' => 'WARNING',
-                'channel' => 'test',
-                'extra' => array(),
+                'channel'    => 'test',
+                'extra'      => array(),
             ),
             'warn.test',
             0,
             array(
                 'delivery_mode' => 2,
-                'Content-type' => 'application/json'
+                'Content-type'  => 'application/json'
             )
         );
 

@@ -6,5 +6,6 @@ class ClassWithConstants
 {
 
     const SOME_VALUE = 'ClassWithConstants.SOME_VALUE';
-    const SOME_KEY   = 'ClassWithConstants.SOME_KEY';
+
+    const SOME_KEY = 'ClassWithConstants.SOME_KEY';
 }

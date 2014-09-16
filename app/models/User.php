@@ -74,12 +74,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface
 
     public static function checkExistsByMail($mail)
     {
-        $invited_user = User::where("email", $mail)->first();
-        if ($invited_user->exists) {
-            return $invited_user;
+        $user = User::where("email", $mail)->first();
+        if ($user->exists) {
+            return $user;
         }
         return false;
     }
 
-
+    public static function checkExistsByID($id)
+    {
+        $user = User::find($id);
+        if ($user->exists) {
+            return $user;
+        }
+        return false;
+    }
 }

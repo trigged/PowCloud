@@ -11,8 +11,8 @@
 
 namespace Symfony\Component\Filesystem;
 
-use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
+use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
  * Provides basic utility to manipulate the file system.
@@ -28,8 +28,8 @@ class Filesystem
      *
      * By default, if the target already exists, it is not overridden.
      *
-     * @param string  $originFile The original filename
-     * @param string  $targetFile The target filename
+     * @param string $originFile The original filename
+     * @param string $targetFile The target filename
      * @param boolean $override   Whether to override an existing file or not
      *
      * @throws FileNotFoundException    When originFile doesn't exist
@@ -68,7 +68,7 @@ class Filesystem
      * Creates a directory recursively.
      *
      * @param string|array|\Traversable $dirs The directory path
-     * @param integer                   $mode The directory mode
+     * @param integer $mode The directory mode
      *
      * @throws IOException On any directory creation failure
      */
@@ -107,8 +107,8 @@ class Filesystem
      * Sets access and modification time of file.
      *
      * @param string|array|\Traversable $files A filename, an array of files, or a \Traversable instance to create
-     * @param integer                   $time  The touch time as a unix timestamp
-     * @param integer                   $atime The access time as a unix timestamp
+     * @param integer $time  The touch time as a unix timestamp
+     * @param integer $atime The access time as a unix timestamp
      *
      * @throws IOException When touch fails
      */
@@ -163,9 +163,9 @@ class Filesystem
      * Change mode for an array of files or directories.
      *
      * @param string|array|\Traversable $files     A filename, an array of files, or a \Traversable instance to change mode
-     * @param integer                   $mode      The new mode (octal)
-     * @param integer                   $umask     The mode mask (octal)
-     * @param Boolean                   $recursive Whether change the mod recursively or not
+     * @param integer $mode      The new mode (octal)
+     * @param integer $umask     The mode mask (octal)
+     * @param Boolean $recursive Whether change the mod recursively or not
      *
      * @throws IOException When the change fail
      */
@@ -185,8 +185,8 @@ class Filesystem
      * Change the owner of an array of files or directories
      *
      * @param string|array|\Traversable $files     A filename, an array of files, or a \Traversable instance to change owner
-     * @param string                    $user      The new owner user name
-     * @param Boolean                   $recursive Whether change the owner recursively or not
+     * @param string $user      The new owner user name
+     * @param Boolean $recursive Whether change the owner recursively or not
      *
      * @throws IOException When the change fail
      */
@@ -212,8 +212,8 @@ class Filesystem
      * Change the group of an array of files or directories
      *
      * @param string|array|\Traversable $files     A filename, an array of files, or a \Traversable instance to change group
-     * @param string                    $group     The group name
-     * @param Boolean                   $recursive Whether change the group recursively or not
+     * @param string $group     The group name
+     * @param Boolean $recursive Whether change the group recursively or not
      *
      * @throws IOException When the change fail
      */
@@ -238,8 +238,8 @@ class Filesystem
     /**
      * Renames a file or a directory.
      *
-     * @param string  $origin    The origin filename or directory
-     * @param string  $target    The new filename or directory
+     * @param string $origin    The origin filename or directory
+     * @param string $target    The new filename or directory
      * @param Boolean $overwrite Whether to overwrite the target if it already exists
      *
      * @throws IOException When target file or directory already exists
@@ -260,8 +260,8 @@ class Filesystem
     /**
      * Creates a symbolic link or copy a directory.
      *
-     * @param string  $originDir     The origin directory path
-     * @param string  $targetDir     The symbolic link name
+     * @param string $originDir     The origin directory path
+     * @param string $targetDir     The symbolic link name
      * @param Boolean $copyOnWindows Whether to copy files if on Windows
      *
      * @throws IOException When symlink fails
@@ -334,7 +334,7 @@ class Filesystem
         $endPathRemainder = implode('/', array_slice($endPathArr, $index));
 
         // Construct $endPath from traversing to the common path, then to the remaining $endPath
-        $relativePath = $traverser.(strlen($endPathRemainder) > 0 ? $endPathRemainder.'/' : '');
+        $relativePath = $traverser . (strlen($endPathRemainder) > 0 ? $endPathRemainder . '/' : '');
 
         return (strlen($relativePath) === 0) ? './' : $relativePath;
     }
@@ -342,10 +342,10 @@ class Filesystem
     /**
      * Mirrors a directory to another.
      *
-     * @param string       $originDir The origin directory
-     * @param string       $targetDir The target directory
+     * @param string $originDir The origin directory
+     * @param string $targetDir The target directory
      * @param \Traversable $iterator  A Traversable instance
-     * @param array        $options   An array of boolean options
+     * @param array $options   An array of boolean options
      *                               Valid options are:
      *                                 - $options['override'] Whether to override an existing file on copy or not (see copy())
      *                                 - $options['copy_on_windows'] Whether to copy files instead of links on Windows (see symlink())
@@ -433,8 +433,8 @@ class Filesystem
     /**
      * Atomically dumps content into a file.
      *
-     * @param  string  $filename The file to be written to.
-     * @param  string  $content  The data to write into the file.
+     * @param  string $filename The file to be written to.
+     * @param  string $content  The data to write into the file.
      * @param  integer $mode     The file mode (octal).
      * @throws IOException       If the file cannot be written to.
      */

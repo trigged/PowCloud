@@ -64,12 +64,12 @@ final class PhpParser
      * Get the content of the file right up to the given line number.
      *
      * @param  string $filename   The name of the file to load.
-     * @param  int    $lineNumber The number of lines to read from file.
+     * @param  int $lineNumber The number of lines to read from file.
      * @return string The content of the file.
      */
     private function getFileContent($filename, $lineNumber)
     {
-        if ( ! is_file($filename)) {
+        if (!is_file($filename)) {
             return null;
         }
 

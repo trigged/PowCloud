@@ -18,20 +18,22 @@ class LoginController extends Controller
         $username = Input::get('username');
         $pwd = Input::get('password');
         $email = Input::get('email');
+        if (empty($username)) {
+            $this->ajaxResponse(array(), 'fail', '用户名不可以写空');
+        }
         //check username
         $name_count = User::where('name', $username)->count();
         if ($name_count > 0) {
-            $this->ajaxResponse('', '用户名已经存在，大侠换个名字吧', '/register');
+            $this->ajaxResponse(array(), 'fail', '用户名已经被注册过了-, -!');
         }
-        //check email exists
+//        check email exists
         $email_count = User::where('email', $email)->count();
         if ($email_count > 0) {
-            $this->ajaxResponse('', '改邮箱已经注册过了，大侠还是换一个吧或者直接登录', '/register');
+            $this->ajaxResponse(array(), 'fail', '改邮箱已经注册过了，大侠还是换一个吧或者直接登录-, -!');
         }
         $tel = Input::get('tel');
         $user = new User();
         $user->name = $username;
-        #$user->token = \Utils\UseHelper::makeToken($user->id);
         if (!Config::get('app.allow_register')) {
             $user->status = User::DISABLE;
         }
@@ -39,26 +41,30 @@ class LoginController extends Controller
         $user->tel = $tel;
         $user->pwd = sha1($pwd);
         $user->save();
-        $this->ajaxResponse('', '注册成功', '/dashboard');
+
+        $message_id = Input::get('msg_id');
+        if (!empty($message_id)) {
+            $message = UserMessage::find($message_id);
+            UserMessage::processUserMessage($message, $user->id);
+        }
+        $this->ajaxResponse(array(), 'success', '注册成功', 'DashBoardController@index');
     }
 
-    protected function ajaxResponse($data = array(), $status = 'success', $message = '', $redirect = '')
+    protected function ajaxResponse($data = array(), $status = 'success', $message = '', $successRedirect = '', $failRedirect = '')
     {
         $return = array(
-            'status'   => $status,
-            'message'  => $message,
-            'data'     => $data,
-            'redirect' => $redirect,
+            'status'          => $status,
+            'message'         => $message,
+            'data'            => $data,
+            'successRedirect' => $successRedirect,
+            'failRedirect'    => $failRedirect
         );
-
-//        if($successRedirect || $failRedirect)
-//            \Utils\Env::messageTip("messageTip", $status, $message);
         echo json_encode($return);
 
         //在强制退出支 触发结束事件
         App::shutdown();
-
         exit(1);
+
     }
 
     public function login()
@@ -68,7 +74,11 @@ class LoginController extends Controller
 
     public function register()
     {
-        return View::make('cms.register');
+        $msg_id = Input::get('msg_id', -1);
+        $email = Input::get('email');
+        return View::make('cms.register', array('msg_id' => $msg_id, 'email' => $email))
+            ->nest('header', 'dashboard.header')
+            ->nest('footer', 'dashboard.footer');;
     }
 
     public function loginStore()

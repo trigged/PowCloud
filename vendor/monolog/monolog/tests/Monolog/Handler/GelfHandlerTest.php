@@ -11,9 +11,9 @@
 
 namespace Monolog\Handler;
 
-use Monolog\TestCase;
-use Monolog\Logger;
 use Monolog\Formatter\GelfMessageFormatter;
+use Monolog\Logger;
+use Monolog\TestCase;
 
 class GelfHandlerTest extends TestCase
 {

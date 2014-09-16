@@ -25,14 +25,19 @@ use Monolog\Logger;
 class RotatingFileHandler extends StreamHandler
 {
     protected $filename;
+
     protected $maxFiles;
+
     protected $mustRotate;
+
     protected $nextRotation;
+
     protected $filenameFormat;
+
     protected $dateFormat;
 
     /**
-     * @param string  $filename
+     * @param string $filename
      * @param integer $maxFiles The maximal amount of files to keep (0 means unlimited)
      * @param integer $level    The minimum logging level at which this handler will be triggered
      * @param Boolean $bubble   Whether the messages that are handled can bubble up the stack or not
@@ -40,7 +45,7 @@ class RotatingFileHandler extends StreamHandler
     public function __construct($filename, $maxFiles = 0, $level = Logger::DEBUG, $bubble = true)
     {
         $this->filename = $filename;
-        $this->maxFiles = (int) $maxFiles;
+        $this->maxFiles = (int)$maxFiles;
         $this->nextRotation = new \DateTime('tomorrow');
         $this->filenameFormat = '{filename}-{date}';
         $this->dateFormat = 'Y-m-d';
@@ -105,7 +110,7 @@ class RotatingFileHandler extends StreamHandler
         }
 
         // Sorting the files by name to remove the older ones
-        usort($logFiles, function($a, $b) {
+        usort($logFiles, function ($a, $b) {
             return strcmp($b, $a);
         });
 
@@ -126,7 +131,7 @@ class RotatingFileHandler extends StreamHandler
         );
 
         if (!empty($fileInfo['extension'])) {
-            $timedFilename .= '.'.$fileInfo['extension'];
+            $timedFilename .= '.' . $fileInfo['extension'];
         }
 
         return $timedFilename;
@@ -141,7 +146,7 @@ class RotatingFileHandler extends StreamHandler
             $fileInfo['dirname'] . '/' . $this->filenameFormat
         );
         if (!empty($fileInfo['extension'])) {
-            $glob .= '.'.$fileInfo['extension'];
+            $glob .= '.' . $fileInfo['extension'];
         }
 
         return $glob;

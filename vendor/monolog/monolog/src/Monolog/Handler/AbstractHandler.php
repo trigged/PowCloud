@@ -11,9 +11,9 @@
 
 namespace Monolog\Handler;
 
-use Monolog\Logger;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
+use Monolog\Logger;
 
 /**
  * Base Handler class providing the Handler structure
@@ -23,12 +23,14 @@ use Monolog\Formatter\LineFormatter;
 abstract class AbstractHandler implements HandlerInterface
 {
     protected $level = Logger::DEBUG;
+
     protected $bubble = true;
 
     /**
      * @var FormatterInterface
      */
     protected $formatter;
+
     protected $processors = array();
 
     /**
@@ -74,7 +76,7 @@ abstract class AbstractHandler implements HandlerInterface
     public function pushProcessor($callback)
     {
         if (!is_callable($callback)) {
-            throw new \InvalidArgumentException('Processors must be valid callables (callback or object with an __invoke method), '.var_export($callback, true).' given');
+            throw new \InvalidArgumentException('Processors must be valid callables (callback or object with an __invoke method), ' . var_export($callback, true) . ' given');
         }
         array_unshift($this->processors, $callback);
 

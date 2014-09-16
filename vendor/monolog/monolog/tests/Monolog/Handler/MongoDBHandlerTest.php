@@ -11,8 +11,8 @@
 
 namespace Monolog\Handler;
 
-use Monolog\TestCase;
 use Monolog\Logger;
+use Monolog\TestCase;
 
 class MongoDBHandlerTest extends TestCase
 {
@@ -37,13 +37,13 @@ class MongoDBHandlerTest extends TestCase
         $record = $this->getRecord(Logger::WARNING, 'test', array('data' => new \stdClass, 'foo' => 34));
 
         $expected = array(
-            'message' => 'test',
-            'context' => array('data' => '[object] (stdClass: {})', 'foo' => 34),
-            'level' => Logger::WARNING,
+            'message'    => 'test',
+            'context'    => array('data' => '[object] (stdClass: {})', 'foo' => 34),
+            'level'      => Logger::WARNING,
             'level_name' => 'WARNING',
-            'channel' => 'test',
-            'datetime' => $record['datetime']->format('Y-m-d H:i:s'),
-            'extra' => array(),
+            'channel'    => 'test',
+            'datetime'   => $record['datetime']->format('Y-m-d H:i:s'),
+            'extra'      => array(),
         );
 
         $collection->expects($this->once())
@@ -58,6 +58,8 @@ class MongoDBHandlerTest extends TestCase
 if (!class_exists('Mongo')) {
     class Mongo
     {
-        public function selectCollection() {}
+        public function selectCollection()
+        {
+        }
     }
 }

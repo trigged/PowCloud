@@ -108,8 +108,17 @@ class UseHelper
 
 //$secret_key = 'R3iD=rYT7cAn6UYYgQ06qGrdHMll2i65AK4@CX3PsrVh';
 //var_dump($secret_key);
-//$token = UseHelper::makeToken('63', UseHelper::$default_key);
+//$time = time();
+//var_dump($time);
+//$token = UseHelper::makeToken(time(), UseHelper::$default_key);
 //var_dump($token);
+//$token1 = urlencode($token);
+//var_dump($token1);
+//
+//$token1 = 'y6HUmrKogtNq3nrgveh7qD0SRYK2EKF99';
+//var_dump(urldecode($token1));
+
+
 //$start = microtime();
 //$value = UseHelper::checkToken($token, $secret_key);
 //var_dump(microtime() - $start);

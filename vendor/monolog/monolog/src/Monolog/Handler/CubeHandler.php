@@ -22,10 +22,15 @@ use Monolog\Logger;
 class CubeHandler extends AbstractProcessingHandler
 {
     private $udpConnection = null;
+
     private $httpConnection = null;
+
     private $scheme = null;
+
     private $host = null;
+
     private $port = null;
+
     private $acceptedSchemes = array('http', 'udp');
 
     /**
@@ -40,12 +45,12 @@ class CubeHandler extends AbstractProcessingHandler
         $urlInfos = parse_url($url);
 
         if (!isset($urlInfos['scheme']) || !isset($urlInfos['host']) || !isset($urlInfos['port'])) {
-            throw new \UnexpectedValueException('URL "'.$url.'" is not valid');
+            throw new \UnexpectedValueException('URL "' . $url . '" is not valid');
         }
 
         if (!in_array($urlInfos['scheme'], $this->acceptedSchemes)) {
             throw new \UnexpectedValueException(
-                'Invalid protocol (' . $urlInfos['scheme']  . ').'
+                'Invalid protocol (' . $urlInfos['scheme'] . ').'
                 . ' Valid options are ' . implode(', ', $this->acceptedSchemes));
         }
 
@@ -86,7 +91,7 @@ class CubeHandler extends AbstractProcessingHandler
             throw new \LogicException('The curl extension is needed to use http URLs with the CubeHandler');
         }
 
-        $this->httpConnection = curl_init('http://'.$this->host.':'.$this->port.'/1.0/event/put');
+        $this->httpConnection = curl_init('http://' . $this->host . ':' . $this->port . '/1.0/event/put');
 
         if (!$this->httpConnection) {
             throw new \LogicException('Unable to connect to ' . $this->host . ':' . $this->port);
@@ -116,7 +121,7 @@ class CubeHandler extends AbstractProcessingHandler
         $data['data'] = $record['context'];
         $data['data']['level'] = $record['level'];
 
-        $this->{'write'.$this->scheme}(json_encode($data));
+        $this->{'write' . $this->scheme}(json_encode($data));
     }
 
     private function writeUdp($data)
@@ -134,10 +139,10 @@ class CubeHandler extends AbstractProcessingHandler
             $this->connectHttp();
         }
 
-        curl_setopt($this->httpConnection, CURLOPT_POSTFIELDS, '['.$data.']');
+        curl_setopt($this->httpConnection, CURLOPT_POSTFIELDS, '[' . $data . ']');
         curl_setopt($this->httpConnection, CURLOPT_HTTPHEADER, array(
                 'Content-Type: application/json',
-                'Content-Length: ' . strlen('['.$data.']'))
+                'Content-Length: ' . strlen('[' . $data . ']'))
         );
 
         return curl_exec($this->httpConnection);

@@ -23,11 +23,13 @@ use Monolog\Logger;
 class StreamHandler extends AbstractProcessingHandler
 {
     protected $stream;
+
     protected $url;
+
     private $errorMessage;
 
     /**
-     * @param string  $stream
+     * @param string $stream
      * @param integer $level  The minimum logging level at which this handler will be triggered
      * @param Boolean $bubble Whether the messages that are handled can bubble up the stack or not
      */
@@ -67,10 +69,10 @@ class StreamHandler extends AbstractProcessingHandler
             restore_error_handler();
             if (!is_resource($this->stream)) {
                 $this->stream = null;
-                throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not be opened: '.$this->errorMessage, $this->url));
+                throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not be opened: ' . $this->errorMessage, $this->url));
             }
         }
-        fwrite($this->stream, (string) $record['formatted']);
+        fwrite($this->stream, (string)$record['formatted']);
     }
 
     private function customErrorHandler($code, $msg)

@@ -242,7 +242,7 @@ class LimitController extends SystemController
         if (isset($username)) {
             $userIds = ATURelationModel::where('app_id', $this->app_id)->lists('user_id');
             if (!empty($userIds)) {
-                $limits = User::whereIn('id', $userIds)->where('name',$username)->get();
+                $limits = User::whereIn('id', $userIds)->where('name', $username)->get();
             }
         }
 
@@ -278,8 +278,8 @@ class LimitController extends SystemController
         $user = User::find($id);
         $userInfo = Input::all();
         $user->name = $userInfo['name'];
-        $user->mail = $userInfo['email'];
-        $user->department = $userInfo['department'];
+//        $user->mail = $userInfo['email'];
+//        $user->department = $userInfo['department'];
         $atu = ATURelationModel::where('app_id', $this->app_id)->where('user_id', $id)->first();
         $atu->group_id = $userInfo['group_id'];
         $atu->roles = (int)$userInfo['sa'] === 1 ? Limit::ROLE_SUPER : Limit::ROLE_NORMAL;

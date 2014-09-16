@@ -21,7 +21,6 @@ namespace Doctrine\Common\Annotations;
 
 use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Doctrine\Common\Annotations\Annotation\Target;
-use Closure;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -54,22 +53,22 @@ class AnnotationReader implements Reader
      * @var array
      */
     private static $globalIgnoredNames = array(
-        'access'=> true, 'author'=> true, 'copyright'=> true, 'deprecated'=> true,
-        'example'=> true, 'ignore'=> true, 'internal'=> true, 'link'=> true, 'see'=> true,
-        'since'=> true, 'tutorial'=> true, 'version'=> true, 'package'=> true,
-        'subpackage'=> true, 'name'=> true, 'global'=> true, 'param'=> true,
-        'return'=> true, 'staticvar'=> true, 'category'=> true, 'staticVar'=> true,
-        'static'=> true, 'var'=> true, 'throws'=> true, 'inheritdoc'=> true,
-        'inheritDoc'=> true, 'license'=> true, 'todo'=> true, 'TODO'=> true,
-        'deprec'=> true, 'property' => true, 'method' => true,
-        'abstract'=> true, 'exception'=> true, 'magic' => true, 'api' => true,
-        'final'=> true, 'filesource'=> true, 'throw' => true, 'uses' => true,
-        'usedby'=> true, 'private' => true, 'Annotation' => true, 'override' => true,
+        'access'             => true, 'author' => true, 'copyright' => true, 'deprecated' => true,
+        'example'            => true, 'ignore' => true, 'internal' => true, 'link' => true, 'see' => true,
+        'since'              => true, 'tutorial' => true, 'version' => true, 'package' => true,
+        'subpackage'         => true, 'name' => true, 'global' => true, 'param' => true,
+        'return'             => true, 'staticvar' => true, 'category' => true, 'staticVar' => true,
+        'static'             => true, 'var' => true, 'throws' => true, 'inheritdoc' => true,
+        'inheritDoc'         => true, 'license' => true, 'todo' => true, 'TODO' => true,
+        'deprec'             => true, 'property' => true, 'method' => true,
+        'abstract'           => true, 'exception' => true, 'magic' => true, 'api' => true,
+        'final'              => true, 'filesource' => true, 'throw' => true, 'uses' => true,
+        'usedby'             => true, 'private' => true, 'Annotation' => true, 'override' => true,
         'codeCoverageIgnore' => true, 'codeCoverageIgnoreStart' => true, 'codeCoverageIgnoreEnd' => true,
-        'Required' => true, 'Attribute' => true, 'Attributes' => true,
-        'Target' => true, 'SuppressWarnings' => true,
-        'ingroup' => true, 'code' => true, 'endcode' => true,
-        'package_version' => true, 'fixme' => true
+        'Required'           => true, 'Attribute' => true, 'Attributes' => true,
+        'Target'             => true, 'SuppressWarnings' => true,
+        'ingroup'            => true, 'code' => true, 'endcode' => true,
+        'package_version'    => true, 'fixme' => true
     );
 
     /**
@@ -298,7 +297,7 @@ class AnnotationReader implements Reader
     {
         $ignoredAnnotationNames = self::$globalIgnoredNames;
 
-        $annotations = $this->preParser->parse($class->getDocComment(), 'class '.$class->name);
+        $annotations = $this->preParser->parse($class->getDocComment(), 'class ' . $class->name);
         foreach ($annotations as $annotation) {
             if ($annotation instanceof IgnoreAnnotation) {
                 foreach ($annotation->names AS $annot) {

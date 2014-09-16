@@ -31,7 +31,7 @@ class LineFormatter extends NormalizerFormatter
      */
     public function __construct($format = null, $dateFormat = null)
     {
-        $this->format = $format ?: static::SIMPLE_FORMAT;
+        $this->format = $format ? : static::SIMPLE_FORMAT;
         parent::__construct($dateFormat);
     }
 
@@ -44,14 +44,14 @@ class LineFormatter extends NormalizerFormatter
 
         $output = $this->format;
         foreach ($vars['extra'] as $var => $val) {
-            if (false !== strpos($output, '%extra.'.$var.'%')) {
-                $output = str_replace('%extra.'.$var.'%', $this->convertToString($val), $output);
+            if (false !== strpos($output, '%extra.' . $var . '%')) {
+                $output = str_replace('%extra.' . $var . '%', $this->convertToString($val), $output);
                 unset($vars['extra'][$var]);
             }
         }
         foreach ($vars as $var => $val) {
-            if (false !== strpos($output, '%'.$var.'%')) {
-                $output = str_replace('%'.$var.'%', $this->convertToString($val), $output);
+            if (false !== strpos($output, '%' . $var . '%')) {
+                $output = str_replace('%' . $var . '%', $this->convertToString($val), $output);
             }
         }
 
@@ -78,11 +78,11 @@ class LineFormatter extends NormalizerFormatter
             $previousText = '';
             if ($previous = $data->getPrevious()) {
                 do {
-                    $previousText .= ', '.get_class($previous).': '.$previous->getMessage().' at '.$previous->getFile().':'.$previous->getLine();
+                    $previousText .= ', ' . get_class($previous) . ': ' . $previous->getMessage() . ' at ' . $previous->getFile() . ':' . $previous->getLine();
                 } while ($previous = $previous->getPrevious());
             }
 
-            return '[object] ('.get_class($data).': '.$data->getMessage().' at '.$data->getFile().':'.$data->getLine().$previousText.')';
+            return '[object] (' . get_class($data) . ': ' . $data->getMessage() . ' at ' . $data->getFile() . ':' . $data->getLine() . $previousText . ')';
         }
 
         return parent::normalize($data);
@@ -91,7 +91,7 @@ class LineFormatter extends NormalizerFormatter
     protected function convertToString($data)
     {
         if (null === $data || is_scalar($data)) {
-            return (string) $data;
+            return (string)$data;
         }
 
         $data = $this->normalize($data);

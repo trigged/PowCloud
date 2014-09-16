@@ -292,7 +292,7 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
      */
     public function setDebugHeaders($debug)
     {
-        $this->_debugHeaders = (bool) $debug;
+        $this->_debugHeaders = (bool)$debug;
 
         return $this;
     }
@@ -355,7 +355,7 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
         $listHeaders = $headers->listAll();
         foreach ($listHeaders as $hName) {
             // Check if we need to ignore Header
-            if (! isset($this->_ignoredHeaders[strtolower($hName)])) {
+            if (!isset($this->_ignoredHeaders[strtolower($hName)])) {
                 if ($headers->has($hName)) {
                     $tmp = $headers->getAll($hName);
                     foreach ($tmp as $header) {
@@ -492,13 +492,13 @@ class Swift_Signers_DomainKeySigner implements Swift_Signers_HeaderSigner
     private function _getEncryptedHash()
     {
         $signature = '';
-        $pkeyId=openssl_get_privatekey($this->_privateKey);
+        $pkeyId = openssl_get_privatekey($this->_privateKey);
         if (!$pkeyId) {
-            throw new Swift_SwiftException('Unable to load DomainKey Private Key ['.openssl_error_string().']');
+            throw new Swift_SwiftException('Unable to load DomainKey Private Key [' . openssl_error_string() . ']');
         }
         if (openssl_sign($this->_canonData, $signature, $pkeyId, 'sha1')) {
             return $signature;
         }
-        throw new Swift_SwiftException('Unable to sign DomainKey Hash  ['.openssl_error_string().']');
+        throw new Swift_SwiftException('Unable to sign DomainKey Hash  [' . openssl_error_string() . ']');
     }
 }

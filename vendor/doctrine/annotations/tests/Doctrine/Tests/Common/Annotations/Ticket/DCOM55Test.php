@@ -2,8 +2,6 @@
 
 namespace Doctrine\Tests\Common\Annotations\Ticket;
 
-use Doctrine\Tests\Common\Annotations\Fixtures\Controller;
-
 /**
  * @group
  */
@@ -27,7 +25,7 @@ class DCOM55Test extends \PHPUnit_Framework_TestCase
         $annots = $reader->getClassAnnotations($class);
 
         $this->assertEquals(1, count($annots));
-        $this->assertInstanceOf(__NAMESPACE__.'\\DCOM55Annotation', $annots[0]);
+        $this->assertInstanceOf(__NAMESPACE__ . '\\DCOM55Annotation', $annots[0]);
     }
 
     public function testParseAnnotationDocblocks()

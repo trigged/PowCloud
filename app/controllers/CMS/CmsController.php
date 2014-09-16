@@ -408,13 +408,6 @@ class CmsController extends CmsBaeController
         $this->ajaxResponse(array(), 'success', '更新缓存成功', true);
     }
 
-    public function upload_callback()
-    {
-
-        echo '<html><head><title></title><script type="text/javascript" src="' . Config::get('app.picture_upload.url') . '/javascripts/upload_callback.js"></script></head><body></body></html>';
-
-    }
-
     public function search($table_name, $filed, $condition)
     {
         if (empty($filed) || empty($condition)) {

@@ -21,6 +21,7 @@ use Monolog\Logger;
 class ErrorLogHandler extends AbstractProcessingHandler
 {
     const OPERATING_SYSTEM = 0;
+
     const SAPI = 4;
 
     protected $messageType;
@@ -58,6 +59,6 @@ class ErrorLogHandler extends AbstractProcessingHandler
      */
     protected function write(array $record)
     {
-        error_log((string) $record['formatted'], $this->messageType);
+        error_log((string)$record['formatted'], $this->messageType);
     }
 }

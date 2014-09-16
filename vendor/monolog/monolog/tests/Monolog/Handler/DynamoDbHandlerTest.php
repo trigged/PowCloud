@@ -49,22 +49,22 @@ class DynamoDbHandlerTest extends TestCase
         $handler->setFormatter($formatter);
 
         $formatter
-             ->expects($this->once())
-             ->method('format')
-             ->with($record)
-             ->will($this->returnValue($formatted));
+            ->expects($this->once())
+            ->method('format')
+            ->with($record)
+            ->will($this->returnValue($formatted));
         $this->client
-             ->expects($this->once())
-             ->method('formatAttributes')
-             ->with($this->isType('array'))
-             ->will($this->returnValue($formatted));
+            ->expects($this->once())
+            ->method('formatAttributes')
+            ->with($this->isType('array'))
+            ->will($this->returnValue($formatted));
         $this->client
-             ->expects($this->once())
-             ->method('__call')
-             ->with('putItem', array(array(
-                 'TableName' => 'foo',
-                 'Item' => $formatted
-             )));
+            ->expects($this->once())
+            ->method('__call')
+            ->with('putItem', array(array(
+                'TableName' => 'foo',
+                'Item'      => $formatted
+            )));
 
         $handler->handle($record);
     }

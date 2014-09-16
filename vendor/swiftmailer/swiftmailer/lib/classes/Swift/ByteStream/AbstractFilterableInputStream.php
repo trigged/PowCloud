@@ -55,7 +55,7 @@ abstract class Swift_ByteStream_AbstractFilterableInputStream implements Swift_I
      * Add a StreamFilter to this InputByteStream.
      *
      * @param Swift_StreamFilter $filter
-     * @param string             $key
+     * @param string $key
      */
     public function addFilter(Swift_StreamFilter $filter, $key)
     {

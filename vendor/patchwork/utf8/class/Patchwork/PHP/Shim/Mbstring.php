@@ -67,10 +67,10 @@ class Mbstring
 
     protected static
 
-    $internal_encoding = 'UTF-8',
-    $caseFold = array(
-        array('µ','ſ',"\xCD\x85",'ς',"\xCF\x90","\xCF\x91","\xCF\x95","\xCF\x96","\xCF\xB0","\xCF\xB1","\xCF\xB5","\xE1\xBA\x9B","\xE1\xBE\xBE"),
-        array('μ','s','ι',       'σ','β',       'θ',       'φ',       'π',       'κ',       'ρ',       'ε',       "\xE1\xB9\xA1",'ι'           )
+        $internal_encoding = 'UTF-8',
+        $caseFold = array(
+        array('µ', 'ſ', "\xCD\x85", 'ς', "\xCF\x90", "\xCF\x91", "\xCF\x95", "\xCF\x96", "\xCF\xB0", "\xCF\xB1", "\xCF\xB5", "\xE1\xBA\x9B", "\xE1\xBE\xBE"),
+        array('μ', 's', 'ι', 'σ', 'β', 'θ', 'φ', 'π', 'κ', 'ρ', 'ε', "\xE1\xB9\xA1", 'ι')
     );
 
 
@@ -81,23 +81,20 @@ class Mbstring
         $from_encoding = strtolower($from_encoding);
         $to_encoding = strtolower($to_encoding);
 
-        if ('base64' === $from_encoding)
-        {
+        if ('base64' === $from_encoding) {
             $s = base64_decode($s);
             $from_encoding = $to_encoding;
         }
 
         if ('base64' === $to_encoding) return base64_encode($s);
 
-        if ('html-entities' === $to_encoding)
-        {
+        if ('html-entities' === $to_encoding) {
             'html-entities' === $from_encoding && $from_encoding = 'Windows-1252';
             'utf-8' === $from_encoding || $s = iconv($from_encoding, 'UTF-8//IGNORE', $s);
             return preg_replace_callback('/[\x80-\xFF]+/', array(__CLASS__, 'html_encoding_callback'), $s);
         }
 
-        if ('html-entities' === $from_encoding)
-        {
+        if ('html-entities' === $from_encoding) {
             $s = html_entity_decode($s, ENT_COMPAT, 'UTF-8');
             $from_encoding = 'UTF-8';
         }
@@ -124,21 +121,15 @@ class Mbstring
         if ('UTF-8' === strtoupper($encoding)) $encoding = INF;
         else $s = iconv($encoding, 'UTF-8//IGNORE', $s);
 
-        if (MB_CASE_TITLE == $mode)
-        {
+        if (MB_CASE_TITLE == $mode) {
             $s = preg_replace_callback('/\b\p{Ll}/u', array(__CLASS__, 'title_case_upper'), $s);
             $s = preg_replace_callback('/\B[\p{Lu}\p{Lt}]+/u', array(__CLASS__, 'title_case_lower'), $s);
-        }
-        else
-        {
-            if (MB_CASE_UPPER == $mode)
-            {
+        } else {
+            if (MB_CASE_UPPER == $mode) {
                 static $upper;
                 isset($upper) || $upper = static::getData('upperCase');
                 $map = $upper;
-            }
-            else
-            {
+            } else {
                 if (self::MB_CASE_FOLD === $mode) $s = str_replace(self::$caseFold[0], self::$caseFold[1], $s);
 
                 static $lower;
@@ -151,28 +142,23 @@ class Mbstring
             $i = 0;
             $len = strlen($s);
 
-            while ($i < $len)
-            {
+            while ($i < $len) {
                 $ulen = $s[$i] < "\x80" ? 1 : $ulen_mask[$s[$i] & "\xF0"];
                 $uchr = substr($s, $i, $ulen);
                 $i += $ulen;
 
-                if (isset($map[$uchr]))
-                {
+                if (isset($map[$uchr])) {
                     $uchr = $map[$uchr];
                     $nlen = strlen($uchr);
 
-                    if ($nlen == $ulen)
-                    {
+                    if ($nlen == $ulen) {
                         $nlen = $i;
                         do $s[--$nlen] = $uchr[--$ulen];
                         while ($ulen);
-                    }
-                    else
-                    {
+                    } else {
                         $s = substr_replace($s, $uchr, $i - $ulen, $ulen);
                         $len += $nlen - $ulen;
-                        $i   += $nlen - $ulen;
+                        $i += $nlen - $ulen;
                     }
                 }
             }
@@ -186,8 +172,7 @@ class Mbstring
     {
         if (INF === $encoding) return self::$internal_encoding;
 
-        if ('UTF-8' === strtoupper($encoding) || false !== @iconv($encoding, $encoding, ' '))
-        {
+        if ('UTF-8' === strtoupper($encoding) || false !== @iconv($encoding, $encoding, ' ')) {
             self::$internal_encoding = $encoding;
             return true;
         }
@@ -206,27 +191,22 @@ class Mbstring
         return iconv_strlen($s, $encoding . '//IGNORE');
     }
 
-    static function mb_strpos ($haystack, $needle, $offset = 0, $encoding = INF)
+    static function mb_strpos($haystack, $needle, $offset = 0, $encoding = INF)
     {
         INF === $encoding && $encoding = self::$internal_encoding;
-        if ('' === $needle .= '')
-        {
+        if ('' === $needle .= '') {
             user_error(__METHOD__ . ': Empty delimiter', E_USER_WARNING);
             return false;
-        }
-        else return iconv_strpos($haystack, $needle, $offset, $encoding . '//IGNORE');
+        } else return iconv_strpos($haystack, $needle, $offset, $encoding . '//IGNORE');
     }
 
     static function mb_strrpos($haystack, $needle, $offset = 0, $encoding = INF)
     {
         INF === $encoding && $encoding = self::$internal_encoding;
 
-        if ($offset != (int) $offset)
-        {
+        if ($offset != (int)$offset) {
             $offset = 0;
-        }
-        else if ($offset = (int) $offset)
-        {
+        } else if ($offset = (int)$offset) {
             $haystack = self::mb_substr($haystack, $offset, 2147483647, $encoding);
         }
 
@@ -255,15 +235,13 @@ class Mbstring
         INF === $encoding && $encoding = self::$internal_encoding;
 
 
-        if ($start < 0)
-        {
+        if ($start < 0) {
             $start = iconv_strlen($s, $encoding . '//IGNORE') + $start;
             if ($start < 0) $start = 0;
         }
 
         if (null === $length) $length = 2147483647;
-        else if ($length < 0)
-        {
+        else if ($length < 0) {
             $length = iconv_strlen($s, $encoding . '//IGNORE') + $length - $start;
             if ($length < 0) return '';
         }

@@ -11,8 +11,8 @@
 
 namespace Monolog\Handler;
 
-use Monolog\Handler\FingersCrossed\ErrorLevelActivationStrategy;
 use Monolog\Handler\FingersCrossed\ActivationStrategyInterface;
+use Monolog\Handler\FingersCrossed\ErrorLevelActivationStrategy;
 use Monolog\Logger;
 
 /**
@@ -30,18 +30,23 @@ use Monolog\Logger;
 class FingersCrossedHandler extends AbstractHandler
 {
     protected $handler;
+
     protected $activationStrategy;
+
     protected $buffering = true;
+
     protected $bufferSize;
+
     protected $buffer = array();
+
     protected $stopBuffering;
 
     /**
-     * @param callable|HandlerInterface       $handler            Handler or factory callable($record, $fingersCrossedHandler).
+     * @param callable|HandlerInterface $handler            Handler or factory callable($record, $fingersCrossedHandler).
      * @param int|ActivationStrategyInterface $activationStrategy Strategy which determines when this handler takes action
-     * @param int                             $bufferSize         How many entries should be buffered at most, beyond that the oldest items are removed from the buffer.
-     * @param Boolean                         $bubble             Whether the messages that are handled can bubble up the stack or not
-     * @param Boolean                         $stopBuffering      Whether the handler should stop buffering after being triggered (default true)
+     * @param int $bufferSize         How many entries should be buffered at most, beyond that the oldest items are removed from the buffer.
+     * @param Boolean $bubble             Whether the messages that are handled can bubble up the stack or not
+     * @param Boolean $stopBuffering      Whether the handler should stop buffering after being triggered (default true)
      */
     public function __construct($handler, $activationStrategy = null, $bufferSize = 0, $bubble = true, $stopBuffering = true)
     {
@@ -91,7 +96,7 @@ class FingersCrossedHandler extends AbstractHandler
                 }
                 if (!$this->handler instanceof HandlerInterface) {
                     if (!is_callable($this->handler)) {
-                        throw new \RuntimeException("The given handler (".json_encode($this->handler).") is not a callable nor a Monolog\Handler\HandlerInterface object");
+                        throw new \RuntimeException("The given handler (" . json_encode($this->handler) . ") is not a callable nor a Monolog\Handler\HandlerInterface object");
                     }
                     $this->handler = call_user_func($this->handler, $record, $this);
                     if (!$this->handler instanceof HandlerInterface) {

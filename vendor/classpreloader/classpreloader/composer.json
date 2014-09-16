@@ -1,10 +1,10 @@
 {
     "name": "classpreloader/classpreloader",
-    "description":"Helps class loading performance by generating a single PHP file containing all of the autoloaded files for a specific use case",
-    "keywords":["autoload","class","preload"],
-    "license":"MIT",
+    "description": "Helps class loading performance by generating a single PHP file containing all of the autoloaded files for a specific use case",
+    "keywords": ["autoload", "class", "preload"],
+    "license": "MIT",
 
-    "require":{
+    "require": {
         "php": ">=5.3.3",
         "symfony/console": ">2.0",
         "symfony/filesystem": ">2.0",

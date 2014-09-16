@@ -13,6 +13,42 @@
  * 自动检测接口元素 (检索条件)
  * 拖动元素*/
 
+
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+use Qiniu\Qiniu;
+
 $values = array(
     array(
         'type'   => 1, //has many req
@@ -229,26 +265,19 @@ $values = array(0  => '""',
                 20 => 'text',
 );
 
-$sql = str_replace(array('%', '?'), array('%%', '%s'), $query);
-//var_dump($sql);
-$full_sql = vsprintf($sql, $values);
-//printf($full_sql);
-$launcher = '{"content_id":["integer"],"title":["string"],"bgimg":["string","200"],"relation_id":["integer"],"geo":["text"]}';
-$special = '{"title":["string"],"bgimg":["string","200"],"cover_img":["string","200"],"geo":["text"],"videos":["text"],"foreign":{"0":"string","default":"videos:special_video"},"assist_bgimg":["string"]}';
 
-$launcher_test = json_decode($launcher, true);
-$special_test = json_decode($special, true);
-$test1 = array('a' => 1, 'b' => 2, 'c' => array('m'));
-$test2 = array('d' => 111, 'a' => 1, 'b' => 11, 'c' => array('m', 'n'));
-//var_dump(array_intersect($test1, $test2));
-var_dump(array_intersect_key($test2, $test1));
-var_dump(array_intersect_key($test1, $test2));
-echo "--------------\n";
+$ak = 'ApeZGJsGl3vfyGtP72Vkkcd5vpAgLZ6v8sw4iFw7';
+$sk = '7Vbm-DeATjGB7Pmm1nyWXQWRwe8AI-nHDf60P8Iw';
+$bk = 'bangshuiguo';
+$client = Qiniu::create(array(
+    'access_key' => $ak,
+    'secret_key' => $sk,
+    'bucket'     => $bk
+));
 
+// 查看文件状态
+$res = $client->stat('jobs.jpg');
 
-$json_test1 = json_encode(array("title", "img"));
-var_dump($json_test1);
-var_dump(htmlspecialchars($json_test1));
-var_dump(htmlspecialchars_decode(htmlspecialchars($json_test1)));
-//var_dump(array_keys(array_intersect_key($launcher_test, $special_test)));
-//var_dump(array_keys(array_intersect_key($special_test, $launcher_test)));
+print_r($res);
+
+?>

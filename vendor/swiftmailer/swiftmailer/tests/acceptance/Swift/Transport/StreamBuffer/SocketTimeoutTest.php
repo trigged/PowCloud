@@ -17,23 +17,23 @@ class Swift_Transport_StreamBuffer_SocketTimeoutTest
     {
         $this->_buffer = new Swift_Transport_StreamBuffer(
             $this->_stub('Swift_ReplacementFilterFactory')
-            );
+        );
     }
 
     public function skip()
     {
-        $serverStarted=false;
-        for ($i=0; $i<5; ++$i) {
-            $this->_randomHighPort=rand(50000,65000);
+        $serverStarted = false;
+        for ($i = 0; $i < 5; ++$i) {
+            $this->_randomHighPort = rand(50000, 65000);
             $this->_server = stream_socket_server('tcp://127.0.0.1:' . $this->_randomHighPort);
             if ($this->_server) {
-                $serverStarted=true;
+                $serverStarted = true;
             }
         }
         $this->skipUnless(SWIFT_SMTP_HOST,
             'Cannot run test without an SMTP host to connect to (define ' .
             'SWIFT_SMTP_HOST in tests/acceptance.conf.php if you wish to run this test)'
-            );
+        );
     }
 
     protected function _initializeBuffer()
@@ -42,19 +42,19 @@ class Swift_Transport_StreamBuffer_SocketTimeoutTest
         $port = $this->_randomHighPort;
 
         $this->_buffer->initialize(array(
-            'type' => Swift_Transport_IoBuffer::TYPE_SOCKET,
-            'host' => $host,
-            'port' => $port,
+            'type'     => Swift_Transport_IoBuffer::TYPE_SOCKET,
+            'host'     => $host,
+            'port'     => $port,
             'protocol' => 'tcp',
             'blocking' => 1,
-            'timeout' => 1
-            ));
+            'timeout'  => 1
+        ));
     }
 
     public function testTimeoutException()
     {
         $this->_initializeBuffer();
-        $e=null;
+        $e = null;
         try {
             $line = $this->_buffer->readLine(0);
         } catch (Exception $e) {

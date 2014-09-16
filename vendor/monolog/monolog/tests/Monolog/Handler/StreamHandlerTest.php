@@ -11,8 +11,8 @@
 
 namespace Monolog\Handler;
 
-use Monolog\TestCase;
 use Monolog\Logger;
+use Monolog\TestCase;
 
 class StreamHandlerTest extends TestCase
 {
@@ -82,7 +82,7 @@ class StreamHandlerTest extends TestCase
      */
     public function testWriteNonExistingResource()
     {
-        $handler = new StreamHandler('/foo/bar/baz/'.rand(0, 10000));
+        $handler = new StreamHandler('/foo/bar/baz/' . rand(0, 10000));
         $handler->handle($this->getRecord());
     }
 }

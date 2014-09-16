@@ -11,14 +11,14 @@
 
 namespace Monolog\Handler;
 
-use Monolog\Handler\ElasticSearchHandler;
-use Monolog\Formatter\ElasticaFormatter;
-use Monolog\Formatter\NormalizerFormatter;
-use Monolog\TestCase;
-use Monolog\Logger;
 use Elastica\Client;
 use Elastica\Request;
 use Elastica\Response;
+use Monolog\Formatter\ElasticaFormatter;
+use Monolog\Formatter\NormalizerFormatter;
+use Monolog\Handler\ElasticSearchHandler;
+use Monolog\Logger;
+use Monolog\TestCase;
 
 class ElasticSearchHandlerTest extends TestCase
 {
@@ -59,13 +59,13 @@ class ElasticSearchHandlerTest extends TestCase
     {
         // log message
         $msg = array(
-            'level' => Logger::ERROR,
+            'level'      => Logger::ERROR,
             'level_name' => 'ERROR',
-            'channel' => 'meh',
-            'context' => array('foo' => 7, 'bar', 'class' => new \stdClass),
-            'datetime' => new \DateTime("@0"),
-            'extra' => array(),
-            'message' => 'log',
+            'channel'    => 'meh',
+            'context'    => array('foo' => 7, 'bar', 'class' => new \stdClass),
+            'datetime'   => new \DateTime("@0"),
+            'extra'      => array(),
+            'message'    => 'log',
         );
 
         // format expected result
@@ -115,8 +115,8 @@ class ElasticSearchHandlerTest extends TestCase
     public function testOptions()
     {
         $expected = array(
-            'index' => $this->options['index'],
-            'type' => $this->options['type'],
+            'index'        => $this->options['index'],
+            'type'         => $this->options['type'],
             'ignore_error' => false,
         );
         $handler = new ElasticSearchHandler($this->client, $this->options);
@@ -164,28 +164,28 @@ class ElasticSearchHandlerTest extends TestCase
     public function testHandleIntegration()
     {
         $msg = array(
-            'level' => Logger::ERROR,
+            'level'      => Logger::ERROR,
             'level_name' => 'ERROR',
-            'channel' => 'meh',
-            'context' => array('foo' => 7, 'bar', 'class' => new \stdClass),
-            'datetime' => new \DateTime("@0"),
-            'extra' => array(),
-            'message' => 'log',
+            'channel'    => 'meh',
+            'context'    => array('foo' => 7, 'bar', 'class' => new \stdClass),
+            'datetime'   => new \DateTime("@0"),
+            'extra'      => array(),
+            'message'    => 'log',
         );
 
         $expected = $msg;
         $expected['datetime'] = $msg['datetime']->format(\DateTime::ISO8601);
         $expected['context'] = array(
             'class' => '[object] (stdClass: {})',
-            'foo' => 7,
-            0 => 'bar',
+            'foo'   => 7,
+            0       => 'bar',
         );
 
         $client = new Client();
         $handler = new ElasticSearchHandler($client, $this->options);
         try {
             $handler->handleBatch(array($msg));
-        } catch(\RuntimeException $e) {
+        } catch (\RuntimeException $e) {
             $this->markTestSkipped("Cannot connect to Elastic Search server on localhost");
         }
 

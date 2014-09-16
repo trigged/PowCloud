@@ -48,11 +48,11 @@ class HipChatHandler extends SocketHandler
     private $notify;
 
     /**
-     * @param string  $token  HipChat API Token
-     * @param string  $room   The room that should be alerted of the message (Id or Name)
-     * @param string  $name   Name used in the "from" field
-     * @param bool    $notify Trigger a notification in clients or not
-     * @param int     $level  The minimum logging level at which this handler will be triggered
+     * @param string $token  HipChat API Token
+     * @param string $room   The room that should be alerted of the message (Id or Name)
+     * @param string $name   Name used in the "from" field
+     * @param bool $notify Trigger a notification in clients or not
+     * @param int $level  The minimum logging level at which this handler will be triggered
      * @param Boolean $bubble Whether the messages that are handled can bubble up the stack or not
      * @param Boolean $useSSL Whether to connect via SSL.
      */
@@ -70,7 +70,7 @@ class HipChatHandler extends SocketHandler
     /**
      * {@inheritdoc}
      *
-     * @param  array  $record
+     * @param  array $record
      * @return string
      */
     protected function generateDataStream($record)
@@ -83,18 +83,18 @@ class HipChatHandler extends SocketHandler
     /**
      * Builds the body of API call
      *
-     * @param  array  $record
+     * @param  array $record
      * @return string
      */
     private function buildContent($record)
     {
         $dataArray = array(
-            'from' => $this->name,
-            'room_id' => $this->room,
-            'notify' => $this->notify,
-            'message' => $record['formatted'],
+            'from'           => $this->name,
+            'room_id'        => $this->room,
+            'notify'         => $this->notify,
+            'message'        => $record['formatted'],
             'message_format' => 'text',
-            'color' => $this->getAlertColor($record['level']),
+            'color'          => $this->getAlertColor($record['level']),
         );
 
         return http_build_query($dataArray);
@@ -108,7 +108,7 @@ class HipChatHandler extends SocketHandler
      */
     private function buildHeader($content)
     {
-        $header = "POST /v1/rooms/message?format=json&auth_token=".$this->token." HTTP/1.1\r\n";
+        $header = "POST /v1/rooms/message?format=json&auth_token=" . $this->token . " HTTP/1.1\r\n";
         $header .= "Host: api.hipchat.com\r\n";
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
         $header .= "Content-Length: " . strlen($content) . "\r\n";
@@ -205,13 +205,13 @@ class HipChatHandler extends SocketHandler
         }
 
         $batchRecord = array(
-            'message' => implode(PHP_EOL, $messages),
-            'formatted' => implode('', $formattedMessages),
-            'level' => $level,
+            'message'    => implode(PHP_EOL, $messages),
+            'formatted'  => implode('', $formattedMessages),
+            'level'      => $level,
             'level_name' => $levelName,
-            'datetime' => $datetime,
-            'context' => array(),
-            'extra' => array(),
+            'datetime'   => $datetime,
+            'context'    => array(),
+            'extra'      => array(),
         );
 
         return $batchRecord;

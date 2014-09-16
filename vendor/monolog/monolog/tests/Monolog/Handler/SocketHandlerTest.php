@@ -11,8 +11,8 @@
 
 namespace Monolog\Handler;
 
-use Monolog\TestCase;
 use Monolog\Logger;
+use Monolog\TestCase;
 
 /**
  * @author Pablo de Leon Belloc <pablolb@gmail.com>
@@ -120,10 +120,10 @@ class SocketHandlerTest extends TestCase
     {
         $this->setMockHandler(array('fwrite'));
 
-        $callback = function($arg) {
+        $callback = function ($arg) {
             $map = array(
                 'Hello world' => 6,
-                'world' => false,
+                'world'       => false,
             );
 
             return $map[$arg];
@@ -143,10 +143,10 @@ class SocketHandlerTest extends TestCase
     {
         $this->setMockHandler(array('fwrite', 'streamGetMetadata'));
 
-        $callback = function($arg) {
+        $callback = function ($arg) {
             $map = array(
                 'Hello world' => 6,
-                'world' => 5,
+                'world'       => 5,
             );
 
             return $map[$arg];
@@ -170,7 +170,7 @@ class SocketHandlerTest extends TestCase
         $this->setMockHandler(array('fwrite', 'streamGetMetadata'));
 
         $res = $this->res;
-        $callback = function($string) use ($res) {
+        $callback = function ($string) use ($res) {
             fclose($res);
 
             return strlen('Hello');
@@ -200,10 +200,10 @@ class SocketHandlerTest extends TestCase
     {
         $this->setMockHandler(array('fwrite'));
 
-        $callback = function($arg) {
+        $callback = function ($arg) {
             $map = array(
                 'Hello world' => 6,
-                'world' => 5,
+                'world'       => 5,
             );
 
             return $map[$arg];

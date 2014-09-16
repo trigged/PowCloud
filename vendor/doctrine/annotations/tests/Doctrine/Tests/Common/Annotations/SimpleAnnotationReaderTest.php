@@ -77,14 +77,14 @@ class SimpleAnnotationReaderTest extends AbstractReaderTest
     public function testInvalidAnnotationButIgnored()
     {
         $reader = $this->getReader();
-        $class  = new \ReflectionClass('Doctrine\Tests\Common\Annotations\Fixtures\ClassDDC1660');
+        $class = new \ReflectionClass('Doctrine\Tests\Common\Annotations\Fixtures\ClassDDC1660');
 
         $this->assertTrue(class_exists('Doctrine\Tests\Common\Annotations\Fixtures\Annotation\Version'));
         $this->assertCount(1, $reader->getClassAnnotations($class));
         $this->assertCount(1, $reader->getMethodAnnotations($class->getMethod('bar')));
         $this->assertCount(1, $reader->getPropertyAnnotations($class->getProperty('foo')));
     }
-    
+
     protected function getReader()
     {
         $reader = new SimpleAnnotationReader();
