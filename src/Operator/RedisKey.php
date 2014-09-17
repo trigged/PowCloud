@@ -13,6 +13,7 @@ namespace Operator;
 class RedisKey
 {
 
+    static $DB_KEY = '';
 
     /**
      *hash
@@ -124,11 +125,29 @@ class RedisKey
      */
     public static function buildKey($name, $id)
     {
-        return $name . '::' . $id;
+        return self::$DB_KEY . $name . '::' . $id;
+    }
+
+    /**
+     * if not have DB key will generator global key,otherwise the key will like that BD::old_key
+     * if value was none ,just add db ley prefix
+     * @param $key
+     * @param null $value
+     * @return string
+     */
+    public static function sprintf($key, $value = null)
+    {
+        if ($value !== null) {
+            return self::$DB_KEY . sprintf($key, $value);
+        } else {
+            return self::$DB_KEY . $key;
+        }
+
     }
 
     public static function buildKeys($value, $key = '::')
     {
-        return join($key, $value);
+        return self::$DB_KEY . join($key, $value);
     }
+
 }

@@ -22,7 +22,7 @@ class ReadApi
 
     public static function tableHasMore($table_name)
     {
-        return self::redis()->get(sprintf(RedisKey::MORE_DATA, $table_name));
+        return self::redis()->get(RedisKey::sprintf(RedisKey::MORE_DATA, $table_name));
     }
 
     public static function redis()
@@ -34,38 +34,38 @@ class ReadApi
 
     public static function existsKey($key)
     {
-        return self::redis()->exists($key);
+        return self::redis()->exists(RedisKey::sprintf($key));
     }
 
     public static function getTableInfo($table_name, $flag = false)
     {
-        $value = self::redis()->hgetall(sprintf(RedisKey::INFO, $table_name));
+        $value = self::redis()->hgetall(RedisKey::sprintf(RedisKey::INFO, $table_name));
         if ($value == null || $flag) {
             $value = SchemaBuilder::where('table_name', $table_name)->first();
             if (is_object($value)) {
                 $value = $value->toArray();
             }
-            WriteApi::setTableObject(sprintf(RedisKey::INFO, $table_name), $value);
+            WriteApi::setTableObject(RedisKey::sprintf(RedisKey::INFO, $table_name), $value);
         }
         return $value;
     }
 
     public static function countZset($key)
     {
-        return self::redis()->zcount($key, '-inf', '+inf');
+        return self::redis()->zcount(RedisKey::sprintf($key), '-inf', '+inf');
     }
 
     public static function getTimingData($pub_time, $withScores = null)
     {
         if ($withScores) {
-            return self::redis()->ZREVRANGEBYSCORE(RedisKey::TIMING_PUB, $pub_time, '-inf', 'withscores');
+            return self::redis()->ZREVRANGEBYSCORE(RedisKey::sprintf(RedisKey::TIMING_PUB), $pub_time, '-inf', 'withscores');
         }
-        return self::redis()->ZREVRANGEBYSCORE(RedisKey::TIMING_PUB, $pub_time, '-inf');
+        return self::redis()->ZREVRANGEBYSCORE(RedisKey::sprintf(RedisKey::TIMING_PUB), $pub_time, '-inf');
     }
 
     public static function getTimingInfo($key)
     {
-        return self::redis()->hget(RedisKey::TIMING_PUB_INFO, $key);
+        return self::redis()->hget(RedisKey::sprintf(RedisKey::TIMING_PUB_INFO), $key);
     }
 
     public static function getAllTableObject($table_name, $flash = false)
@@ -132,7 +132,7 @@ class ReadApi
     public static function getCacheCount($table_name)
     {
 //        ZCOUNT special::index  -inf +inf
-        return self::redis()->ZCOUNT(sprintf(RedisKey::Index, $table_name), '-inf', '+inf');
+        return self::redis()->ZCOUNT(RedisKey::sprintf(RedisKey::Index, $table_name), '-inf', '+inf');
     }
 
     public static function loadDatas($table_name, $offset = 0, $count = self::LOAD_COUNT)
@@ -154,22 +154,22 @@ class ReadApi
 
     public static function getKey($key, $value)
     {
-        return sprintf($key, $value);
+        return RedisKey::sprintf($key, $value);
     }
 
     public static function getRoutes($path)
     {
-        return self::redis()->hgetall(sprintf(RedisKey::ROUTE, $path));
+        return self::redis()->hgetall(RedisKey::sprintf(RedisKey::ROUTE, $path));
     }
 
     public static function getApiInfo($table, $method)
     {
-        return self::redis()->hgetall(sprintf(RedisKey::API_INFO, $table, $method));
+        return self::redis()->hgetall(RedisKey::sprintf(RedisKey::API_INFO, $table, $method));
     }
 
     public static function get($key)
     {
-        return self::redis()->get($key);
+        return self::redis()->get(RedisKey::sprintf($key));
     }
 
 }
