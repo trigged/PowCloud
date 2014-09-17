@@ -15,39 +15,6 @@
 
 
 use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
-use Qiniu\Qiniu;
 
 $values = array(
     array(
