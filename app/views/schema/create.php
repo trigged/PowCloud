@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="control-group">
-            <label for="path" class="control-label">映射路径*:</label>
+            <label for="path" class="control-label">API 地址绑定*:</label>
 
             <div class="controls">
                 <?php echo Form::select('path_id', $pathTreeListOptions, '', array('id' => 'path_id')) ?>

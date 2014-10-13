@@ -11,13 +11,13 @@ return array(
 
     'side' => array(
         'system'   => array(
-            '主机管理' => array(
-                array('label' => '主机添加', 'url' => URL::action('HostController@create'), 'menu' => 'host.create'),
-                array('label' => '主机列表', 'url' => URL::action('HostController@index'), 'menu' => 'host.list'),
-            ),
+//            '主机管理' => array(
+//                array('label' => '域名添加', 'url' => URL::action('HostController@create'), 'menu' => 'host.create'),
+//                array('label' => '域名列表', 'url' => URL::action('HostController@index'), 'menu' => 'host.list'),
+//            ),
 
             '路径管理' => array(
-                array('label' => '路径列表', 'url' => URL::action('PathController@index'), 'menu' => 'path.list'),
+                array('label' => 'API列表', 'url' => URL::action('PathController@index'), 'menu' => 'path.list'),
             ),
 
             '表管理'  => array(
@@ -25,7 +25,7 @@ return array(
                 array('label' => '表列表', 'url' => URL::action('SchemaBuilderController@index'), 'menu' => 'schema.list'),
             ),
             '表单管理' => array(
-                array('label' => '表单列表', 'url' => URL::action('FormsController@forms'), 'menu' => 'forms.list'),
+                array('label' => '界面管理', 'url' => URL::action('FormsController@forms'), 'menu' => 'forms.list'),
             ),
         ),
 
@@ -53,7 +53,7 @@ return array(
                 array('label' => 'cache', 'url' => URL::action('MonitorController@cache'), 'menu' => 'monitor.cache'),
 
             ),
-            'API监控' => array(//                array('label' => 'API执行', 'url' => URL::action('MonitorController@api'), 'menu' => 'monitor.api'),
+            'API监控' => array( //                array('label' => 'API执行', 'url' => URL::action('MonitorController@api'), 'menu' => 'monitor.api'),
 
             ),
             '服务器监控' => array(

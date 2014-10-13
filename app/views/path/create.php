@@ -7,13 +7,13 @@
                 <input name="name" class="input-medium" value="" type="text" placeholder="路径名称" id="name">
             </div>
         </div>
-        <div class="control-group">
-            <label for="host" class="control-label">主机*:</label>
+        <!--        <div class="control-group">-->
+        <!--            <label for="host" class="control-label">主机*:</label>-->
 
-            <div class="controls">
-                <?php echo Form::select('host_id', Host::getHostList(), array('id' => 'host_id')); ?>
-            </div>
-        </div>
+        <!--            <div class="controls">-->
+        <!--                --><?php //echo Form::select('host_id', Host::getHostList(), array('id' => 'host_id')); ?>
+        <!--            </div>-->
+        <!--        </div>-->
         <!--        <div class="control-group">-->
         <!--            <label for="type" class="control-label">类型*:</label>-->
         <!--            <div class="controls">-->

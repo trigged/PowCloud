@@ -9,13 +9,13 @@
             </div>
         </div>
         <?php if ((int)$path->id !== 0): ?>
-            <div class="control-group">
-                <label for="host" class="control-label">主机*:</label>
+            <!--            <div class="control-group">-->
+            <!--                <label for="host" class="control-label">主机*:</label>-->
 
-                <div class="controls">
-                    <?php echo Form::select('host_id', Host::getHostList(), $path->host_id); ?>
-                </div>
-            </div>
+            <!--                <div class="controls">-->
+            <!--                    --><?php //echo Form::select('host_id', Host::getHostList(), $path->host_id); ?>
+            <!--                </div>-->
+            <!--            </div>-->
         <?php endif; ?>
         <div class="control-group">
             <label for="expire" class="control-label">缓存时间:</label>
@@ -26,14 +26,12 @@
             </div>
         </div>
         <div class="form-actions">
-            <?php if ((int)$path->id !== 0): ?>
-                <!--                <button class="btn btn-primary" type="submit">更新</button>-->
-            <?php endif; ?>
             <a class="btn" onclick="addChild();">创建子路径</a>
             <a class='btn' onclick="update()">更新路径</a>
             <!--            --><?php //if ((int)$path->id !== 0): ?>
             <!--                <a id="remove" class="btn" data-url="-->
-            <?php //echo URL::action('PathController@destroy',array('path'=>$path->id)); ?><!--" >删除路径</a>-->
+            <!--            -->
+            <?php //echo URL::action('PathController@destroy', array('path' => $path->id)); ?><!--">删除路径</a>-->
             <!--            --><?php //endif; ?>
         </div>
     </form>
