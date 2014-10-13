@@ -82,6 +82,7 @@ class RouteManager
         self::addRoute($path . '/edit', $data);
         self::addRoute($path . '/', $data);
         self::addRoute($path . '/search', $data);
+        self::addRoute($path . '/incrby', $data);
         Route::resource($path, self::$controller);
     }
 

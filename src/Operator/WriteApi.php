@@ -143,5 +143,9 @@ class WriteApi
         }
     }
 
+    public static function incrby($model, $data_id, $filed, $value)
+    {
+        self::redis()->HINCRBY(RedisKey::buildKey($model, $data_id), $filed, $value);
+    }
 
 }

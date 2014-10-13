@@ -16,15 +16,15 @@ return array(
 //                array('label' => '域名列表', 'url' => URL::action('HostController@index'), 'menu' => 'host.list'),
 //            ),
 
-            '路径管理' => array(
+            'API 管理' => array(
                 array('label' => 'API列表', 'url' => URL::action('PathController@index'), 'menu' => 'path.list'),
             ),
 
-            '表管理'  => array(
+            '表管理'    => array(
                 array('label' => '创建表', 'url' => URL::action('SchemaBuilderController@create'), 'menu' => 'schema.create'),
                 array('label' => '表列表', 'url' => URL::action('SchemaBuilderController@index'), 'menu' => 'schema.list'),
             ),
-            '表单管理' => array(
+            '表单管理'   => array(
                 array('label' => '界面管理', 'url' => URL::action('FormsController@forms'), 'menu' => 'forms.list'),
             ),
         ),
