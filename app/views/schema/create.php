@@ -62,9 +62,42 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <tr data-index="0" id="row-0" class="propertyInput">
+                        <td>
+                            <input class="filedName filedNameLetter input-medium" type="text"
+                                   name="property[0][name]" value="id" disabled/>
+                        </td>
+                        <td>
+                            <input class="property input-large" type="text"
+                                   name="property[0][attributes]" value="integer" disabled/>
+                        </td>
+                    </tr>
+                    <tr data-index="0" id="row-0" class="propertyInput">
+                        <td>
+                            <input class="filedName filedNameLetter input-medium" type="text"
+                                   name="property[0][name]" value="created_at" disabled/>
+                        </td>
+                        <td>
+                            <input class="property input-large" type="text"
+                                   name="property[0][attributes]" value="dateTime" disabled/>
+                        </td>
+                    </tr>
+                    <tr data-index="0" id="row-0" class="propertyInput">
+                        <td>
+                            <input class="filedName filedNameLetter input-medium" type="text"
+                                   name="property[0][name]" value="updated_at" disabled/>
+                        </td>
+                        <td>
+                            <input class="property input-large" type="text"
+                                   name="property[0][attributes]" value="dateTime" disabled/>
+                        </td>
+                    </tr>
+
                     <?php for ($tableIndex = 1; $tableIndex <= 1; $tableIndex++): ?>
+
                         <tr data-index="<?php echo $tableIndex ?>" id="row-<?php echo $tableIndex ?>"
                             class="propertyInput">
+
                             <td>
                                 <input class="filedName filedNameLetter input-medium" type="text"
                                        name="property[<?php echo $tableIndex; ?>][name]" value=""/>
