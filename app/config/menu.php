@@ -24,10 +24,14 @@ return array(
                 array('label' => '创建表', 'url' => URL::action('SchemaBuilderController@create'), 'menu' => 'schema.create'),
                 array('label' => '表列表', 'url' => URL::action('SchemaBuilderController@index'), 'menu' => 'schema.list'),
             ),
+            '内置模板'   => array(
+                array('label' => '分类', 'url' => URL::action('FormsController@forms'), 'menu' => 'forms.list'),
+            ),
             '表单管理'   => array(
                 array('label' => '界面管理', 'url' => URL::action('FormsController@forms'), 'menu' => 'forms.list'),
             ),
         ),
+
 
         'cms'      => array(),
         'advanced' => array(
