@@ -12,9 +12,6 @@
 */
 
 
-
-
-
 Route::get('mail', function () {
     return Response::view('emails.info', array());
 });
@@ -76,6 +73,8 @@ Route::post('/forms/{form}/field/rank', 'FormsController@rank');
 Route::get('forms', 'FormsController@forms');
 Route::post('/form/storeField/{table}', 'FormsController@storeField');
 Route::get('/form/addField/{table}', 'FormsController@addField');
+Route::get('/form/addtiming/{table}', 'FormsController@addTiming');
+Route::get('/form/deltiming/{table}', 'FormsController@delTiming');
 Route::resource('/form', 'FormsController');
 
 //path

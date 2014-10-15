@@ -18,7 +18,7 @@
 
     <link href="<?php echo URL::asset('css/essage.css'); ?> " rel="stylesheet">
 
-    <script src="<?php echo URL::asset('js/jquery-1.8.3.min.js'); ?>"></script>
+    <script src="<?php echo URL::asset('/bower_components/jquery/dist/jquery.min.js'); ?>"></script>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
     <script src="<?php echo URL::asset('js/html5shiv.js'); ?>"></script>

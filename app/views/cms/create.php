@@ -129,10 +129,11 @@
             <?php endif; ?>
             <div class="form-actions">
                 <button class="btn btn-info" onclick="document.getElementById('JStatus').value='create';" type="submit">
-                    保存
+
+                    添加到待发布
                 </button>
                 <button class="btn btn-primary" onclick="document.getElementById('JStatus').value='save';"
-                        type="submit">创建
+                        type="submit">保存
                 </button>
                 <a href="<?php echo URL::action('CmsController@index', array('id' => $table->id)); ?>"
                    class="btn">取消</a>

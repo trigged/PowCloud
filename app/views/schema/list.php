@@ -61,14 +61,12 @@
                     <td><?php echo $table->updated_at; ?></td>
                     <td class="operation">
                         <a href="<?php echo URL::action('SchemaBuilderController@tableSchema', array('table' => $table->id)); ?>"
-                           title="表结构"><i class="icon-th"></i></a>
+                           data-toggle="tooltip" title="表结构" style="container:'body'"><i class="icon-th"></i></a>
                         <a href="<?php echo URL::action('SchemaBuilderController@edit', array('table' => $table->id)) ?>"
-                           title="修改"><i class="icon-pencil"></i></a>
-                        <!--                        <a class="JS_tableOp" href="javascript:void(0) "-->
-                        <!--                           data-url="-->
-                        <?php //echo URL::action('SchemaBuilderController@destroy', array('table' => $table->id)) ?><!--"-->
-                        <!--                           data-target="-->
-                        <?php //echo $table->id; ?><!--"><i title="删除" class="icon-remove"></i></a>-->
+                           data-toggle="tooltip" title="修改"><i class="icon-pencil"></i></a>
+                        <a class="JS_tableOp" href="javascript:void(0) "
+                           data-url="<?php echo URL::action('SchemaBuilderController@destroy', array('table' => $table->id)) ?>"
+                           data-target=" <?php echo $table->id; ?>"><i title="删除" class="icon-remove"></i></a>
                         <a title="配置选项"
                            href="<?php echo URL::action('SchemaBuilderController@tableOptions', array('table' => $table->id)) ?>"
                            class=""><i class="icon-cog"></i></a>

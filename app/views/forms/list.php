@@ -4,9 +4,15 @@
         <fieldset>
             <legend><?php echo $table->table_name ?>'s 的表单</legend>
         </fieldset>
+
         <div id="JS_button_hook" class="" style="">
             <a href="<?php echo URL::action('FormsController@addField', array('table' => $table->id)) ?>"
                class="btn btn-primary" type="button">添加字段</a>
+
+            <button type="button" id="loading-example-btn" data-loading-text="请求中..." class="btn btn-info"
+                    value="<?php echo $timing_state ?>">
+                <?php echo $timing_state ?>定时发布
+            </button>
         </div>
 
         <table id="forms_table" class="table table-hover sortable">
@@ -63,9 +69,37 @@
 
         <?php echo $forms ? $forms->appends(array('table' => $table->id))->links() : ''; ?>
     </div>
-    <script src="<?php echo URL::asset('js/module/table.js'); ?>"></script>
-
     <script>
+        $('#loading-example-btn').click(function () {
+            var btn = $(this);
+            btn.button('loading');
+            console.log(this.value);
+
+            if (this.value == '开启') {
+                console.log('on');
+                btn.val('关闭');
+                $.ajax({
+                    type: "get",
+                    url: "<?php echo URL::action('FormsController@addTiming', array('table' => $table->id)); ?>",
+                }).done(function () {
+                        btn.button('reset');
+                        btn.text('关闭定时发布')
+                    });
+            }
+            else if (this.value == '关闭') {
+                console.log('off');
+                btn.val('开启');
+
+                $.ajax({
+                    type: "get",
+                    url: "<?php echo URL::action('FormsController@delTiming', array('table' => $table->id)); ?>",
+                }).done(function () {
+                        btn.button('reset');
+                        btn.text('开启定时发布')
+                    });
+            }
+        });
+
         $(function () {
             table.init('.sortable tbody tr', '<tr class="sortable-holder" style="height: 50px;"></tr>');
             $('.comment').popover({trigger: 'hover'});

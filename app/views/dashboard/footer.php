@@ -7,7 +7,6 @@
 <script src="<?php echo URL::asset('js/jquery.ui.touch-punch.min.js'); ?>"></script>
 <script src="<?php echo URL::asset('js/bootstrap.min.js'); ?> "></script>
 <script src="<?php echo URL::asset('js/bootstrap-select.js'); ?>"></script>
-<script src="<?php echo URL::asset('js/bootstrap-switch.js'); ?>"></script>
 <script src="<?php echo URL::asset('js/jquery.tagsinput.js'); ?>"></script>
 <script src="<?php echo URL::asset('js/jquery.placeholder.js'); ?>"></script>
 <script src="<?php echo URL::asset('js/jquery.identicon5.js'); ?>"></script>
@@ -18,7 +17,7 @@
 <script>
     $(function () {
         CMS.init();
-        $('.JAvatar').identicon5({size:45});
+        $('.JAvatar').identicon5({size: 45});
         <?php if(Session::has('messageTip')):?>
         <?php echo Session::get('messageTip');Session::remove('messageTip');?>
         <?php endif;?>
