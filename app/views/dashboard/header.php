@@ -32,14 +32,14 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <a data-target=".navbar-collapse" data-toggle="collapse" class="btn navbar-btn">
-            <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
             <a class="navbar-brand" href="#">POW Server</a>
 
             <div class="navbar-collapse  pull-right">
-            <p class="navbar-text">
+                <p class="navbar-text">
                     欢迎 <a href="javascript:void(0);"><?php echo Auth::user()->name; ?></a> 登陆，<a
                         href="<?php echo URL::action('LoginController@logout') ?>">注销</a>
                 </p>

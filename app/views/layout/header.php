@@ -34,14 +34,14 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <a data-target=".navbar-collapse" data-toggle="collapse" class="btn navbar-btn">
-            <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
             <a class="navbar-brand" href="<?php echo URL::action('DashBoardController@index') ?>">数据管理平台</a>
 
             <div class="navbar-collapse">
-            <ul class="nav">
+                <ul class="nav">
                     <?php foreach ($navs as $cur => $navMenu): ?>
                         <li class="<?php echo $nav === $cur ? 'active' : ''; ?>">
                             <a <?php if (!empty($navMenu['target'])) echo 'target="' . $navMenu['target'] . '"' ?>
@@ -65,7 +65,7 @@
     <div class="row">
         <?php if ($leftMenu): ?>
             <div class="col-md-2">
-            <div class="well sidebar-nav">
+                <div class="well sidebar-nav">
                     <ul class="nav nav-list">
                         <?php foreach ($leftMenu as $group => $other): ?>
                             <li class="nav-header"><?php echo $group ?></li>

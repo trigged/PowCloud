@@ -28,7 +28,7 @@
 <?php echo $header; ?>
 <!--left menu begin-->
 <div class="col-md-2">
-<?php if ($apps): ?>
+    <?php if ($apps): ?>
         <ul class="nav nav-list bs-docs-sidenav affix">
             <?php foreach ($apps as $app): ?>
                 <li class=""><a href="#appItem-<?php echo $app->id; ?>"><i
@@ -55,7 +55,7 @@
             <!--app item begin-->
             <div class="row item">
                 <div class="col-md-6 item item-team">
-                <a style="text-decoration: none; color: #34495e"
+                    <a style="text-decoration: none; color: #34495e"
                        href="<?php echo URL::action('CmsController@index', array('app_id' => $app->id)) ?>">
                         <div class="appTitle appLink">
                             <h4>
@@ -86,7 +86,7 @@
 
 
                 <div class="col-md-6 item item-member">
-                <div class="appTitle appUserTitle">
+                    <div class="appTitle appUserTitle">
                         <h4>项目成员</h4>
                     </div>
                     <div class="item-member-body">
@@ -147,7 +147,7 @@
         <div class="modal-body">
 
             <div class="jumbotron">
-            <h2>APP权限设置</h2>
+                <h2>APP权限设置</h2>
                 <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
                 <form class="form-horizontal" method="post" id="invite">
                     <fieldset>

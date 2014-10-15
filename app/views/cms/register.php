@@ -4,7 +4,7 @@
 
     <div id="container">
         <div class="jumbotron">
-        <h1>新用户注册</h1>
+            <h1>新用户注册</h1>
 
             <p></p>
 
