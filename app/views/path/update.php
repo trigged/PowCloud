@@ -4,7 +4,7 @@
             <label for="name" class="control-label">path*:</label>
 
             <div class="controls">
-                <input name="name" readonly class="input-medium" value="<?php echo $path->name; ?>" type="text"
+                <input name="name" readonly class="form-control" value="<?php echo $path->name; ?>" type="text"
                        placeholder="主机名称" id="name">
             </div>
         </div>

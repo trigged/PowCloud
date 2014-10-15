@@ -15,14 +15,14 @@
                     <label for="name" class="control-label">表名(不是表别名!):</label>
 
                     <div class="controls">
-                        <input name="table_name" class="input-medium" type="text" placeholder="数据变更" id="filed">
+                        <input name="table_name" class="form-control" type="text" placeholder="数据变更" id="filed">
                     </div>
                 </div>
                 <div class="control-group">
                     <label for="name" class="control-label">数据ID:</label>
 
                     <div class="controls">
-                        <input name="data_id" class="input-medium" type="text" placeholder="数据变更" id="filed">
+                        <input name="data_id" class="form-control" type="text" placeholder="数据变更" id="filed">
                     </div>
                 </div>
 

@@ -9,14 +9,14 @@
             <label for="name" class="control-label">主机名称*:</label>
 
             <div class="controls">
-                <input name="name" class="input-medium" type="text" placeholder="主机名称" id="name">
+                <input name="name" class="form-control" type="text" placeholder="主机名称" id="name">
             </div>
         </div>
         <div class="control-group">
             <label for="host" class="control-label">主机地址*:</label>
 
             <div class="controls">
-                <input class="input-xlarge" name="host" type="text" placeholder="xxx.xxx.xx.com" id="host">
+                <input class="form-control" name="host" type="text" placeholder="xxx.xxx.xx.com" id="host">
             </div>
         </div>
         <div class="control-group">

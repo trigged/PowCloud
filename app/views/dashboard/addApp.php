@@ -18,6 +18,8 @@
 
                         <div class="controls">
                             <input name="info" class="input-xxlarge" value="" type="text" placeholder="信息" id="info">
+                            <input name="info" class="form-control col-md-6" value="" type="text" placeholder="信息"
+                                   id="info">
                         </div>
                     </div>
 

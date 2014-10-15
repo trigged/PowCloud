@@ -6,7 +6,7 @@
                 <label for="name" class="control-label">用户名*:</label>
 
                 <div class="controls">
-                    <input name="name" class="input-medium" readonly value="<?php echo $user->name; ?>" type="text"
+                    <input name="name" class="form-control" readonly value="<?php echo $user->name; ?>" type="text"
                            placeholder="用户名" id="name">
                 </div>
             </div>

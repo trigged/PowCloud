@@ -8,7 +8,7 @@
                     <label for="name" class="control-label">快捷键名称*:</label>
 
                     <div class="controls">
-                        <input name="name" value="<?php echo $shortCut->name; ?>" class="input-medium" type="text"
+                        <input name="name" value="<?php echo $shortCut->name; ?>" class="form-control" type="text"
                                placeholder="快捷键名称" id="name">
                     </div>
                 </div>

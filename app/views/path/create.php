@@ -4,7 +4,7 @@
             <label for="name" class="control-label">path*:</label>
 
             <div class="controls">
-                <input name="name" class="input-medium" value="" type="text" placeholder="路径名称" id="name">
+                <input name="name" class="form-control" value="" type="text" placeholder="路径名称" id="name">
             </div>
         </div>
         <div class="control-group">

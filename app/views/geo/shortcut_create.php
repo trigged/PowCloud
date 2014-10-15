@@ -8,7 +8,7 @@
                     <label for="name" class="control-label">快捷键名称*:</label>
 
                     <div class="controls">
-                        <input name="name" class="input-medium" type="text" placeholder="快捷键名称" id="name">
+                        <input name="name" class="form-control" type="text" placeholder="快捷键名称" id="name">
                     </div>
                 </div>
                 <div class="control-group">

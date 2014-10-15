@@ -23,25 +23,25 @@
             <label for="table_name" class="control-label">表名*:</label>
 
             <div class="controls">
-                <input name="table_name" class="input-medium" type="text" placeholder="表名" id="table_name">
+                <input name="table_name" class="form-control" type="text" placeholder="表名" id="table_name">
             </div>
         </div>
         <div class="control-group">
             <label for="table_alias" class="control-label">表别名*:</label>
 
             <div class="controls">
-                <input name="table_alias" class="input-medium" type="text" placeholder="表别名" id="table_alias">
+                <input name="table_alias" class="form-control" type="text" placeholder="表别名" id="table_alias">
             </div>
         </div>
         <div class="control-group">
             <label for="group_name" class="control-label">组名:</label>
 
             <div class="controls">
-                <input name="group_name" class="input-medium" type="text" placeholder="组名" id="group_name">
+                <input name="group_name" class="form-control" type="text" placeholder="组名" id="group_name">
             </div>
         </div>
         <div class="control-group">
-            <label for="path" class="control-label">映射路径*:</label>
+            <label for="path" class="control-label">API 地址绑定*:</label>
 
             <div class="controls">
                 <?php echo Form::select('path_id', $pathTreeListOptions, '', array('id' => 'path_id')) ?>
@@ -62,15 +62,48 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <tr data-index="0" id="row-0" class="propertyInput">
+                        <td>
+                            <input class="filedName filedNameLetter form-control" type="text"
+                                   name="property[0][name]" value="id" disabled/>
+                        </td>
+                        <td>
+                            <input class="property form-control" type="text"
+                                   name="property[0][attributes]" value="integer" disabled/>
+                        </td>
+                    </tr>
+                    <tr data-index="0" id="row-0" class="propertyInput">
+                        <td>
+                            <input class="filedName filedNameLetter form-control" type="text"
+                                   name="property[0][name]" value="created_at" disabled/>
+                        </td>
+                        <td>
+                            <input class="property form-control" type="text"
+                                   name="property[0][attributes]" value="dateTime" disabled/>
+                        </td>
+                    </tr>
+                    <tr data-index="0" id="row-0" class="propertyInput">
+                        <td>
+                            <input class="filedName filedNameLetter form-control" type="text"
+                                   name="property[0][name]" value="updated_at" disabled/>
+                        </td>
+                        <td>
+                            <input class="property form-control" type="text"
+                                   name="property[0][attributes]" value="dateTime" disabled/>
+                        </td>
+                    </tr>
+
                     <?php for ($tableIndex = 1; $tableIndex <= 1; $tableIndex++): ?>
+
                         <tr data-index="<?php echo $tableIndex ?>" id="row-<?php echo $tableIndex ?>"
                             class="propertyInput">
+
                             <td>
-                                <input class="filedName filedNameLetter input-medium" type="text"
+                                <input class="filedName filedNameLetter form-control" type="text"
                                        name="property[<?php echo $tableIndex; ?>][name]" value=""/>
                             </td>
                             <td>
-                                <input class="property input-large" type="text"
+                                <input class="property form-control" type="text"
                                        name="property[<?php echo $tableIndex; ?>][attributes]" value=""/>
                             </td>
                             <td>
@@ -226,7 +259,7 @@
     });
     function addProperty() {
         var index = parseInt($(".propertyInput:last").attr('data-index')) + 1;
-        var tpl = '<tr class="propertyInput" data-index="' + index + '" id="row-' + index + '"><td><input class="fieldName filedNameLetter input-mini" type="text" name="property[' + index + '][name]" value="" /></td><td><input class="property input-xlarge" type="text" name="property[' + index + '][attributes]" value="" /></td><td><i class="icon-remove" data-row="row-' + index + '"></i></td> </tr>';
+        var tpl = '<tr class="propertyInput" data-index="' + index + '" id="row-' + index + '"><td><input class="fieldName filedNameLetter form-control" type="text" name="property[' + index + '][name]" value="" /></td><td><input class="property form-control" type="text" name="property[' + index + '][attributes]" value="" /></td><td><i class="icon-remove" data-row="row-' + index + '"></i></td> </tr>';
         $('table tbody').append(tpl);
     }
 </script>

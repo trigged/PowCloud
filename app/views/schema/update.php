@@ -9,7 +9,7 @@
                     <label for="table_alias" class="control-label">表别名*:</label>
 
                     <div class="controls">
-                        <input name="table_alias" value="<?php echo $schema->table_alias; ?>" class="input-medium"
+                        <input name="table_alias" value="<?php echo $schema->table_alias; ?>" class="form-control"
                                type="text" placeholder="表别名" id="table_alias">
                     </div>
                 </div>
@@ -17,7 +17,7 @@
                     <label for="group_name" class="control-label">组名:</label>
 
                     <div class="controls">
-                        <input name="group_name" value="<?php echo $schema->group_name; ?>" class="input-medium"
+                        <input name="group_name" value="<?php echo $schema->group_name; ?>" class="form-control"
                                type="text" placeholder="组名" id="group_name">
                     </div>
                 </div>
@@ -42,15 +42,45 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <tr data-index="0" id="row-0" class="propertyInput">
+                                <td>
+                                    <input class="filedName filedNameLetter form-control" type="text"
+                                           name="property[0][name]" value="id" disabled/>
+                                </td>
+                                <td>
+                                    <input class="property form-control" type="text"
+                                           name="property[0][attributes]" value="integer" disabled/>
+                                </td>
+                            </tr>
+                            <tr data-index="0" id="row-0" class="propertyInput">
+                                <td>
+                                    <input class="filedName filedNameLetter form-control" type="text"
+                                           name="property[0][name]" value="created_at" disabled/>
+                                </td>
+                                <td>
+                                    <input class="property form-control" type="text"
+                                           name="property[0][attributes]" value="dateTime" disabled/>
+                                </td>
+                            </tr>
+                            <tr data-index="0" id="row-0" class="propertyInput">
+                                <td>
+                                    <input class="filedName filedNameLetter form-control" type="text"
+                                           name="property[0][name]" value="updated_at" disabled/>
+                                </td>
+                                <td>
+                                    <input class="property form-control" type="text"
+                                           name="property[0][attributes]" value="dateTime" disabled/>
+                                </td>
+                            </tr>
                             <?php foreach ($schema->property as $propertyName => $propertyValue): ?>
                                 <tr class="propertyInput">
                                     <td>
-                                        <span><input class="input-medium " placeholder="<?php echo $propertyName ?>"
+                                        <span><input class="form-control " placeholder="<?php echo $propertyName ?>"
                                                      value="<?php echo $propertyName ?>"
                                                      name="<?php echo $propertyName ?>"/></span>
                                     </td>
                                     <td>
-                                    <span class="input-medium uneditable-input"><?php
+                                    <span class="form-control uneditable-input"><?php
                                         echo implode(' ', array_except($propertyValue, array('default')));
                                         echo !empty($propertyValue['default']) ? '|' . $propertyValue['default'] : '';
                                         ?>
@@ -148,7 +178,7 @@
     });
     function addProperty() {
         var index = $(".propertyInput").length;
-        var tpl = '<tr><td><input class="input-mini propertyInput" type="text" name="property[' + index + '][name]" value="" /></td><td><input class="input-xlarge" type="text" name="property[' + index + '][attributes]" value="" /></td></tr>'
+        var tpl = '<tr><td><input class="form-control propertyInput" type="text" name="property[' + index + '][name]" value="" /></td><td><input class="form-control" type="text" name="property[' + index + '][attributes]" value="" /></td></tr>'
         $('table tbody').append(tpl);
     }
 </script>

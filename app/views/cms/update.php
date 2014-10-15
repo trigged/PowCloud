@@ -33,7 +33,7 @@
                                     <?php
                                     \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules); //注册验证规则 以便JS可以验证
                                     $namespace = $table->table_name ? $table->table_name . '[' . $form->field . ']' : $form->field;
-                                    $class = 'input-xxlarge';
+                                    $class = 'form-control';
                                     $input = '<input type="text" name="' . $namespace . '[]" placeholder="单击上传" value="' . (isset($tableData->{$form->field}[$key]) ? $tableData->{$form->field}[$key] : '') . '"  class="' . $class . ' image-uploader"  />';
                                     echo $input;
                                     ?>

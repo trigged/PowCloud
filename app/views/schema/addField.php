@@ -9,14 +9,14 @@
                 <label for="field" class="control-label">字段名*:</label>
 
                 <div class="controls">
-                    <input name="field" class="filedNameLetter input-medium" type="text" placeholder="字段名" id="field">
+                    <input name="field" class="filedNameLetter form-control" type="text" placeholder="字段名" id="field">
                 </div>
             </div>
             <div class="control-group">
                 <label for="property" class="control-label">属性*:</label>
 
                 <div class="controls">
-                    <input name="property" class="input-xlarge" type="text" placeholder="属性" id="property">
+                    <input name="property" class="form-control" type="text" placeholder="属性" id="property">
                 </div>
             </div>
 
