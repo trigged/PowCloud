@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 <div class="row">
-    <div class="span7">
+    <div class="col-md-7">
         <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
         <form id="schema_form" class="form-horizontal" method="post">
             <h4>添加表(<?php echo $table->table_name; ?>)字段</h4>

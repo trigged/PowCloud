@@ -1,7 +1,7 @@
 <?php if (empty($user_id)) : ?>
 
-    <div class="hero-unit">
-        <h2>邀请小伙伴</h2>
+    <div class="jumbotron">
+    <h2>邀请小伙伴</h2>
 
         <form action="<?php echo URL::action('LoginController@registerUser'); ?>" method="post">
             <p/>

@@ -3,8 +3,8 @@
     <body>
 
     <div id="container">
-        <div class="hero-unit">
-            <h1>新用户注册</h1>
+        <div class="jumbotron">
+        <h1>新用户注册</h1>
 
             <p></p>
 

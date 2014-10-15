@@ -27,8 +27,8 @@
 
 <?php echo $header; ?>
 <!--left menu begin-->
-<div class="span2">
-    <?php if ($apps): ?>
+<div class="col-md-2">
+<?php if ($apps): ?>
         <ul class="nav nav-list bs-docs-sidenav affix">
             <?php foreach ($apps as $app): ?>
                 <li class=""><a href="#appItem-<?php echo $app->id; ?>"><i
@@ -38,13 +38,13 @@
     <?php endif; ?>
 </div>
 <!--right menu end-->
-<div class="span10">
+<div class="col-md-10">
     <div class="row" style="margin-bottom: 10px;">
         <div class="span-12">
             <div class="pull-right">
                 <?php
                 if ($enable != 'false') {
-                    echo '<a href="' . URL::action('DashBoardController@addApp') . '" class="btn btn-small btn-primary"type="button">添加应用</a>';
+                    echo '<a href="' . URL::action('DashBoardController@addApp') . '" class="btn btn-sm btn-primary"type="button">添加应用</a>';
                 }
                 ?>
             </div>
@@ -54,8 +54,8 @@
         <section id="appItem-<?php echo $app->id; ?>">
             <!--app item begin-->
             <div class="row item">
-                <div class="span6 item item-team">
-                    <a style="text-decoration: none; color: #34495e"
+                <div class="col-md-6 item item-team">
+                <a style="text-decoration: none; color: #34495e"
                        href="<?php echo URL::action('CmsController@index', array('app_id' => $app->id)) ?>">
                         <div class="appTitle appLink">
                             <h4>
@@ -85,8 +85,8 @@
                 </div>
 
 
-                <div class="span6 item item-member">
-                    <div class="appTitle appUserTitle">
+                <div class="col-md-6 item item-member">
+                <div class="appTitle appUserTitle">
                         <h4>项目成员</h4>
                     </div>
                     <div class="item-member-body">
@@ -128,7 +128,7 @@
                     <div class="span-12">
                         <div class="pull-right">
                             <a href="<?php echo URL::action('DashBoardController@editApp', array('app_id' => $app->id)) ?>"
-                               class="btn btn-small" type="button">修改应用</a>
+                               class="btn btn-sm" type="button">修改应用</a>
                         </div>
                     </div>
                 </div>
@@ -146,8 +146,8 @@
         </div>
         <div class="modal-body">
 
-            <div class="hero-unit">
-                <h2>APP权限设置</h2>
+            <div class="jumbotron">
+            <h2>APP权限设置</h2>
                 <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
                 <form class="form-horizontal" method="post" id="invite">
                     <fieldset>
