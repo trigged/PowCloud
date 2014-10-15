@@ -62,7 +62,7 @@
 </div>
 
 <div class="container-fluid">
-    <div class="row-fluid">
+    <div class="row">
         <?php if ($leftMenu): ?>
             <div class="span2">
                 <div class="well sidebar-nav">

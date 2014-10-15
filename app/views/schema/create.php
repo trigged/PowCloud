@@ -1,5 +1,5 @@
 <?php echo $header; ?>
-<div class="row-fluid">
+<div class="row">
 <div class="span7">
     <div class="note note-success">
         <h4 class="block">小技巧</h4>

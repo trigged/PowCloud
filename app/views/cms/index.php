@@ -75,7 +75,7 @@ if ($roles === 3) :?>
         <p>&nbsp;&nbsp;&nbsp;<code>若登录异常,请及时修改域密码并且联系管理员</code></p>
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="span3" style="position: relative;">
             <div class="dashboard-stat blue">
                 <div class="visual">

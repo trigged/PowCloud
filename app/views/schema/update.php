@@ -1,5 +1,5 @@
 <?php echo $header; ?>
-<div class="row-fluid">
+<div class="row">
     <div class="span7">
         <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
         <form id="schema_form" class="form-horizontal" method="post">

@@ -39,7 +39,7 @@
 </div>
 <!--right menu end-->
 <div class="span10">
-    <div class="row-fluid" style="margin-bottom: 10px;">
+    <div class="row" style="margin-bottom: 10px;">
         <div class="span-12">
             <div class="pull-right">
                 <?php
@@ -53,7 +53,7 @@
     <?php if ($apps):foreach ($apps as $app): ?>
         <section id="appItem-<?php echo $app->id; ?>">
             <!--app item begin-->
-            <div class="row-fluid item">
+            <div class="row item">
                 <div class="span6 item item-team">
                     <a style="text-decoration: none; color: #34495e"
                        href="<?php echo URL::action('CmsController@index', array('app_id' => $app->id)) ?>">
@@ -124,7 +124,7 @@
                 </div>
             </div>
             <?php if ($app->Author === Auth::user()->name): ?>
-                <div class="row-fluid" style="margin-bottom: 10px;">
+                <div class="row" style="margin-bottom: 10px;">
                     <div class="span-12">
                         <div class="pull-right">
                             <a href="<?php echo URL::action('DashBoardController@editApp', array('app_id' => $app->id)) ?>"
