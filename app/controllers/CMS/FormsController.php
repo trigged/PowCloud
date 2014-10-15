@@ -107,7 +107,7 @@ class FormsController extends SystemController
             $filed[] = array(
                 'field'         => 'timing_state',
                 'models_id'     => $tableId,
-//                'label'         => '定时发布',
+                'label'         => '定时发布',
 //                'dataType' =>'DateTime',
                 'type'          => 'timingState',
                 'rules'         => '',
