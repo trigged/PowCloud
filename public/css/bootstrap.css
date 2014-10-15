@@ -14,6 +14,7 @@ html {
 body {
     margin: 0;
 }
+
 article,
 aside,
 details,
@@ -28,6 +29,7 @@ section,
 summary {
     display: block;
 }
+
 audio,
 canvas,
 progress,
@@ -35,6 +37,7 @@ video {
     display: inline-block;
     vertical-align: baseline;
 }
+
 audio:not([controls]) {
     display: none;
     height: 0;
@@ -88,12 +91,15 @@ sup {
     line-height: 0;
     vertical-align: baseline;
 }
+
 sup {
     top: -.5em;
 }
+
 sub {
     bottom: -.25em;
 }
+
 img {
     border: 0;
 }
@@ -143,6 +149,7 @@ button,
 select {
     text-transform: none;
 }
+
 button,
 html input[type="button"],
 input[type="reset"],
@@ -1587,7 +1594,7 @@ dd {
 @media (min-width: 768px) {
     .dl-horizontal dt {
         float: left;
-    width: 160px;
+        width: 160px;
         overflow: hidden;
         clear: left;
         text-align: right;
@@ -3876,16 +3883,19 @@ tbody.collapse.in {
     -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
     box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }
+
 .dropdown-menu.pull-right {
     right: 0;
     left: auto;
 }
+
 .dropdown-menu .divider {
     height: 1px;
     margin: 9px 0;
     overflow: hidden;
     background-color: #e5e5e5;
 }
+
 .dropdown-menu > li > a {
     display: block;
     padding: 3px 20px;
@@ -3895,12 +3905,14 @@ tbody.collapse.in {
     color: #333;
     white-space: nowrap;
 }
+
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
     color: #262626;
     text-decoration: none;
     background-color: #f5f5f5;
 }
+
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
 .dropdown-menu > .active > a:focus {
@@ -3909,11 +3921,13 @@ tbody.collapse.in {
     background-color: #428bca;
     outline: 0;
 }
+
 .dropdown-menu > .disabled > a,
 .dropdown-menu > .disabled > a:hover,
 .dropdown-menu > .disabled > a:focus {
     color: #777;
 }
+
 .dropdown-menu > .disabled > a:hover,
 .dropdown-menu > .disabled > a:focus {
     text-decoration: none;
@@ -3922,6 +3936,7 @@ tbody.collapse.in {
     background-image: none;
     filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
+
 .open > .dropdown-menu {
     display: block;
 }
@@ -3957,16 +3972,19 @@ tbody.collapse.in {
     left: 0;
     z-index: 990;
 }
+
 .pull-right > .dropdown-menu {
     right: 0;
     left: auto;
 }
+
 .dropup .caret,
 .navbar-fixed-bottom .dropdown .caret {
     content: "";
     border-top: 0;
     border-bottom: 4px solid;
 }
+
 .dropup .dropdown-menu,
 .navbar-fixed-bottom .dropdown .dropdown-menu {
     top: auto;
@@ -6942,11 +6960,13 @@ button.close {
 .carousel {
     position: relative;
 }
+
 .carousel-inner {
     position: relative;
     width: 100%;
     overflow: hidden;
 }
+
 .carousel-inner > .item {
     position: relative;
     display: none;
@@ -6954,40 +6974,50 @@ button.close {
     -o-transition: .6s ease-in-out left;
     transition: .6s ease-in-out left;
 }
+
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
     line-height: 1;
 }
+
 .carousel-inner > .active,
 .carousel-inner > .next,
 .carousel-inner > .prev {
     display: block;
 }
+
 .carousel-inner > .active {
     left: 0;
 }
+
 .carousel-inner > .next,
 .carousel-inner > .prev {
     position: absolute;
     top: 0;
     width: 100%;
 }
+
 .carousel-inner > .next {
     left: 100%;
 }
+
 .carousel-inner > .prev {
     left: -100%;
 }
+
 .carousel-inner > .next.left,
 .carousel-inner > .prev.right {
     left: 0;
 }
+
 .carousel-inner > .active.left {
     left: -100%;
 }
+
 .carousel-inner > .active.right {
     left: 100%;
 }
+
 .carousel-control {
     position: absolute;
     top: 0;
@@ -7021,6 +7051,7 @@ button.close {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
     background-repeat: repeat-x;
 }
+
 .carousel-control:hover,
 .carousel-control:focus {
     color: #fff;
@@ -7079,6 +7110,7 @@ button.close {
     text-align: center;
     list-style: none;
 }
+
 .carousel-indicators li {
     display: inline-block;
     width: 10px;
@@ -7091,12 +7123,14 @@ button.close {
     border: 1px solid #fff;
     border-radius: 10px;
 }
+
 .carousel-indicators .active {
     width: 12px;
     height: 12px;
     margin: 0;
     background-color: #fff;
 }
+
 .carousel-caption {
     position: absolute;
     right: 15%;
@@ -7203,18 +7237,23 @@ button.close {
     margin-right: auto;
     margin-left: auto;
 }
+
 .pull-right {
     float: right !important;
 }
+
 .pull-left {
     float: left !important;
 }
+
 .hide {
     display: none !important;
 }
+
 .show {
     display: block !important;
 }
+
 .invisible {
     visibility: hidden;
 }
