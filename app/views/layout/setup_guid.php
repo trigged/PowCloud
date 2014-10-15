@@ -1,5 +1,5 @@
 <div class="row demo-samples">
-    <div class="span4">
+    <div class="col-md-4">
         <div class="todo mrm">
             <div class="todo-search">
                 <input class="todo-search-field" value="" placeholder="初始引导"/>

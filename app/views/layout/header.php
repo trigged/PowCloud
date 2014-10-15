@@ -33,15 +33,15 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
-                <span class="icon-bar"></span>
+            <a data-target=".navbar-collapse" data-toggle="collapse" class="btn navbar-btn">
+            <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="<?php echo URL::action('DashBoardController@index') ?>">数据管理平台</a>
+            <a class="navbar-brand" href="<?php echo URL::action('DashBoardController@index') ?>">数据管理平台</a>
 
-            <div class="nav-collapse">
-                <ul class="nav">
+            <div class="navbar-collapse">
+            <ul class="nav">
                     <?php foreach ($navs as $cur => $navMenu): ?>
                         <li class="<?php echo $nav === $cur ? 'active' : ''; ?>">
                             <a <?php if (!empty($navMenu['target'])) echo 'target="' . $navMenu['target'] . '"' ?>
@@ -56,7 +56,7 @@
                         href="<?php echo URL::action('LoginController@logout') ?>">注销</a>
                 </p>
             </div>
-            <!--/.nav-collapse -->
+            <!--/.navbar-collapse -->
         </div>
     </div>
 </div>
@@ -64,8 +64,8 @@
 <div class="container-fluid">
     <div class="row">
         <?php if ($leftMenu): ?>
-            <div class="span2">
-                <div class="well sidebar-nav">
+            <div class="col-md-2">
+            <div class="well sidebar-nav">
                     <ul class="nav nav-list">
                         <?php foreach ($leftMenu as $group => $other): ?>
                             <li class="nav-header"><?php echo $group ?></li>
@@ -82,5 +82,5 @@
                 </div>
             </div>
         <?php endif; ?>
-        <div class="span10">
+        <div class="col-md-10">
 

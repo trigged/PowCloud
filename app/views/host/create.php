@@ -1,5 +1,5 @@
 <?php echo $header; ?>
-<div class="span8" style="margin-left: 10px;">
+<div class="col-md-8" style="margin-left: 10px;">
     <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
     <form data-status="0" id="host_form" class="form-horizontal" method="post"
     ">

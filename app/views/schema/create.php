@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 <div class="row">
-<div class="span7">
+<div class="col-md-7">
     <div class="note note-success">
         <h4 class="block">小技巧</h4>
 
@@ -115,7 +115,7 @@
                     <tfoot>
                     <tr>
                         <td colspan="3">
-                            <button class="btn btn-mini btn-primary" onclick="addProperty()" type="button">添加字段</button>
+                            <button class="btn btn-xs btn-primary" onclick="addProperty()" type="button">添加字段</button>
                         </td>
                     </tr>
                     </tfoot>
@@ -185,10 +185,10 @@
     ?>
 
 </div>
-<div class="span5">
-    <div id="accordion2" class="panel-group">
-        <div class="panel panel-default">
-            <div class="panel-heading">
+<div class="col-md-5">
+<div id="accordion2" class="accordion">
+        <div class="accordion-group">
+            <div class="accordion-heading">
                 <a href="#collapseOne" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
                     字符类型
                 </a>

@@ -76,7 +76,7 @@ if ($roles === 3) :?>
     </div>
 
     <div class="row">
-        <div class="span3" style="position: relative;">
+        <div class="col-md-3" style="position: relative;">
             <div class="dashboard-stat blue">
                 <div class="visual">
                     <i class="fa fa-comments"></i>
@@ -95,7 +95,7 @@ if ($roles === 3) :?>
             </div>
         </div>
 
-        <div class="span3" style="position: relative;">
+        <div class="col-md-3" style="position: relative;">
             <div class="dashboard-stat purple">
                 <div class="visual">
                     <i class="fa fa-globe"></i>
@@ -109,7 +109,7 @@ if ($roles === 3) :?>
                 </a>
             </div>
         </div>
-        <div class="span3" style="position: relative;">
+        <div class="col-md-3" style="position: relative;">
             <div class="dashboard-stat yellow">
                 <div class="visual">
                     <i class="fa fa-bar-chart-o"></i>
