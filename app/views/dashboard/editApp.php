@@ -6,20 +6,20 @@
                   action="<?php echo URL::action('DashBoardController@updateApp') ?>" method="post">
                 <fieldset>
                     <legend>修改应用:<?php echo $app->name; ?></legend>
-                    <div class="control-group">
+                    <div class="form-group">
                         <label for="app_id" class="control-label">应用名称*:</label>
 
                         <div class="controls">
                             <input type="hidden" name="app_id" value="<?php echo $app->id; ?>">
-                            <input name="name" class="input-medium" value="<?php echo $app->name ?>" type="text"
+                            <input name="name" class="form-control" value="<?php echo $app->name ?>" type="text"
                                    placeholder="应用名称" id="name">
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         <label for="info" class="control-label">信息*:</label>
 
                         <div class="controls">
-                            <input name="info" class="input-xxlarge" value="" type="text" placeholder="信息" id="info">
+                            <input name="info" class="form-control" value="" type="text" placeholder="信息" id="info">
                         </div>
                     </div>
                     <div class="form-actions">

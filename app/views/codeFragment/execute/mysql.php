@@ -2,14 +2,14 @@
     <form method="post" class="form-horizontal">
         <fieldset>
             <legend>输入sql语句</legend>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label">选择DB:</label>
 
                 <div class="controls">
                     <?php echo Form::select('connection', array('mysql' => 'x-cms', 'models' => 'cms-models'), $data['connection'], array('id' => 'connection')); ?>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label">sql语句:</label>
 
                 <div class="controls">

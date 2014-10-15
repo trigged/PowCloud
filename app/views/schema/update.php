@@ -5,7 +5,7 @@
         <form id="schema_form" class="form-horizontal" method="post">
             <fieldset>
                 <legend>修改表:<?php echo $schema->table_name; ?></legend>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="table_alias" class="control-label">表别名*:</label>
 
                     <div class="controls">
@@ -13,7 +13,7 @@
                                type="text" placeholder="表别名" id="table_alias">
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="group_name" class="control-label">组名:</label>
 
                     <div class="controls">
@@ -21,7 +21,7 @@
                                type="text" placeholder="组名" id="group_name">
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="path" class="control-label">映射路径*:</label>
 
                     <div class="controls">
@@ -30,7 +30,7 @@
                     <input type="hidden" id="path_name" name="path_name" value="">
                 </div>
 
-                <div class="control-group">
+                <div class="form-group">
                     <label for="name" class="control-label">属性*:</label>
 
                     <div class="controls">
@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 <div id="JRestCtrl">
-                    <div class="control-group">
+                    <div class="form-group">
                         <label for="" class="control-label">restful:</label>
 
                         <div class="controls">
@@ -111,7 +111,7 @@
                             </label>
                         </div>
                     </div>
-                    <div id="JRestful" class="control-group">
+                    <div id="JRestful" class="form-group">
                         <label for="" class="control-label">可执行操作:</label>
 
                         <div class="controls">

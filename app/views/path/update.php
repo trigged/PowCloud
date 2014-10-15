@@ -1,6 +1,6 @@
 <div class="">
     <form id="pathForm" class="form-horizontal" method="post" onsubmit="return check_form(this)">
-        <div class="control-group">
+        <div class="form-group">
             <label for="name" class="control-label">path*:</label>
 
             <div class="controls">
@@ -9,7 +9,7 @@
             </div>
         </div>
         <?php if ((int)$path->id !== 0): ?>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="host" class="control-label">主机*:</label>
 
                 <div class="controls">
@@ -17,7 +17,7 @@
                 </div>
             </div>
         <?php endif; ?>
-        <div class="control-group">
+        <div class="form-group">
             <label for="expire" class="control-label">缓存时间:</label>
 
             <div class="controls">

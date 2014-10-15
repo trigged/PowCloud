@@ -4,7 +4,7 @@
         <form data-status="0" id="shortcut_form" class="form-horizontal" method="post">
             <fieldset>
                 <legend>更新快捷键:#<?php echo $shortCut->name; ?></legend>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="name" class="control-label">快捷键名称*:</label>
 
                     <div class="controls">
@@ -12,7 +12,7 @@
                                placeholder="快捷键名称" id="name">
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label" for="">屏蔽类型:</label>
 
                     <div class="controls">
@@ -28,7 +28,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="host" class="control-label">地域列表*:</label>
 
                     <div class="controls">

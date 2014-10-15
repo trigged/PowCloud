@@ -4,7 +4,7 @@
         <form id="host_form" class="form-horizontal" method="post">
             <fieldset>
                 <legend>更新主机:<?php echo $host->name; ?></legend>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="name" class="control-label">主机名称*:</label>
 
                     <div class="controls">
@@ -12,14 +12,14 @@
                                placeholder="主机名称" id="name">
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="host" class="control-label">主机地址*:</label>
 
                     <div class="controls">
                         <span class="form-control uneditable-input"><?php echo $host->host; ?></span>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="comment" class="control-label">备注:</label>
 
                     <div class="controls">
@@ -27,7 +27,7 @@
                                   style="width: 439px;"></textarea>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="expire" class="control-label">页面缓存时间:</label>
 
                     <div class="controls">
@@ -35,7 +35,7 @@
                                placeholder="有效期" id="expire">
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="" class="control-label">是否开启CDN:</label>
 
                     <div class="controls">

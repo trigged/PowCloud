@@ -6,18 +6,18 @@
                   action="<?php echo URL::action('DashBoardController@storeApp') ?>" method="post">
                 <fieldset>
                     <legend>添加应用</legend>
-                    <div class="control-group">
+                    <div class="form-group">
                         <label for="name" class="control-label">应用名称*:</label>
 
                         <div class="controls">
-                            <input name="name" class="input-medium" value="" type="text" placeholder="应用名称" id="name">
+                            <input name="name" class="form-control" value="" type="text" placeholder="应用名称" id="name">
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         <label for="app_id" class="control-label">信息&nbsp;:</label>
 
                         <div class="controls">
-                            <input name="info" class="input-xxlarge" value="" type="text" placeholder="信息" id="info">
+                            <input name="info" class="form-control" value="" type="text" placeholder="信息" id="info">
                             <input name="info" class="form-control col-md-6" value="" type="text" placeholder="信息"
                                    id="info">
                         </div>

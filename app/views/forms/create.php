@@ -4,7 +4,7 @@
           onsubmit="return check_form(this);">
         <fieldset>
             <legend style="margin-bottom: 0px;">表单选项</legend>
-            <div class="control-group">
+            <div class="form-group">
                 <input type="hidden" name="tableId" value="<?php echo $table->id; ?>">
                 <label for="" class="control-label" style="width: 60px;">定时发布</label>
 

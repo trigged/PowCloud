@@ -70,7 +70,7 @@
             box-shadow: none;
         }
 
-        .btn.btn-large {
+        .btn.btn-lg {
             font-size: 16.996px;
             /* 17px */
 
@@ -157,7 +157,7 @@
         <p>您的小伙伴邀请您加入 pow server和他一起闯荡江湖,这个邀请15分钟内有效,请少侠注意哦</p>
 
         <p>
-            <a href="<?php echo $url ?>" class="btn btn-primary btn-large">
+            <a href="<?php echo $url ?>" class="btn btn-primary btn-lg">
                 点击这里 加入系统
             </a>
         </p>

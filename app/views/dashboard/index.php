@@ -165,7 +165,7 @@
                         );//注册表单JS
                         ?>
                         <p>
-                            <button id="JS_Sub" class="btn btn-primary btn-large"></button>
+                            <button id="JS_Sub" class="btn btn-primary btn-lg"></button>
                         </p>
                     </fieldset>
                 </form>

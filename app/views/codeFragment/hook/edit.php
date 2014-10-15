@@ -5,7 +5,7 @@
         ">
         <fieldset>
             <legend>修改挂件</legend>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="table_name" class="control-label">表名称*:</label>
 
                 <div class="controls">
@@ -13,7 +13,7 @@
                            placeholder="表名称" id="hook_table_name">
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="action" class="control-label">hook:</label>
 
                 <div class="controls">
@@ -25,7 +25,7 @@
                     ?>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="" class="control-label">是否启用:</label>
 
                 <div class="controls">
@@ -40,7 +40,7 @@
                     </label>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="code" class="control-label">代码:</label>
 
                 <div class="controls">

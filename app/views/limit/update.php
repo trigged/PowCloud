@@ -3,7 +3,7 @@
 <div class="">
     <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
     <form data-status="0" id="group_form" class="form-horizontal" onsubmit="return check_form(this)">
-        <div class="control-group">
+        <div class="form-group">
             <label for="groupName" class="control-label">用户组名*:</label>
 
             <div class="controls">
@@ -12,7 +12,7 @@
             </div>
         </div>
         <?php foreach ($models as $model): ?>
-            <div class="control-group">
+            <div class="form-group">
 
                 <label for="<?php echo $model->table_name; ?>" class="control-label"><?php echo $model->table_alias; ?>
                     *:</label>

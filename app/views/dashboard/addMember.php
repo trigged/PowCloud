@@ -12,7 +12,7 @@
         </form>
 
         <p>
-            <a class="btn btn-primary btn-large">
+            <a class="btn btn-primary btn-lg">
                 Learn more
             </a>
         </p>

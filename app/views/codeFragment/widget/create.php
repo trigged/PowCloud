@@ -5,7 +5,7 @@
         ">
         <fieldset>
             <legend>修改挂件</legend>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="table_name" class="control-label">表名称*:</label>
 
                 <div class="controls">
@@ -13,14 +13,14 @@
                            placeholder="表名称" id="widget_table_name">
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="name" class="control-label">挂件名称*:</label>
 
                 <div class="controls">
                     <input class="form-control" name="name" value="" type="text" placeholder="挂件名称" id="widget_name">
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="action" class="control-label">执行动作:</label>
 
                 <div class="controls">
@@ -32,7 +32,7 @@
                     ?>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="" class="control-label">是否启用:</label>
 
                 <div class="controls">
@@ -45,7 +45,7 @@
                 </div>
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
                 <label for="code" class="control-label">代码:</label>
 
                 <div class="controls">

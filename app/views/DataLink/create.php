@@ -11,14 +11,14 @@
                     </p>
                 </div>
                 <legend>数据链接</legend>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="name" class="control-label">表名(不是表别名!):</label>
 
                     <div class="controls">
                         <input name="table_name" class="form-control" type="text" placeholder="数据变更" id="filed">
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="name" class="control-label">数据ID:</label>
 
                     <div class="controls">

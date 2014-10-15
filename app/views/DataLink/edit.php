@@ -17,7 +17,7 @@
                     </p>
                 </div>
                 <legend>变更链接设置</legend>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="name" class="control-label">主数据:</label>
 
                     <div class="controls">
@@ -25,7 +25,7 @@
                                value="<?php echo $data_link->table_name . '.' . $data_link->data_id ?>">
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="name" class="control-label">添加链接数据:</label>
 
                     <div class="controls">
@@ -34,7 +34,7 @@
                     </div>
                 </div>
 
-                <div class="control-group" id='items'>
+                <div class="form-group" id='items'>
                     <?php foreach ($items as $item): ?>
                         <div class="dropdown  ">
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"

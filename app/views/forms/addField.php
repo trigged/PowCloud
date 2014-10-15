@@ -4,7 +4,7 @@
         <form id="forms" class="form-horizontal child_form" method="post">
             <fieldset>
                 <legend>添加字段</legend>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="field" class="control-label">字段:</label>
 
                     <div class="controls">
@@ -12,27 +12,27 @@
                     </div>
                 </div>
 
-                <div class="control-group">
+                <div class="form-group">
                     <label for="label" class="control-label">标签*:</label>
 
                     <div class="controls">
                         <input name="label" class="form-control" value="" type="text" placeholder="" id="label">
                     </div>
                 </div>
-                <!--                <div class="control-group">-->
+                <!--                <div class="form-group">-->
                 <!--                    <label for="dataType" class="control-label">数据类型*:</label>-->
                 <!--                    <div class="controls">-->
                 <!--                        --><?php //echo Form::select('dataType',Config::get('params.dataType'),'',array('class'=>'form-control')); ?>
                 <!--                    </div>-->
                 <!--                </div>-->
-                <div class="control-group">
+                <div class="form-group">
                     <label for="type" class="control-label">类型*:</label>
 
                     <div class="controls">
                         <?php echo Form::select('type', Config::get('params.formField'), '', array('class' => 'form-control JFieldType')); ?>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="default_value" class="control-label">默认值:</label>
 
                     <div class="controls JDefaultValue">
@@ -41,21 +41,21 @@
                     </div>
                 </div>
 
-                <div class="control-group">
+                <div class="form-group">
                     <label for="rules" class="control-label">验证规则:</label>
 
                     <div class="controls">
                         <?php echo Form::textarea('rules', '', array('class' => 'form-control')) ?>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="rank" class="control-label">排序:</label>
 
                     <div class="controls">
                         <input name="rank" class="form-control" type="text" value="" placeholder="默认值" id="rank">
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="rank" class="control-label">列表是否可见:</label>
 
                     <div class="controls">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <div class="control-group">
+                <div class="form-group">
                     <label for="isEditable" class="control-label">是否可输入:</label>
 
                     <div class="controls">
@@ -71,7 +71,7 @@
                     </div>
                 </div>
 
-                <div class="control-group">
+                <div class="form-group">
                     <label for="isEditable" class="control-label">角色可见:</label>
 
                     <div class="controls">

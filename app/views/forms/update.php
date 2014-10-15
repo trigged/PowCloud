@@ -3,7 +3,7 @@
     <form class="form-horizontal child_form" method="post" onsubmit="return check_form(this)">
         <fieldset>
             <legend>修改字段:<?php echo $field->field ?></legend>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="label" class="control-label">标签*:</label>
 
                 <div class="controls">
@@ -12,14 +12,14 @@
                 </div>
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
                 <label for="type" class="control-label">类型*:</label>
 
                 <div class="controls">
                     <?php echo Form::select('type', Config::get('params.formField'), $field->type, array('class' => 'form-control JFieldType')); ?>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="default_value" class="control-label">默认值:</label>
 
                 <div class="controls JDefaultValue">
@@ -123,14 +123,14 @@
                 </div>
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
                 <label for="rules" class="control-label">验证规则:</label>
 
                 <div class="controls">
                     <?php echo Form::textarea('rules', $field->rules, array('class' => 'form-control')) ?>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="rank" class="control-label">排序:</label>
 
                 <div class="controls">
@@ -138,14 +138,14 @@
                            placeholder="默认值" id="rank">
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="isVisible" class="control-label">列表是否可见:</label>
 
                 <div class="controls">
                     <?php echo Form::select('isVisible', array(1 => '可见', 0 => '不可见'), (int)$field->isVisible, array('class' => 'form-control')); ?>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="isEditable" class="control-label">是否可输入:</label>
 
                 <div class="controls">
@@ -153,7 +153,7 @@
                 </div>
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
                 <label for="isEditable" class="control-label">角色可见:</label>
 
                 <div class="controls">

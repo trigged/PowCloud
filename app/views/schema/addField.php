@@ -5,14 +5,14 @@
         <form id="schema_form" class="form-horizontal" method="post">
             <h4>添加表(<?php echo $table->table_name; ?>)字段</h4>
             <hr/>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="field" class="control-label">字段名*:</label>
 
                 <div class="controls">
                     <input name="field" class="filedNameLetter form-control" type="text" placeholder="字段名" id="field">
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="property" class="control-label">属性*:</label>
 
                 <div class="controls">

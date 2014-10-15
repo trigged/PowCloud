@@ -36,7 +36,7 @@
 
                         <input name="msg_id" type="hidden" value="<?php echo $msg_id ?>" "/>
                         <?php echo \Utils\FormBuilderHelper::staticEnd('register',
-                            array(//                                'username' => array('required' => true),
+                            array( //                                'username' => array('required' => true),
 //                                'email'    => array('required' => true),
 //                                'password' => array('required' => true),
                             ),
@@ -45,7 +45,7 @@
                         );//注册表单JS
                         ?>
                         <p>
-                            <button id="JS_Sub" class="btn btn-primary btn-large">杨帆 起航</button>
+                            <button id="JS_Sub" class="btn btn-primary btn-lg">杨帆 起航</button>
                         </p>
 
                     </fieldset>

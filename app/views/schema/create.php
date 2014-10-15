@@ -19,28 +19,28 @@
     <form id="schema_form" class="form-horizontal" method="post">
         <h4>创建表结构</h4>
         <hr/>
-        <div class="control-group">
+        <div class="form-group">
             <label for="table_name" class="control-label">表名*:</label>
 
             <div class="controls">
                 <input name="table_name" class="form-control" type="text" placeholder="表名" id="table_name">
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             <label for="table_alias" class="control-label">表别名*:</label>
 
             <div class="controls">
                 <input name="table_alias" class="form-control" type="text" placeholder="表别名" id="table_alias">
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             <label for="group_name" class="control-label">组名:</label>
 
             <div class="controls">
                 <input name="group_name" class="form-control" type="text" placeholder="组名" id="group_name">
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             <label for="path" class="control-label">API 地址绑定*:</label>
 
             <div class="controls">
@@ -49,7 +49,7 @@
             <input type="hidden" id="path_name" name="path_name" value="">
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             <label for="name" class="control-label">属性*:</label>
 
             <div class="controls">
@@ -123,7 +123,7 @@
             </div>
         </div>
         <div id="JRestCtrl">
-            <div class="control-group">
+            <div class="form-group">
                 <label for="" class="control-label">API 访问:</label>
 
                 <div class="controls">
@@ -137,7 +137,7 @@
                     </label>
                 </div>
             </div>
-            <div id="JRestful" class="control-group hide">
+            <div id="JRestful" class="form-group hide">
                 <label for="" class="control-label">可执行操作:</label>
 
                 <div class="controls">
@@ -186,51 +186,51 @@
 
 </div>
 <div class="span5">
-    <div id="accordion2" class="accordion">
-        <div class="accordion-group">
-            <div class="accordion-heading">
+    <div id="accordion2" class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
                 <a href="#collapseOne" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
                     字符类型
                 </a>
             </div>
-            <div class="accordion-body in collapse" id="collapseOne" style="height: auto;">
-                <div class="accordion-inner">
+            <div class="panel-collapse in collapse" id="collapseOne" style="height: auto;">
+                <div class="panel-body">
                     string
                 </div>
             </div>
         </div>
-        <div class="accordion-group">
-            <div class="accordion-heading">
+        <div class="panel panel-default">
+            <div class="panel-heading">
                 <a href="#collapseTwo" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
                     时间类型
                 </a>
             </div>
-            <div class="accordion-body collapse" id="collapseTwo" style="height: 0px;">
-                <div class="accordion-inner">
+            <div class="panel-collapse collapse" id="collapseTwo" style="height: 0px;">
+                <div class="panel-body">
                     datetime
                 </div>
             </div>
         </div>
-        <div class="accordion-group">
-            <div class="accordion-heading">
+        <div class="panel panel-default">
+            <div class="panel-heading">
                 <a href="#collapseThree" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
                     数字类型
                 </a>
             </div>
-            <div class="accordion-body collapse" id="collapseThree" style="height: 0px;">
-                <div class="accordion-inner">
+            <div class="panel-collapse collapse" id="collapseThree" style="height: 0px;">
+                <div class="panel-body">
                     integer,double,decimal
                 </div>
             </div>
         </div>
-        <div class="accordion-group">
-            <div class="accordion-heading">
+        <div class="panel panel-default">
+            <div class="panel-heading">
                 <a href="#collapseFour" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
                     长文本类型
                 </a>
             </div>
-            <div class="accordion-body collapse" id="collapseFour" style="height: 0px;">
-                <div class="accordion-inner">
+            <div class="panel-collapse collapse" id="collapseFour" style="height: 0px;">
+                <div class="panel-body">
                     text
                 </div>
             </div>
