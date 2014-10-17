@@ -68,6 +68,48 @@ CREATE TABLE `common` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+
+--
+-- Table structure for table `data_link`
+--
+
+DROP TABLE IF EXISTS `data_link`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `data_link` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `table_name` varchar(45) DEFAULT NULL,
+  `data_id` varchar(45) DEFAULT NULL,
+  `created_at` varchar(45) DEFAULT NULL,
+  `updated_at` varchar(45) DEFAULT NULL,
+  `deleted_at` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `data_link_item`
+--
+
+DROP TABLE IF EXISTS `data_link_item`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `data_link_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `data_link_id` int(11) DEFAULT NULL,
+  `table_id` int(11) DEFAULT NULL,
+  `table_name` varchar(45) DEFAULT NULL,
+  `table_alias` varchar(45) DEFAULT NULL,
+  `data_id` int(11) DEFAULT NULL,
+  `created_at` varchar(45) DEFAULT NULL,
+  `updated_at` varchar(45) DEFAULT NULL,
+  `deleted_at` varchar(45) DEFAULT NULL,
+  `options` text,
+  PRIMARY KEY (`id`),
+  KEY `fk_data_changelog_data_change1_idx` (`data_link_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Table structure for table `external_data`
 --

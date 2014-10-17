@@ -1,20 +1,24 @@
-<?php echo $header;?>
+<?php echo $header; ?>
 <div class="row-fluid">
     <div class="span7">
-        <?php echo \Utils\FormBuilderHelper::begin();//注册表单JS ?>
+        <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
         <form id="schema_form" class="form-horizontal" method="post">
             <h4>添加表(<?php echo $table->table_name; ?>)字段</h4>
-            <hr />
+            <hr/>
             <div class="control-group">
                 <label for="field" class="control-label">字段名*:</label>
+
                 <div class="controls">
                     <input name="field" class="filedNameLetter input-medium" type="text" placeholder="字段名" id="field">
                 </div>
             </div>
             <div class="control-group">
                 <label for="property" class="control-label">属性*:</label>
+
                 <div class="controls">
-                    <input name="property" class="input-xlarge" type="text" placeholder="属性" id="property">
+                    <input name="property" class="input-xlarge" type="text" placeholder="属性" id="property"
+                           data-provide="typeahead" autocomplete="off" data-source='["string","integer","double",
+                                       "text","datetime","decimal"]'>
                 </div>
             </div>
 
@@ -25,11 +29,11 @@
 
         </form>
         <?php echo \Utils\FormBuilderHelper::staticEnd('schema_form',
-            array(//表单规则
-                'field'=>array('required'=>true),
-                'property'=>array('required'=>true),
+            array( //表单规则
+                'field'    => array('required' => true),
+                'property' => array('required' => true),
             ),
-            URL::action('SchemaBuilderController@addField',array('table' => $table->id)),
+            URL::action('SchemaBuilderController@addField', array('table' => $table->id)),
             'POST',
             '',
             '
@@ -38,7 +42,8 @@
             },"字段名只能是字母");
 
             '
-        );//注册表单JS ?>
+        );//注册表单JS
+        ?>
     </div>
 </div>
-<?php echo $footer;?>
+<?php echo $footer; ?>
