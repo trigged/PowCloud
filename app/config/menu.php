@@ -3,9 +3,9 @@ return array(
     'nav'  => array(
         'cms'      => array('url' => URL::action('CmsController@index'), 'label' => '内容管理'),
         'system'   => array('url' => URL::action('SystemController@system'), 'label' => '系统管理'),
-        'advanced' => array('url' => URL::action('AdvancedController@index'), 'label' => '高级模式'),
+//        'advanced' => array('url' => URL::action('AdvancedController@index'), 'label' => '高级模式'),
         'limit'    => array('url' => URL::action('LimitController@user'), 'label' => '权限管理'),
-        'monitor'  => array('url' => URL::action('MonitorController@index'), 'label' => '数据监控'),
+//        'monitor'  => array('url' => URL::action('MonitorController@index'), 'label' => '数据监控'),
         'help'     => array('url' => 'http://doc.powapi.com', 'target' => '_blank', 'label' => '帮助文档'),
     ),
 
