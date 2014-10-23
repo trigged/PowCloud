@@ -28,8 +28,8 @@
 <?php echo $header; ?>
 <!--left menu begin-->
 
-<div class="col-md-2 sidebar">
-    <?php if ($apps): ?>
+<div class="col-md-2 sidebar-nav">
+<?php if ($apps): ?>
         <ul class="nav pow_sidebar  affix">
             <?php foreach ($apps as $app): ?>
                 <li class=""><a href="#appItem-<?php echo $app->id; ?>"><i
@@ -208,7 +208,12 @@
         });
     </script>
 
-
+    <script>
+        $(function () {
+            var side_h = $(document.body).height();
+            $(".sidebar-nav").height(side_h);
+        });
+    </script>
 </div>
 
 <?php echo $footer; ?>
