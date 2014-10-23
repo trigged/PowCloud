@@ -27,10 +27,11 @@
 
 <?php echo $header; ?>
 <!--left menu begin-->
-<div class="col-md-2">
+
+<div class="col-md-2 sidebar">
     <?php if ($apps): ?>
-        <ul class="nav nav-list bs-docs-sidenav affix">
-            <?php foreach ($apps as $app): ?>
+        <ul class="nav pow_sidebar  affix">
+        <?php foreach ($apps as $app): ?>
                 <li class=""><a href="#appItem-<?php echo $app->id; ?>"><i
                             class="icon-chevron-right"></i> <?php echo $app->name; ?></a></li>
             <?php endforeach; ?>
@@ -39,6 +40,7 @@
 </div>
 <!--right menu end-->
 <div class="col-md-10">
+    <div class="" style="height:30px;"></div>
     <div class="row" style="margin-bottom: 10px;">
         <div class="span-12">
             <div class="pull-right">
@@ -51,14 +53,14 @@
         </div>
     </div>
     <?php if ($apps):foreach ($apps as $app): ?>
-        <section id="appItem-<?php echo $app->id; ?>">
+        <section id="appItem-<?php echo $app->id; ?>" class="pow_item">
             <!--app item begin-->
-            <div class="row item">
-                <div class="col-md-6 item item-team">
-                    <a style="text-decoration: none; color: #34495e"
+            <div class="item clearfix">
+                <div class="col-md-6">
+                    <a class="item_a clearfix" style=""
                        href="<?php echo URL::action('CmsController@index', array('app_id' => $app->id)) ?>">
-                        <div class="appTitle appLink">
-                            <h4>
+                        <div class="">
+                        <h4>
                                 <?php echo $app->name; ?>
                             </h4>
                         </div>
@@ -84,15 +86,14 @@
                     </div>
                 </div>
 
-
-                <div class="col-md-6 item item-member">
+                <div class="col-md-6">
                     <div class="appTitle appUserTitle">
                         <h4>项目成员</h4>
                     </div>
                     <div class="item-member-body">
                         <?php if ($app->appUser): ?>
-                            <ul class="member">
-                                <?php foreach ($app->appUser as $user): ?>
+                            <ul class="member pow_member">
+                            <?php foreach ($app->appUser as $user): ?>
                                     <?php $user = User::find($user->user_id);
                                     if ($user && $user->exists): ?>
                                         <li>
@@ -207,5 +208,7 @@
         });
     </script>
 
+
+</div>
 
 <?php echo $footer; ?>

@@ -1,6 +1,6 @@
 <?php echo $header; ?>
-    <fieldset>
-        <legend><?php echo $table->table_alias; ?></legend>
+    <fieldset class="table_list_title">
+    <legend><?php echo $table->table_alias; ?></legend>
     </fieldset>
     <div id="JS_button_hook" class="" style="">
         <?php if (isset($options[$table->id]) && $options[$table->id]['edit'] == 2): ?>

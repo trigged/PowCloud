@@ -1158,8 +1158,7 @@ i.normal {
 Custom wells
 ***/
 .well {
-    background-color: #fafafa;
-    border: 1px solid #eee;
+
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px;
@@ -3763,7 +3762,7 @@ Notes
 
 /* Common styles for all types */
 .note {
-    margin: 0 0 20px 0;
+    margin: 10px 0 20px 0;
     padding: 15px 30px 15px 15px;
     border-left: 5px solid #eee;
 }

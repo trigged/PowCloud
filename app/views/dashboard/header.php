@@ -9,12 +9,14 @@
     <!-- Loading Bootstrap -->
     <link href="<?php echo URL::asset('css/bootstrap.css'); ?>" rel="stylesheet">
     <link href="<?php echo URL::asset('css/bootstrap-responsive.css'); ?>" rel="stylesheet">
+    <link href="<?php echo URL::asset('css/pow_style.css'); ?>" rel="stylesheet">
+
     <!-- Loading Flat UI -->
-    <link href="<?php echo URL::asset('css/flat-ui.css'); ?>" rel="stylesheet">
+    <!--    <link href="--><?php //echo URL::asset('css/flat-ui.css'); ?><!--" rel="stylesheet">-->
 
     <link rel="shortcut icon" href="<?php echo URL::asset('img/favicon.ico'); ?> ">
 
-    <link href="<?php echo URL::asset('css/x-man.css'); ?> " rel="stylesheet">
+    <!--    <link href="--><?php //echo URL::asset('css/x-man.css'); ?><!-- " rel="stylesheet">-->
 
     <link href="<?php echo URL::asset('css/essage.css'); ?> " rel="stylesheet">
 
@@ -31,14 +33,14 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a data-target=".navbar-collapse" data-toggle="collapse" class="btn navbar-btn">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-            <a class="navbar-brand" href="#">POW Server</a>
+            <!--            <a data-target=".navbar-collapse" data-toggle="collapse" class="btn navbar-btn">-->
+            <!--                <span class="icon-bar"></span>-->
+            <!--                <span class="icon-bar"></span>-->
+            <!--                <span class="icon-bar"></span>-->
+            <!--            </a>-->
+            <a class="navbar-brand" href="#" style="color:#ffffff;">POW Cloud</a>
 
-            <div class="navbar-collapse  pull-right">
+            <div class="pull-right">
                 <p class="navbar-text">
                     欢迎 <a href="javascript:void(0);"><?php echo Auth::user()->name; ?></a> 登陆，<a
                         href="<?php echo URL::action('LoginController@logout') ?>">注销</a>
@@ -50,5 +52,5 @@
 </div>
 
 <div class="container-fluid">
-    <div class="row">
+    <div class="pow_row">
 

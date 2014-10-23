@@ -18,11 +18,18 @@
 <script>
     $(function () {
         CMS.init();
-        $('.JAvatar').identicon5({size:45});
+        $('.JAvatar').identicon5({size: 45});
         <?php if(Session::has('messageTip')):?>
         <?php echo Session::get('messageTip');Session::remove('messageTip');?>
         <?php endif;?>
     });
+</script>
+<script>
+    $(function () {
+        var side_h = $(document.body).height();
+        $(".sidebar").height(side_h);
+    })
+
 </script>
 </body>
 </html>

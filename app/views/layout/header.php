@@ -9,8 +9,9 @@
     <!-- Loading Bootstrap -->
     <link href="<?php echo URL::asset('css/bootstrap.css'); ?>" rel="stylesheet">
     <link href="<?php echo URL::asset('css/bootstrap-responsive.css'); ?>" rel="stylesheet">
+    <link href="<?php echo URL::asset('css/pow_style.css'); ?>" rel="stylesheet">
     <!-- Loading Flat UI -->
-    <link href="<?php echo URL::asset('css/flat-ui.css'); ?>" rel="stylesheet">
+    <!--    <link href="--><?php //echo URL::asset('css/flat-ui.css'); ?><!--" rel="stylesheet">-->
 
     <link rel="shortcut icon" href="<?php echo URL::asset('img/favicon.ico'); ?> ">
 
@@ -33,18 +34,18 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a data-target=".navbar-collapse" data-toggle="collapse" class="btn navbar-btn">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-            <a class="navbar-brand" href="<?php echo URL::action('DashBoardController@index') ?>">数据管理平台</a>
+            <!--            <a data-target=".navbar-collapse" data-toggle="collapse" class="btn navbar-btn">-->
+            <!--                <span class="icon-bar"></span>-->
+            <!--                <span class="icon-bar"></span>-->
+            <!--                <span class="icon-bar"></span>-->
+            <!--            </a>-->
+            <a class="pow-brand" href="<?php echo URL::action('DashBoardController@index') ?>">数据管理平台</a>
 
-            <div class="navbar-collapse">
-                <ul class="nav">
+            <div class="pull-right">
+                <ul class="nav pull-left">
                     <?php foreach ($navs as $cur => $navMenu): ?>
-                        <li class="<?php echo $nav === $cur ? 'active' : ''; ?>">
-                            <a <?php if (!empty($navMenu['target'])) echo 'target="' . $navMenu['target'] . '"' ?>
+                        <li class="<?php echo $nav === $cur ? 'active' : ''; ?> pull-left">
+                        <a <?php if (!empty($navMenu['target'])) echo 'target="' . $navMenu['target'] . '"' ?>
                                 href="<?php echo $navMenu['url']; ?>">
                                 <?php echo $navMenu['label']; ?>
                             </a>
@@ -62,8 +63,8 @@
 </div>
 
 <div class="container-fluid">
-    <div class="row">
-        <?php if ($leftMenu): ?>
+    <div class="pow_row">
+    <?php if ($leftMenu): ?>
             <div class="col-md-2">
                 <div class="well sidebar-nav">
                     <ul class="nav nav-list">

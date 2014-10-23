@@ -75,7 +75,7 @@ if ($roles === 3) :?>
         <p>&nbsp;&nbsp;&nbsp;<code>若登录异常,请及时修改域密码并且联系管理员</code></p>
     </div>
 
-    <div class="row">
+    <div class="clearfix">
         <div class="col-md-3" style="position: relative;">
             <div class="dashboard-stat blue">
                 <div class="visual">
@@ -95,34 +95,34 @@ if ($roles === 3) :?>
             </div>
         </div>
 
-        <div class="col-md-3" style="position: relative;">
-            <div class="dashboard-stat purple">
-                <div class="visual">
-                    <i class="fa fa-globe"></i>
-                </div>
-                <div class="details">
-                    <div class="number"></div>
-                    <div class="desc">先占位</div>
-                </div>
-                <a class="more" href="#" style="height: 10px">
-                    <i class="m-icon-swapright m-icon-white"></i>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-3" style="position: relative;">
-            <div class="dashboard-stat yellow">
-                <div class="visual">
-                    <i class="fa fa-bar-chart-o"></i>
-                </div>
-                <div class="details">
-                    <div class="number"></div>
-                    <div class="desc">先占位</div>
-                </div>
-                <a class="more" href="#" style="height: 10px">
-                    <i class="m-icon-swapright m-icon-white"></i>
-                </a>
-            </div>
-        </div>
+        <!--        <div class="col-md-3" style="position: relative;">-->
+        <!--            <div class="dashboard-stat purple">-->
+        <!--                <div class="visual">-->
+        <!--                    <i class="fa fa-globe"></i>-->
+        <!--                </div>-->
+        <!--                <div class="details">-->
+        <!--                    <div class="number"></div>-->
+        <!--                    <div class="desc">先占位</div>-->
+        <!--                </div>-->
+        <!--                <a class="more" href="#" style="height: 10px">-->
+        <!--                    <i class="m-icon-swapright m-icon-white"></i>-->
+        <!--                </a>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <div class="col-md-3" style="position: relative;">-->
+        <!--            <div class="dashboard-stat yellow">-->
+        <!--                <div class="visual">-->
+        <!--                    <i class="fa fa-bar-chart-o"></i>-->
+        <!--                </div>-->
+        <!--                <div class="details">-->
+        <!--                    <div class="number"></div>-->
+        <!--                    <div class="desc">先占位</div>-->
+        <!--                </div>-->
+        <!--                <a class="more" href="#" style="height: 10px">-->
+        <!--                    <i class="m-icon-swapright m-icon-white"></i>-->
+        <!--                </a>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
 
 
