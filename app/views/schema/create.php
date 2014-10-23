@@ -1,48 +1,59 @@
 <?php echo $header; ?>
 <div class="row">
-<div class="col-md-7">
-    <div class="note note-success">
-        <h4 class="block">小技巧</h4>
 
-        <p>
+<div class="col-md-7">
+    <div class="bs-callout bs-callout-info">
+        <h4 class="block">小技巧</h4>
+        <p >
             当表创建完成后如果绑定了访问路径并且开启了restful 的Create 权限，你可以通过API来添加数据或者通过配置表单，然后在数据管理中通过界面添加
             如没有绑定路径则可以通过配置表单然后通过内容管理添加数据
-
         </p>
-
         <p>
             <a href="http://doc.powapi.com/system_manage/table.html" target="_blank"> 相关文档地址</a>.
         </p>
-
     </div>
+
     <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
     <form id="schema_form" class="form-horizontal" method="post">
         <h4>创建表结构</h4>
         <hr/>
         <div class="">
-        <label for="table_name" class="control-label">表名*:</label>
+            <label for="table_name" class="control-label">表名*:</label>
 
             <div class="controls">
                 <input name="table_name" class="form-control" type="text" placeholder="表名" id="table_name">
             </div>
         </div>
         <div class="">
-        <label for="table_alias" class="control-label">表别名*:</label>
+            <label for="table_alias" class="control-label">表别名*:</label>
 
             <div class="controls">
                 <input name="table_alias" class="form-control" type="text" placeholder="表别名" id="table_alias">
             </div>
         </div>
         <div class="">
-        <label for="group_name" class="control-label">组名:</label>
+            <label for="group_name" class="control-label">组名:</label>
 
             <div class="controls">
                 <input name="group_name" class="form-control" type="text" placeholder="组名" id="group_name">
             </div>
         </div>
         <div class="">
-        <label for="path" class="control-label">API 地址绑定*:</label>
+            <label for="path" class="control-label">API 地址绑定*:</label>
 
+<!--            <div class="dropdown">-->
+<!--                <button class="btn btn-info dropdown-toggle  " type="button"   data-toggle="dropdown">-->
+<!--                    API 地址绑定-->
+<!--                    <span class="caret"></span>-->
+<!--                </button>-->
+<!--                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">-->
+<!--                    --><?php
+//                    foreach($pathTreeListOptions as $path){
+//                        echo '<li role="presentation"><a role="menuitem" tabindex="-1" href="#">'.$path.'</a></li>';
+//                    }
+//                    ?><!--       -->
+<!--                </ul>-->
+<!--            </div>-->
             <div class="controls">
                 <?php echo Form::select('path_id', $pathTreeListOptions, '', array('id' => 'path_id')) ?>
             </div>
@@ -118,7 +129,7 @@
                     <tfoot>
                     <tr>
                         <td colspan="3">
-                            <button class="btn btn-xs btn-primary" onclick="addProperty()" type="button">添加字段</button>
+                            <button class="btn btn-large btn-primary" onclick="addProperty()" type="button">添加字段</button>
                         </td>
                     </tr>
                     </tfoot>
@@ -131,17 +142,17 @@
 
                 <div class="controls">
                     <label class="radio inline pow_padding_left_20">
-                    <input class="" type="radio" name="restful" value="1"
+                        <input class="" type="radio" name="restful" value="1"
                                onclick="$('#JRestful').removeClass('hide');" id=""/> 开启
                     </label>
                     <label class="radio inline pow_padding_left_20">
-                    <input class="" type="radio" onclick="$('#JRestful').addClass('hide');" name="restful"
+                        <input class="" type="radio" onclick="$('#JRestful').addClass('hide');" name="restful"
                                checked="checked" value="0" id=""/> 关闭
                     </label>
                 </div>
             </div>
             <div id="JRestful" class=" hide">
-            <label for="" class="control-label">可执行操作:</label>
+                <label for="" class="control-label">可执行操作:</label>
 
                 <div class="controls">
                     <label class="checkbox inline">
@@ -160,7 +171,7 @@
             </div>
         </div>
         <div class="form-actions mt20">
-        <button class="btn btn-primary" id="JS_Sub" type="submit">创建表</button>
+            <button class="btn btn-primary" id="JS_Sub" type="submit">创建表</button>
             <a href="javascript:void (0)" class="btn" onclick="history.back();">取消</a>
         </div>
 
@@ -188,15 +199,18 @@
     ?>
 
 </div>
+
 <div class="col-md-5">
-    <div id="accordion2" class="accordion">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                <a href="#collapseOne" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
-                    字符类型
-                </a>
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading active" >
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseString">
+                        字符类型
+                    </a>
+                </h4>
             </div>
-            <div class="panel-collapse in collapse" id="collapseOne" style="height: auto;">
+            <div id="collapseString" class="panel-collapse collapse in">
                 <div class="panel-body">
                     string
                 </div>
@@ -204,11 +218,13 @@
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="#collapseTwo" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
-                    时间类型
-                </a>
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseDate">
+                        时间类型
+                    </a>
+                </h4>
             </div>
-            <div class="panel-collapse collapse" id="collapseTwo" style="height: 0px;">
+            <div id="collapseDate" class="panel-collapse collapse">
                 <div class="panel-body">
                     datetime
                 </div>
@@ -216,11 +232,13 @@
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="#collapseThree" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
-                    数字类型
-                </a>
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseNum">
+                        数字类型
+                    </a>
+                </h4>
             </div>
-            <div class="panel-collapse collapse" id="collapseThree" style="height: 0px;">
+            <div id="collapseNum" class="panel-collapse collapse">
                 <div class="panel-body">
                     integer,double,decimal
                 </div>
@@ -228,17 +246,20 @@
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="#collapseFour" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle">
-                    长文本类型
-                </a>
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseText">
+                        长文本类型
+                    </a>
+                </h4>
             </div>
-            <div class="panel-collapse collapse" id="collapseFour" style="height: 0px;">
+            <div id="collapseText" class="panel-collapse collapse">
                 <div class="panel-body">
                     text
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
 <script>
@@ -246,13 +267,12 @@
         $('#path_id').change(function () {
             var val = $(this).val();
             val == -1 ? $('#JRestCtrl').addClass('hide') : $('#JRestCtrl').removeClass('hide');
-
             $('#path_name').val($(this).find("option:selected").text());
         })
 
 
-        $(".glyphicon glyphicon-remove").live('click', function () {
-            if ($('tbody tr').length == 1) {
+        $(".glyphicon-remove").click(function () {
+            if ($('tbody tr').length == 4) {
                 alert('至少 添加一个字段 ');
                 return false;
             }
