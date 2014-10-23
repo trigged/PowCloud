@@ -17,8 +17,8 @@ use Utils\UseHelper;
 
 class ModelController extends Controller
 {
-    //there is sth you should be careful,data got from db type is stbClass ;got from redis is array
 
+    //region params
     /**
      * @var  mixed|null|表名
      */
@@ -53,11 +53,6 @@ class ModelController extends Controller
      * @var 用户地域 code
      */
     public $geo = array();
-
-    /**
-     * @var 是否是真实用户（处理强屏）
-     */
-    public $user_level = array();
 
     /**
      * @var 缺省字段
@@ -114,7 +109,7 @@ class ModelController extends Controller
     public $start = null;
 
     /**
-     * @var 处理方法
+     * @var 处理方法 api 监控使用
      */
     public $method = null;
 
@@ -122,7 +117,13 @@ class ModelController extends Controller
 
     public $skip_data = null;
 
+    public $incrby = null;
+
+    public $incrva = null;
+
     public $max_count = null;
+
+    //endregion
 
     public function __construct()
     {
@@ -140,24 +141,30 @@ class ModelController extends Controller
             $name = Route::currentRouteName();
             $methods = explode('.', $name);
             $method = end($methods);
-            $that->version = Input::get('version');
             $that->format = Input::get('format');
-            $that->geo = Input::get('geo');
-            $skip_field = Input::get('skip_field');
-            $skip_data = Input::get('skip_data');
+            //字段 加减
+            $incrby = Input::get('incrby');
+            $incrva = Input::get('incrva');
+            if ($incrby && $incrva) {
+                $that->incrby = $incrby;
+                $that->incrva = (int)$incrva;
+            }
             $that->count = (int)Input::get('count');
             if ($that->count == null) {
                 $that->count = 20;
 
             }
+            //条件输出省略
+            $skip_field = Input::get('skip_field');
+            $skip_data = Input::get('skip_data');
             $that->max_count = $that->count;
             if ($skip_field && $skip_data) {
                 $that->skip_data = explode(',', $skip_data);
                 $that->skip_field = $skip_field;
                 $that->count += count($that->skip_data);
             }
-            $that->method = $method;
-            $that->user_level = Input::get('user_level') ? Input::get('user_level') : 0;
+
+            //字段输出省略
             $less = Input::get('less');
             $that->debug = Input::get('debug') === '9527' ? true : false;
             $that->random = Input::get('random');
@@ -170,12 +177,12 @@ class ModelController extends Controller
             if ($that->format == null) {
                 $that->format = 'json';
             }
-            if (empty($that->version)) {
-                return $that->getResult(-1, 'missing params', null);
-            }
+            //统计监控
+            $that->method = $method;
             $that->table_name = Request::get('model');
             $that->expire = (int)Request::get('expire');
-            $that->right = Request::get('right'); /**/
+            $that->right = Request::get('right');
+            //权限检查
             if (!$method or !isset($that->right[$method]) or $that->right[$method] !== 1) {
                 return $that->getResult(-1, 'not allow', null);
             }
@@ -215,7 +222,7 @@ class ModelController extends Controller
 
         if ($this->debug) {
             $this->result['debug']['db'] = Config::get('database.redis.default.database');
-            $this->result['debug']['geo'] = $this->geo;
+
             $this->result['debug']['host'] = gethostname();
             $this->result['debug']['request_id'] = CMSLog::$requestHandler;
 
@@ -249,6 +256,9 @@ class ModelController extends Controller
         }
         return $xml->asXML();
     }
+
+    /*
+     * 列表访问*/
 
     public function index()
     {
@@ -316,7 +326,6 @@ class ModelController extends Controller
         if (is_array($data) && $type) {
             foreach ($data as $key => &$value) {
                 //result may have three state: true,false,array
-                //false means geo block
                 //array means no need loop just return
                 $result = $this->processData($value);
                 if (is_array($result)) {
@@ -354,7 +363,7 @@ class ModelController extends Controller
         if (is_object($data)) {
             $data = (array)$data;
         }
-
+        $data["id"] = (int)$data["id"];
         $table_info = ReadApi::getTableInfo($this->table_name);
         if ($table_info && isset($table_info['property'])) {
             $property = json_decode($table_info['property'], true);
@@ -601,29 +610,7 @@ class ModelController extends Controller
                 unset($data['geo']);
             }
         }
-        if ($this->geo !== null && !empty($geo)) {
-            if ($this->user_level === 0) {
-                return $this->checkArrayData($this->geo, $geo, 'force') && $this->checkArrayData($this->geo, $geo, 'data');
-            } else {
-                return $this->checkArrayData($this->geo, $geo, 'force');
-            }
-        }
         return true;
-    }
-
-    private function checkArrayData($value, $data, $key = null)
-    {
-        if ($data === null) {
-            return false;
-        }
-        if ($key) {
-            //if key not in data still will return true
-            if (isset($data[$key])) {
-                return in_array($value, $data[$key]);
-            }
-            return true;
-        }
-        return in_array($value, $data);
     }
 
     public function processChannelVisible(&$data)
@@ -758,6 +745,8 @@ class ModelController extends Controller
     {
         if ($id === 'search') {
             return $this->search();
+        } else if ($id === 'incrby') {
+            return $this->incrby();
         } else {
             $result = CacheController::info($this->table_name, $id);
             if (is_string($result)) {
@@ -786,6 +775,30 @@ class ModelController extends Controller
         }
 
 
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function incrby()
+    {
+        $data_id = Input::get('id');
+
+        if (!$this->incrby || !$this->incrva || !$data_id) {
+            return $this->getResult("-1", "miss params");
+        }
+        $data = ApiModel::Find($this->table_name, $data_id);
+        if (!$data) {
+            return $this->getResult("-1", "not found");
+        }
+
+        $data->{$this->incrby} += $this->incrva;
+        \Operator\WriteApi::incrby($this->table_name, $data_id, $this->incrby, $this->incrva);
+        $data->save();
+        return $this->getResult(1, "success", $this->process($data->toArray(), false));
     }
 
     /**
@@ -819,6 +832,21 @@ class ModelController extends Controller
     public function destroy($id)
     {
 
+    }
+
+    private function checkArrayData($value, $data, $key = null)
+    {
+        if ($data === null) {
+            return false;
+        }
+        if ($key) {
+            //if key not in data still will return true
+            if (isset($data[$key])) {
+                return in_array($value, $data[$key]);
+            }
+            return true;
+        }
+        return in_array($value, $data);
     }
 
 }

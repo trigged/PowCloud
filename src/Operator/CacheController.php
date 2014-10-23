@@ -40,13 +40,13 @@ class CacheController
     private static function addDataInRange($name, $value)
     {
         if (is_array($value) && isset($value['id']) && isset($value['rank'])) {
-            WriteApi::redis()->zadd(sprintf(RedisKey::Index, $name), $value['rank'], $value['id']);
+            WriteApi::redis()->zadd(RedisKey::sprintf(RedisKey::Index, $name), $value['rank'], $value['id']);
             WriteApi::setTableObject(RedisKey::buildKey($name, $value['id']), $value);
-            WriteApi::redis()->expire(sprintf(RedisKey::Index, $name), 3600 * 24 * 7);
+            WriteApi::redis()->expire(RedisKey::sprintf(RedisKey::Index, $name), 3600 * 24 * 7);
         } elseif (is_object($value) && isset($value->id) && isset($value->rank)) {
-            WriteApi::redis()->zadd(sprintf(RedisKey::Index, $name), $value->rank, $value->id);
+            WriteApi::redis()->zadd(RedisKey::sprintf(RedisKey::Index, $name), $value->rank, $value->id);
             WriteApi::setTableObject(RedisKey::buildKey($name, $value->id), (array)$value);
-            WriteApi::redis()->expire(sprintf(RedisKey::Index, $name), 3600 * 24 * 7);
+            WriteApi::redis()->expire(RedisKey::sprintf(RedisKey::Index, $name), 3600 * 24 * 7);
         } else {
             return 'miss arguments in model';
         }
@@ -99,9 +99,9 @@ class CacheController
     public static function getRange($name, $offset = 0, $limit = 20)
     {
         if ($offset === null) {
-            return ReadApi::redis()->zrevrangebyscore(sprintf(RedisKey::Index, $name), '+inf', '-inf');
+            return ReadApi::redis()->zrevrangebyscore(RedisKey::sprintf(RedisKey::Index, $name), '+inf', '-inf');
         }
-        return ReadApi::redis()->zrevrangebyscore(sprintf(RedisKey::Index, $name), '+inf', '-inf', 'limit', $offset * $limit, $limit);
+        return ReadApi::redis()->zrevrangebyscore(RedisKey::sprintf(RedisKey::Index, $name), '+inf', '-inf', 'limit', $offset * $limit, $limit);
     }
 
 }

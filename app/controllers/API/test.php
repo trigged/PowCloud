@@ -14,8 +14,6 @@
  * 拖动元素*/
 
 
-use Qiniu\Qiniu;
-
 $values = array(
     array(
         'type'   => 1, //has many req
@@ -236,15 +234,20 @@ $values = array(0  => '""',
 $ak = 'ApeZGJsGl3vfyGtP72Vkkcd5vpAgLZ6v8sw4iFw7';
 $sk = '7Vbm-DeATjGB7Pmm1nyWXQWRwe8AI-nHDf60P8Iw';
 $bk = 'bangshuiguo';
-$client = Qiniu::create(array(
-    'access_key' => $ak,
-    'secret_key' => $sk,
-    'bucket'     => $bk
-));
+//$client = Qiniu::create(array(
+//    'access_key' => $ak,
+//    'secret_key' => $sk,
+//    'bucket'     => $bk
+//));
+//
+//// 查看文件状态
+//$res = $client->stat('jobs.jpg');
+//
+//print_r($res);
 
-// 查看文件状态
-$res = $client->stat('jobs.jpg');
 
-print_r($res);
-
+$value = 'hello %s';
+var_dump(printf($value, 'trigged'));
+var_dump(printf($value, null));
+var_dump($value . null);
 ?>

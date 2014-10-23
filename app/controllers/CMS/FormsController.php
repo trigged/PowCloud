@@ -11,11 +11,15 @@ class FormsController extends SystemController
         $table_id = Input::get('table', '');
         if (!$table_id) App::abort(404);
 
-        $forms = Forms::where('models_id', '=', $table_id)->orderBy('rank', 'desc')->paginate();
+        $forms = Forms::where('models_id', '=', $table_id)->whereNotIn('field', array('timing_time', 'timing_state'))->orderBy('rank', 'desc')->paginate();
         $table = SchemaBuilder::find($table_id);
         if (!$forms || !$table) App::abort(404);
-
-        return $this->render('forms.list', array('forms' => $forms, 'table' => $table));
+        $timings = Forms::where('models_id', '=', $table_id)->whereIn('field', array('timing_time', 'timing_state'))->lists('field');
+        $timing_state = "开启";
+        if (count($timings) == 2) {
+            $timing_state = "关闭";
+        }
+        return $this->render('forms.list', array('forms' => $forms, 'table' => $table, 'timing_state' => $timing_state));
 
     }
 
@@ -99,6 +103,18 @@ class FormsController extends SystemController
                 'default_value' => '',
                 'rank'          => 0,
             );
+
+            $filed[] = array(
+                'field'         => 'timing_state',
+                'models_id'     => $tableId,
+                'label'         => '定时发布',
+//                'dataType' =>'DateTime',
+                'type'          => 'timingState',
+                'rules'         => '',
+                'default_value' => '',
+                'rank'          => 0,
+            );
+
         }
         if (DB::table('forms')->insert($filed)) {
             return Redirect::action('FormsController@forms');
@@ -174,4 +190,55 @@ class FormsController extends SystemController
         }
         $this->ajaxResponse(array(), 'fail', '恢复失败');
     }
+
+    public function addTiming($models_id)
+    {
+        $forms = Forms::where('models_id', '=', $models_id)->whereIn('field', array('timing_time', 'timing_state'))->lists('field');
+        $filed = array();
+        if (!in_array('timing_time', $forms)) {
+            $filed[] = array(
+                'field'         => 'timing_time',
+                'models_id'     => $models_id,
+                'label'         => '定时发布',
+                'type'          => 'dateTimePicker',
+                'rules'         => '',
+                'default_value' => '',
+                'rank'          => 0,
+            );
+        }
+        if (!in_array('timing_state', $forms)) {
+            $filed[] = array(
+                'field'         => 'timing_state',
+                'models_id'     => $models_id,
+                'label'         => '定时发布',
+                'type'          => 'timingState',
+                'rules'         => '',
+                'default_value' => '',
+                'rank'          => 0,
+            );
+        }
+        if (!empty($filed)) {
+            DB::table('forms')->insert($filed);
+        }
+        return Redirect::action('FormsController@forms');
+
+    }
+
+    public function delTiming($models_id)
+    {
+        $forms = Forms::where('models_id', '=', $models_id)->whereIn('field', array('timing_time', 'timing_state'))->lists('id', 'field');
+        $destroy = array();
+        if (isset($forms['timing_time'])) {
+            $destroy[] = $forms['timing_time'];
+        }
+        if (isset($forms['timing_state'])) {
+            $destroy[] = $forms['timing_state'];
+        }
+
+        if (!empty($destroy)) {
+            Forms::destroy($destroy);
+        }
+        return Redirect::action('FormsController@forms');
+    }
+
 }

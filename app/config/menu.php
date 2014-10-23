@@ -3,31 +3,36 @@ return array(
     'nav'  => array(
         'cms'      => array('url' => URL::action('CmsController@index'), 'label' => '内容管理'),
         'system'   => array('url' => URL::action('SystemController@system'), 'label' => '系统管理'),
-        'advanced' => array('url' => URL::action('AdvancedController@index'), 'label' => '高级模式'),
+//        'advanced' => array('url' => URL::action('AdvancedController@index'), 'label' => '高级模式'),
         'limit'    => array('url' => URL::action('LimitController@user'), 'label' => '权限管理'),
-        'monitor'  => array('url' => URL::action('MonitorController@index'), 'label' => '数据监控'),
+//        'monitor'  => array('url' => URL::action('MonitorController@index'), 'label' => '数据监控'),
         'help'     => array('url' => 'http://doc.powapi.com', 'target' => '_blank', 'label' => '帮助文档'),
     ),
 
     'side' => array(
         'system'   => array(
-            '主机管理' => array(
-                array('label' => '主机添加', 'url' => URL::action('HostController@create'), 'menu' => 'host.create'),
-                array('label' => '主机列表', 'url' => URL::action('HostController@index'), 'menu' => 'host.list'),
+//            '主机管理' => array(
+//                array('label' => '域名添加', 'url' => URL::action('HostController@create'), 'menu' => 'host.create'),
+//                array('label' => '域名列表', 'url' => URL::action('HostController@index'), 'menu' => 'host.list'),
+//            ),
+
+            'API 管理' => array(
+                array('label' => 'API列表', 'url' => URL::action('PathController@index'), 'menu' => 'path.list'),
             ),
 
-            '路径管理' => array(
-                array('label' => '路径列表', 'url' => URL::action('PathController@index'), 'menu' => 'path.list'),
-            ),
-
-            '表管理'  => array(
+            '表管理'    => array(
                 array('label' => '创建表', 'url' => URL::action('SchemaBuilderController@create'), 'menu' => 'schema.create'),
                 array('label' => '表列表', 'url' => URL::action('SchemaBuilderController@index'), 'menu' => 'schema.list'),
             ),
-            '表单管理' => array(
-                array('label' => '表单列表', 'url' => URL::action('FormsController@forms'), 'menu' => 'forms.list'),
+            '内置模板'   => array(
+//                array('label' => '分类', 'url' => URL::action('FormsController@forms'), 'menu' => 'forms.list'),
+//                array('label' => '用户', 'url' => URL::action('FormsController@forms'), 'menu' => 'forms.list'),
+            ),
+            '表单管理'   => array(
+                array('label' => '界面管理', 'url' => URL::action('FormsController@forms'), 'menu' => 'forms.list'),
             ),
         ),
+
 
         'cms'      => array(),
         'advanced' => array(
@@ -53,7 +58,7 @@ return array(
                 array('label' => 'cache', 'url' => URL::action('MonitorController@cache'), 'menu' => 'monitor.cache'),
 
             ),
-            'API监控' => array(//                array('label' => 'API执行', 'url' => URL::action('MonitorController@api'), 'menu' => 'monitor.api'),
+            'API监控' => array( //                array('label' => 'API执行', 'url' => URL::action('MonitorController@api'), 'menu' => 'monitor.api'),
 
             ),
             '服务器监控' => array(

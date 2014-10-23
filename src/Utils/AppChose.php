@@ -1,10 +1,9 @@
 <?php
 namespace Utils;
 
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use Operator\RedisKey;
 
 /**
  * Created by JetBrains PhpStorm.
@@ -54,10 +53,12 @@ class AppChose
 
     public static function updateCache($app_id)
     {
-        $redis_conf = Config::get('database.redis');
-        $redis_conf['default']['database'] = $app_id;
-        Config::set('database.redis', $redis_conf);
-        Redis::update_connection($redis_conf);
+
+        RedisKey::$DB_KEY = $app_id;
+//        $redis_conf = Config::get('database.redis');
+//        $redis_conf['default']['database'] = $app_id;
+//        Config::set('database.redis', $redis_conf);
+//        Redis::update_connection($redis_conf);
     }
 
     public static function getCurrentAppID()

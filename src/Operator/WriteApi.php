@@ -25,8 +25,8 @@ class WriteApi
     public static function addApiMonitor($model, $method, $time)
     {
         $date = date("Y-m-d");
-        self::redis()->HINCRBY('api::' . $model . '::' . $method, $date . ':time', $time);
-        self::redis()->HINCRBY('api::' . $model . '::' . $method, $date . ':count', 1);
+        self::redis()->HINCRBY(RedisKey::sprintf('api::' . $model . '::' . $method), $date . ':time', $time);
+        self::redis()->HINCRBY(RedisKey::sprintf('api::' . $model . '::' . $method), $date . ':count', 1);
     }
 
     public static function redis()
@@ -41,9 +41,8 @@ class WriteApi
      */
     public static function setRoutes($path, $date)
     {
-        self::redis()->hmset(sprintf(RedisKey::ROUTE, $path), $date);
+        self::redis()->hmset(RedisKey::sprintf(RedisKey::ROUTE, $path), $date);
     }
-
 
     /**
      * 清空 table 在 redis 数据
@@ -63,7 +62,7 @@ class WriteApi
                 self::redis()->del($key);
             }
         }
-        self::redis()->del(sprintf(RedisKey::Index, $table_name));
+        self::redis()->del(RedisKey::sprintf(RedisKey::Index, $table_name));
     }
 
     /**
@@ -85,7 +84,7 @@ class WriteApi
      */
     private static function delCacheInRange($table_name, $id)
     {
-        WriteApi::redis()->zrem(sprintf(RedisKey::Index, $table_name), $id);
+        WriteApi::redis()->zrem(RedisKey::sprintf(RedisKey::Index, $table_name), $id);
     }
 
     /**
@@ -95,7 +94,7 @@ class WriteApi
      */
     public static function setTableCountState($table_name, $state = 'true')
     {
-        return self::redis()->set(sprintf(RedisKey::MORE_DATA, $table_name), $state);
+        return self::redis()->set(RedisKey::sprintf(RedisKey::MORE_DATA, $table_name), $state);
     }
 
     /**
@@ -108,8 +107,8 @@ class WriteApi
     public static function addTimingData($type, $table_name, $content_id, $title, $pub_time)
     {
         $key = RedisKey::buildKey($table_name, $content_id);
-        self::redis()->zadd(RedisKey::TIMING_PUB, $pub_time, $key);
-        return self::redis()->hmset(RedisKey::TIMING_PUB_INFO, $key, RedisKey::buildKeys(array($type, $table_name, $content_id, $title)));
+        self::redis()->zadd(RedisKey::sprintf(RedisKey::TIMING_PUB), $pub_time, $key);
+        return self::redis()->hmset(RedisKey::sprintf(RedisKey::TIMING_PUB_INFO), $key, RedisKey::buildKeys(array($type, $table_name, $content_id, $title)));
 //        return self::redis()->zadd(RedisKey::TIMING_PUB, $pub_time, RedisKey::buildKeys(array($type, $table_name, $content_id, $title)));
     }
 
@@ -122,14 +121,13 @@ class WriteApi
     public static function delTimingData($table_name, $content_id)
     {
         $key = RedisKey::buildKey($table_name, $content_id);
-        self::redis()->zrem(RedisKey::TIMING_PUB, $key);
-        return self::redis()->hdel(RedisKey::TIMING_PUB_INFO, $key);
+        self::redis()->zrem(RedisKey::sprintf(RedisKey::TIMING_PUB), $key);
+        return self::redis()->hdel(RedisKey::sprintf(RedisKey::TIMING_PUB_INFO), $key);
     }
-
 
     public static function set($key, $value)
     {
-        return self::redis()->set($key, $value);
+        return self::redis()->set(RedisKey::sprintf($key), $value);
     }
 
     /**
@@ -145,5 +143,9 @@ class WriteApi
         }
     }
 
+    public static function incrby($model, $data_id, $filed, $value)
+    {
+        self::redis()->HINCRBY(RedisKey::buildKey($model, $data_id), $filed, $value);
+    }
 
 }

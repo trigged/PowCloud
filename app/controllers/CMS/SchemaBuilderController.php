@@ -55,7 +55,7 @@ class SchemaBuilderController extends SystemController
             $g_option->save();
             $this->ajaxResponse(array(), 'success', '添加成功', URL::action('SchemaBuilderController@index'));
         }
-        $this->ajaxResponse($table->errors, 'fail', '创建失败');
+        $this->ajaxResponse($table->errors, 'fail', json_encode($table->errors), '创建失败');
     }
 
     /**

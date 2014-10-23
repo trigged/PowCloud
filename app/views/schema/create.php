@@ -103,8 +103,11 @@
                                        name="property[<?php echo $tableIndex; ?>][name]" value=""/>
                             </td>
                             <td>
-                                <input class="property form-control" type="text"
-                                       name="property[<?php echo $tableIndex; ?>][attributes]" value=""/>
+                                <input class="typeahead property form-control" type="text"
+                                       name="property[<?php echo $tableIndex; ?>][attributes]" value=""
+                                       data-provide="typeahead" autocomplete="off" data-source='["string","integer","double",
+                                       "text","datetime","decimal"]'
+                                    />
                             </td>
                             <td>
                                 <i data-row="row-<?php echo $tableIndex; ?>" class="glyphicon glyphicon-remove"></i>
@@ -260,6 +263,7 @@
     function addProperty() {
         var index = parseInt($(".propertyInput:last").attr('data-index')) + 1;
         var tpl = '<tr class="propertyInput" data-index="' + index + '" id="row-' + index + '"><td><input class="fieldName filedNameLetter form-control" type="text" name="property[' + index + '][name]" value="" /></td><td><input class="property form-control" type="text" name="property[' + index + '][attributes]" value="" /></td><td><i class="glyphicon glyphicon-remove" data-row="row-' + index + '"></i></td> </tr>';
+        //  var tpl = '<tr class="propertyInput" data-index="' + index + '" id="row-' + index + '"><td><input class="fieldName filedNameLetter input-mini" type="text" name="property[' + index + '][name]" value="" /></td><td><input class="property input-xlarge" type="text" name="property[' + index + '][attributes]" value="" /></td><td><i class="icon-remove" data-row="row-' + index + '"></i></td> </tr>';
         $('table tbody').append(tpl);
     }
 </script>

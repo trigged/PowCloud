@@ -70,7 +70,7 @@ if ($roles === 3) :?>
         }
         ?>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://doc.powapi.com/"
-                                      target="_blank">CMS后台操作指南</a></p>
+                                      target="_blank">PowCloud 后台操作指南</a></p>
 
         <p>&nbsp;&nbsp;&nbsp;<code>若登录异常,请及时修改域密码并且联系管理员</code></p>
     </div>
