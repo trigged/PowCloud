@@ -1,0 +1,205 @@
+/*!
+ * Bootstrap v3.2.0 (http://getbootstrap.com)
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+.navbar-inverse .navbar-inner {
+    background: #393939;
+    filter: unquote("progid:DXImageTransform.Microsoft.gradient(enabled = false)");
+}
+
+.navbar-inverse .brand {
+    border-bottom: 2px solid #2c3e50;
+    border-right: 2px solid #2c3e50;
+    color: #ffffff;
+    padding: 10px 28px 11px 32px;
+}
+
+body {
+    padding-top: 49px;
+    color: #34495e;
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", Tahoma, Arial, STHeiti, sans-serif;
+    font-size: 14px;
+    line-height: 1.231;
+
+}
+
+.w100p {
+    width: 100%;
+    overflow: hidden;
+}
+
+.middle {
+    margin: 0 auto;
+}
+
+.navbar-collapse {
+    width: 90%;
+}
+
+.pow_row {
+    width: 100%;
+    overflow: hidden;
+}
+
+li {
+    list-style: none;
+}
+
+.sidebar {
+    background: #393939;
+    color: #fff;
+}
+
+.pow_sidebar li a.hover {
+    color: #fff;
+}
+
+.pow-brand {
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;
+    color: #fff;
+}
+
+.pow-brand:hover {
+    color: #d14836;
+    text-decoration: none;
+}
+
+.nav-header {
+    color: #aeb2b7;
+    font-size: 16px;
+    display: block;
+    padding: 3px 15px;
+    line-height: 20px;
+    color: #999999;
+    text-align: center;
+    text-transform: uppercase;
+
+}
+
+.sidebar-nav {
+    background: #393939;
+    border-radius: 0px;
+}
+
+.sidebar-nav ul li.active a {
+    background: #d14836;
+}
+
+.nav-list li a {
+    color: #fff;
+    text-align: center;
+}
+
+.nav-list li a:hover {
+    color: #d14836;
+    background: none;
+}
+
+.table_list_title {
+    margin: 15px 0 10px 0px;
+}
+
+.table_list_title legend {
+    padding-bottom: 10px;
+}
+
+.table tr {
+    padding: 10px 0;
+}
+
+.pow_main_nav li a {
+    color: #fff;
+}
+
+.pow_main_nav li a:hover {
+    color: #d14836;
+    background: none;
+}
+
+.nav {
+    line-height: 30px;
+}
+
+.item {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px -ms-border-radius : 4 px -o-border-radius : 4 px border-radius : 4 px;
+    border: 1px solid #ccc;
+}
+
+.item_a {
+    text-decoration: none;
+    color: #34495e;
+    display: block;
+}
+
+.item_a:hover h4 {
+    color: #d14836;
+}
+
+.pow_member {
+    padding: 0;
+}
+
+.pow_main_nav > li.active > a {
+    background-color: #d14836;
+}
+
+.controls {
+    margin-top: 10px;
+}
+
+.nav li.active a:hover {
+    color: #fff;
+}
+
+.sidebar-nav {
+    padding: 19px 0;
+}
+
+.pow_label {
+    float: left;
+    line-height: 29px;
+    width: 160px;
+    text-align: right;
+}
+
+.pow_controls {
+    float: left;
+    margin-left: 20px;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.pow_padding_left_20 {
+    padding-left: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
