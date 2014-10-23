@@ -28,9 +28,10 @@
                     <td class="operation">
                         <a data-target="<?php echo $link->id; ?>" class="JS_tableOp"
                            data-url="<?php echo URL::action('DataLinkController@destroy', array($link->id)) ?>"
-                           href="javascript:void(0)"><i class="glyphicon glyphicon-remove" title="删除"></i></a>
+                           href="javascript:void(0)"><i class="glyphicon glyphglyphicon glyphglyphicon glyphicon-remove"
+                                                        title="删除"></i></a>
                         <a href="<?php echo URL::action('DataLinkController@edit', array($link->id)) ?>"><i
-                                class="icon-edit"></i></a>
+                                class="glyphicon glyphglyphicon glyphicon-edit"></i></a>
                     </td>
                 </tr>
             <?php endforeach; ?>

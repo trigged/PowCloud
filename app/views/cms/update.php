@@ -1,7 +1,8 @@
 <?php echo $header; ?>
 <?php echo \Utils\FormBuilderHelper::begin($table->table_name); ?>
     <form id="cms_form" class="form-horizontal" onsubmit="">
-        <fieldset>
+        <fieldset class="mt20">
+
             <legend>更新数据 ：#<?php echo $tableData->id ?></legend>
             <?php foreach ($forms as $form): ?>
             <?php if ((int)$form->visibleByGroup !== 0 && (int)$form->visibleByGroup !== (int)Auth::user()->group_id) {
@@ -41,11 +42,11 @@
                             </div>
                         <?php endforeach; ?>
                     <?php elseif ($form->field === 'timing_time'): ?>
-                        <div class="form-group">
-                            <label for="name" class="control-label"><?php echo $form->label ?>:</label>
+                        <div class="clearfix">
+                            <label for="name" class="control-label pow_label"><?php echo $form->label ?>:</label>
 
-                            <div class="controls">
-                                <?php
+                            <div class="controls pow_controls">
+                            <?php
                                 \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules); //注册验证规则 以便JS可以验证
                                 $time = '';
                                 if ($tableData->hasTiming()) {
@@ -56,11 +57,11 @@
                             </div>
                         </div>
                     <?php elseif (!in_array($form->field, $hide) && $form->type !== 'formTip'): ?>
-                        <div class="form-group">
-                            <label for="name" class="control-label"><?php echo $form->label ?>:</label>
+                        <div class="clearfix">
+                            <label for="name" class="control-label pow_label"><?php echo $form->label ?>:</label>
 
-                            <div class="controls">
-                                <?php
+                            <div class="controls pow_controls">
+                            <?php
                                 \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules); //注册验证规则 以便JS可以验证
                                 echo call_user_func_array(array('\Utils\FormBuilderHelper', $form->type), array($form, $tableData->{$form->field}));
                                 ?>
@@ -121,17 +122,19 @@
                                 <td>
                                     <a href="javascript:void(0);"
                                        data-table="<?php echo $children_relation['table']->table_name; ?>" title="上升"
-                                       class="tr_rank" data-direction="up"><i class="icon-chevron-up"></i></a>
+                                       class="tr_rank" data-direction="up"><i
+                                            class="glyphicon glyphicon-chevron-up"></i></a>
                                     <a href="javascript:void(0);"
                                        data-table="<?php echo $children_relation['table']->table_name; ?>" title="下降"
-                                       class="tr_rank" data-direction="down"><i class="icon-chevron-down"></i></a>
+                                       class="tr_rank" data-direction="down"><i
+                                            class="glyphicon glyphicon-chevron-down"></i></a>
                                     <a href="javascript:void (0);"
                                        data-table="<?php echo $children_relation['table']->table_name; ?>"
-                                       class="tr_remove"><i class="icon-remove"></i></a>
+                                       class="tr_remove"><i class="glyphicon glyphicon-remove"></i></a>
                                     <a href="javascript:void (0);"
                                        data-table="<?php echo $children_relation['table']->table_name; ?>"
                                        class="tr_add"><i
-                                            class="icon-plus"></i></a>
+                                            class="glyphicon glyphicon-plus"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

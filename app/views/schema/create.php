@@ -19,29 +19,29 @@
     <form id="schema_form" class="form-horizontal" method="post">
         <h4>创建表结构</h4>
         <hr/>
-        <div class="form-group">
-            <label for="table_name" class="control-label">表名*:</label>
+        <div class="">
+        <label for="table_name" class="control-label">表名*:</label>
 
             <div class="controls">
                 <input name="table_name" class="form-control" type="text" placeholder="表名" id="table_name">
             </div>
         </div>
-        <div class="form-group">
-            <label for="table_alias" class="control-label">表别名*:</label>
+        <div class="">
+        <label for="table_alias" class="control-label">表别名*:</label>
 
             <div class="controls">
                 <input name="table_alias" class="form-control" type="text" placeholder="表别名" id="table_alias">
             </div>
         </div>
-        <div class="form-group">
-            <label for="group_name" class="control-label">组名:</label>
+        <div class="">
+        <label for="group_name" class="control-label">组名:</label>
 
             <div class="controls">
                 <input name="group_name" class="form-control" type="text" placeholder="组名" id="group_name">
             </div>
         </div>
-        <div class="form-group">
-            <label for="path" class="control-label">API 地址绑定*:</label>
+        <div class="">
+        <label for="path" class="control-label">API 地址绑定*:</label>
 
             <div class="controls">
                 <?php echo Form::select('path_id', $pathTreeListOptions, '', array('id' => 'path_id')) ?>
@@ -49,7 +49,7 @@
             <input type="hidden" id="path_name" name="path_name" value="">
         </div>
 
-        <div class="form-group">
+        <div class="">
             <label for="name" class="control-label">属性*:</label>
 
             <div class="controls">
@@ -107,7 +107,7 @@
                                        name="property[<?php echo $tableIndex; ?>][attributes]" value=""/>
                             </td>
                             <td>
-                                <i data-row="row-<?php echo $tableIndex; ?>" class="icon-remove"></i>
+                                <i data-row="row-<?php echo $tableIndex; ?>" class="glyphicon glyphicon-remove"></i>
                             </td>
                         </tr>
                     <?php endfor; ?>
@@ -123,22 +123,22 @@
             </div>
         </div>
         <div id="JRestCtrl">
-            <div class="form-group">
+            <div class="">
                 <label for="" class="control-label">API 访问:</label>
 
                 <div class="controls">
-                    <label class="radio inline">
-                        <input class="" type="radio" name="restful" value="1"
+                    <label class="radio inline pow_padding_left_20">
+                    <input class="" type="radio" name="restful" value="1"
                                onclick="$('#JRestful').removeClass('hide');" id=""/> 开启
                     </label>
-                    <label class="radio inline">
-                        <input class="" type="radio" onclick="$('#JRestful').addClass('hide');" name="restful"
+                    <label class="radio inline pow_padding_left_20">
+                    <input class="" type="radio" onclick="$('#JRestful').addClass('hide');" name="restful"
                                checked="checked" value="0" id=""/> 关闭
                     </label>
                 </div>
             </div>
-            <div id="JRestful" class="form-group hide">
-                <label for="" class="control-label">可执行操作:</label>
+            <div id="JRestful" class=" hide">
+            <label for="" class="control-label">可执行操作:</label>
 
                 <div class="controls">
                     <label class="checkbox inline">
@@ -156,8 +156,8 @@
                 </div>
             </div>
         </div>
-        <div class="form-actions">
-            <button class="btn btn-primary" id="JS_Sub" type="submit">创建表</button>
+        <div class="form-actions mt20">
+        <button class="btn btn-primary" id="JS_Sub" type="submit">创建表</button>
             <a href="javascript:void (0)" class="btn" onclick="history.back();">取消</a>
         </div>
 
@@ -248,7 +248,7 @@
         })
 
 
-        $(".icon-remove").live('click', function () {
+        $(".glyphicon glyphicon-remove").live('click', function () {
             if ($('tbody tr').length == 1) {
                 alert('至少 添加一个字段 ');
                 return false;
@@ -259,7 +259,7 @@
     });
     function addProperty() {
         var index = parseInt($(".propertyInput:last").attr('data-index')) + 1;
-        var tpl = '<tr class="propertyInput" data-index="' + index + '" id="row-' + index + '"><td><input class="fieldName filedNameLetter form-control" type="text" name="property[' + index + '][name]" value="" /></td><td><input class="property form-control" type="text" name="property[' + index + '][attributes]" value="" /></td><td><i class="icon-remove" data-row="row-' + index + '"></i></td> </tr>';
+        var tpl = '<tr class="propertyInput" data-index="' + index + '" id="row-' + index + '"><td><input class="fieldName filedNameLetter form-control" type="text" name="property[' + index + '][name]" value="" /></td><td><input class="property form-control" type="text" name="property[' + index + '][attributes]" value="" /></td><td><i class="glyphicon glyphicon-remove" data-row="row-' + index + '"></i></td> </tr>';
         $('table tbody').append(tpl);
     }
 </script>

@@ -35,15 +35,15 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <!--            <a data-target=".navbar-collapse" data-toggle="collapse" class="btn navbar-btn">-->
-            <!--                <span class="icon-bar"></span>-->
-            <!--                <span class="icon-bar"></span>-->
-            <!--                <span class="icon-bar"></span>-->
+            <!--                <span class="glyphicon glyphicon-bar"></span>-->
+            <!--                <span class="glyphicon glyphicon-bar"></span>-->
+            <!--                <span class="glyphicon glyphicon-bar"></span>-->
             <!--            </a>-->
             <a class="pow-brand" href="<?php echo URL::action('DashBoardController@index') ?>">数据管理平台</a>
 
             <div class="pull-right">
-                <ul class="nav pull-left">
-                    <?php foreach ($navs as $cur => $navMenu): ?>
+                <ul class="nav pull-left pow_main_nav">
+                <?php foreach ($navs as $cur => $navMenu): ?>
                         <li class="<?php echo $nav === $cur ? 'active' : ''; ?> pull-left">
                         <a <?php if (!empty($navMenu['target'])) echo 'target="' . $navMenu['target'] . '"' ?>
                                 href="<?php echo $navMenu['url']; ?>">

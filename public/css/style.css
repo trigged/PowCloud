@@ -47,30 +47,30 @@ Internet Explorer 10 doesn't differentiate device width from viewport width, and
 properly apply the media queries in Bootstrap's CSS. To address this, 
 you can optionally include the following CSS and JavaScript to work around this problem until Microsoft issues a fix.
 */
-@-webkit-viewport { 
-  width: device-width; 
+@-webkit-viewport {
+    width: device-width;
 }
 
-@-moz-viewport { 
-  width: device-width; 
+@-moz-viewport {
+    width: device-width;
 }
 
-@-ms-viewport { 
-  width: device-width; 
+@-ms-viewport {
+    width: device-width;
 }
 
-@-o-viewport { 
-  width: device-width; 
+@-o-viewport {
+    width: device-width;
 }
 
-@viewport { 
-  width: device-width; 
+@viewport {
+    width: device-width;
 }
 
 /* Internet Explorer 10 doesn't differentiate device width from viewport width, 
 and thus doesn't properly apply the media queries in Bootstrap's CSS. To address this, following CSS code applied */
-@-ms-viewport { 
-  width: auto !important; 
+@-ms-viewport {
+    width: auto !important;
 }
 
 /***
@@ -191,9 +191,9 @@ li [class*=" fa-"] {
     text-align: center;
 }
 
-li [class^="fa-"].icon-large,
-li [class*=" fa-"].icon-large {
-    /* increased font size for icon-large */
+li [class^="fa-"].glyphicon glyphicon-large,
+li [class*=" fa-"].glyphicon glyphicon-large {
+    /* increased font size for glyphicon glyphicon-large */
     width: 1.5625em;
 }
 
@@ -209,7 +209,7 @@ Close icon used for modal dialog and other UI element close buttons
     background-repeat: no-repeat !important;
     text-indent: -10000px;
     outline: none;
-    background-image: url("../img/remove-icon-small.png") !important;
+    background-image: url("../img/remove-glyphicon glyphicon-small.png") !important;
 }
 
 /***
@@ -633,14 +633,14 @@ Page sidebar
 }
 
 /* 3rd level sub menu */
-.page-sidebar-menu > li > ul.sub-menu  > li ul.sub-menu {
+.page-sidebar-menu > li > ul.sub-menu > li ul.sub-menu {
     display: none;
     list-style: none;
     clear: both;
     margin: 0px 0px 0px 0px;
 }
 
-.page-sidebar-menu > li > ul.sub-menu  li > a > .arrow:before {
+.page-sidebar-menu > li > ul.sub-menu li > a > .arrow:before {
     float: right;
     margin-top: 1px;
     margin-right: 20px;
@@ -653,7 +653,7 @@ Page sidebar
     text-shadow: none;
 }
 
-.page-sidebar-menu > li > ul.sub-menu  li > a > .arrow.open:before {
+.page-sidebar-menu > li > ul.sub-menu li > a > .arrow.open:before {
     float: right;
     margin-top: 1px;
     margin-right: 18px;
@@ -670,14 +670,14 @@ Page sidebar
     display: block;
 }
 
-.page-sidebar-menu > li > ul.sub-menu > li  ul.sub-menu li {
+.page-sidebar-menu > li > ul.sub-menu > li ul.sub-menu li {
     background: none;
     margin: 0px;
     padding: 0px;
     margin-top: 1px !important;
 }
 
-.page-sidebar-menu > li > ul.sub-menu  li > ul.sub-menu > li > a {
+.page-sidebar-menu > li > ul.sub-menu li > ul.sub-menu > li > a {
     display: block;
     margin: 0px 0px 0px 0px;
     padding: 5px 0px;
@@ -699,7 +699,7 @@ Page sidebar
     display: block;
 }
 
-.page-sidebar-menu > li > ul.sub-menu  li > ul.sub-menu > li > a > i {
+.page-sidebar-menu > li > ul.sub-menu li > ul.sub-menu > li > a > i {
     font-size: 13px;
 }
 
@@ -915,11 +915,11 @@ Sidebar toggler(show/hide)
 
 /* sidebar container */
 
-.page-sidebar-closed  .page-sidebar {
+.page-sidebar-closed .page-sidebar {
     width: 35px;
 }
 
-.page-sidebar-closed  .page-content {
+.page-sidebar-closed .page-content {
     margin-left: 35px !important;
 }
 
@@ -1005,7 +1005,7 @@ Page breadcrumb
     color: #666;
 }
 
-.page-content .page-breadcrumb.breadcrumb > li+li:before {
+.page-content .page-breadcrumb.breadcrumb > li + li:before {
     display: none;
 }
 
@@ -1034,7 +1034,7 @@ Page breadcrumb
 }
 
 /* hack for chrome and safari */
-@media all and (-webkit-min-device-pixel-ratio:0) {
+@media all and (-webkit-min-device-pixel-ratio: 0) {
     .page-content .page-breadcrumb.breadcrumb .dashboard-date-range {
         padding: 9px;
     }
@@ -1119,7 +1119,7 @@ i.icon, a.icon {
     font-size: 13px;
 }
 
-i.icon-black {
+i.glyphicon glyphicon-black {
     color: #000 !important;
 }
 
@@ -1522,27 +1522,27 @@ Box portlet
 
 .portlet.box > .portlet-title > .tools > a.remove,
 .portlet.solid > .portlet-title > .tools > a.remove {
-    background-image: url(../img/portlet-remove-icon-white.png);
+    background-image: url(../img/portlet-remove-glyphicon glyphicon-white.png);
 }
 
 .portlet.box > .portlet-title > .tools > a.config,
 .portlet.solid > .portlet-title > .tools > a.config {
-    background-image: url(../img/portlet-config-icon-white.png);
+    background-image: url(../img/portlet-config-glyphicon glyphicon-white.png);
 }
 
 .portlet.box > .portlet-title > .tools > a.reload,
 .portlet.solid > .portlet-title > .tools > a.reload {
-    background-image: url(../img/portlet-reload-icon-white.png);
+    background-image: url(../img/portlet-reload-glyphicon glyphicon-white.png);
 }
 
 .portlet.box > .portlet-title > .tools > a.expand,
 .portlet.solid > .portlet-title > .tools > a.expand {
-    background-image: url(../img/portlet-expand-icon-white.png);
+    background-image: url(../img/portlet-expand-glyphicon glyphicon-white.png);
 }
 
 .portlet.box > .portlet-title > .tools > a.collapse,
 .portlet.solid > .portlet-title > .tools > a.collapse {
-    background-image: url(../img/portlet-collapse-icon-white.png);
+    background-image: url(../img/portlet-collapse-glyphicon glyphicon-white.png);
 }
 
 /* portlet buttons */
@@ -1667,7 +1667,7 @@ Mini chart containers
 /***
 Custom icon buttons
 ***/
-.icon-btn {
+.glyphicon glyphicon-btn {
     height: 60px;
     min-width: 80px;
     margin: 5px 5px 0 0;
@@ -1692,15 +1692,15 @@ Custom icon buttons
     transition: all 0.3s ease !important;
 }
 
-.icon-btn i {
+.glyphicon glyphicon-btn i {
     font-size: 18px;
 }
 
-.ie8 .icon-btn:hover {
+.ie8 .glyphicon glyphicon-btn:hover {
     filter: none !important;
 }
 
-.icon-btn:hover {
+.glyphicon glyphicon-btn:hover {
     text-decoration: none !important;
     border-color: #999 !important;
     color: #444 !important;
@@ -1715,7 +1715,7 @@ Custom icon buttons
     box-shadow: none !important;
 }
 
-.icon-btn:hover .badge {
+.glyphicon glyphicon-btn:hover .badge {
     -webkit-transition: all 0.3s ease !important;
     -moz-transition: all 0.3s ease !important;
     -ms-transition: all 0.3s ease !important;
@@ -1726,7 +1726,7 @@ Custom icon buttons
     box-shadow: none !important;
 }
 
-.icon-btn div {
+.glyphicon glyphicon-btn div {
     font-family: 'Open Sans', sans-serif;
     margin-top: 5px;
     margin-bottom: 20px;
@@ -1735,7 +1735,7 @@ Custom icon buttons
     font-weight: 300;
 }
 
-.icon-btn .badge {
+.glyphicon glyphicon-btn .badge {
     position: absolute;
     font-family: 'Open Sans', sans-serif;
     font-size: 11px !important;
@@ -2331,19 +2331,19 @@ System feeds
     overflow: hidden;
 }
 
-.feeds .col1 .cont  .cont-col1 {
+.feeds .col1 .cont .cont-col1 {
     float: left;
     margin-right: -100%;
 }
 
-.feeds .col1 .cont  .cont-col1 .label {
+.feeds .col1 .cont .cont-col1 .label {
     display: inline-block;
     padding: 5px 4px 6px 5px;
     vertical-align: middle;
     text-align: center;
 }
 
-.feeds .col1 .cont  .cont-col1 .label > i {
+.feeds .col1 .cont .cont-col1 .label > i {
     text-align: center;
     font-size: 14px;
 }
@@ -3079,7 +3079,7 @@ Theme Panel
     padding: 20px;
     cursor: pointer;
     position: absolute;
-    background: #c9c9c9 url(../img/icon-color.png) center no-repeat;
+    background: #c9c9c9 url(../img/glyphicon glyphicon-color.png) center no-repeat;
 }
 
 .theme-panel > .toggler:hover {
@@ -3093,7 +3093,7 @@ Theme Panel
     padding: 20px;
     cursor: pointer;
     position: absolute;
-    background: #3d3d3d url(../img/icon-color-close.png) center no-repeat !important;
+    background: #3d3d3d url(../img/glyphicon glyphicon-color-close.png) center no-repeat !important;
 }
 
 .theme-panel > .toggler-close:hover {
@@ -3747,12 +3747,12 @@ Inline Social Icons
     background-position: 0 -38px;
 }
 
-.social-icon-color {
+.social-glyphicon glyphicon-color {
     opacity: 0.7;
     background-position: 0 -38px !important;
 }
 
-.social-icon-color:hover {
+.social-glyphicon glyphicon-color:hover {
     opacity: 1;
 }
 
@@ -4205,7 +4205,7 @@ Responsive Flip Scroll Tables
         zoom: 1;
     }
 
-    .flip-scroll *:first-child+html .flip-content {
+    .flip-scroll *:first-child + html .flip-content {
         zoom: 1;
     }
 
@@ -4275,7 +4275,6 @@ Responsive Flip Scroll Tables
     }
 
     /* sort out borders */
-
     .flip-scroll th {
         border-bottom: 0;
         border-left: 0;

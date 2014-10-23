@@ -14,18 +14,18 @@
             <?php foreach ($tables as $table): ?>
                 <tr>
                     <td><?php echo $table->id; ?></td>
-                    <td><?php echo $table->table_name.'('.$table->table_alias.')'; ?></td>
+                    <td><?php echo $table->table_name . '(' . $table->table_alias . ')'; ?></td>
                     <td><?php echo $table->user_id && $table->user ? $table->user->name : 'unknow'; ?></td>
                     <td><?php echo $table->updated_at; ?></td>
                     <td class="operation">
                         <?php if (!$table->forms->count()): ?>
                             <a title="创建表单"
                                href="<?php echo URL::action('FormsController@create', array('table' => $table->id)) ?>"><i
-                                    class="icon-plus"></i></a>
+                                    class="glyphicon glyphicon-plus"></i></a>
                         <?php else: ?>
                             <a title="查看表单"
                                href="<?php echo URL::action('FormsController@index', array('table' => $table->id)) ?>"><i
-                                    class="icon-th-list"></i></a>
+                                    class="glyphicon glyphicon-th-list"></i></a>
                         <?php endif; ?>
                     </td>
                 </tr>

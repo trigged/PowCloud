@@ -40,7 +40,7 @@
                     },
                     success: function (label) {
                         label.parent().parent().removeClass('error').addClass('success');
-                        label.html('<i class="icon-ok"></i>');
+                        label.html('<i class="glyphicon glyphicon-ok"></i>');
                     }
                 });
                 var validate = $("#addAppForm").validate({

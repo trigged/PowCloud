@@ -108,17 +108,19 @@
                                         <a href="javascript:void(0);"
                                            data-table="<?php echo $children_relation['table']->table_name; ?>"
                                            title="上升"
-                                           class="tr_rank" data-direction="up"><i class="icon-chevron-up"></i></a>
+                                           class="tr_rank" data-direction="up"><i
+                                                class="glyphicon glyphicon-chevron-up"></i></a>
                                         <a href="javascript:void(0);"
                                            data-table="<?php echo $children_relation['table']->table_name; ?>"
                                            title="下降"
-                                           class="tr_rank" data-direction="down"><i class="icon-chevron-down"></i></a>
+                                           class="tr_rank" data-direction="down"><i
+                                                class="glyphicon glyphicon-chevron-down"></i></a>
                                         <a href="javascript:void (0);"
                                            data-table="<?php echo $children_relation['table']->table_name; ?>"
-                                           class="tr_remove"><i class="icon-remove"></i></a>
+                                           class="tr_remove"><i class="glyphicon glyphicon-remove"></i></a>
                                         <a href="javascript:void (0);"
                                            data-table="<?php echo $children_relation['table']->table_name; ?>"
-                                           class="tr_add"><i class="icon-plus"></i></a>
+                                           class="tr_add"><i class="glyphicon glyphicon-plus"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

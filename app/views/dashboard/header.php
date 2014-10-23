@@ -34,9 +34,9 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <!--            <a data-target=".navbar-collapse" data-toggle="collapse" class="btn navbar-btn">-->
-            <!--                <span class="icon-bar"></span>-->
-            <!--                <span class="icon-bar"></span>-->
-            <!--                <span class="icon-bar"></span>-->
+            <!--                <span class="glyphicon glyphicon-bar"></span>-->
+            <!--                <span class="glyphicon glyphicon-bar"></span>-->
+            <!--                <span class="glyphicon glyphicon-bar"></span>-->
             <!--            </a>-->
             <a class="navbar-brand" href="#" style="color:#ffffff;">POW Cloud</a>
 

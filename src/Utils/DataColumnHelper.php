@@ -79,7 +79,7 @@ class DataColumnHelper
     public static function rank($dataType, $value, $target = '', $data)
     {
 
-        $str = '<a data-direction="top" data-url="' . \URL::action('ExtController@top') . '" data-rank="' . $data->rank . '" data-id="' . $value . '" data-row="' . $target . '" class="JS_top" title="置顶" href="javascript:void(0);"><i class="icon-fire"></i></a>';
+        $str = '<a data-direction="top" data-url="' . \URL::action('ExtController@top') . '" data-rank="' . $data->rank . '" data-id="' . $value . '" data-row="' . $target . '" class="JS_top" title="置顶" href="javascript:void(0);"><i class="glyphicon glyphicon-fire"></i></a>';
         return $str;
     }
 
@@ -101,7 +101,7 @@ class DataColumnHelper
             $requestUrl = \URL::action('ExtController@areaList');
             if ($value && strpos($value, 'type=0') === false)
                 $flag = '有';
-            $filed = $flag . '<a data-namespace="' . FormBuilderHelper::$namespace . '" data-url="' . $requestUrl . '" data-value="' . $value . '" class="area_filter_tr" href="javascript:void(0)"><i class=" icon-th-list"></i></a>';
+            $filed = $flag . '<a data-namespace="' . FormBuilderHelper::$namespace . '" data-url="' . $requestUrl . '" data-value="' . $value . '" class="area_filter_tr" href="javascript:void(0)"><i class=" glyphicon glyphicon-th-list"></i></a>';
             return $filed;
         }
 

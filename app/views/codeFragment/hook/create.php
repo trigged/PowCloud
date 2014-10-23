@@ -41,7 +41,7 @@
                     <label for="code" class="control-label">代码:</label>
 
                     <div class="controls">
-                        <a title="全屏" href="javascript:void (0)"><i class="icon-fullscreen"></i></a>
+                        <a title="全屏" href="javascript:void (0)"><i class="glyphicon glyphicon-fullscreen"></i></a>
 
                         <div id="code_edit_plugin" class="code_edit_plugin"></div>
                         <textarea class="hide" rows="3" name="code" id="hook_code" style="width: 439px;"></textarea>

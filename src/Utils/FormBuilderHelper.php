@@ -37,7 +37,7 @@ class FormBuilderHelper
                 },
                 success:function(label){
                     label.parent().parent().removeClass('error').addClass('success');
-                    label.html('<i class="icon-ok"></i>');
+                    label.html('<i class="glyphicon glyphicon-ok"></i>');
                 }
             });
             var {$formId}Validate = $("#{$formId}").validate({
@@ -205,8 +205,8 @@ EOT;
         } else
             $input = '<input type="text" name="' . self::getFieldName($form->field) . '[]" placeholder="有效图片地址" value="' . $value . '"  class="' . $class . ' image-uploader"  />';
 
-        $js_link = '<a class="JS_repeat" title="继续添加" href="javascript:void(0) "><i class="icon-plus"></i></a>';
-        $js_remove = '<a class="JS_remove" title="继续添加" href="javascript:void(0) "><i class="icon-remove"></i></a>';
+        $js_link = '<a class="JS_repeat" title="继续添加" href="javascript:void(0) "><i class="glyphicon glyphicon-plus"></i></a>';
+        $js_remove = '<a class="JS_remove" title="继续添加" href="javascript:void(0) "><i class="glyphicon glyphicon-remove"></i></a>';
         $js = " <script>
         $(function(){
             $('.JS_repeat').click(function(){
@@ -273,7 +273,7 @@ EOT;
                 },
                 success:function(label){
                     label.parent().parent().removeClass('error').addClass('success');
-                    label.html('<i class="icon-ok"></i>');
+                    label.html('<i class="glyphicon glyphicon-ok"></i>');
                 }
             });
             {$method}
@@ -364,8 +364,8 @@ EOT;
                 $(".selectColor li").click(function(){
                     var value = $(this).attr('data-value');
                     var target = $(this).attr('data-target');
-                    $(".selectColor li .icon-ok").addClass('hide');
-                    $('.icon-ok',$(this)).removeClass('hide');
+                    $(".selectColor li .glyphicon glyphicon-ok").addClass('hide');
+                    $('.glyphicon glyphicon-ok',$(this)).removeClass('hide');
                     $("#"+target).val(value);
                 });
             });
@@ -379,7 +379,7 @@ EOT;
         if ($form->default_value) {
             if ($colors = explode(',', $form->default_value)) {
                 foreach ($colors as $index => $color) {
-                    $colorSelect .= '<li data-target="' . $id . '" data-value="' . $index . '" style="' . ($color == '无' ? '' : 'background:' . $color . ';') . '"><i class="icon-ok ' . ((int)$value === (int)$index ? '' : ' hide') . '"></i>' . ($color == '无' ? '无' : '') . '</li>' . "\n";
+                    $colorSelect .= '<li data-target="' . $id . '" data-value="' . $index . '" style="' . ($color == '无' ? '' : 'background:' . $color . ';') . ';"><i class="glyphicon glyphicon-ok ' . ((int)$value === (int)$index ? '' : ' hide') . '"></i>' . ($color == '无' ? '无' : '') . '</li>' . "\n";
                 }
             }
         }
@@ -472,9 +472,9 @@ CHECKSCRIPT;
 </script>
 EOT;
 
-        $dataPicker = '<div class="input-append date form_datetime" id="start_date">
+        $dataPicker = '<div class="input-append date form_datetime" id="start_date" style="display:inline-block;">
         <input size="16" type="text" name="' . $timingTime . '[start]" value="' . $start . '" disabled="disabled">
-        <span class="add-on"><i class="icon-calendar"></i></span></div>&nbsp;&nbsp;
+        <span class="add-on"><i class="glyphicon glyphicon-calendar"></i></span></div>&nbsp;&nbsp;
         <input style="width: 50px;" size="2" id="start_hour" type="text" name="' . $timingTime . '[hour]" value="' . $hour . '" disabled="disabled">时
         &nbsp;&nbsp;<input style="width: 50px;" size="2" id="start_minute" type="text" name="' . $timingTime . '[minute]" value="' . $minute . '" disabled="disabled">
         分<input type="checkbox" id="JSCheckEnable"  value=1> <span class="help-inline"> 启用</span>&nbsp;&nbsp;选填

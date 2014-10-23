@@ -43,15 +43,15 @@
                     <td class="operation">
                         <a title="编辑"
                            href="<?php echo URL::action('FormsController@edit', array('form' => $form->id)); ?>"><i
-                                class="icon-edit"></i></a>
+                                class="glyphicon glyphicon-edit"></i></a>
                         <a class="JS_hostOp"
                            data-url="<?php echo URL::action('FormsController@destroy', array('form' => $form->id)) ?>"
                            href="#" data-status="<?php echo $form->deleted_at ? 'restore' : 'delete'; ?>"
                            data-target="<?php echo $form->id; ?>" href="javascript:void(0)">
                             <?php if (!$form->deleted_at): ?>
-                                <i title="删除" class="icon-remove"></i>
+                                <i title="删除" class="glyphicon glyphicon-remove"></i>
                             <?php else: ?>
-                                <i title="恢复" class="icon-repeat"></i>
+                                <i title="恢复" class="glyphicon glyphicon-repeat"></i>
                             <?php endif; ?>
                         </a>
 

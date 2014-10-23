@@ -1,6 +1,6 @@
 <?php echo $header; ?>
     <fieldset class="table_list_title">
-    <legend><?php echo $table->table_alias; ?></legend>
+        <legend><?php echo $table->table_alias; ?></legend>
     </fieldset>
     <div id="JS_button_hook" class="" style="">
         <?php if (isset($options[$table->id]) && $options[$table->id]['edit'] == 2): ?>
@@ -73,7 +73,7 @@
                 foreach ($dataList as $data):
                     $class = "";
                     $state = null;
-                    // icon-time
+                    // glyphicon glyphicon-time
                     if (isset($data->timing_state)) {
                         $timing_state = $data->timing_state;
                         if ($timing_state === \Operator\RedisKey::HAS_PUB_ONLINE) {
@@ -131,24 +131,24 @@
                             <?php if ($roles === 3 && $status === "deleted" && (int)date('Y', strtotime($data->deleted_at)) > 0): ?>
                                 <a class="JS_tableDataOp" title="恢复数据" data-method="POST" href="javascript:void (0)"
                                    data-url="<?php echo URL::action('CmsController@restore', array('table' => $table->id, 'id' => $data->id)); ?>">
-                                    <i class="icon-repeat"></i>
+                                    <i class="glyphicon glyphicon-repeat"></i>
                                 </a>
 
                             <?php else: ?>
                                 <a title="编辑"
                                    href="<?php echo URL::action('CmsController@edit', array('cms' => $data->id, 'table' => $table->id)) ?>"><i
-                                        class="icon-edit"></i></a>
+                                        class="glyphicon glyphicon-edit"></i></a>
 
                                 <?php if ($status !== 'timing' && isset($data->timing_state) && $data->timing_state === \Operator\RedisKey::READY_LINE): ?>
                                     <a title="上线" class="JS_tableDataOp" data-method="POST" href="javascript:void (0)"
                                        data-url="<?php echo URL::action('CmsController@online', array('table' => $table->id, 'id' => $data->id)); ?>"><i
-                                            class="icon-hand-up"></i></a>
+                                            class="glyphicon glyphicon-hand-up"></i></a>
 
 
                                 <?php elseif (isset($data->timing_state) && $data->timing_state !== \Operator\RedisKey::READY_LINE): ?>
                                     <a title="下线" class="JS_tableDataOp" data-method="POST" href="javascript:void (0)"
                                        data-url="<?php echo URL::action('CmsController@offline', array('table' => $table->id, 'id' => $data->id)); ?>"><i
-                                            class="icon-hand-down"></i></a>
+                                            class="glyphicon glyphicon-hand-down"></i></a>
 
                                 <?php endif; ?>
                                 <?php if (empty($status) && (empty($table_options['list.table.rank']) || $table_options['list.table.rank'] == 1 || empty($_GET['keyword']))): ?>
@@ -158,16 +158,16 @@
                                 <?php if ($roles === 3): ?>
                                     <a title="查看历史版本"
                                        href="<?php echo URL::action('CmsController@detail', array('table' => $table->id, 'id' => $data->id)); ?>"><i
-                                            class="icon-file"></i></a>
+                                            class="glyphicon glyphicon-file"></i></a>
                                 <?php endif; ?>
                                 <?php if (isset($options[$table->id]) && $options[$table->id]['edit'] == 2): ?>
                                     <a title="更新缓存" href="javascript:void (0)" class="JS_tableDataOp" data-method="post"
                                        data-url="<?php echo URL::action('CmsController@cacheRefresh', array('table' => $table->table_name, 'target' => $data->id)); ?>"><i
-                                            class="icon-refresh"></i></a>
+                                            class="glyphicon glyphicon-refresh"></i></a>
 
                                     <a title="删除" class="JS_tableDataOp" data-method="DELETE" href="javascript:void (0)"
                                        data-url="<?php echo URL::action('CmsController@destroy', array('cms' => $data->id, 'table' => $table->id)); ?>"><i
-                                            class="icon-remove"></i></a>
+                                            class="glyphicon glyphicon-remove"></i></a>
 
                                 <?php endif ?>
                             <?php endif; ?>

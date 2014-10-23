@@ -31,9 +31,9 @@
 <div class="col-md-2 sidebar">
     <?php if ($apps): ?>
         <ul class="nav pow_sidebar  affix">
-        <?php foreach ($apps as $app): ?>
+            <?php foreach ($apps as $app): ?>
                 <li class=""><a href="#appItem-<?php echo $app->id; ?>"><i
-                            class="icon-chevron-right"></i> <?php echo $app->name; ?></a></li>
+                            class="glyphicon glyphicon-chevron-right"></i> <?php echo $app->name; ?></a></li>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
@@ -60,7 +60,7 @@
                     <a class="item_a clearfix" style=""
                        href="<?php echo URL::action('CmsController@index', array('app_id' => $app->id)) ?>">
                         <div class="">
-                        <h4>
+                            <h4>
                                 <?php echo $app->name; ?>
                             </h4>
                         </div>
@@ -93,7 +93,7 @@
                     <div class="item-member-body">
                         <?php if ($app->appUser): ?>
                             <ul class="member pow_member">
-                            <?php foreach ($app->appUser as $user): ?>
+                                <?php foreach ($app->appUser as $user): ?>
                                     <?php $user = User::find($user->user_id);
                                     if ($user && $user->exists): ?>
                                         <li>

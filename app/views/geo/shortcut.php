@@ -28,9 +28,9 @@
                     <td class="operation">
                         <a data-target="<?php echo $shortCut->id; ?>" class="JS_tableOp"
                            data-url="<?php echo URL::action('GeoController@shortcut_destroy', array('id' => $shortCut->id)) ?>"
-                           href="javascript:void(0)"><i class="icon-remove" title="删除"></i></a>
+                           href="javascript:void(0)"><i class="glyphicon glyphicon-remove" title="删除"></i></a>
                         <a href="<?php echo URL::action('GeoController@shortcut_edit', array('id' => $shortCut->id)) ?>"><i
-                                class="icon-edit"></i></a>
+                                class="glyphicon glyphicon-edit"></i></a>
                     </td>
                 </tr>
             <?php endforeach; ?>

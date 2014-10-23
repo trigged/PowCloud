@@ -8,9 +8,10 @@ if (!$isAdmin) {
     </style>";
 }
 ?>
-
+    <div class="mt20"></div>
     <form data-status="0" id="group_form" class="form-horizontal" method="get">
-        <input type="search" name="username" class="form-control" placeholder="搜索用户" style="width:800px">
+        <input type="search" name="username" class="form-control" placeholder="搜索用户"
+               style="width:800px;display: inline-block;">
         <button id="JS_Sub" class="btn btn-primary" return="false">搜索</button>
     </form>
 
@@ -45,15 +46,15 @@ if (!$isAdmin) {
                             <td><?php echo $limit->getDisplayModifyTime(); ?></td>
                             <td class="operation limit">
                                 <a href="<?php echo URL::action('LimitController@handleUser', array('limit' => $limit->id)); ?>"><i
-                                        class="icon-edit"></i></a>
+                                        class="glyphicon glyphicon-edit"></i></a>
                                 <a class="JS_limitOp"
                                    data-url="<?php echo URL::action('LimitController@cancelAdmin', array('limit' => $limit->id)) ?>"
                                    href="<?php echo URL::action('LimitController@cancelAdmin', array('limit' => $limit->id)) ?>"
                                    data-target="<?php echo $limit->id; ?>" href="javascript:void(0)"><i title="取消管理员"
-                                                                                                        class="icon-ban-circle"></i>
+                                                                                                        class="glyphicon glyphicon-ban-circle"></i>
                                 </a>
                                 <a href="<?php echo URL::action('LimitController@setAdmin', array('limit' => $limit->id)) ?>"><i
-                                        class="icon-user"></i></a>
+                                        class="glyphicon glyphicon-user"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

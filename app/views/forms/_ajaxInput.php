@@ -12,21 +12,22 @@
             <td rowspan="1" id="ajaxInputRowspan">
                 <input type="text" value="" name="default_value[target]">
                 &nbsp;&nbsp;<a style="cursor:pointer;" data-target="ajaxInput" data-type="tr" class="JAjaxInput"
-                               data-tableindex="2" href="javascript:;"><i class="icon-plus"></i></a>
+                               data-tableindex="2" href="javascript:;"><i class="glyphicon glyphicon-plus"></i></a>
             </td>
             <td>
                 <input type="text" value="" name="default_value[data][1][data]">
                 &nbsp;&nbsp;<a style="cursor:pointer;" data-target="ajaxInput" data-type="td" class="JAjaxInput"
-                               data-mapindex="2" data-tableindex="1" href="javascript:;"><i class="icon-plus"></i></a>
+                               data-mapindex="2" data-tableindex="1" href="javascript:;"><i
+                        class="glyphicon glyphicon-plus"></i></a>
                 <a style="cursor:pointer;" data-type="delete-tr" class="JAjaxInput" href="javascript:;"><i
-                        class="icon-remove"></i></a>
+                        class="glyphicon glyphicon-remove"></i></a>
             </td>
             <td>
                 <div style="margin-bottom: 5px;">
                     <input type="text" value="" class="form-control" name="default_value[data][1][map][1][localField]">&nbsp;&nbsp;&nbsp;
                     <input type="text" value="" class="form-control" name="default_value[data][1][map][1][remoteField]">
                     <a style="cursor:pointer;" data-type="delete-td" class="JAjaxInput" href="javascript:;"><i
-                            class="icon-remove"></i></a>
+                            class="glyphicon glyphicon-remove"></i></a>
                 </div>
             </td>
         </tr>
@@ -48,8 +49,8 @@ if ($field !== null && is_array($field->default_value)) {
         $('.JAjaxInput').live('click', function () {
             var type = $(this).attr('data-type');
             var target = $(this).attr('data-target');
-            var trTpl = '<tr><td><input type="text" value="" name="default_value[data][{tableIndex}][data]">&nbsp;&nbsp;<a style="cursor:pointer;" data-mapIndex="2" data-tableIndex="{data-tableIndex}" data-type="td" class="JAjaxInput" href="javascript:;"><i class="icon-plus"></i></a>&nbsp;&nbsp;<a href="javascript:;"  class="JAjaxInput" data-type="delete-tr" style="cursor:pointer;"><i class="icon-remove"></i></a></td><td><div style="margin-bottom: 5px;"><input type="text" value="" class="form-control" name="default_value[data][{tableIndex}][map][{mapIndex}][localField]">&nbsp;&nbsp;&nbsp;<input type="text" value="" class="form-control" name="default_value[data][{tableIndex}][map][{mapIndex}][remoteField]">&nbsp;&nbsp;<a href="javascript:;"  class="JAjaxInput" data-type="delete-td" style="cursor:pointer;"><i class="icon-remove"></i></a></div></td></tr>';
-            var tdTpl = '<div style="margin-bottom: 5px;"><input type="text" value="" class="form-control" name="default_value[data][{tableIndex}][map][{mapIndex}][localField]">&nbsp;&nbsp;&nbsp;<input type="text" value="" class="form-control" name="default_value[data][{tableIndex}][map][{mapIndex}][remoteField]">&nbsp;&nbsp;<a href="javascript:;"  class="JAjaxInput" data-type="delete-td" style="cursor:pointer;"><i class="icon-remove"></i></a></div>';
+            var trTpl = '<tr><td><input type="text" value="" name="default_value[data][{tableIndex}][data]">&nbsp;&nbsp;<a style="cursor:pointer;" data-mapIndex="2" data-tableIndex="{data-tableIndex}" data-type="td" class="JAjaxInput" href="javascript:;"><i class="glyphicon glyphicon-plus"></i></a>&nbsp;&nbsp;<a href="javascript:;"  class="JAjaxInput" data-type="delete-tr" style="cursor:pointer;"><i class="glyphicon glyphicon-remove"></i></a></td><td><div style="margin-bottom: 5px;"><input type="text" value="" class="form-control" name="default_value[data][{tableIndex}][map][{mapIndex}][localField]">&nbsp;&nbsp;&nbsp;<input type="text" value="" class="form-control" name="default_value[data][{tableIndex}][map][{mapIndex}][remoteField]">&nbsp;&nbsp;<a href="javascript:;"  class="JAjaxInput" data-type="delete-td" style="cursor:pointer;"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';
+            var tdTpl = '<div style="margin-bottom: 5px;"><input type="text" value="" class="form-control" name="default_value[data][{tableIndex}][map][{mapIndex}][localField]">&nbsp;&nbsp;&nbsp;<input type="text" value="" class="form-control" name="default_value[data][{tableIndex}][map][{mapIndex}][remoteField]">&nbsp;&nbsp;<a href="javascript:;"  class="JAjaxInput" data-type="delete-td" style="cursor:pointer;"><i class="glyphicon glyphicon-remove"></i></a></div>';
 
             if (type == 'tr') {
                 var rowspan = parseInt($(this).parent().attr('rowspan'));

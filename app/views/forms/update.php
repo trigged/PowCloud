@@ -44,7 +44,8 @@
                                             &nbsp;&nbsp;<a href="javascript:;"
                                                            data-tableIndex="<?php echo $mapCount + 1; ?>"
                                                            class="JAjaxInput" data-type="tr" data-target="ajaxInput"
-                                                           style="cursor:pointer;"><i class="icon-plus"></i></a>
+                                                           style="cursor:pointer;"><i
+                                                    class="glyphicon glyphicon-plus"></i></a>
                                         </td>
                                     <?php endif; ?>
                                     <td>
@@ -53,9 +54,9 @@
                                         &nbsp;&nbsp;<a href="javascript:;" data-tableIndex="<?php echo $tableIndex; ?>"
                                                        data-mapIndex="<?php echo count($map) + 1; ?>" class="JAjaxInput"
                                                        data-type="td" data-target="ajaxInput" style="cursor:pointer;"><i
-                                                class="icon-plus"></i></a>
+                                                class="glyphicon glyphicon-plus"></i></a>
                                         <a href="javascript:;" class="JAjaxInput" data-type="delete-tr"
-                                           style="cursor:pointer;"><i class="icon-remove"></i></a>
+                                           style="cursor:pointer;"><i class="glyphicon glyphicon-remove"></i></a>
                                     </td>
                                     <td>
                                         <?php $mapIndex = 1;
@@ -69,7 +70,8 @@
                                                        name="default_value[data][<?php echo $tableIndex; ?>][map][<?php echo $mapIndex; ?>][remoteField]"
                                                        class="form-control" value="<?php echo $remoteField; ?>"/>
                                                 <a href="javascript:;" class="JAjaxInput" data-type="delete-td"
-                                                   style="cursor:pointer;"><i class="icon-remove"></i></a>
+                                                   style="cursor:pointer;"><i
+                                                        class="glyphicon glyphicon-remove"></i></a>
                                             </div>
                                             <?php $mapIndex++;endforeach; ?>
                                     </td>
@@ -92,15 +94,15 @@
                                     <input type="text" value="" name="default_value[target]">
                                     &nbsp;&nbsp;<a style="cursor:pointer;" data-target="ajaxInput" data-type="tr"
                                                    class="JAjaxInput" data-tableindex="2" href="javascript:;"><i
-                                            class="icon-plus"></i></a>
+                                            class="glyphicon glyphicon-plus"></i></a>
                                 </td>
                                 <td>
                                     <input type="text" value="" name="default_value[data][1][data]">
                                     &nbsp;&nbsp;<a style="cursor:pointer;" data-target="ajaxInput" data-type="td"
                                                    class="JAjaxInput" data-mapindex="2" data-tableindex="1"
-                                                   href="javascript:;"><i class="icon-plus"></i></a>
+                                                   href="javascript:;"><i class="glyphicon glyphicon-plus"></i></a>
                                     <a style="cursor:pointer;" data-type="delete-tr" class="JAjaxInput"
-                                       href="javascript:;"><i class="icon-remove"></i></a>
+                                       href="javascript:;"><i class="glyphicon glyphicon-remove"></i></a>
                                 </td>
                                 <td>
                                     <div style="margin-bottom: 5px;">
@@ -109,13 +111,14 @@
                                         <input type="text" value="" class="form-control"
                                                name="default_value[data][1][map][1][remoteField]">
                                         <a style="cursor:pointer;" data-type="delete-td" class="JAjaxInput"
-                                           href="javascript:;"><i class="icon-remove"></i></a>
+                                           href="javascript:;"><i class="glyphicon glyphicon-remove"></i></a>
                                     </div>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                    <?php else: ?>
+                    <?php
+                    else: ?>
                         <input name="default_value" class="form-control" type="text"
                                value="<?php echo htmlspecialchars($field->default_value, ENT_QUOTES); ?>"
                                placeholder="默认值" id="default_value">
