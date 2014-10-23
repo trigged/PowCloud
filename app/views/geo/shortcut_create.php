@@ -4,14 +4,14 @@
         <form data-status="0" id="shortcut_form" class="form-horizontal" method="post">
             <fieldset>
                 <legend>新建主机</legend>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="name" class="control-label">快捷键名称*:</label>
 
                     <div class="controls">
-                        <input name="name" class="input-medium" type="text" placeholder="快捷键名称" id="name">
+                        <input name="name" class="form-control" type="text" placeholder="快捷键名称" id="name">
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label" for="type">屏蔽类型:</label>
 
                     <div class="controls">
@@ -23,7 +23,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="host" class="control-label">地域列表*:</label>
 
                     <div class="controls">

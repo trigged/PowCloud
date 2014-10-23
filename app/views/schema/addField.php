@@ -1,22 +1,21 @@
 <?php echo $header; ?>
-<div class="row-fluid">
-    <div class="span7">
+<div class="row">
+    <div class="col-md-7">
         <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
         <form id="schema_form" class="form-horizontal" method="post">
             <h4>添加表(<?php echo $table->table_name; ?>)字段</h4>
-            <hr/>
-            <div class="control-group">
+            <hr />
+            <div class="form-group">
                 <label for="field" class="control-label">字段名*:</label>
 
                 <div class="controls">
-                    <input name="field" class="filedNameLetter input-medium" type="text" placeholder="字段名" id="field">
+                    <input name="field" class="filedNameLetter form-control" type="text" placeholder="字段名" id="field">
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="property" class="control-label">属性*:</label>
-
                 <div class="controls">
-                    <input name="property" class="input-xlarge" type="text" placeholder="属性" id="property"
+                    <input name="property" class="form-control" type="text" placeholder="属性" id="property"
                            data-provide="typeahead" autocomplete="off" data-source='["string","integer","double",
                                        "text","datetime","decimal"]'>
                 </div>
@@ -42,8 +41,7 @@
             },"字段名只能是字母");
 
             '
-        );//注册表单JS
-        ?>
+        );//注册表单JS ?>
     </div>
 </div>
-<?php echo $footer; ?>
+<?php echo $footer;?>

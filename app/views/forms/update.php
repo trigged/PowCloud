@@ -3,23 +3,23 @@
     <form class="form-horizontal child_form" method="post" onsubmit="return check_form(this)">
         <fieldset>
             <legend>修改字段:<?php echo $field->field ?></legend>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="label" class="control-label">标签*:</label>
 
                 <div class="controls">
-                    <input name="label" class="input-medium" value="<?php echo $field->label; ?>" type="text"
+                    <input name="label" class="form-control" value="<?php echo $field->label; ?>" type="text"
                            placeholder="标签" id="label">
                 </div>
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
                 <label for="type" class="control-label">类型*:</label>
 
                 <div class="controls">
-                    <?php echo Form::select('type', Config::get('params.formField'), $field->type, array('class' => 'input-small JFieldType')); ?>
+                    <?php echo Form::select('type', Config::get('params.formField'), $field->type, array('class' => 'form-control JFieldType')); ?>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="default_value" class="control-label">默认值:</label>
 
                 <div class="controls JDefaultValue">
@@ -64,10 +64,10 @@
                                                 <?php list($localField, $remoteField) = explode(':', $m); ?>
                                                 <input type="text"
                                                        name="default_value[data][<?php echo $tableIndex; ?>][map][<?php echo $mapIndex; ?>][localField]"
-                                                       class="input-small" value="<?php echo $localField; ?>"/>&nbsp;&nbsp;&nbsp;
+                                                       class="form-control" value="<?php echo $localField; ?>"/>&nbsp;&nbsp;&nbsp;
                                                 <input type="text"
                                                        name="default_value[data][<?php echo $tableIndex; ?>][map][<?php echo $mapIndex; ?>][remoteField]"
-                                                       class="input-small" value="<?php echo $remoteField; ?>"/>
+                                                       class="form-control" value="<?php echo $remoteField; ?>"/>
                                                 <a href="javascript:;" class="JAjaxInput" data-type="delete-td"
                                                    style="cursor:pointer;"><i class="icon-remove"></i></a>
                                             </div>
@@ -104,9 +104,9 @@
                                 </td>
                                 <td>
                                     <div style="margin-bottom: 5px;">
-                                        <input type="text" value="" class="input-small"
+                                        <input type="text" value="" class="form-control"
                                                name="default_value[data][1][map][1][localField]">&nbsp;&nbsp;&nbsp;
-                                        <input type="text" value="" class="input-small"
+                                        <input type="text" value="" class="form-control"
                                                name="default_value[data][1][map][1][remoteField]">
                                         <a style="cursor:pointer;" data-type="delete-td" class="JAjaxInput"
                                            href="javascript:;"><i class="icon-remove"></i></a>
@@ -116,48 +116,48 @@
                             </tbody>
                         </table>
                     <?php else: ?>
-                        <input name="default_value" class="input-xxlarge" type="text"
+                        <input name="default_value" class="form-control" type="text"
                                value="<?php echo htmlspecialchars($field->default_value, ENT_QUOTES); ?>"
                                placeholder="默认值" id="default_value">
                     <?php endif; ?>
                 </div>
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
                 <label for="rules" class="control-label">验证规则:</label>
 
                 <div class="controls">
-                    <?php echo Form::textarea('rules', $field->rules, array('class' => 'input-xxlarge')) ?>
+                    <?php echo Form::textarea('rules', $field->rules, array('class' => 'form-control')) ?>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="rank" class="control-label">排序:</label>
 
                 <div class="controls">
-                    <input name="rank" class="input-mini" type="text" value="<?php echo $field->rank ?>"
+                    <input name="rank" class="form-control" type="text" value="<?php echo $field->rank ?>"
                            placeholder="默认值" id="rank">
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="isVisible" class="control-label">列表是否可见:</label>
 
                 <div class="controls">
-                    <?php echo Form::select('isVisible', array(1 => '可见', 0 => '不可见'), (int)$field->isVisible, array('class' => 'input-small')); ?>
+                    <?php echo Form::select('isVisible', array(1 => '可见', 0 => '不可见'), (int)$field->isVisible, array('class' => 'form-control')); ?>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="isEditable" class="control-label">是否可输入:</label>
 
                 <div class="controls">
-                    <?php echo Form::select('isEditable', array(1 => '可输入', 0 => '不可输入'), (int)$field->isEditable, array('class' => 'input-small')); ?>
+                    <?php echo Form::select('isEditable', array(1 => '可输入', 0 => '不可输入'), (int)$field->isEditable, array('class' => 'form-control')); ?>
                 </div>
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
                 <label for="isEditable" class="control-label">角色可见:</label>
 
                 <div class="controls">
-                    <?php echo Form::select('visibleByGroup', array('0' => '无限制') + Group::getGroups(), (int)$field->visibleByGroup, array('class' => 'input-small')); ?>
+                    <?php echo Form::select('visibleByGroup', array('0' => '无限制') + Group::getGroups(), (int)$field->visibleByGroup, array('class' => 'form-control')); ?>
                 </div>
             </div>
 

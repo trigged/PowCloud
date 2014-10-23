@@ -37,7 +37,8 @@
                     <td><?php echo $table->user_id && $table->user ? $table->user->name : 'unknow'; ?></td>
                     <td>
                         <a href="<?php echo URL::action('SchemaBuilderController@docsHtml', array('table' => $table->table_name)) ?>"
-                           data-target="#docs" data-toggle="modal"><span class="label label-info">文档</span></a></td>
+                           data-target="#docs" data-toggle="modal"><span
+                                class="label label-default label-info">文档</span></a></td>
                     <td><?php echo $table->path_id ?></td>
                     <td>
                         <!--                        <a href="--><?php

@@ -1,6 +1,6 @@
 <?php if (empty($user_id)) : ?>
 
-    <div class="hero-unit">
+    <div class="jumbotron">
         <h2>邀请小伙伴</h2>
 
         <form action="<?php echo URL::action('LoginController@registerUser'); ?>" method="post">
@@ -12,7 +12,7 @@
         </form>
 
         <p>
-            <a class="btn btn-primary btn-large">
+            <a class="btn btn-primary btn-lg">
                 Learn more
             </a>
         </p>

@@ -6,8 +6,8 @@
         </fieldset>
         <table class="table table-bordered table-striped">
             <colgroup>
-                <col class="span1">
-                <col class="span7">
+                <col class="col-md-1">
+                <col class="col-md-7">
             </colgroup>
             <thead>
             <tr>
@@ -21,15 +21,17 @@
                 <td>
                     数据
                 </td>
-                <td><pre><?php print_r($currentVersion->toArray()); ?></pre></td>
+                <td>
+                    <pre><?php print_r($currentVersion->toArray()); ?></pre>
+                </td>
             </tr>
             <?php //endforeach; ?>
             </tbody>
         </table>
     </div>
 
-<!-- record begin -->
+    <!-- record begin -->
 <?php echo $record; ?>
-<!-- record end -->
+    <!-- record end -->
 
-<?php echo $footer;?>
+<?php echo $footer; ?>

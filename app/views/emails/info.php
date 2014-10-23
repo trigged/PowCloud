@@ -13,7 +13,7 @@
 <div class="container">
     <style>
 
-        .hero-unit {
+        .jumbotron {
             padding: 60px;
             margin-bottom: 30px;
             font-size: 18px;
@@ -70,7 +70,7 @@
             box-shadow: none;
         }
 
-        .btn.btn-large {
+        .btn.btn-lg {
             font-size: 16.996px;
             /* 17px */
 
@@ -102,7 +102,7 @@
             background-color: #16a085;
         }
 
-        .hero-unit h1 {
+        .jumbotron h1 {
             margin-bottom: 0;
             font-size: 60px;
             line-height: 1;
@@ -110,7 +110,7 @@
             color: inherit;
         }
 
-        .hero-unit li {
+        .jumbotron li {
             line-height: 30px;
         }
 
@@ -151,13 +151,13 @@
 
     </style>
 
-    <div class="hero-unit">
+    <div class="jumbotron">
         <h1>江湖邀请令</h1>
 
         <p>您的小伙伴邀请您加入 pow server和他一起闯荡江湖,这个邀请15分钟内有效,请少侠注意哦</p>
 
         <p>
-            <a href="<?php echo $url ?>" class="btn btn-primary btn-large">
+            <a href="<?php echo $url ?>" class="btn btn-primary btn-lg">
                 点击这里 加入系统
             </a>
         </p>

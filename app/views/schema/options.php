@@ -12,7 +12,7 @@
                     </div>
                 <?php endif; ?>
 
-                <div class="control-group">
+                <div class="form-group">
                     <label for="" class="control-label">数据列表是否显示ID:</label>
 
                     <div class="controls">
@@ -38,7 +38,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="" class="control-label">数据列表是可排序:</label>
 
                     <div class="controls">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
 
-                <div class="control-group">
+                <div class="form-group">
                     <label for="" class="control-label">显示修改人:</label>
 
                     <div class="controls">

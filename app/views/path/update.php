@@ -1,10 +1,10 @@
 <div class="">
     <form id="pathForm" class="form-horizontal" method="post" onsubmit="return check_form(this)">
-        <div class="control-group">
+        <div class="form-group">
             <label for="name" class="control-label">path*:</label>
 
             <div class="controls">
-                <input name="name" readonly class="input-medium" value="<?php echo $path->name; ?>" type="text"
+                <input name="name" readonly class="form-control" value="<?php echo $path->name; ?>" type="text"
                        placeholder="主机名称" id="name">
             </div>
         </div>
@@ -17,7 +17,7 @@
             <!--                </div>-->
             <!--            </div>-->
         <?php endif; ?>
-        <div class="control-group">
+        <div class="form-group">
             <label for="expire" class="control-label">缓存时间:</label>
 
             <div class="controls">

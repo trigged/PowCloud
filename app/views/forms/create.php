@@ -4,7 +4,7 @@
           onsubmit="return check_form(this);">
         <fieldset>
             <legend style="margin-bottom: 0px;">表单选项</legend>
-            <div class="control-group">
+            <div class="form-group">
                 <input type="hidden" name="tableId" value="<?php echo $table->id; ?>">
                 <label for="" class="control-label" style="width: 60px;">定时发布</label>
 
@@ -44,10 +44,10 @@
                         </td>
                         <td>
                             <input data-tip="标签(<?php echo $formField['name']; ?>)" type="text"
-                                   class="input-mini required" name="field[<?php echo $index; ?>][label]" value=""/>
+                                   class="form-control required" name="field[<?php echo $index; ?>][label]" value=""/>
                         </td>
                         <td>
-                            <?php echo Form::select('field[' . $index . '][type]', Config::get('params.formField'), '', array('class' => 'input-small')); ?>
+                            <?php echo Form::select('field[' . $index . '][type]', Config::get('params.formField'), '', array('class' => 'form-control')); ?>
                         </td>
                         <td>
                             <?php echo Form::textarea('field[' . $index . '][rules]'); ?>
@@ -57,7 +57,7 @@
                             <input type="text" name="field[<?php echo $index; ?>][default_value]" value=""/>
                         </td>
                         <td>
-                            <input type="text" class="input-mini" name="field[<?php echo $index; ?>][rank]" value=""/>
+                            <input type="text" class="form-control" name="field[<?php echo $index; ?>][rank]" value=""/>
                         </td>
                     </tr>
                     <?php $index++;endforeach; ?>

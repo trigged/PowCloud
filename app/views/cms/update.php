@@ -13,7 +13,7 @@
                 continue;
             } ?>
             <?php if ($form->type == 'timingState') { ?>
-            <div class="control-group timing-radio">
+            <div class="form-group timing-radio">
                 <label for="name" class="control-label" style="display:none"><?php echo $form->label ?>:</label>
 
                 <div class="controls">
@@ -26,14 +26,14 @@
                     <?php if ($form->type == 'image' && $form->default_value): ?>
                         <?php $del_val_array = array_filter(explode(',', $form->default_value)) ?>
                         <?php foreach ($del_val_array as $key => $val): ?>
-                            <div class="control-group">
+                            <div class="form-group">
                                 <label for="name" class="control-label"><?php echo $val ?>:</label>
 
                                 <div class="controls">
                                     <?php
                                     \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules); //注册验证规则 以便JS可以验证
                                     $namespace = $table->table_name ? $table->table_name . '[' . $form->field . ']' : $form->field;
-                                    $class = 'input-xxlarge';
+                                    $class = 'form-control';
                                     $input = '<input type="text" name="' . $namespace . '[]" placeholder="单击上传" value="' . (isset($tableData->{$form->field}[$key]) ? $tableData->{$form->field}[$key] : '') . '"  class="' . $class . ' image-uploader"  />';
                                     echo $input;
                                     ?>
@@ -41,7 +41,7 @@
                             </div>
                         <?php endforeach; ?>
                     <?php elseif ($form->field === 'timing_time'): ?>
-                        <div class="control-group">
+                        <div class="form-group">
                             <label for="name" class="control-label"><?php echo $form->label ?>:</label>
 
                             <div class="controls">
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     <?php elseif (!in_array($form->field, $hide) && $form->type !== 'formTip'): ?>
-                        <div class="control-group">
+                        <div class="form-group">
                             <label for="name" class="control-label"><?php echo $form->label ?>:</label>
 
                             <div class="controls">

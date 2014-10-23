@@ -17,24 +17,24 @@
                     </p>
                 </div>
                 <legend>变更链接设置</legend>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="name" class="control-label">主数据:</label>
 
                     <div class="controls">
-                        <input name="data_info" class="input-medium" type="text" placeholder="数据变更" id="filed" readonly
+                        <input name="data_info" class="form-control" type="text" placeholder="数据变更" id="filed" readonly
                                value="<?php echo $data_link->table_name . '.' . $data_link->data_id ?>">
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="name" class="control-label">添加链接数据:</label>
 
                     <div class="controls">
-                        <input class="input-large" id="add_itmes" type="text" placeholder="table_name:data_id">
+                        <input class="form-control" id="add_itmes" type="text" placeholder="table_name:data_id">
                         <a class="btn btn-info" onclick="addItmes()">add </a>
                     </div>
                 </div>
 
-                <div class="control-group" id='items'>
+                <div class="form-group" id='items'>
                     <?php foreach ($items as $item): ?>
                         <div class="dropdown  ">
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"

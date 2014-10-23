@@ -1,27 +1,27 @@
 <?php echo $header; ?>
-<div class="row-fluid">
-    <div class="span7">
+<div class="row">
+    <div class="col-md-7">
         <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
         <form id="schema_form" class="form-horizontal" method="post">
             <fieldset>
                 <legend>修改表:<?php echo $schema->table_name; ?></legend>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="table_alias" class="control-label">表别名*:</label>
 
                     <div class="controls">
-                        <input name="table_alias" value="<?php echo $schema->table_alias; ?>" class="input-medium"
+                        <input name="table_alias" value="<?php echo $schema->table_alias; ?>" class="form-control"
                                type="text" placeholder="表别名" id="table_alias">
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="group_name" class="control-label">组名:</label>
 
                     <div class="controls">
-                        <input name="group_name" value="<?php echo $schema->group_name; ?>" class="input-medium"
+                        <input name="group_name" value="<?php echo $schema->group_name; ?>" class="form-control"
                                type="text" placeholder="组名" id="group_name">
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="path" class="control-label">映射路径*:</label>
 
                     <div class="controls">
@@ -30,7 +30,7 @@
                     <input type="hidden" id="path_name" name="path_name" value="">
                 </div>
 
-                <div class="control-group">
+                <div class="form-group">
                     <label for="name" class="control-label">属性*:</label>
 
                     <div class="controls">
@@ -44,43 +44,43 @@
                             <tbody>
                             <tr data-index="0" id="row-0" class="propertyInput">
                                 <td>
-                                    <input class="filedName filedNameLetter input-medium" type="text"
+                                    <input class="filedName filedNameLetter form-control" type="text"
                                            name="property[0][name]" value="id" disabled/>
                                 </td>
                                 <td>
-                                    <input class="property input-large" type="text"
+                                    <input class="property form-control" type="text"
                                            name="property[0][attributes]" value="integer" disabled/>
                                 </td>
                             </tr>
                             <tr data-index="0" id="row-0" class="propertyInput">
                                 <td>
-                                    <input class="filedName filedNameLetter input-medium" type="text"
+                                    <input class="filedName filedNameLetter form-control" type="text"
                                            name="property[0][name]" value="created_at" disabled/>
                                 </td>
                                 <td>
-                                    <input class="property input-large" type="text"
+                                    <input class="property form-control" type="text"
                                            name="property[0][attributes]" value="dateTime" disabled/>
                                 </td>
                             </tr>
                             <tr data-index="0" id="row-0" class="propertyInput">
                                 <td>
-                                    <input class="filedName filedNameLetter input-medium" type="text"
+                                    <input class="filedName filedNameLetter form-control" type="text"
                                            name="property[0][name]" value="updated_at" disabled/>
                                 </td>
                                 <td>
-                                    <input class="property input-large" type="text"
+                                    <input class="property form-control" type="text"
                                            name="property[0][attributes]" value="dateTime" disabled/>
                                 </td>
                             </tr>
                             <?php foreach ($schema->property as $propertyName => $propertyValue): ?>
                                 <tr class="propertyInput">
                                     <td>
-                                        <span><input class="input-medium " placeholder="<?php echo $propertyName ?>"
+                                        <span><input class="form-control " placeholder="<?php echo $propertyName ?>"
                                                      value="<?php echo $propertyName ?>"
                                                      name="<?php echo $propertyName ?>"/></span>
                                     </td>
                                     <td>
-                                    <span class="input-large uneditable-input"><?php
+                                    <span class="form-control uneditable-input"><?php
                                         echo implode(' ', array_except($propertyValue, array('default')));
                                         echo !empty($propertyValue['default']) ? '|' . $propertyValue['default'] : '';
                                         ?>
@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 <div id="JRestCtrl">
-                    <div class="control-group">
+                    <div class="form-group">
                         <label for="" class="control-label">restful:</label>
 
                         <div class="controls">
@@ -111,7 +111,7 @@
                             </label>
                         </div>
                     </div>
-                    <div id="JRestful" class="control-group">
+                    <div id="JRestful" class="form-group">
                         <label for="" class="control-label">可执行操作:</label>
 
                         <div class="controls">
@@ -153,7 +153,7 @@
         );//注册表单JS
         ?>
     </div>
-    <div class="span5">
+    <div class="col-md-5">
         <dl>
             <dt>属性格式</dt>
             <dd>类型名 长度</dd>
@@ -178,7 +178,7 @@
     });
     function addProperty() {
         var index = $(".propertyInput").length;
-        var tpl = '<tr><td><input class="input-mini propertyInput" type="text" name="property[' + index + '][name]" value="" /></td><td><input class="input-xlarge" type="text" name="property[' + index + '][attributes]" value="" /></td></tr>'
+        var tpl = '<tr><td><input class="form-control propertyInput" type="text" name="property[' + index + '][name]" value="" /></td><td><input class="form-control" type="text" name="property[' + index + '][attributes]" value="" /></td></tr>'
         $('table tbody').append(tpl);
     }
 </script>

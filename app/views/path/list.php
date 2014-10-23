@@ -150,13 +150,13 @@
         //-->
     </SCRIPT>
 
-    <div class="span3">
+    <div class="col-md-3">
         <fieldset>
             <legend>API 列表</legend>
             <ul id="pathList" class="ztree pathList"></ul>
         </fieldset>
     </div>
-    <div class="span4">
+    <div class="col-md-4">
         <fieldset>
             <legend>API信息</legend>
             <blockquote>

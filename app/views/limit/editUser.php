@@ -2,11 +2,11 @@
     <div class="">
         <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
         <form data-status="0" id="user_form" class="form-horizontal" onsubmit="return check_form(this)">
-            <div class="control-group">
+            <div class="form-group">
                 <label for="name" class="control-label">用户名*:</label>
 
                 <div class="controls">
-                    <input name="name" class="input-medium" readonly value="<?php echo $user->name; ?>" type="text"
+                    <input name="name" class="form-control" readonly value="<?php echo $user->name; ?>" type="text"
                            placeholder="用户名" id="name">
                 </div>
             </div>
@@ -14,7 +14,7 @@
 
 
             <?php if (Limit::ROLE_SUPER === (int)$role): ?>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="sa" class="control-label">启用超级管理员权限:</label>
 
                     <div class="controls">
@@ -37,7 +37,7 @@
                 <a href="javascript:void (0)" class="btn" onclick="history.back();">取消</a>
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
                 <label for="groupName" class="control-label">选择用户组:</label>
 
                 <div class="controls">
