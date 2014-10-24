@@ -1,11 +1,11 @@
 <?php echo $header; ?>
-<div class="row">
+<div class="row mt20">
     <div class="col-md-7">
         <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
         <form id="schema_form" class="form-horizontal" method="post">
             <fieldset>
                 <legend>修改表:<?php echo $schema->table_name; ?></legend>
-                <div class="form-group">
+                <div class="">
                     <label for="table_alias" class="control-label">表别名*:</label>
 
                     <div class="controls">
@@ -13,7 +13,7 @@
                                type="text" placeholder="表别名" id="table_alias">
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="">
                     <label for="group_name" class="control-label">组名:</label>
 
                     <div class="controls">
@@ -21,7 +21,7 @@
                                type="text" placeholder="组名" id="group_name">
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="">
                     <label for="path" class="control-label">映射路径*:</label>
 
                     <div class="controls">
@@ -30,7 +30,7 @@
                     <input type="hidden" id="path_name" name="path_name" value="">
                 </div>
 
-                <div class="form-group">
+                <div class="">
                     <label for="name" class="control-label">属性*:</label>
 
                     <div class="controls">
@@ -94,8 +94,8 @@
                         </table>
                     </div>
                 </div>
-                <div id="JRestCtrl">
-                    <div class="form-group">
+                <div id="JRestCtrl" class="pow_margin_left30">
+                    <div class="">
                         <label for="" class="control-label">restful:</label>
 
                         <div class="controls">
@@ -111,7 +111,7 @@
                             </label>
                         </div>
                     </div>
-                    <div id="JRestful" class="form-group">
+                    <div id="JRestful" class="">
                         <label for="" class="control-label">可执行操作:</label>
 
                         <div class="controls">
@@ -163,6 +163,13 @@
         </dl>
     </div>
 </div>
+<script>
+    $(function () {
+        var side_h = $(document.body).height();
+        $(".sidebar-nav").height(side_h);
+    })
+
+</script>
 <script>
     $(function () {
         $('#path_id').change(function () {
