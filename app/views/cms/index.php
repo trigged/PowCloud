@@ -124,11 +124,6 @@ if ($roles === 3) :?>
         <!--            </div>-->
         <!--        </div>-->
     </div>
-
-
-
-
-
 <?php
 }
 echo $footer; ?>

@@ -1,5 +1,4 @@
 <?php echo $header; ?>
-    <link href="<?php echo URL::asset('css/style.css'); ?>" rel="stylesheet"/>
     <div class="note note-success">
         <h4 class="block">Welcome</h4>
 

@@ -181,6 +181,56 @@ li {
     padding-left: 20px;
 }
 
+
+
+/***
+Notes
+***/
+
+/* Common styles for all types */
+.note {
+    margin: 10px 0 20px 0;
+    padding: 15px 30px 15px 15px;
+    border-left: 5px solid #eee;
+}
+
+.note h1,
+.note h2,
+.note h3,
+.note h4 {
+    margin-top: 0;
+}
+
+.note p:last-child {
+    margin-bottom: 0;
+}
+
+.note code,
+.note .highlight {
+    background-color: #fff;
+}
+
+/* Variations */
+.note-danger {
+    background-color: #FAEAE6;
+    border-color: #ed4e2a;
+}
+
+.note-warning {
+    background-color: #FCF3E1;
+    border-color: #fcb322;
+}
+
+.note-info {
+    background-color: #E8F6FC;
+    border-color: #57b5e3;
+}
+
+.note-success {
+    background-color: #C9FFD2;
+    border-color: #3cc051;
+}
+
 .bs-callout {
     padding: 20px;
     margin: 20px 0;
