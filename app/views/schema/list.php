@@ -38,7 +38,7 @@
                     <td>
                         <a href="<?php echo URL::action('SchemaBuilderController@docsHtml', array('table' => $table->table_name)) ?>"
                            data-target="#docs" data-toggle="modal"><span
-                                class="label label-default label-info">文档</span></a></td>
+                                class="label label-default label-success">文档</span></a></td>
                     <td><?php echo $table->path_id ?></td>
                     <td>
                         <!--                        <a href="--><?php
@@ -46,18 +46,18 @@
 //                            echo URL::action('SchemaBuilderController@apiInfo', array('table' => $table->table_name));
 //                        }
 //                        ?><!--" target="_blank">-->
-                            <span class="label label-<?php echo $table->restful == 1 ? 'info' : 'disable'; ?>">
+                            <span class="label label-<?php echo $table->restful == 1 ? 'success' : 'warning'; ?>">
                         <?php echo $table->restful == 1 ? '支持' : '不支持(未绑定路由)'; ?>
                                 <!--                        </a>-->
                     </td>
                     <td>
-                        <span class="label label-<?php echo $table->index === null ? 'disable' : 'info'; ?>">list</span>
+                        <span class="label label-<?php echo $table->index === null ? 'warning' : 'success'; ?>">list</span>
                         <span
-                            class="label label-<?php echo $table->update === null ? 'disable' : 'info'; ?>">edit</span>
+                            class="label label-<?php echo $table->update === null ? 'warning' : 'success'; ?>">edit</span>
                         <span
-                            class="label label-<?php echo $table->create === null ? 'disable' : 'info'; ?>">create</span>
+                            class="label label-<?php echo $table->create === null ? 'warning' : 'success'; ?>">create</span>
                         <span
-                            class="label label-<?php echo $table->delete === null ? 'disable' : 'info'; ?>">delete</span>
+                            class="label label-<?php echo $table->delete === null ? 'warning' : 'success'; ?>">delete</span>
                     </td>
                     <td><?php echo $table->updated_at; ?></td>
                     <td class="operation">
