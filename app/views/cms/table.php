@@ -57,9 +57,9 @@
                         <td>状态</td>
                     <?php endif; ?>
 
-                    <?php if ($roles === 3): ?>
-                        <td>缓存</td>
-                    <?php endif; ?>
+<!--                    --><?php //if ($roles === 3): ?>
+<!--                        <td>缓存</td>-->
+<!--                    --><?php //endif; ?>
                     <?php if (!empty($table_options['list.table.modifier']) && $table_options['list.table.modifier'] == 1): ?>
                         <td>修改人</td>
                     <?php endif; ?>
@@ -118,11 +118,11 @@
                             <td><?php echo $state; ?></td>
                         <?php endif; ?>
 
-                        <?php if ($roles === 3): ?>
-                            <td>
-                                <?php echo \Operator\ReadApi::getTableObject($table->table_name, $data->id, false) ? '<span class="label label-success">有</span>' : '<span class="label label-warning">无</span>' ?>
-                            </td>
-                        <?php endif; ?>
+<!--                        --><?php //if ($roles === 3): ?>
+<!--                            <td>-->
+<!--                                --><?php //echo \Operator\ReadApi::getTableObject($table->table_name, $data->id, false) ? '<span class="label label-success">有</span>' : '<span class="label label-warning">无</span>' ?>
+<!--                            </td>-->
+<!--                        --><?php //endif; ?>
                         <?php if (!empty($table_options['list.table.modifier']) && $table_options['list.table.modifier'] == 1): ?>
                             <td><?php echo $data->user_name; ?></td>
                         <?php endif; ?>

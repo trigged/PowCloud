@@ -42,8 +42,8 @@
                     <td><?php echo $form->default_value; ?></td>
                     <td><?php echo $form->rules; ?></td>
                     <td>
-                        <?php echo (int)$form->isVisible === 0 ? '<span class="label label-disabled">列表可见</span>' : '<span class="label label-info">列表可见</span>'; ?>
-                        <?php echo (int)$form->isEditable === 0 ? '<span class="label label-disabled">输入</span>' : '<span class="label label-info">输入</span>'; ?>
+                        <?php echo (int)$form->isVisible === 0 ? '<span class="label label-warning">列表可见</span>' : '<span class="label label-success">列表可见</span>'; ?>
+                        <?php echo (int)$form->isEditable === 0 ? '<span class="label label-warning">输入</span>' : '<span class="label label-success">输入</span>'; ?>
                         <?php echo (int)$form->visibleByGroup === 0 ? '' : '<span class="label label-info">' . Group::getGroupName($form->visibleByGroup) . '-可见</span>'; ?>
                     </td>
                     <td class="operation">
