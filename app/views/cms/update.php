@@ -149,8 +149,8 @@
 
 
 
-        <div class="form-actions">
-            <?php if (isset($options[$table->id]) && $options[$table->id]['edit'] == 2): ?>
+        <div class="form-actions pow_ml100">
+        <?php if (isset($options[$table->id]) && $options[$table->id]['edit'] == 2): ?>
                 <button class="btn btn-primary" type="submit" id="JS_Sub">更新</button>
             <?php endif ?>
             <a href="<?php echo URL::action('CmsController@index', array('id' => $table->id)) ?>" class="btn"

@@ -92,11 +92,11 @@
                     </div>
                     <div class="item-member-body">
                         <?php if ($app->appUser): ?>
-                            <ul class="member pow_member">
+                            <ul class="member pow_member clearfix">
                                 <?php foreach ($app->appUser as $user): ?>
                                     <?php $user = User::find($user->user_id);
                                     if ($user && $user->exists): ?>
-                                        <li>
+                                        <li class="fl">
                                             <a title="<?php echo $user->name; ?>" class="user_info"
 
                                                data-toggle="modal" data-target="#myModal"
@@ -104,7 +104,8 @@
                                                data-app-id="<?php echo $app->id; ?>"
                                                data-user-id="<?php echo $user->id; ?>"
                                                type="button" href="#" class="show-member">
-                                                <span class="JAvatar"><?php echo md5($user->id); ?></span>
+                                                <!-- <span class="JAvatar"><?php echo md5($user->id); ?></span>-->
+                                                <span class="JAvatar pow_user_letter">l</span>
                                             </a>
                                             <a href="javascript:;" class="member-name"
                                                title="<?php echo $user->name; ?>"><?php echo $user->name; ?></a>
@@ -115,7 +116,7 @@
                                         <a class="btn btn-primary  handle-members  plus-members"
                                            style="padding-top: 12px; padding-bottom: 12px;" data-toggle="modal"
                                            data-target="#myModal" data-app-id="<?php echo $app->id; ?>">
-                                            <span class="fui-plus"></span>
+                                            <span class="fui-plus">+</span>
                                         </a>
                                     </li>
                                 <?php endif; ?>
