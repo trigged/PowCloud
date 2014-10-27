@@ -26,9 +26,8 @@
 <script>
     $(function () {
         var side_h = $(document.body).height();
-        $(".sidebar").height(side_h);
-    })
-
+        $(".sidebar-nav").height(side_h);
+    });
 </script>
 </body>
 </html>

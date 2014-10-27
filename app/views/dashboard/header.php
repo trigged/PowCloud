@@ -32,7 +32,8 @@
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
-        <div class="container-fluid">
+
+    <div class="container-fluid">
             <!--            <a data-target=".navbar-collapse" data-toggle="collapse" class="btn navbar-btn">-->
             <!--                <span class="glyphicon glyphicon-bar"></span>-->
             <!--                <span class="glyphicon glyphicon-bar"></span>-->
@@ -50,7 +51,6 @@
         </div>
     </div>
 </div>
-
 <div class="container-fluid">
     <div class="pow_row">
 

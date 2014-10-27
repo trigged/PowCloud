@@ -2,8 +2,8 @@
     <div class="">
         <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
         <form data-status="0" id="user_form" class="form-horizontal" onsubmit="return check_form(this)">
-            <div class="form-group">
-                <label for="name" class="control-label">用户名*:</label>
+            <div class="">
+            <label for="name" class="control-label">用户名*:</label>
 
                 <div class="controls">
                     <input name="name" class="form-control" readonly value="<?php echo $user->name; ?>" type="text"
@@ -14,8 +14,8 @@
 
 
             <?php if (Limit::ROLE_SUPER === (int)$role): ?>
-                <div class="form-group">
-                    <label for="sa" class="control-label">启用超级管理员权限:</label>
+                <div class="pow_margin_left30">
+                <label for="sa" class="control-label">启用超级管理员权限:</label>
 
                     <div class="controls">
                         <label class="radio inline">
@@ -31,14 +31,14 @@
                     </div>
                 </div>
             <?php endif; ?>
-
+            <div style="height:30px;"></div>
             <div class="form-actions">
                 <button id="JS_Sub" class="btn btn-primary">更新</button>
                 <a href="javascript:void (0)" class="btn" onclick="history.back();">取消</a>
             </div>
-
-            <div class="form-group">
-                <label for="groupName" class="control-label">选择用户组:</label>
+            <div style="height:30px;"></div>
+            <div class="">
+            <label for="groupName" class="control-label">选择用户组:</label>
 
                 <div class="controls">
                     <?php echo Form::select('group_id', array('' => '') + Group::lists('groupName', 'id'), $group_id) ?>

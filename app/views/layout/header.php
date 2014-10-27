@@ -43,9 +43,9 @@
 
             <div class="pull-right">
                 <ul class="nav pull-left pow_main_nav">
-                <?php foreach ($navs as $cur => $navMenu): ?>
+                    <?php foreach ($navs as $cur => $navMenu): ?>
                         <li class="<?php echo $nav === $cur ? 'active' : ''; ?> pull-left">
-                        <a <?php if (!empty($navMenu['target'])) echo 'target="' . $navMenu['target'] . '"' ?>
+                            <a <?php if (!empty($navMenu['target'])) echo 'target="' . $navMenu['target'] . '"' ?>
                                 href="<?php echo $navMenu['url']; ?>">
                                 <?php echo $navMenu['label']; ?>
                             </a>
@@ -64,7 +64,7 @@
 
 <div class="container-fluid">
     <div class="pow_row">
-    <?php if ($leftMenu): ?>
+        <?php if ($leftMenu): ?>
             <div class="col-md-2">
                 <div class="well sidebar-nav">
                     <ul class="nav nav-list">
@@ -82,6 +82,7 @@
                     </ul>
                 </div>
             </div>
+
         <?php endif; ?>
         <div class="col-md-10">
 
