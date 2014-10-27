@@ -291,5 +291,12 @@
         $('table tbody').append(tpl);
     }
 </script>
+<script>
+    $(function () {
+        var side_h = $(document.body).height();
+        $(".sidebar-nav").height(side_h);
+    })
+
+</script>
 </div>
 <?php echo $footer; ?>

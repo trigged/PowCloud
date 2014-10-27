@@ -66,5 +66,11 @@ if (!$isAdmin) {
         <?php echo (isset($_GET['username'])?'':$limits?$limits->appends(array('group'=>$group))->links():'') ?>
     </div>
 
+    <script>
+        $(function () {
+            var side_h = $(document.body).height();
+            $(".sidebar-nav").height(side_h);
+        })
 
+    </script>
 <?php echo $footer; ?>
