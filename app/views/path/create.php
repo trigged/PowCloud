@@ -29,7 +29,7 @@
         </div>
         <div class="form-actions">
             <a class="btn btn-primary" id="addLeaf">创建</a>
-            <a class="btn" onclick="$('#JPathChildInfo').hide();" href="javascript:void (0)">取消</a>
+            <a class="btn btn-warning" onclick="$('#JPathChildInfo').hide();" href="javascript:void (0)">取消</a>
         </div>
     </form>
 </div>

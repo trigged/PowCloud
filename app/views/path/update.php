@@ -1,4 +1,4 @@
-<div class="">
+<div class="" xmlns="http://www.w3.org/1999/html">
     <form id="pathForm" class="form-horizontal" method="post" onsubmit="return check_form(this)">
         <div class="form-group">
             <label for="name" class="control-label">path*:</label>
@@ -8,15 +8,15 @@
                        placeholder="主机名称" id="name">
             </div>
         </div>
-        <?php if ((int)$path->id !== 0): ?>
-            <!--            <div class="control-group">-->
-            <!--                <label for="host" class="control-label">主机*:</label>-->
+        <!--        --><?php //if ((int)$path->id !== 0): ?>
+        <!--            <div class="control-group">-->
+        <!--                <label for="host" class="control-label">主机*:</label>-->
 
-            <!--                <div class="controls">-->
-            <!--                    --><?php //echo Form::select('host_id', Host::getHostList(), $path->host_id); ?>
-            <!--                </div>-->
-            <!--            </div>-->
-        <?php endif; ?>
+        <!--                <div class="controls">-->
+        <!--                    --><?php //echo Form::select('host_id', Host::getHostList(), $path->host_id); ?>
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        --><?php //endif; ?>
         <div class="form-group">
             <label for="expire" class="control-label">缓存时间:</label>
 
@@ -26,8 +26,8 @@
             </div>
         </div>
         <div class="form-actions">
-            <a class="btn" onclick="addChild();">创建子路径</a>
-            <a class='btn' onclick="update()">更新路径</a>
+            <a class="btn btn-primary" onclick="addChild();">创建子路径</a>
+            <a class='btn btn-info' onclick="update()">更新路径</a>
             <!--            --><?php //if ((int)$path->id !== 0): ?>
             <!--                <a id="remove" class="btn" data-url="-->
             <!--            -->
@@ -37,7 +37,8 @@
     </form>
 </div>
 
-<div id="JPathChildInfo" class="hide">
+<div id="JPathChildInfo" hidden="">
+    </br>
     <fieldset>
         <legend>创建<?php echo $path->name; ?>子路径</legend>
         <div id="JPathChild"></div>
@@ -51,7 +52,6 @@
             success: function (re) {
                 $('#JPathChildInfo').show();
                 $('#JPathChild').html(re);
-
             }
         });
 
