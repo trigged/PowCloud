@@ -273,9 +273,8 @@
             val == -1 ? $('#JRestCtrl').addClass('hide') : $('#JRestCtrl').removeClass('hide');
             $('#path_name').val($(this).find("option:selected").text());
         })
-
-
-        $(".glyphicon-remove").click(function () {
+        $("body").on("click", ".glyphicon-remove", function () {
+            console.log("you click me");
             if ($('tbody tr').length == 4) {
                 alert('至少 添加一个字段 ');
                 return false;
@@ -283,6 +282,8 @@
             var target = $(this).attr('data-row');
             $('#' + target).remove();
         });
+
+
     });
     function addProperty() {
         var index = parseInt($(".propertyInput:last").attr('data-index')) + 1;
