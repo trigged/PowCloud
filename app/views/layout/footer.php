@@ -12,21 +12,26 @@
 <script src="<?php echo URL::asset('js/jquery.placeholder.js'); ?>"></script>
 <script src="<?php echo URL::asset('js/jquery.stacktable.js'); ?>"></script>
 <script src="<?php echo URL::asset('js/application.js'); ?>"></script>
-<script src="<?php echo URL::asset('js/x-cms.js'); ?>"></script>
+<!--<script src="--><?php //echo URL::asset('js/x-cms.js'); ?><!--"></script>-->
 <script src="<?php echo URL::asset('js/cms.js'); ?>"></script>
 <script>
     $(function () {
         CMS.init();
+
         <?php if(Session::has('messageTip')):?>
         <?php echo Session::get('messageTip');Session::remove('messageTip');?>
         <?php endif;?>
+
     });
 </script>
 <script>
     $(function () {
-        var side_h = $(document.body).height();
-        $(".sidebar-nav").height(side_h);
-    })
+        $(window).on('resize', function () {
+            var side_h = $(window).height();
+            console.log('height; ', side_h);
+            $(".sidebar-nav").height(side_h);
+        });
+    });
 
 </script>
 </body>

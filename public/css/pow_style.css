@@ -164,6 +164,7 @@ li {
 
 .controls {
     margin-top: 10px;
+    margin-left: 180px;
 }
 
 .nav li.active a:hover {
@@ -283,8 +284,31 @@ Notes
     margin-left: 30px;
 }
 
+.normal_padding {
+    padding: 30px 0;
+}
 
+.inline {
+    display: inline-block;
+    padding-top: 5px;
+    margin-bottom: 0;
+    vertical-align: middle;
+    padding-left: 32px;
+    padding-top: 10px;
+}
 
+.pow_modal {
+    width: 560px;
+    top: 10%;
+    left: 50%;
+    margin-left: -280px;
+    background-color: #fff;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    height: 460px;
+    overflow-y: hidden;
+}
 
 
 
