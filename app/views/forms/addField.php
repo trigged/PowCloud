@@ -83,7 +83,7 @@
 
                 <div class="form-actions">
                     <button id="JS_Sub" class="btn btn-primary" type="submit">修改</button>
-                    <button class="btn" onclick="history.back();">取消</button>
+                    <button class="btn  btn-warning" onclick="history.back();">取消</button>
                 </div>
             </fieldset>
         </form>

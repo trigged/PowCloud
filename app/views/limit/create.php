@@ -28,7 +28,7 @@
         <?php endforeach; ?>
         <div class="form-actions">
             <button class="btn btn-primary" id="">创建</button>
-            <a href="javascript:void (0)" class="btn" onclick="history.back();">取消</a>
+            <a href="javascript:void (0)" class="btn btn-warning" onclick="history.back();">取消</a>
         </div>
     </form>
 

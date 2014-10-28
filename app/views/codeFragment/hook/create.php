@@ -50,7 +50,7 @@
 
                 <div class="form-actions">
                     <button class="btn btn-primary" id="JS_Sub" type="submit">添加Hook</button>
-                    <a class="btn" onclick="history.back()">取消</a>
+                    <a class="btn btn-warning" onclick="history.back()">取消</a>
                 </div>
             </fieldset>
         </form>

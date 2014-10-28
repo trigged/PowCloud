@@ -154,7 +154,7 @@
             </div>
             <div class="form-actions">
                 <button class="btn btn-primary" id="JS_Sub" type="submit">更新表</button>
-                <a href="javascript:void (0)" class="btn" onclick="history.back();">取消</a>
+                <a href="javascript:void (0)" class="btn  btn-warning" onclick="history.back();">取消</a>
             </div>
         </fieldset>
     </form>

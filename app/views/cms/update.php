@@ -46,7 +46,7 @@
                             <label for="name" class="control-label pow_label"><?php echo $form->label ?>:</label>
 
                             <div class="controls pow_controls">
-                            <?php
+                                <?php
                                 \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules); //注册验证规则 以便JS可以验证
                                 $time = '';
                                 if ($tableData->hasTiming()) {
@@ -61,7 +61,7 @@
                             <label for="name" class="control-label pow_label"><?php echo $form->label ?>:</label>
 
                             <div class="controls pow_controls">
-                            <?php
+                                <?php
                                 \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules); //注册验证规则 以便JS可以验证
                                 echo call_user_func_array(array('\Utils\FormBuilderHelper', $form->type), array($form, $tableData->{$form->field}));
                                 ?>
@@ -150,10 +150,11 @@
 
 
         <div class="form-actions pow_ml100">
-        <?php if (isset($options[$table->id]) && $options[$table->id]['edit'] == 2): ?>
+            <?php if (isset($options[$table->id]) && $options[$table->id]['edit'] == 2): ?>
                 <button class="btn btn-primary" type="submit" id="JS_Sub">更新</button>
             <?php endif ?>
-            <a href="<?php echo URL::action('CmsController@index', array('id' => $table->id)) ?>" class="btn"
+            <a href="<?php echo URL::action('CmsController@index', array('id' => $table->id)) ?>"
+               class="btn btn-warning"
                onclick="">取消</a>
         </div>
     </form>

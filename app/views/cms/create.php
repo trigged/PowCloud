@@ -138,7 +138,7 @@
                         type="submit">保存
                 </button>
                 <a href="<?php echo URL::action('CmsController@index', array('id' => $table->id)); ?>"
-                   class="btn">取消</a>
+                   class="btn btn-warning">取消</a>
             </div>
         </form>
         <?php echo \Utils\FormBuilderHelper::end('cms_form', 'beforeSubmit'); ?>

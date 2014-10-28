@@ -66,7 +66,7 @@
         </fieldset>
         <div class="form-actions">
             <button class="btn btn-primary" id="JS_Sub" type="submit">创建表单</button>
-            <a href="javascript:void (0);" onclick="history.back();" class="btn">取消</a>
+            <a href="javascript:void (0);" onclick="history.back();" class="btn  btn-warning">取消</a>
         </div>
     </form>
     <script>

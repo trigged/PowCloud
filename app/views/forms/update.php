@@ -117,8 +117,7 @@
                             </tr>
                             </tbody>
                         </table>
-                    <?php
-                    else: ?>
+                    <?php else: ?>
                         <input name="default_value" class="form-control" type="text"
                                value="<?php echo htmlspecialchars($field->default_value, ENT_QUOTES); ?>"
                                placeholder="默认值" id="default_value">
@@ -166,7 +165,7 @@
 
             <div class="form-actions">
                 <button id="JS_Sub" class="btn btn-primary" type="submit">修改</button>
-                <a href="javascript:void (0)" class="btn" onclick="history.back();">取消</a>
+                <a href="javascript:void (0)" class="btn  btn-warning" onclick="history.back();">取消</a>
             </div>
         </fieldset>
     </form>

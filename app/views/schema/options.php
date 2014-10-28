@@ -74,7 +74,7 @@
 
                 <div class="form-actions">
                     <button class="btn btn-primary" type="submit">设置</button>
-                    <a class="btn" onclick="history.back();">取消</a>
+                    <a class="btn  btn-warning" onclick="history.back();">取消</a>
                 </div>
             </fieldset>
         </form>

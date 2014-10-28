@@ -24,7 +24,7 @@
                     </div>
                     <div class="form-actions">
                         <button id="JS_Sub" class="btn btn-primary">提交</button>
-                        <a href="javascript:void (0)" class="btn" onclick="history.back();">取消</a>
+                        <a href="javascript:void (0)" class="btn  btn-warning" onclick="history.back();">取消</a>
                     </div>
                 </fieldset>
             </form>
