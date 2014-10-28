@@ -10,8 +10,10 @@ if (!$isAdmin) {
 ?>
     <div class="mt20"></div>
     <form data-status="0" id="group_form" class="form-horizontal" method="get">
-        <input type="search" name="username" class="form-control" placeholder="搜索用户"
-               style="width:800px;display: inline-block;">
+        <div class="col-md-5">
+            <input type="search" name="username" class="form-control" placeholder="搜索用户"
+                   style="display: inline-block;">
+        </div>
         <button id="JS_Sub" class="btn btn-primary" return="false">搜索</button>
     </form>
 

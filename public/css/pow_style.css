@@ -7,6 +7,7 @@
     background: #393939;
     filter: unquote("progid:DXImageTransform.Microsoft.gradient(enabled = false)");
 }
+
 .navbar-inverse .brand {
     border-bottom: 2px solid #2c3e50;
     border-right: 2px solid #2c3e50;
@@ -162,11 +163,6 @@ li {
     background-color: #d14836;
 }
 
-.controls {
-    margin-top: 10px;
-    margin-left: 180px;
-}
-
 .nav li.active a:hover {
     color: #fff;
 }
@@ -194,8 +190,6 @@ li {
 .pow_padding_left_20 {
     padding-left: 20px;
 }
-
-
 
 /***
 Notes
@@ -252,6 +246,7 @@ Notes
     border-left-width: 5px;
     border-radius: 3px;
 }
+
 .bs-callout-info {
     border-left-color: #5bc0de;
 }
@@ -310,9 +305,24 @@ Notes
     overflow-y: hidden;
 }
 
+.pow_gap {
+    margin: 10px 0 0 180px;
+}
 
+.control-label {
+    width: 160px;
+    text-align: right;
+    float: left;
+}
 
+.form-actions {
+    padding: 0 0 0 180px;
+    margin: 20px 0 20px 0;
+}
 
+.pow_item_gap {
+    margin: 20px 0 0 0;
+}
 
 
 

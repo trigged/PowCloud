@@ -2,11 +2,11 @@
     <div class="">
         <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
         <form data-status="0" id="user_form" class="form-horizontal" onsubmit="return check_form(this)">
-            <div class="">
-                <label for="name" class="control-label">用户名*:</label>
+            <div class="pow_item_gap">
+                <label for="name" class="control-label" style="margin-top:12px;">用户名*:</label>
 
-                <div class="controls">
-                    <input name="name" class="form-control" readonly value="<?php echo $user->name; ?>" type="text"
+                <div class="controls inline">
+                <input name="name" class="form-control" readonly value="<?php echo $user->name; ?>" type="text"
                            placeholder="用户名" id="name">
                 </div>
             </div>
@@ -14,11 +14,11 @@
 
 
             <?php if (Limit::ROLE_SUPER === (int)$role): ?>
-                <div class="pow_margin_left30">
-                    <label for="sa" class="control-label">启用超级管理员权限:</label>
+                <div class="pow_margin_left30 pow_item_gap">
+                    <label for="sa" class="control-label" style="margin-top:12px;">启用超级管理员权限:</label>
 
-                    <div class="controls">
-                        <label class="radio inline">
+                    <div class="controls inline">
+                    <label class="radio inline">
                             <input class="" type="radio" name="sa"
                                    value="1"  <?php if ((int)$userRole === Limit::ROLE_SUPER) echo 'checked="checked"'; ?>
                                    id=""/> 开启
@@ -31,11 +31,11 @@
                     </div>
                 </div>
             <?php endif; ?>
-            <div class="">
+            <div class="pow_margin_left30 clearfix pow_item_gap">
                 <label for="groupName" class="control-label">选择用户组:</label>
 
-                <div class="controls">
-                    <?php echo Form::select('group_id', array('' => '') + Group::lists('groupName', 'id'), $group_id) ?>
+                <div class="controls fl" style="margin:10px 0 0 35px;">
+                <?php echo Form::select('group_id', array('' => '') + Group::lists('groupName', 'id'), $group_id) ?>
                 </div>
             </div>
 

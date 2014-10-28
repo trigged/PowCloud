@@ -17,7 +17,7 @@
             <div class="form-group timing-radio">
                 <label for="name" class="control-label" style="display:none"><?php echo $form->label ?>:</label>
 
-                <div class="controls">
+                <div class="controls pow_gap">
                     <?php
                     echo \Utils\FormBuilderHelper::timingState($form, $tableData->timing_state, $tableData);
                     echo "</div>";
@@ -56,7 +56,8 @@
                                 ?>
                             </div>
                         </div>
-                    <?php elseif (!in_array($form->field, $hide) && $form->type !== 'formTip'): ?>
+                    <?php
+                    elseif (!in_array($form->field, $hide) && $form->type !== 'formTip'): ?>
                         <div class="clearfix">
                             <label for="name" class="control-label pow_label"><?php echo $form->label ?>:</label>
 
