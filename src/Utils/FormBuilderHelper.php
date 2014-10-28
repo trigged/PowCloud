@@ -416,6 +416,7 @@ EOT;
 
         $css = '<link href="' . \URL::asset('css/datetimepicker.css') . '" rel="stylesheet">';
         $js = '<script src="' . \URL::asset('js/bootstrap-datetimepicker.min.js') . '"></script>';
+
         $timingTime = self::getFieldName('timing_time');
         $timingStatus = $timing_state = self::getFieldName('timing_state');
         $checkScript = '';
@@ -431,6 +432,7 @@ CHECKSCRIPT;
         $script = <<<EOT
 <script type="text/javascript">
     $('#JSCheckEnable').click(function(){
+       console.log("checked: ",this.checked);
         if(this.checked){
             $('input[name="{$timingTime}[start]"],#start_hour,#start_minute').attr("disabled",false);
             $('.timing-radio').css("display",'block');
@@ -441,14 +443,13 @@ CHECKSCRIPT;
                 minuteStep:1,
                 autoclose:true,
                 minView:1,
+                todayBtn: true,
                 startDate: "{$startTime}",
             }).on('change', function () {
                 $('input[name="{$timingTime}[start]"],#start_hour,#start_minute').attr("disabled",false);
                 $('input[name="{$timingStatus}"]').attr('checked','checked');
-                $('#JSCheckEnable').attr('checked','checked');
-                $("#JSCheckEnable").trigger('click');
-                $('#JSCheckEnable').attr('checked','checked');
 
+                $('#JSCheckEnable').prop('checked','true');
                 var dt = new Date();
                 var month = ('0'+(dt.getMonth() + 1)).slice(-2);
                 var day = dt.getDate();
@@ -465,6 +466,7 @@ CHECKSCRIPT;
         else{
             $('input[name="{$timingTime}[start]"],#start_hour,#start_minute').attr("disabled","disabled");
             $('.timing-radio').css("display",'none');
+
         }
 
     });
@@ -472,13 +474,25 @@ CHECKSCRIPT;
 </script>
 EOT;
 
-        $dataPicker = '<div class="input-append date form_datetime" id="start_date" style="display:inline-block;">
-        <input size="16" type="text" name="' . $timingTime . '[start]" value="' . $start . '" disabled="disabled">
+        $dataPicker = '<div class="input-group date form_datetime " id="start_date" style="display:inline-block;">
+        <input size="16"  class="form-control"   type="text" name="' . $timingTime . '[start]" value="' . $start . '" disabled="disabled">
         <span class="add-on"><i class="glyphicon glyphicon-calendar"></i></span></div>&nbsp;&nbsp;
-        <input style="width: 50px;" size="2" id="start_hour" type="text" name="' . $timingTime . '[hour]" value="' . $hour . '" disabled="disabled">时
-        &nbsp;&nbsp;<input style="width: 50px;" size="2" id="start_minute" type="text" name="' . $timingTime . '[minute]" value="' . $minute . '" disabled="disabled">
+        <input style="width: 50px;"  class="form-control"  size="2" id="start_hour" type="text" name="' . $timingTime . '[hour]" value="' . $hour . '" disabled="disabled">时
+        &nbsp;&nbsp;<input style="width: 50px;"  class="form-control"   size="2" id="start_minute" type="text" name="' . $timingTime . '[minute]" value="' . $minute . '" disabled="disabled">
         分<input type="checkbox" id="JSCheckEnable"  value=1> <span class="help-inline"> 启用</span>&nbsp;&nbsp;选填
         ';
+
+
+   $dataPicker = sprintf( '<div class="input-group date form_datetime  col-md-5" id="start_date" style="display:inline-block;">
+        <input size="16" class="form-control" type="text" name="%s[start]" value="%s" disabled="disabled">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+        </div>
+        <input  class="form-control" size="2" id="start_hour" type="text" name="%s[hour]" value="%s" disabled="disabled">时
+
+        <input  class="form-control"  style="width: 50px;"   size="2" id="start_minute" type="text" name="%s[minute]" value="%s" disabled="disabled">
+        分<input type="checkbox" id="JSCheckEnable"  value=1> <span class="help-inline"> 启用</span>&nbsp;&nbsp;选填
+        ',$timingTime,$start,$timingTime,$hour,$timingTime,$minute);
+
         return $css . "\n" . $js . "\n" . $dataPicker . "\n" . $script . $checkScript;
 
     }
@@ -491,7 +505,12 @@ EOT;
         <label class="inline radio"><input type="radio" name="' . self::getFieldName($form->field) . '" id="optionsRadios2" value="6" data-toggle="radio" ' . (($value == 6) ? 'checked' : '') . '>置顶</label>
         </div>';
 
-        $js = '<script>$(function () {var checked_val; checked_val = $("div.timing-radio input[type=radio]:checked").val(); if (checked_val) {$(".timing-radio").css("display","block");$("#JSCheckEnable").prop("disabled", true);$("div.timing-radio input[type=radio]").each(function () {$(this).prop("disabled", true)});}})</script>';
+        $js = '<script>$(function () {var checked_val;
+        checked_val = $("div.timing-radio input[type=radio]:checked").val();
+         if (checked_val) {$(".timing-radio").css("display","block");
+         $("#JSCheckEnable").prop("disabled", true);
+         $("div.timing-radio input[type=radio]").each(function () {$(this).prop("disabled", true)})
+         ;}})</script>';
 
         return $timingState . $js;
 
