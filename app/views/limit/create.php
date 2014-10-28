@@ -6,8 +6,8 @@
         <div class="form-group">
             <label for="GroupName" class="control-label">用户组名*:</label>
 
-            <div class="controls">
-                <input name="group[groupName]" class="form-control" value="" type="text" placeholder="用户组名称"
+            <div class="controls col-md-5">
+            <input name="group[groupName]" class="form-control" value="" type="text" placeholder="用户组名称"
                        id="groupName">
             </div>
         </div>

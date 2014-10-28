@@ -305,9 +305,24 @@ Notes
     overflow-y: hidden;
 }
 
+.pow_gap {
+    margin: 10px 0 0 180px;
+}
 
+.control-label {
+    width: 160px;
+    text-align: right;
+    float: left;
+}
 
+.form-actions {
+    padding: 0 0 0 180px;
+    margin: 20px 0 20px 0;
+}
 
+.pow_item_gap {
+    margin: 20px 0 0 0;
+}
 
 
 
