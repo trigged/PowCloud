@@ -62,6 +62,7 @@
             });
         }
         function add(e) {
+            console.log("add!");
             var zTree = $.fn.zTree.getZTreeObj("pathList"),
                 isParent = e.data.isParent,
                 nodes = zTree.getSelectedNodes(),
@@ -142,9 +143,9 @@
         $(document).ready(function () {
             $.fn.zTree.init($("#pathList"), setting, zNodes);
             $("#addParent").bind("click", {isParent: true}, add);
-            $("#addLeaf").live("click", {isParent: false}, add);
+            $("body").on("click", "#addLeaf", {isParent: false}, add);
             $("#edit").bind("click", edit);
-            $("#remove").live("click", remove);
+            $("body").on("click", "#remove", remove);
             $("#clearChildren").bind("click", clearChildren);
         });
         //-->
