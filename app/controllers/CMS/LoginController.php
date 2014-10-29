@@ -47,7 +47,8 @@ class LoginController extends Controller
             $message = UserMessage::find($message_id);
             UserMessage::processUserMessage($message, $user->id);
         }
-        $this->ajaxResponse(array(), 'success', '注册成功', 'DashBoardController@index');
+//        $this->ajaxResponse(array(), 'success', '注册成功', 'DashBoardController@index');
+        header('Location:' . URL::action('DashBoardController@index'));
     }
 
     protected function ajaxResponse($data = array(), $status = 'success', $message = '', $successRedirect = '', $failRedirect = '')
