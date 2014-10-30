@@ -309,11 +309,6 @@ Notes
     margin: 10px 0 0 180px;
 }
 
-.control-label {
-    width: 160px;
-    text-align: right;
-    float: left;
-}
 
 .form-actions {
     padding: 0 0 0 180px;
@@ -343,9 +338,6 @@ input[type="file"]{
 }
 .controls select{
     margin:5px 0 0 10px;
-}
-.form-group .controls{
-    margin-left:180px;
 }
 .pow_btn_horiz{
     margin-left:176px;

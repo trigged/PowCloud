@@ -20,29 +20,29 @@
 <form id="schema_form" class="form-horizontal" method="post">
     <h4>创建表结构</h4>
     <hr/>
-    <div class="">
-        <label for="table_name" class="control-label">表名*:</label>
+    <div class="form-group">
+        <label for="table_name" class="control-label col-sm-3">表名*:</label>
 
-        <div class="controls">
+        <div class="controls col-sm-8">
             <input name="table_name" class="form-control" type="text" placeholder="表名" id="table_name">
         </div>
     </div>
-    <div class="">
-        <label for="table_alias" class="control-label">表别名*:</label>
+    <div class="form-group">
+        <label for="table_alias" class="control-label col-sm-3">表别名*:</label>
 
-        <div class="controls">
+        <div class="controls col-sm-8">
             <input name="table_alias" class="form-control" type="text" placeholder="表别名" id="table_alias">
         </div>
     </div>
-    <div class="">
-        <label for="group_name" class="control-label">组名:</label>
+    <div class="form-group">
+        <label for="group_name" class="control-label col-sm-3">组名:</label>
 
-        <div class="controls">
+        <div class="controls col-sm-8">
             <input name="group_name" class="form-control" type="text" placeholder="组名" id="group_name">
         </div>
     </div>
-    <div class="">
-        <label for="path" class="control-label">API 地址绑定*:</label>
+    <div class="form-group">
+        <label for="path" class="control-label col-sm-3">API 地址绑定*:</label>
 
         <!--            <div class="dropdown">-->
         <!--                <button class="btn btn-info dropdown-toggle  " type="button"   data-toggle="dropdown">-->
@@ -57,16 +57,16 @@
 //                    ?><!--       -->
         <!--                </ul>-->
         <!--            </div>-->
-        <div class="controls">
+        <div class="controls col-sm-8">
             <?php echo Form::select('path_id', $pathTreeListOptions, '', array('id' => 'path_id')) ?>
         </div>
         <input type="hidden" id="path_name" name="path_name" value="">
     </div>
 
-    <div class="">
-        <label for="name" class="control-label">属性*:</label>
+    <div class="form-group">
+        <label for="name" class="control-label col-sm-3">属性*:</label>
 
-        <div class="controls">
+        <div class="controls col-sm-8">
             <table class="table" style="width: 500px;">
                 <thead>
                 <tr>
