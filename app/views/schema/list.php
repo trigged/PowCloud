@@ -51,13 +51,13 @@
                                 <!--                        </a>-->
                     </td>
                     <td>
-                        <span class="label label-<?php echo $table->index === null ? 'warning' : 'success'; ?>">list</span>
+                        <span class="pow_label label label-<?php echo $table->index === null ? 'warning' : 'success'; ?>">list</span>
                         <span
-                            class="label label-<?php echo $table->update === null ? 'warning' : 'success'; ?>">edit</span>
+                            class="pow_label label label-<?php echo $table->update === null ? 'warning' : 'success'; ?>">edit</span>
                         <span
-                            class="label label-<?php echo $table->create === null ? 'warning' : 'success'; ?>">create</span>
+                            class="pow_label label label-<?php echo $table->create === null ? 'warning' : 'success'; ?>">create</span>
                         <span
-                            class="label label-<?php echo $table->delete === null ? 'warning' : 'success'; ?>">delete</span>
+                            class="pow_label label label-<?php echo $table->delete === null ? 'warning' : 'success'; ?>">delete</span>
                     </td>
                     <td><?php echo $table->updated_at; ?></td>
                     <td class="operation">

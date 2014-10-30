@@ -19,35 +19,35 @@
     <form id="schema_form" class="form-horizontal" method="post">
         <fieldset>
             <legend>修改表:<?php echo $schema->table_name; ?></legend>
-            <div class="">
-                <label for="table_alias" class="control-label">表别名*:</label>
+            <div class="form-group">
+                <label for="table_alias" class="control-label col-sm-3">表别名*:</label>
 
-                <div class="controls">
+                <div class="controls col-sm-8">
                     <input name="table_alias" value="<?php echo $schema->table_alias; ?>" class="form-control"
                            type="text" placeholder="表别名" id="table_alias">
                 </div>
             </div>
-            <div class="">
-                <label for="group_name" class="control-label">组名:</label>
+            <div class="form-group">
+                <label for="group_name" class="control-label col-sm-3">组名:</label>
 
-                <div class="controls">
+                <div class="controls col-sm-8">
                     <input name="group_name" value="<?php echo $schema->group_name; ?>" class="form-control"
                            type="text" placeholder="组名" id="group_name">
                 </div>
             </div>
-            <div class="">
-                <label for="path" class="control-label">映射路径*:</label>
+            <div class="form-group">
+                <label for="path" class="control-label col-sm-3">映射路径*:</label>
 
-                <div class="controls">
+                <div class="controls col-sm-8">
                     <?php echo Form::select('path_id', $pathTreeListOptions, $schema->path_id, array('id' => 'path_id')) ?>
                 </div>
                 <input type="hidden" id="path_name" name="path_name" value="">
             </div>
 
-            <div class="">
-                <label for="name" class="control-label">属性*:</label>
+            <div class="form-group">
+                <label for="name" class="control-label col-sm-3">属性*:</label>
 
-                <div class="controls">
+                <div class="controls col-sm-8">
                     <table class="table">
                         <thead>
                         <tr>
@@ -108,11 +108,11 @@
                     </table>
                 </div>
             </div>
-            <div id="JRestCtrl" class="pow_margin_left30">
-                <div class="">
-                    <label for="" class="control-label">restful:</label>
+            <div id="JRestCtrl" class="pow_btn_horiz">
+                <div class="form-group">
+                    <label for="" class="control-label col-sm-4">restful:</label>
 
-                    <div class="controls">
+                    <div class="controls col-sm-8">
                         <label class="radio inline">
                             <input class="" onclick="$('#JRestful').removeClass('hide');" type="radio"
                                    name="restful" <?php if ((int)$schema->restful === 1) echo 'checked="checked"'; ?>
@@ -125,10 +125,10 @@
                         </label>
                     </div>
                 </div>
-                <div id="JRestful" class="">
-                    <label for="" class="control-label">可执行操作:</label>
+                <div id="JRestful" class="form-group">
+                    <label for="" class="control-label col-sm-4">可执行操作:</label>
 
-                    <div class="controls">
+                    <div class="controls col-sm-8">
                         <label class="checkbox inline">
                             <input type="checkbox" name="index"
                                    id="" <?php if ((int)$schema->index === 1) echo 'checked="checked"'; ?>

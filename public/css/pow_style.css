@@ -171,12 +171,7 @@ li {
     padding: 19px 0;
 }
 
-.pow_label {
-    float: left;
-    line-height: 29px;
-    width: 160px;
-    text-align: right;
-}
+
 
 .pow_controls {
     float: left;
@@ -342,7 +337,9 @@ input[type="file"]{
 .pow_btn_horiz{
     margin-left:176px;
 }
-
+.pow_label{
+    padding:.2em .2em .3em;
+}
 
 
 
