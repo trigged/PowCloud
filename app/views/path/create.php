@@ -1,9 +1,9 @@
 <div class="">
     <form id="pathCreate" class="form-horizontal child_form" method="post" onsubmit="return check_form(this)">
         <div class="form-group">
-            <label for="name" class="control-label">path*:</label>
+            <label for="name" class="control-label col-sm-3">path*:</label>
 
-            <div class="controls">
+            <div class="controls col-sm-8">
                 <input name="name" class="form-control" value="" type="text" placeholder="路径名称" id="name">
             </div>
         </div>
@@ -21,9 +21,9 @@
         <!--            </div>-->
         <!--        </div>-->
         <div class="form-group">
-            <label for="expire" class="control-label">缓存时间:</label>
+            <label for="expire" class="control-label col-sm-3">缓存时间:</label>
 
-            <div class="controls">
+            <div class="controls col-sm-8">
                 <input class="expire" name="expire" type="text" value="" placeholder="有效期" id="expire">
             </div>
         </div>

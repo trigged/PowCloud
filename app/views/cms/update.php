@@ -1,7 +1,7 @@
 <?php echo $header; ?>
 <?php echo \Utils\FormBuilderHelper::begin($table->table_name); ?>
     <form id="cms_form" class="form-horizontal" onsubmit="">
-        <fieldset class="mt20">
+        <fieldset class="">
 
             <legend>更新数据 ：#<?php echo $tableData->id ?></legend>
             <?php foreach ($forms as $form): ?>
@@ -42,10 +42,10 @@
                             </div>
                         <?php endforeach; ?>
                     <?php elseif ($form->field === 'timing_time'): ?>
-                        <div class="clearfix">
-                            <label for="name" class="control-label pow_label"><?php echo $form->label ?>:</label>
+                        <div class="form-group">
+                            <label for="name" class="control-label col-sm-3"><?php echo $form->label ?>:</label>
 
-                            <div class="controls pow_controls">
+                            <div class="controls col-sm-8">
                                 <?php
                                 \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules); //注册验证规则 以便JS可以验证
                                 $time = '';
@@ -58,10 +58,10 @@
                         </div>
                     <?php
                     elseif (!in_array($form->field, $hide) && $form->type !== 'formTip'): ?>
-                        <div class="clearfix">
-                            <label for="name" class="control-label pow_label"><?php echo $form->label ?>:</label>
+                        <div class="form-group">
+                            <label for="name" class="control-label col-sm-3"><?php echo $form->label ?>:</label>
 
-                            <div class="controls pow_controls">
+                            <div class="controls col-sm-8">
                                 <?php
                                 \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules); //注册验证规则 以便JS可以验证
                                 echo call_user_func_array(array('\Utils\FormBuilderHelper', $form->type), array($form, $tableData->{$form->field}));

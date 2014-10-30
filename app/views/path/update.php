@@ -1,9 +1,9 @@
 <div class="" xmlns="http://www.w3.org/1999/html">
     <form id="pathForm" class="form-horizontal" method="post" onsubmit="return check_form(this)">
         <div class="form-group">
-            <label for="name" class="control-label">path*:</label>
+            <label for="name" class="control-label col-sm-3">path*:</label>
 
-            <div class="controls">
+            <div class="controls col-sm-8">
                 <input name="name" readonly class="form-control" value="<?php echo $path->name; ?>" type="text"
                        placeholder="主机名称" id="name">
             </div>
@@ -18,9 +18,9 @@
         <!--            </div>-->
         <!--        --><?php //endif; ?>
         <div class="form-group">
-            <label for="expire" class="control-label">缓存时间:</label>
+            <label for="expire" class="control-label col-sm-3">缓存时间:</label>
 
-            <div class="controls">
+            <div class="controls col-sm-8">
                 <input class="expire" name="expire" type="text" value="<?php echo $path->expire; ?>" placeholder="有效期"
                        id="expire">
             </div>
