@@ -91,8 +91,14 @@ class UserMessage extends Eloquent
             //todo send invite mail
             self::sendMail($mail_address, self::saveMsg($from_id, $app_id, -1, $mail_address, $action));
             return '对方还不是我们的用户呀,请少侠放心,我们已经通过龙门镖局快马加鞭的把邮件发送到对方信箱了!';
+        } else {
+            $atu = new ATURelationModel();
+            $atu->user_id = $invited_user->id;
+            $atu->app_id = $app_id;
+            $atu->save();
+            return "添加成功";
         }
-        return self::saveMsg($from_id, $app_id, $invited_user->id, $mail_address, $action);
+//        return self::saveMsg($from_id, $app_id, $invited_user->id, $mail_address, $action);
     }
 
     static function sendMail($send_to, $msg_id)

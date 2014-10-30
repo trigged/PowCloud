@@ -79,7 +79,7 @@ class LoginController extends Controller
         $email = Input::get('email');
         return View::make('cms.register', array('msg_id' => $msg_id, 'email' => $email))
             ->nest('header', 'dashboard.header')
-            ->nest('footer', 'dashboard.footer');;
+            ->nest('footer', 'dashboard.footer');
     }
 
     public function loginStore()
@@ -89,8 +89,7 @@ class LoginController extends Controller
 
         $user = User::where('name', $username)->where('pwd', $pwd)->get()->first();
         if (!$user) {
-            return Redirect::action('LoginController@login', array('info' => '江湖榜找不到大侠，大侠还是去注册一个账号吧！', 'code' => -1));
-
+            $this->ajaxResponse(array(), 'success', '江湖榜找不到大侠~');
         } else {
             $user->last_time = $user->updated_at;
             $area = $this->getLoginArea();
@@ -102,7 +101,8 @@ class LoginController extends Controller
         if ($user->save()) {
             Auth::login($user);
         }
-        return Redirect::action('DashBoardController@index');
+        $this->ajaxResponse(array(), 'success', '', URL::action('DashBoardController@index'));
+//        return Redirect::action('DashBoardController@index');
     }
 
     public function getLoginArea()

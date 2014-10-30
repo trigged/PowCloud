@@ -17,7 +17,7 @@ class UserMessageController extends BaseController
         $from_id = $this->getCurrentUserID();
 
         if ($action !== UserMessage::ACTION_REMOVE && $action !== UserMessage::ACTION_INVITE) {
-            $this->ajaxResponse(array('name' => 'test'), 'fail', '请求解析有误,请联系官方人员');
+            $this->ajaxResponse(array('name' => 'test'), 'fail', '请求有误,请联系官方人员');
         }
         $user_id = Input::get('user_id');
         if ($action === UserMessage::ACTION_REMOVE && $user_id = Input::get('user_id')) {

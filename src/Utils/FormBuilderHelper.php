@@ -301,8 +301,13 @@ EOT;
                                 $('#JS_Sub').attr('disabled',false);
                                 return false;
                             }
-                            alert(re.message);
+                            if(re.message){
+                                alert(re.message);
+                            }
+                            if(re.successRedirect){
                             location.href = re.successRedirect;
+                            }
+
                         }
                     });
                     return false;
@@ -483,7 +488,7 @@ EOT;
         ';
 
 
-   $dataPicker = sprintf( '<div class="input-group date form_datetime  col-md-5" id="start_date" style="display:inline-block;">
+        $dataPicker = sprintf('<div class="input-group date form_datetime  col-md-5" id="start_date" style="display:inline-block;">
         <input size="16" class="form-control" type="text" name="%s[start]" value="%s" disabled="disabled">
         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
         </div>
@@ -491,7 +496,7 @@ EOT;
 
         <input  class="form-control"  style="width: 50px;"   size="2" id="start_minute" type="text" name="%s[minute]" value="%s" disabled="disabled">
         分<input type="checkbox" id="JSCheckEnable"  value=1> <span class="help-inline"> 启用</span>&nbsp;&nbsp;选填
-        ',$timingTime,$start,$timingTime,$hour,$timingTime,$minute);
+        ', $timingTime, $start, $timingTime, $hour, $timingTime, $minute);
 
         return $css . "\n" . $js . "\n" . $dataPicker . "\n" . $script . $checkScript;
 

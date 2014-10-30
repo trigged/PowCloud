@@ -8,13 +8,15 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <!-- css -->
     <link href="<?php echo URL::asset('css/register_login.css'); ?>" rel="stylesheet">
+    <script src="<?php echo URL::asset('/bower_components/jquery/dist/jquery.min.js'); ?>"></script>
 </head>
 <body>
 
 <div class="register_login_bg">
     <div class="rl_title"></div>
     <div class="bg_login form_bg">
-        <form action="<?php echo URL::action('LoginController@loginStore'); ?>" method="post">
+        <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
+        <form method="post" id="login">
             <div class="item">
                 <input type="text" name="username" placeholder="请输入账号"/>
             </div>
@@ -22,7 +24,13 @@
                 <input type="password" name="password" placeholder="请输入密码"/>
             </div>
             <a href="#" class="fotget_password">忘记密码？</a>
-            <input type="submit" value="立即登录" class="submit_button"/>
+            <?php echo \Utils\FormBuilderHelper::staticEnd('login',
+                array(),
+                URL::action('LoginController@loginStore'),
+                'POST'
+            );//注册表单JS
+            ?>
+            <input id="JS_Sub" type="submit" value="立即登录" class="submit_button"/>
         </form>
     </div>
     <div class="login_footer clearfix">
