@@ -42,7 +42,6 @@
     </form>
 </div>
 <script>
-
     $().ready(function () {
         $.validator.setDefaults({
             errorClass: 'error help-inline',

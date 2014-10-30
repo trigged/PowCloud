@@ -38,7 +38,7 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, dialog, main, canvas, details, embed,
+article, aside,  main, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
@@ -71,7 +71,7 @@ body {
  * Correct `block` display not defined for `details` or `summary` in IE 10/11 and Firefox.
  * Correct `block` display not defined for `main` in IE 11.
  */
-article, aside, dialog, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
     display: block
 }
 
@@ -100,7 +100,7 @@ audio:not([controls]) {
  * Address `[hidden]` styling not present in IE 8/9/10.
  * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.
  */
-[hidden], template {
+[hidden] {
     display: none
 }
 
@@ -189,7 +189,7 @@ sub {
 }
 
 address, cite, dfn, var {
-    font-style: 400
+    font-style: normal;
 }
 
 abbr, acronym {
@@ -814,8 +814,8 @@ ul, ol, li {
 .bg_login .item input[type="text"], input[type="password"] {
     height: 45px;
     line-height: 45px;
-    margin: 0 0 0 60px;
-    width: 330px;
+    margin: 0 0 0 96px;
+    width: 290px;
     background: none;
     border: none;
     outline: none;
@@ -831,8 +831,9 @@ ul, ol, li {
 .fotget_password {
     color: #e2e2e2;
     font-size: 18px;
-    margin: 10px 0 0 306px;
+    margin: 18px 0 0 306px;
     display: block;
+    text-decoration: none;
 }
 
 .bg_login input[type="submit"] {

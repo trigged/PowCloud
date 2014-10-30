@@ -23,7 +23,7 @@
             </div>
             <div class="item">
                 <label>密码</label>
-                <input type="password" placeholder="请输入您的密码"/>
+                <input type="password" style="margin-left:60px;" placeholder="请输入您的密码"/>
             </div>
             <div class="item">
                 <label>邮箱</label>
