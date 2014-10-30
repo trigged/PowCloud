@@ -323,12 +323,33 @@ Notes
 .pow_item_gap {
     margin: 20px 0 0 0;
 }
-
-
-
-
-
-
+.form_field{
+    margin-top:30px;
+}
+legend{
+    line-height: 40px;
+}
+input[type="text"]{
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+    outline:none;
+    border:1px solid #cccecd;
+    padding:4px 6px ;
+    margin:0 0 0 10px;
+}
+input[type="file"]{
+    margin:5px 0 0 10px;
+}
+.controls select{
+    margin:5px 0 0 10px;
+}
+.form-group .controls{
+    margin-left:180px;
+}
+.pow_btn_horiz{
+    margin-left:176px;
+}
 
 
 

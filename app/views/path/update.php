@@ -25,7 +25,7 @@
                        id="expire">
             </div>
         </div>
-        <div class="form-actions">
+        <div class="pow_btn_horiz">
             <a class="btn btn-primary" onclick="addChild();">创建子路径</a>
             <a class='btn btn-info' onclick="update()">更新路径</a>
             <!--            --><?php //if ((int)$path->id !== 0): ?>

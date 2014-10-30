@@ -157,7 +157,7 @@
             <ul id="pathList" class="ztree pathList"></ul>
         </fieldset>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-8">
         <fieldset>
             <legend>API信息</legend>
             <blockquote>

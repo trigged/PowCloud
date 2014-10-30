@@ -27,7 +27,7 @@
                 <input class="expire" name="expire" type="text" value="" placeholder="有效期" id="expire">
             </div>
         </div>
-        <div class="form-actions">
+        <div class="pow_btn_horiz">
             <a class="btn btn-primary" id="addLeaf">创建</a>
             <a class="btn btn-warning" onclick="$('#JPathChildInfo').hide();" href="javascript:void (0)">取消</a>
         </div>
