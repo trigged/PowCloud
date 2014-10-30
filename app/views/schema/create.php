@@ -141,10 +141,10 @@
         </div>
     </div>
     <div id="JRestCtrl">
-        <div class="">
-            <label for="" class="control-label">API 访问:</label>
+        <div class="form-group">
+            <label for="" class="control-label col-sm-3">API 访问:</label>
 
-            <div class="controls">
+            <div class="controls col-sm-8">
                 <label class="radio inline pow_padding_left_20">
                     <input class="" type="radio" name="restful" value="1"
                            onclick="$('#JRestful').removeClass('hide');" id=""/> 开启
@@ -155,10 +155,10 @@
                 </label>
             </div>
         </div>
-        <div id="JRestful" class=" hide">
-            <label for="" class="control-label">可执行操作:</label>
+        <div id="JRestful" class=" hide form-group">
+            <label for="" class="control-label col-sm-3">可执行操作:</label>
 
-            <div class="controls">
+            <div class="controls col-sm-8">
                 <label class="checkbox inline">
                     <input type="checkbox" name="index" id="" value="1"> 读取
                 </label>
@@ -174,7 +174,7 @@
             </div>
         </div>
     </div>
-    <div class="form-actions mt20">
+    <div style="margin-left:148px;">
         <button class="btn btn-primary" id="JS_Sub" type="submit">创建表</button>
         <a href="javascript:void (0)" class="btn  btn-warning" onclick="history.back();">取消</a>
     </div>
