@@ -774,8 +774,7 @@ ul, ol, li {
 }
 
 .reigster_bg .item input[type="text"], input[type="password"] {
-    height: 45px;
-    line-height: 45px;
+    padding:18px 0;
     margin: 0 0 0 60px;
     width: 330px;
     background: none;
@@ -812,8 +811,7 @@ ul, ol, li {
 }
 
 .bg_login .item input[type="text"], input[type="password"] {
-    height: 45px;
-    line-height: 45px;
+    padding:13px 0;
     margin: 0 0 0 96px;
     width: 290px;
     background: none;
