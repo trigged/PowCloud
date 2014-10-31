@@ -1,4 +1,5 @@
 <?php echo $header; ?>
+<script src="<?php echo URL::asset('bower_components/bootstrap3-typeahead/bootstrap3-typeahead.min.js'); ?>"></script>
 <div class="row">
 
 <div class="col-md-7">
@@ -44,19 +45,6 @@
     <div class="form-group">
         <label for="path" class="control-label col-sm-3">API 地址绑定*:</label>
 
-        <!--            <div class="dropdown">-->
-        <!--                <button class="btn btn-info dropdown-toggle  " type="button"   data-toggle="dropdown">-->
-        <!--                    API 地址绑定-->
-        <!--                    <span class="caret"></span>-->
-        <!--                </button>-->
-        <!--                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">-->
-        <!--                    --><?php
-//                    foreach($pathTreeListOptions as $path){
-//                        echo '<li role="presentation"><a role="menuitem" tabindex="-1" href="#">'.$path.'</a></li>';
-//                    }
-//                    ?><!--       -->
-        <!--                </ul>-->
-        <!--            </div>-->
         <div class="controls col-sm-8">
             <?php echo Form::select('path_id', $pathTreeListOptions, '', array('id' => 'path_id')) ?>
         </div>
@@ -119,7 +107,7 @@
                         <td>
                             <input class="typeahead property form-control" type="text"
                                    name="property[<?php echo $tableIndex; ?>][attributes]" value=""
-                                   data-provide="typeahead" autocomplete="off" data-source='["string","integer","double",
+                                   data-provide="typeahead"  data-source='["string","integer","double",
                                        "text","datetime","decimal"]'
                                 />
                         </td>

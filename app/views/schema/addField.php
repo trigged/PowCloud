@@ -1,4 +1,5 @@
 <?php echo $header; ?>
+<script src="<?php echo URL::asset('bower_components/bootstrap3-typeahead/bootstrap3-typeahead.min.js'); ?>"></script>
 <div class="row">
     <div class="col-md-7">
         <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
