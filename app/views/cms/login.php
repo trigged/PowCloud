@@ -37,7 +37,7 @@
         <span><em>其他登录方式</em><a href="#" class="icon_sina"><img src="images/icon_sina.png"></a><a href="#"
                                                                                                   class="icon_qq"><img
                     src="images/icon_qq.png"></a></span>
-        <a href="#" class="free_reigster">免费注册</a>
+        <a href="<?php echo URL::action('LoginController@register')?>" class="free_reigster">免费注册</a>
     </div>
 </div>
 </body>

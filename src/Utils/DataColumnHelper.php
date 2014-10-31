@@ -7,15 +7,6 @@ class DataColumnHelper
         FormBuilderHelper::$namespace = $namespace;
     }
 
-    public static function text($format = '', $dataType, $value = '')
-    {
-        if ($format === 'form')
-            return FormBuilderHelper::text($dataType, $value, 'input-medium');
-        if (is_array($value))
-            return json_encode($value);
-        return $value;
-    }
-
     public static function select($format = '', $dataType, $value = '', $selectOptions = array())
     {
         if ($format === 'form')
@@ -90,6 +81,21 @@ class DataColumnHelper
             return FormBuilderHelper::ajaxInput($dataType, $value);
         }
         return self::text($format, $dataType, $value);
+    }
+
+    public static function text($format = '', $dataType, $value = '')
+    {
+        if ($format === 'form')
+            return FormBuilderHelper::text($dataType, $value, 'input-medium');
+
+
+        if (is_array($value))
+            $value = json_encode($value);
+
+        if(mb_strlen($value) > 50){
+            return substr($value, 0, 50).'...';
+        }
+        return $value;
     }
 
     public static function areaFilter($format = '', $dataType, $value = '')
