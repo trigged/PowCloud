@@ -94,7 +94,7 @@
                                                      name="<?php echo $propertyName ?>"/></span>
                                 </td>
                                 <td>
-                                    <span class="form-control uneditable-input"><?php
+                                    <span class="form-control uneditable-input" disabled><?php
                                         echo implode(' ', array_except($propertyValue, array('default')));
                                         echo !empty($propertyValue['default']) ? '|' . $propertyValue['default'] : '';
                                         ?>

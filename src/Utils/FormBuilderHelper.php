@@ -479,16 +479,10 @@ CHECKSCRIPT;
 </script>
 EOT;
 
-        $dataPicker = '<div class="input-group date form_datetime " id="start_date" style="display:inline-block;">
-        <input size="16"  class="form-control"   type="text" name="' . $timingTime . '[start]" value="' . $start . '" disabled="disabled">
-        <span class="add-on"><i class="glyphicon glyphicon-calendar"></i></span></div>&nbsp;&nbsp;
-        <input style="width: 50px;"  class="form-control"  size="2" id="start_hour" type="text" name="' . $timingTime . '[hour]" value="' . $hour . '" disabled="disabled">时
-        &nbsp;&nbsp;<input style="width: 50px;"  class="form-control"   size="2" id="start_minute" type="text" name="' . $timingTime . '[minute]" value="' . $minute . '" disabled="disabled">
-        分<input type="checkbox" id="JSCheckEnable"  value=1> <span class="help-inline"> 启用</span>&nbsp;&nbsp;选填
-        ';
 
 
-        $dataPicker = sprintf('<div class="input-group date form_datetime  col-md-5" id="start_date" style="display:inline-block;">
+
+        $dataPicker = sprintf('<div class="input-group date form_datetime  col-md-5" id="start_date" >
         <input size="16" class="form-control" type="text" name="%s[start]" value="%s" disabled="disabled">
         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
         </div>

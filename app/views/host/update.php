@@ -16,7 +16,7 @@
                     <label for="host" class="control-label">主机地址*:</label>
 
                     <div class="controls">
-                        <span class="form-control uneditable-input"><?php echo $host->host; ?></span>
+                        <span class="form-control uneditable-input" disabled><?php echo $host->host; ?></span>
                     </div>
                 </div>
                 <div class="form-group">
