@@ -39,7 +39,7 @@
     <?php endif; ?>
 </div>
 <!--right menu end-->
-<div class="col-md-10">
+<div class="col-md-10" style="padding-bottom:20px">
     <div class="" style="height:30px;"></div>
     <div class="row" style="margin-bottom: 10px;">
         <div class="span-12">

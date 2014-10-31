@@ -84,5 +84,5 @@
             </div>
 
         <?php endif; ?>
-        <div class="col-md-10">
+        <div class="col-md-10" style="padding-bottom:20px">
 
