@@ -30,7 +30,7 @@
 
 <div class="col-md-2 sidebar-nav">
 <?php if ($apps): ?>
-        <ul class="nav pow_sidebar  affix">
+        <ul class="nav pow_sidebar">
             <?php foreach ($apps as $app): ?>
                 <li class=""><a href="#appItem-<?php echo $app->id; ?>"><i
                             class="glyphicon glyphicon-chevron-right"></i> <?php echo $app->name; ?></a></li>
@@ -210,12 +210,6 @@
         });
     </script>
 
-    <script>
-        $(function () {
-            var side_h = $(document.body).height();
-            $(".sidebar-nav").height(side_h);
-        });
-    </script>
 </div>
 
 <?php echo $footer; ?>

@@ -63,10 +63,10 @@
 </div>
 
 <div class="container-fluid">
-    <div class="pow_row">
+    <div class="">
         <?php if ($leftMenu): ?>
             <div class="col-md-2">
-                <div class="well sidebar-nav">
+                <div class="sidebar-nav">
                     <ul class="nav nav-list">
                         <?php foreach ($leftMenu as $group => $other): ?>
                             <li class="nav-header"><?php echo $group ?></li>

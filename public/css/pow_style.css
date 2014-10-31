@@ -146,8 +146,10 @@ li {
     display: block;
 }
 
-.item_a:hover h4 {
+.item_a:hover{
     color: #d14836;
+    text-decoration: none;
+    font-style: normal;
 }
 
 .pow_member {

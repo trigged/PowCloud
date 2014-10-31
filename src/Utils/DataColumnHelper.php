@@ -24,6 +24,7 @@ class DataColumnHelper
     {
         if ($format === 'form')
             return FormBuilderHelper::textQuick($dataType, $value, 'input-medium');
+
         return $value;
     }
 

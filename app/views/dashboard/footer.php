@@ -25,9 +25,14 @@
 </script>
 <script>
     $(function () {
-        var side_h = $(document.body).height();
+        var side_h = $(window).height();
         $(".sidebar-nav").height(side_h);
+        $(window).on('resize', function () {
+            var side_h = $(window).height();
+            $(".sidebar-nav").height(side_h);
+        });
     });
+
 </script>
 </body>
 </html>

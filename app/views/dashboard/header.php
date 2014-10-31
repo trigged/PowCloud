@@ -52,5 +52,5 @@
     </div>
 </div>
 <div class="container-fluid">
-    <div class="pow_row">
+    <div class="">
 
