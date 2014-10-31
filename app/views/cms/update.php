@@ -28,9 +28,9 @@
                         <?php $del_val_array = array_filter(explode(',', $form->default_value)) ?>
                         <?php foreach ($del_val_array as $key => $val): ?>
                             <div class="form-group">
-                                <label for="name" class="control-label"><?php echo $val ?>:</label>
+                                <label for="name" class="control-label col-sm-3"><?php echo $val ?>:</label>
 
-                                <div class="controls">
+                                <div class="controls col-sm-8">
                                     <?php
                                     \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules); //注册验证规则 以便JS可以验证
                                     $namespace = $table->table_name ? $table->table_name . '[' . $form->field . ']' : $form->field;
@@ -45,7 +45,7 @@
                         <div class="form-group">
                             <label for="name" class="control-label col-sm-3"><?php echo $form->label ?>:</label>
 
-                            <div class="controls col-sm-8">
+                            <div class="controls col-sm-8 form-inline">
                                 <?php
                                 \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules); //注册验证规则 以便JS可以验证
                                 $time = '';

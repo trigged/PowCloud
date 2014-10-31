@@ -6,16 +6,16 @@
             <h4>添加表(<?php echo $table->table_name; ?>)字段</h4>
             <hr/>
             <div class="form-group">
-                <label for="field" class="control-label">字段名*:</label>
+                <label for="field" class="control-label col-sm-3">字段名*:</label>
 
-                <div class="controls">
+                <div class="controls col-sm-8">
                     <input name="field" class="filedNameLetter col-md-4" type="text" placeholder="字段名" id="field">
                 </div>
             </div>
             <div class="form-group">
-                <label for="property" class="control-label">属性*:</label>
+                <label for="property" class="control-label col-sm-3">属性*:</label>
 
-                <div class="controls">
+                <div class="controls col-sm-8">
                     <input name="property" class="form-control" type="text" placeholder="属性" id="property"
                            data-provide="typeahead" autocomplete="off" data-source='["string","integer","double",
                                        "text","datetime","decimal"]'>
