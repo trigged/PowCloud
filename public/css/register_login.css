@@ -773,18 +773,26 @@ ul, ol, li {
     padding: 0 0 0 40px;
 }
 
-.reigster_bg .item input[type="text"], input[type="password"] {
-    padding:18px 0;
-    margin: 0 0 0 60px;
-    width: 330px;
+.reigster_bg .item input[type="text"]{
+    padding:18px 18px;
+    margin: 0 0 0 24px;
+    width: 290px;
     background: none;
     border: none;
-    outline: none;
     color: #fff;
     font-size: 18px;
     vertical-align: middle;
 }
-
+.reigster_bg .item input[type="password"]{
+    padding:18px 18px;
+    margin: 0 0 0 24px;
+    width: 290px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    vertical-align: middle;
+}
 .reigster_bg input[type="submit"] {
     color: #fff;
     font-size: 24px;
@@ -798,6 +806,7 @@ ul, ol, li {
     margin: 30px 0 0 188px;
 }
 
+
 .bg_login {
     width: 451px;
     height: 423px;
@@ -810,17 +819,28 @@ ul, ol, li {
     margin: 129px 0 0 0;
 }
 
-.bg_login .item input[type="text"], input[type="password"] {
-    padding:13px 0;
+.bg_login .item input[type="text"] {
+    padding:13px 10px;
     margin: 0 0 0 96px;
-    width: 290px;
+    width: 270px;
     background: none;
     border: none;
-    outline: none;
     color: #fff;
     font-size: 18px;
     vertical-align: middle;
 }
+.bg_login .item input[type="password"] {
+    padding:13px 10px;
+    margin: 0 0 0 96px;
+    width: 270px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+
 
 .bg_login .item {
     margin: 0 0 9px 0;
@@ -855,7 +875,12 @@ ul, ol, li {
     margin: 20px auto 100px;
     overflow: hidden;
 }
-
+.bg_login input[type="submit"]:hover{
+    background:dodgerblue;
+}
+.reigster_bg input[type="submit"]:hover{
+    background:dodgerblue;
+}
 .login_footer span {
     color: #dcdcdc;
     font-size: 18px;
