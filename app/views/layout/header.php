@@ -10,15 +10,9 @@
     <link href="<?php echo URL::asset('css/bootstrap.css'); ?>" rel="stylesheet">
     <link href="<?php echo URL::asset('css/bootstrap-responsive.css'); ?>" rel="stylesheet">
     <link href="<?php echo URL::asset('css/pow_style.css'); ?>" rel="stylesheet">
-    <!-- Loading Flat UI -->
-    <!--    <link href="--><?php //echo URL::asset('css/flat-ui.css'); ?><!--" rel="stylesheet">-->
 
     <link rel="shortcut icon" href="<?php echo URL::asset('img/favicon.ico'); ?> ">
-
-    <link href="<?php echo URL::asset('css/x-man.css'); ?> " rel="stylesheet">
-
     <link href="<?php echo URL::asset('css/essage.css'); ?> " rel="stylesheet">
-
     <script src="<?php echo URL::asset('/bower_components/jquery/dist/jquery.min.js'); ?>"></script>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
