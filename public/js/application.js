@@ -61,7 +61,7 @@ String.prototype.repeat = function(num) {
     });
 
     // Switch
-    $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
+    //$("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
     
   });
   
