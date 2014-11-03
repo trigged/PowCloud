@@ -31,9 +31,11 @@
         if (or_height < side_h) {
             $(".sidebar-nav").height(side_h);
         }
+        console.log("##init or_height: ",or_height," side_h: ",side_h);
         $(window).on('resize', function () {
             var side_h = $(window).height();
             var or_height = $(".sidebar-nav").height();
+            console.log("##resize  or_height: ",or_height," side_h: ",side_h);
             if (or_height < side_h) {
                 $(".sidebar-nav").height(side_h);
             }

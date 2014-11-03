@@ -28,7 +28,7 @@ var table = function ($) {
 
     //排序实际操作脚本
     var loadRankFunction = function () {
-        $('#JS_rank_append').live('click', function () {
+        $('#JS_rank_append').on('click', function () {
             var button = $(this);
             button.attr('disabled', true);
             var table = button.attr('data-table');
