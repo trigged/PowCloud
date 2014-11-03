@@ -57,6 +57,38 @@ class UserMessageController extends BaseController
         header('Location:' . URL::action('LoginController@register', array('msg_id' => $message_id, 'email' => $user_message->mail_address)));
     }
 
+    public function forget()
+    {
+        $email = Input::get('email');
+        $user = User::checkExistsByMail($email);
+        if (!$user) {
+            return $this->ajaxResponse('', 'fail', '用户不存在');
+        }
+
+
+    }
+
+    public function resetPassword()
+    {
+        $sed = Input::get('sed');
+        if (empty($sed)) {
+            return 'error';
+        }
+        $sed = urldecode($sed);
+        $message_id = substr($sed, -1);
+        $timespan = \Utils\UseHelper::checkToken(substr($sed, 0, -1), \Utils\UseHelper::$default_key);
+
+        $current = time();
+        $value = $current - $timespan;
+        if ($current - $timespan > 60 * 1500) {
+            return sprintf('time out %s,timespan: %s,and miss: %s', $current, $timespan, $value);
+        }
+        $user_message = UserMessage::find($message_id);
+        if (!$user_message->exists) {
+            return 'invite not exists';
+        }
+    }
+
     public function index()
     {
         //
