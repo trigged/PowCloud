@@ -57,13 +57,13 @@
             <!--app item begin-->
             <div class="item clearfix">
                 <div class="col-md-6">
-                    <a class="item_a clearfix" style=""
+                    <a class="clearfix btn btn-primary btn-xs" style="margin:10px 0;"
                        href="<?php echo URL::action('CmsController@index', array('app_id' => $app->id)) ?>">
-                        <div class="">
+
                             <h4>
                                 <?php echo $app->name; ?>
                             </h4>
-                        </div>
+
                     </a>
 
                     <div class="appInfo  <?php if ($app->user_id !== Auth::user()->id) {
