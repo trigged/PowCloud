@@ -167,7 +167,7 @@ EOT;
         return $js . $input . $label;
     }
 
-    public static function textArea($form, $value = '', $class = "input-large")
+    public static function textArea($form, $value = '', $class = "form-control")
     {
         $value = is_array($value) ? json_encode($value) : $value;
         $name = self::getFieldName($form->field);
@@ -183,7 +183,7 @@ EOT;
         );
     }
 
-    public static function image($form, $value = '', $class = "input-xxlarge")
+    public static function image($form, $value = '', $class = "form-control")
     {
         $value = $value ? $value : $form->default_value;
         $input = '';
@@ -191,11 +191,11 @@ EOT;
             return self::imageArray($form, $value, $class);
         } else {
 
-            return '<input type="text" name="' . self::getFieldName($form->field) . '" placeholder="有效图片地址" value="' . $value . '"  class="' . $class . ' image-uploader" data-validate="' . $form->field . '" />';
+            return '<input class="form-control"  type="text" name="' . self::getFieldName($form->field) . '" placeholder="有效图片地址" value="' . $value . '"  class="' . $class . ' image-uploader" data-validate="' . $form->field . '" />';
         }
     }
 
-    public static function imageArray($form, $value, $class = "input-xxlarge")
+    public static function imageArray($form, $value, $class = "form-control")
     {
         $input = '';
         if ($value && is_array($value)) {
@@ -478,8 +478,6 @@ CHECKSCRIPT;
 
 </script>
 EOT;
-
-
 
 
         $dataPicker = sprintf('<div class="input-group date form_datetime  col-md-5" id="start_date" >

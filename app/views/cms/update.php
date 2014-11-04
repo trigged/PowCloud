@@ -30,7 +30,7 @@
                             <div class="form-group">
                                 <label for="name" class="control-label col-sm-3"><?php echo $val ?>:</label>
 
-                                <div class="controls col-sm-8">
+                                <div class="controls col-md-5">
                                     <?php
                                     \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules); //注册验证规则 以便JS可以验证
                                     $namespace = $table->table_name ? $table->table_name . '[' . $form->field . ']' : $form->field;
@@ -45,7 +45,7 @@
                         <div class="form-group">
                             <label for="name" class="control-label col-sm-3"><?php echo $form->label ?>:</label>
 
-                            <div class="controls col-sm-8 form-inline">
+                            <div class="controls col-md-5 form-inline">
                                 <?php
                                 \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules); //注册验证规则 以便JS可以验证
                                 $time = '';
@@ -56,12 +56,11 @@
                                 ?>
                             </div>
                         </div>
-                    <?php
-                    elseif (!in_array($form->field, $hide) && $form->type !== 'formTip'): ?>
+                    <?php elseif (!in_array($form->field, $hide) && $form->type !== 'formTip'): ?>
                         <div class="form-group">
                             <label for="name" class="control-label col-sm-3"><?php echo $form->label ?>:</label>
 
-                            <div class="controls col-sm-8">
+                            <div class="controls col-md-5">
                                 <?php
                                 \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules); //注册验证规则 以便JS可以验证
                                 echo call_user_func_array(array('\Utils\FormBuilderHelper', $form->type), array($form, $tableData->{$form->field}));
