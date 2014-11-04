@@ -4,9 +4,10 @@
  * Class XEloquent
  */
 
-class XEloquent extends Eloquent{
+class XEloquent extends Eloquent
+{
 
-    public $errors = array();
+    public $errors = '';
 
     public $oldData = array();
 
@@ -17,19 +18,20 @@ class XEloquent extends Eloquent{
      */
     public $scene = 'create';
 
-    public static function boot(){
+    public static function boot()
+    {
         parent::boot();
 
         //注册saving事件
-        self::saving(function($model){
+        self::saving(function ($model) {
 
-            $model->oldData = $model->getOriginal();//保留原始值
+            $model->oldData = $model->getOriginal(); //保留原始值
 
-            if(!$model->validator()){
+            if (!$model->validator()) {
                 return false;
             }
 
-           return $model->fireXEloquentSavingEvent($model);
+            return $model->fireXEloquentSavingEvent($model);
 
         });
     }
@@ -37,12 +39,14 @@ class XEloquent extends Eloquent{
     /**
      * Model属性 对应的规则要求
      */
-    protected  function rules(){
+    protected function rules()
+    {
 
         return array();
     }
 
-    public function messages(){
+    public function messages()
+    {
 
         return array();
     }
@@ -52,9 +56,10 @@ class XEloquent extends Eloquent{
      * @return bool
      *
      */
-    public function validator(){
-        $validator = Validator::make($this->getAttributes(),$this->getValidatorRules(),$this->messages());
-        if($validator->fails()){
+    public function validator()
+    {
+        $validator = Validator::make($this->getAttributes(), $this->getValidatorRules(), $this->messages());
+        if ($validator->fails()) {
             $this->errors = $validator->messages()->getMessages();
             return false;
         }
@@ -66,24 +71,26 @@ class XEloquent extends Eloquent{
      * 根据scene来进行选择性的验证规则
      * @return array
      */
-    public function getValidatorRules(){
+    public function getValidatorRules()
+    {
 
-        if(!$rules = $this->rules())
+        if (!$rules = $this->rules())
             return array();
 
-        $default = empty($rules['default'])?array():$rules['default'];
+        $default = empty($rules['default']) ? array() : $rules['default'];
 
-        if(!$this->scene)
+        if (!$this->scene)
             return $default;
 
-        $scene   = empty($rules[$this->scene])?array():$rules[$this->scene];
+        $scene = empty($rules[$this->scene]) ? array() : $rules[$this->scene];
 
 
-        return array_merge($default,$scene);
+        return array_merge($default, $scene);
 
     }
 
-    public  function fireXEloquentSavingEvent($model){
+    public function fireXEloquentSavingEvent($model)
+    {
 
         return true;
     }

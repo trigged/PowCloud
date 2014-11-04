@@ -14,7 +14,7 @@ class DashBoardController extends MasterController
     public function index()
     {
         $user = Auth::user();
-        $app_ids = ATURelationModel::where('user_id', $user->id)->lists('roles','app_id');
+        $app_ids = ATURelationModel::where('user_id', $user->id)->lists('roles', 'app_id');
         \Utils\CMSLog::debug(sprintf('user :%s, app_ids:%s', $user->name, json_encode($app_ids)));
 
         Session::put($this->allow_app_id_key, $app_ids);
@@ -69,11 +69,12 @@ class DashBoardController extends MasterController
         $user_ids = Input::get('user_ids');
 
         if (empty($app_id)) {
-            $this->ajaxResponse(array(), 'fail', 'app_id 为空');
+            BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
+//            $this->ajaxResponse(array(), 'fail', 'app_id 为空');
         }
         if (empty($user_ids)) {
-            //$this->ajaxResponse(array(), 'success', 'app_id 为空');
-            $this->ajaxResponse(array(), 'fail', 'user_ids 为空');
+            BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
+//            $this->ajaxResponse(array(), 'fail', 'user_ids 为空');
         }
 
         foreach ($user_ids as $user_id) {
@@ -82,11 +83,12 @@ class DashBoardController extends MasterController
             $atu->app_id = $app_id;
 
             if (!$atu->save()) {
-                $this->ajaxResponse(array(), 'fail', '不能保存');
+                BaseController::ajaxResponse(BaseController::$_FAILED_TEMPLATE);
+//                $this->ajaxResponse(array(), 'fail', '不能保存');
             }
         }
-
-        $this->ajaxResponse(array(), 'success', '保存成功', 'DashBoardController@index');
+        BaseController::ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', url::action('DashBoardController@index'));
+//        $this->ajaxResponse(array(), 'success', '保存成功', 'DashBoardController@index');
     }
 
     public function delete()
@@ -94,19 +96,20 @@ class DashBoardController extends MasterController
 
         $app_id = Input::get('app_id');
         if (empty($app_id)) {
-            $this->ajaxResponse(array(), 'fail', 'app_id is empty', 'DashBoardController@index');
-
+            BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS, '', url::action('DashBoardController@index'));
+//            $this->ajaxResponse(array(), 'fail', 'app_id is empty', 'DashBoardController@index');
         }
         $user_id = Input::get('user_id');
         if (empty($user_id)) {
-            $this->ajaxResponse(array(), 'success', 'user_id is empty', 'DashBoardController@index');
-
+            BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS, '', url::action('DashBoardController@index'));
+//            $this->ajaxResponse(array(), 'success', 'user_id is empty', 'DashBoardController@index');
         }
 
         $model = ATURelationModel::where('app_id', '=', $app_id)->where('user_id', '=', $user_id)->first();
         if (isset($model)) {
             $model->delete();
-            $this->ajaxResponse(array(), 'success', 'delete成功', 'DashBoardController@index');
+            BaseController::ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', url::action('DashBoardController@index'));
+//            $this->ajaxResponse(array(), 'success', 'delete成功', 'DashBoardController@index');
         }
 
     }
@@ -143,22 +146,26 @@ class DashBoardController extends MasterController
                 DB::connection('base')->commit();
                 $result = \Utils\DBMaker::createDataBase(\Utils\AppChose::getDbModelsName($app->id));
                 if ($result !== true) {
-                    $this->ajaxResponse(array(), 'fail', $result, URL::action('DashBoardController@index'));
+                    BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, URL::action('DashBoardController@index'));
+//                    $this->ajaxResponse(array(), 'fail', $result, URL::action('DashBoardController@index'));
                 }
                 $result = \Utils\DBMaker::createDataBase(\Utils\AppChose::getDbDataName($app->id), true);
                 if ($result !== true) {
-                    $this->ajaxResponse(array(), 'fail', $result, URL::action('DashBoardController@index'));
+                    BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, URL::action('DashBoardController@index'));
+//                    $this->ajaxResponse(array(), 'fail', $result, URL::action('DashBoardController@index'));
                 }
-
-                $this->ajaxResponse(array(), 'success', '添加应用' . $app->name . '成功', URL::action('DashBoardController@index'));
+                BaseController::ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', URL::action('DashBoardController@index'));
+//                $this->ajaxResponse(array(), 'success', '添加应用' . $app->name . '成功', URL::action('DashBoardController@index'));
             } catch (\Exception $e) {
                 DB::connection('base')->rollBack();
-                $this->ajaxResponse(array(), 'fail', $e->getMessage(), URL::action('DashBoardController@index'), URL::action('DashBoardController@index'));
+                BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $e->getMessage(), URL::action('DashBoardController@index'));
+//                $this->ajaxResponse(array(), 'fail', $e->getMessage(), URL::action('DashBoardController@index'), URL::action('DashBoardController@index'));
             }
         } else {
             $error = '请填写应用名称';
         }
-        $this->ajaxResponse(array(), 'fail', $error, URL::action('DashBoardController@index'), URL::action('DashBoardController@index'));
+        BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $error, URL::action('DashBoardController@index'));
+//        $this->ajaxResponse(array(), 'fail', $error, URL::action('DashBoardController@index'), URL::action('DashBoardController@index'));
     }
 
     public function updateApp()

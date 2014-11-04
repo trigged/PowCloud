@@ -51,12 +51,14 @@ class FormsController extends SystemController
             App::abort(404);
         if ($field) {
             if (Forms::whereRaw('models_id=? AND field= ?', array($id, $field))->count() > 0) {
-                $this->ajaxResponse(array('field' => '字段名称已经存在'), 'fail', '更新失败', '');
+                $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
+//                $this->ajaxResponse(array('field' => '字段名称已经存在'), 'fail', '更新失败', '');
             }
         }
         $forms = new Forms(Input::all());
         if ($forms->save()) {
-            $this->ajaxResponse(array(), 'success', '更新成功', URL::action('FormsController@index', array('table' => $id)));
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', URL::action('FormsController@index', array('table' => $id)));
+//            $this->ajaxResponse(array(), 'success', '更新成功', URL::action('FormsController@index', array('table' => $id)));
         }
     }
 
@@ -125,8 +127,11 @@ class FormsController extends SystemController
     {
         $table = Input::get('table', '');
         $ids = Input::get('id', '');
-        if (!$table || !$ids)
-            $this->ajaxResponse(array(), 'success', '更新成功');
+        if (!$table || !$ids) {
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS);
+//            $this->ajaxResponse(array(), 'success', '更新成功');
+        }
+
         $idsCount = count($ids);
         try {
             DB::connection()->getPdo()->beginTransaction();
@@ -134,10 +139,12 @@ class FormsController extends SystemController
                 Forms::where('id', '=', $id)->update(array('rank' => $idsCount - $rankIndex));
             }
             DB::connection()->getPdo()->commit();
-            $this->ajaxResponse(array(), 'success', '更新成功');
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS);
+//            $this->ajaxResponse(array(), 'success', '更新成功');
         } catch (Exception $e) {
             DB::connection()->getPdo()->rollBack();
-            $this->ajaxResponse(array(), 'fail', '更新失败');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
+//            $this->ajaxResponse(array(), 'fail', '更新失败');
         }
     }
 
@@ -160,9 +167,12 @@ class FormsController extends SystemController
         if (!$field = Forms::find($id))
             App::abort(404);
         if ($field->update(Input::except(array('form'))))
-            $this->ajaxResponse(array(), 'success', '更新成功', URL::action('FormsController@index', array('table' => $field->models_id)));
-        else
-            $this->ajaxResponse($field->errors, 'fail', '更新主机失败');
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_HAS_EXISTS, '', URL::action('FormsController@index', array('table' => $field->models_id)));
+//            $this->ajaxResponse(array(), 'success', '更新成功', URL::action('FormsController@index', array('table' => $field->models_id)));
+        else {
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
+//            $this->ajaxResponse($field->errors, 'fail', '更新主机失败');
+        }
     }
 
     /**
@@ -172,10 +182,11 @@ class FormsController extends SystemController
     public function destroy($id)
     {
         if (Forms::find($id)->forceDelete()) {
-            $this->ajaxResponse(array(), 'success');
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS);
+//            $this->ajaxResponse(array(), 'success');
         }
-
-        $this->ajaxResponse(array(), 'fail', '删除失败');
+        $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
+//        $this->ajaxResponse(array(), 'fail', '删除失败');
     }
 
     /**
@@ -186,9 +197,11 @@ class FormsController extends SystemController
     {
 
         if (Forms::find(Input::get('id'))->restore()) {
-            $this->ajaxResponse(array(), 'success');
+            $this->ajaxResponse(BaseController::$_SUCCESS_TEMPLATE);
+//            $this->ajaxResponse(array(), 'success');
         }
-        $this->ajaxResponse(array(), 'fail', '恢复失败');
+        $this->ajaxResponse(BaseController::$_FAILED_TEMPLATE);
+//        $this->ajaxResponse(array(), 'fail', '恢复失败');
     }
 
     public function addTiming($models_id)

@@ -293,19 +293,33 @@ EOT;
                             $('#JS_Sub').attr('disabled',true);
                         },
                         success: function(re){
+                            console.log("re",re)
                             re = $.parseJSON(re);
-                            if(re.status =='fail'){
-                                var errors = re.data;
-//                                validate.showErrors(errors);
-                                alert(re.message);
+                            if(re.status){
+                                 var errors = re.data;
+                                 if(!errors){
+                                     errors = re.message
+                                 }
+                                 if(errors){
+
+
+                                try
+                                    {
+                                       errors = JSON.parse(this.responseText);
+                                       console.log("json")
+                                    }
+                                    catch(e)
+                                    {
+                                        console.log("not json")
+                                    }
+                                    alert(errors)
+                                }
                                 $('#JS_Sub').attr('disabled',false);
-                                return false;
                             }
-                            if(re.message){
-                                alert(re.message);
-                            }
-                            if(re.successRedirect){
-                            location.href = re.successRedirect;
+
+                            if(re.redirect){
+
+                                location.href = re.redirect;
                             }
 
                         }

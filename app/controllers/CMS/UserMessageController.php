@@ -17,21 +17,25 @@ class UserMessageController extends BaseController
         $from_id = $this->getCurrentUserID();
 
         if ($action !== UserMessage::ACTION_REMOVE && $action !== UserMessage::ACTION_INVITE) {
-            $this->ajaxResponse(array('name' => 'test'), 'fail', '请求有误,请联系官方人员');
+            $this->ajaxResponse(BaseController::$_FAILED_TEMPLATE);
+//            $this->ajaxResponse(array('name' => 'test'), 'fail', '请求有误,请联系官方人员');
         }
         $user_id = Input::get('user_id');
         if ($action === UserMessage::ACTION_REMOVE && $user_id = Input::get('user_id')) {
             $result = UserMessage::processMessageByMail($from_id, $app_id, $email, $action);
         } else {
             if (empty($email)) {
-                $this->ajaxResponse('', 'fail', '请输入邮箱地址');
+                $this->ajaxResponse(BaseController::$_FAILED_TEMPLATE);
+//                $this->ajaxResponse('', 'fail', '请输入邮箱地址');
             }
             $result = UserMessage::processMessageByMail($from_id, $app_id, $email, $action);
         }
         if ($result !== true) {
-            $this->ajaxResponse('', 'fail', $result);
+            $this->ajaxResponse(BaseController::$FAILED, $result);
+//            $this->ajaxResponse('', 'fail', $result);
         }
-        $this->ajaxResponse(array(), 'success', '邀请发送成功,等待回应中', 'DashBoardController@index');
+        $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', URL::action('DashBoardController@index'));
+//        $this->ajaxResponse(array(), 'success', '邀请发送成功,等待回应中', 'DashBoardController@index');
     }
 
     public function receive()
@@ -62,7 +66,7 @@ class UserMessageController extends BaseController
         $email = Input::get('email');
         $user = User::checkExistsByMail($email);
         if (!$user) {
-            return $this->ajaxResponse('', 'fail', '用户不存在');
+//            return $this->ajaxResponse('', 'fail', '用户不存在');
         }
 
 

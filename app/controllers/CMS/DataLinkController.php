@@ -48,21 +48,26 @@ class DataLinkController extends CmsBaeController
         $table_name = Input::get('table_name');
         $data_id = Input::get('data_id');
         if ($table_name == null || $data_id == null) {
-            $this->ajaxResponse('', 'fail', '请输入关键字');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
+//            $this->ajaxResponse('', 'fail', '请输入关键字');
         }
         if (!SchemaBuilder::where('table_name', $table_name)->exists()) {
-            $this->ajaxResponse('', 'fail', '表名输入错误');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
+//            $this->ajaxResponse('', 'fail', '表名输入错误');
         }
         if (DataLink::where("table_name", $table_name)->where('data_id', $data_id)->count() >= 1) {
-            $this->ajaxResponse('', 'fail', '关键字已经存在了');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
+//            $this->ajaxResponse('', 'fail', '关键字已经存在了');
         }
         $link = new DataLink();
         $link->table_name = $table_name;
         $link->data_id = $data_id;
         if ($link->save()) {
-            $this->ajaxResponse(array(), 'success', '创建字关键变更成功', URL::action('DataLinkController@index'));
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$SUCCESS, '', URL::action('DataLinkController@index'));
+//            $this->ajaxResponse(array(), 'success', '创建字关键变更成功', URL::action('DataLinkController@index'));
         }
-        $this->ajaxResponse(array(), 'fail', '数据保存失败');
+        $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
+//        $this->ajaxResponse(array(), 'fail', '数据保存失败');
     }
 
     /**
@@ -87,7 +92,8 @@ class DataLinkController extends CmsBaeController
 
         $data_link = DataLink::find($id);
         if (!$data_link->exists) {
-            $this->ajaxResponse('', 'fail', '数据不存在');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
+//            $this->ajaxResponse('', 'fail', '数据不存在');
         }
         $items = DataLinkItem::where("data_link_id", $id)->get(array('table_id', 'table_alias', 'data_id', 'table_name', 'id', 'options'));
         return $this->render('DataLink.edit', array(
@@ -108,7 +114,8 @@ class DataLinkController extends CmsBaeController
     {
         $link_items = Input::get('link_items');
         if (!DataLink::find($id)->exists) {
-            $this->ajaxResponse('', 'fail', '数据不存在');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
+//            $this->ajaxResponse('', 'fail', '数据不存在');
         }
         $info = '';
         foreach ($link_items as $table_name => $data) {
@@ -138,8 +145,9 @@ class DataLinkController extends CmsBaeController
                 }
             }
         }
-//        $this->ajaxResponse('', 'fail', '数据不存在');
-        $this->ajaxResponse(array(), 'success', '创建字关键变更成功' . $info, URL::action('DataLinkController@index'));
+
+        $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', URL::action('DataLinkController@index'));
+//        $this->ajaxResponse(array(), 'success', '创建字关键变更成功' . $info, URL::action('DataLinkController@index'));
     }
 
     /**
@@ -165,20 +173,22 @@ class DataLinkController extends CmsBaeController
         $mapping_data_id = Input::get('mapping_id');
 
         if (!$mapping_table_name || !$mapping_data_id) {
-            //todo return params error info
-            $this->ajaxResponse(array(), 'error', '参数错误');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
+//            $this->ajaxResponse(array(), 'error', '参数错误');
         }
 
         $mapping_data = ApiModel::find($mapping_table_name, $mapping_data_id);
         if (!$mapping_data || !$mapping_data->exists) {
             //todo return data missing
-            $this->ajaxResponse(array(), 'error', '子数据不存在');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
+//            $this->ajaxResponse(array(), 'error', '子数据不存在');
         }
         $master_table = SchemaBuilder::getByTableName($master_table_name);
         $mapping_table = SchemaBuilder::getByTableName($mapping_table_name);
         if (!$master_table || !$master_table->exists || !$mapping_table) {
             //todo return data missing
-            $this->ajaxResponse(array(), 'error', '子表不存在');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
+//            $this->ajaxResponse(array(), 'error', '子表不存在');
         }
         $master_property = json_decode($master_table->property, true);
         $model_property = json_decode($mapping_table->property, true);
@@ -193,7 +203,8 @@ class DataLinkController extends CmsBaeController
         }
         $html = sprintf($this->template_start, URL::action('CmsController@edit', array('table' => $mapping_table->id, 'cms' => $mapping_data_id)), $mapping_table->table_alias . '.' . $mapping_data_id)
             . $mapping_property . $this->template_end;
-        $this->ajaxResponse($html, 'success', '子数据不存在');
+        $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_SUCCESS, $html);
+//        $this->ajaxResponse($html, 'success', '子数据不存在');
 
     }
 
@@ -206,10 +217,11 @@ class DataLinkController extends CmsBaeController
                 DataLinkItem::destroy($item_id);
             }
 
-
-            $this->ajaxResponse('', 'success', '删除成功');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_SUCCESS);
+//            $this->ajaxResponse('', 'success', '删除成功');
         } catch (\Exception $e) {
-            $this->ajaxResponse('', 'success', '删除失败');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
+//            $this->ajaxResponse('', 'success', '删除失败');
         }
 
 

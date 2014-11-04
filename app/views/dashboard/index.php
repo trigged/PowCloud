@@ -29,7 +29,7 @@
 <!--left menu begin-->
 
 <div class="col-md-2 sidebar-nav">
-<?php if ($apps): ?>
+    <?php if ($apps): ?>
         <ul class="nav pow_sidebar">
             <?php foreach ($apps as $app): ?>
                 <li class=""><a href="#appItem-<?php echo $app->id; ?>"><i
@@ -60,9 +60,9 @@
                     <a class="clearfix btn btn-primary btn-xs" style="margin:10px 0;"
                        href="<?php echo URL::action('CmsController@index', array('app_id' => $app->id)) ?>">
 
-                            <h4>
-                                <?php echo $app->name; ?>
-                            </h4>
+                        <h4>
+                            <?php echo $app->name; ?>
+                        </h4>
 
                     </a>
 
@@ -191,8 +191,7 @@
 
 
                 //change html contnet
-                console.log(app_id);
-                console.log(user_id);
+
             });
             $('.user_info').click(function () {
                 $('#JS_Sub').attr('disabled', false);
@@ -203,8 +202,6 @@
                 $('#JS_Sub').text("去除权限");
                 $('#email_input').hide();
                 //change title and html content
-                console.log('user_info app_id: ', app_id);
-                console.log('user_info user_id:', user_id);
             });
 
         });

@@ -107,9 +107,7 @@
                         }
                     }
                 }).done(function () {
-                        console.log('done');
                     }).fail(function (result) {
-                        console.log('fail');
                         alert(result);
                     });
                 return false;
@@ -124,7 +122,6 @@
 
             function deleteItem(item) {
                 var delete_id = $(item).attr('data-value');
-                console.log("closed");
                 $.ajax({
                     type: "POST",
                     url: "<?php echo  URL::action('DataLinkController@deleteItem')  ?>",

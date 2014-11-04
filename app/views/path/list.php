@@ -62,7 +62,6 @@
             });
         }
         function add(e) {
-            console.log("add!");
             var zTree = $.fn.zTree.getZTreeObj("pathList"),
                 isParent = e.data.isParent,
                 nodes = zTree.getSelectedNodes(),

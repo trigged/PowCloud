@@ -3,192 +3,192 @@
 <div class="row">
 
 <div class="col-md-7">
-<div class="note note-info">
-    <h4 class="block">小技巧</h4>
+    <div class="note note-info">
+        <h4 class="block">小技巧</h4>
 
-    <p>
-        当表创建完成后如果绑定了访问路径并且开启了restful 的Create 权限，你可以通过API来添加数据或者通过配置表单，然后在数据管理中通过界面添加
-        如没有绑定路径则可以通过配置表单然后通过内容管理添加数据
+        <p>
+            当表创建完成后如果绑定了访问路径并且开启了restful 的Create 权限，你可以通过API来添加数据或者通过配置表单，然后在数据管理中通过界面添加
+            如没有绑定路径则可以通过配置表单然后通过内容管理添加数据
 
-    </p>
+        </p>
 
-    <p>
-        <a href="http://doc.powapi.com/system_manage/table.html" target="_blank"> 相关文档地址</a>.
-    </p>
-</div>
-
-<?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
-<form id="schema_form" class="form-horizontal" method="post">
-    <h4>创建表结构</h4>
-    <hr/>
-    <div class="form-group">
-        <label for="table_name" class="control-label col-sm-3">表名*:</label>
-
-        <div class="controls col-sm-8">
-            <input name="table_name" class="form-control" type="text" placeholder="表名" id="table_name">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="table_alias" class="control-label col-sm-3">表别名*:</label>
-
-        <div class="controls col-sm-8">
-            <input name="table_alias" class="form-control" type="text" placeholder="表别名" id="table_alias">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="group_name" class="control-label col-sm-3">组名:</label>
-
-        <div class="controls col-sm-8">
-            <input name="group_name" class="form-control" type="text" placeholder="组名" id="group_name">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="path" class="control-label col-sm-3">API 地址绑定*:</label>
-
-        <div class="controls col-sm-8">
-            <?php echo Form::select('path_id', $pathTreeListOptions, '', array('id' => 'path_id')) ?>
-        </div>
-        <input type="hidden" id="path_name" name="path_name" value="">
+        <p>
+            <a href="http://doc.powapi.com/system_manage/table.html" target="_blank"> 相关文档地址</a>.
+        </p>
     </div>
 
-    <div class="form-group">
-        <label for="name" class="control-label col-sm-3">属性*:</label>
+    <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
+    <form id="schema_form" class="form-horizontal" method="post">
+        <h4>创建表结构</h4>
+        <hr/>
+        <div class="form-group">
+            <label for="table_name" class="control-label col-sm-3">表名*:</label>
 
-        <div class="controls col-sm-8">
-            <table class="table" style="width: 500px;">
-                <thead>
-                <tr>
-                    <th>字段名</th>
-                    <th>属性</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr data-index="0" id="row-0" class="propertyInput">
-                    <td>
-                        <input class="filedName filedNameLetter form-control" type="text"
-                               name="property[0][name]" value="id" disabled/>
-                    </td>
-                    <td>
-                        <input class="property form-control" type="text"
-                               name="property[0][attributes]" value="integer" disabled/>
-                    </td>
-                </tr>
-                <tr data-index="0" id="row-0" class="propertyInput">
-                    <td>
-                        <input class="filedName filedNameLetter form-control" type="text"
-                               name="property[0][name]" value="created_at" disabled/>
-                    </td>
-                    <td>
-                        <input class="property form-control" type="text"
-                               name="property[0][attributes]" value="dateTime" disabled/>
-                    </td>
-                </tr>
-                <tr data-index="0" id="row-0" class="propertyInput">
-                    <td>
-                        <input class="filedName filedNameLetter form-control" type="text"
-                               name="property[0][name]" value="updated_at" disabled/>
-                    </td>
-                    <td>
-                        <input class="property form-control" type="text"
-                               name="property[0][attributes]" value="dateTime" disabled/>
-                    </td>
-                </tr>
+            <div class="controls col-sm-8">
+                <input name="table_name" class="form-control" type="text" placeholder="表名" id="table_name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="table_alias" class="control-label col-sm-3">表别名*:</label>
 
-                <?php for ($tableIndex = 1; $tableIndex <= 1; $tableIndex++): ?>
+            <div class="controls col-sm-8">
+                <input name="table_alias" class="form-control" type="text" placeholder="表别名" id="table_alias">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="group_name" class="control-label col-sm-3">组名:</label>
 
-                    <tr data-index="<?php echo $tableIndex ?>" id="row-<?php echo $tableIndex ?>"
-                        class="propertyInput">
+            <div class="controls col-sm-8">
+                <input name="group_name" class="form-control" type="text" placeholder="组名" id="group_name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="path" class="control-label col-sm-3">API 地址绑定*:</label>
 
+            <div class="controls col-sm-8">
+                <?php echo Form::select('path_id', $pathTreeListOptions, '', array('id' => 'path_id')) ?>
+            </div>
+            <input type="hidden" id="path_name" name="path_name" value="">
+        </div>
+
+        <div class="form-group">
+            <label for="name" class="control-label col-sm-3">属性*:</label>
+
+            <div class="controls col-sm-8">
+                <table class="table" style="width: 500px;">
+                    <thead>
+                    <tr>
+                        <th>字段名</th>
+                        <th>属性</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-index="0" id="row-0" class="propertyInput">
                         <td>
                             <input class="filedName filedNameLetter form-control" type="text"
-                                   name="property[<?php echo $tableIndex; ?>][name]" value=""/>
+                                   name="property[0][name]" value="id" disabled/>
                         </td>
                         <td>
-                            <input class="typeahead property form-control" type="text"
-                                   name="property[<?php echo $tableIndex; ?>][attributes]" value=""
-                                   data-provide="typeahead"  data-source='["string","integer","double",
-                                       "text","datetime","decimal"]'
-                                />
-                        </td>
-                        <td>
-                            <i data-row="row-<?php echo $tableIndex; ?>" class="glyphicon glyphicon-remove"></i>
+                            <input class="property form-control" type="text"
+                                   name="property[0][attributes]" value="integer" disabled/>
                         </td>
                     </tr>
-                <?php endfor; ?>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="3">
-                        <button class="btn btn-large btn-primary" onclick="addProperty()" type="button">添加字段
-                        </button>
-                    </td>
-                </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>
-    <div id="JRestCtrl">
-        <div class="form-group">
-            <label for="" class="control-label col-sm-3">API 访问:</label>
+                    <tr data-index="0" id="row-0" class="propertyInput">
+                        <td>
+                            <input class="filedName filedNameLetter form-control" type="text"
+                                   name="property[0][name]" value="created_at" disabled/>
+                        </td>
+                        <td>
+                            <input class="property form-control" type="text"
+                                   name="property[0][attributes]" value="dateTime" disabled/>
+                        </td>
+                    </tr>
+                    <tr data-index="0" id="row-0" class="propertyInput">
+                        <td>
+                            <input class="filedName filedNameLetter form-control" type="text"
+                                   name="property[0][name]" value="updated_at" disabled/>
+                        </td>
+                        <td>
+                            <input class="property form-control" type="text"
+                                   name="property[0][attributes]" value="dateTime" disabled/>
+                        </td>
+                    </tr>
 
-            <div class="controls col-sm-8">
-                <label class="radio inline pow_padding_left_20">
-                    <input class="" type="radio" name="restful" value="1"
-                           onclick="$('#JRestful').removeClass('hide');" id=""/> 开启
-                </label>
-                <label class="radio inline pow_padding_left_20">
-                    <input class="" type="radio" onclick="$('#JRestful').addClass('hide');" name="restful"
-                           checked="checked" value="0" id=""/> 关闭
-                </label>
+                    <?php for ($tableIndex = 1; $tableIndex <= 1; $tableIndex++): ?>
+
+                        <tr data-index="<?php echo $tableIndex ?>" id="row-<?php echo $tableIndex ?>"
+                            class="propertyInput">
+
+                            <td>
+                                <input class="filedName filedNameLetter form-control" type="text"
+                                       name="property[<?php echo $tableIndex; ?>][name]" value=""/>
+                            </td>
+                            <td>
+                                <input class="typeahead property form-control" type="text"
+                                       name="property[<?php echo $tableIndex; ?>][attributes]" value=""
+                                       data-provide="typeahead" data-source='["string","integer","double",
+                                       "text","datetime","decimal"]'
+                                    />
+                            </td>
+                            <td>
+                                <i data-row="row-<?php echo $tableIndex; ?>" class="glyphicon glyphicon-remove"></i>
+                            </td>
+                        </tr>
+                    <?php endfor; ?>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3">
+                            <button class="btn btn-large btn-primary" onclick="addProperty()" type="button">添加字段
+                            </button>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
-        <div id="JRestful" class=" hide form-group">
-            <label for="" class="control-label col-sm-3">可执行操作:</label>
+        <div id="JRestCtrl">
+            <div class="form-group">
+                <label for="" class="control-label col-sm-3">API 访问:</label>
 
-            <div class="controls col-sm-8">
-                <label class="checkbox inline">
-                    <input type="checkbox" name="index" id="" value="1"> 读取
-                </label>
-                <label class="checkbox inline">
-                    <input type="checkbox" name="update" id="" value="1"> 编辑
-                </label>
-                <label class="checkbox inline">
-                    <input type="checkbox" name="create" id="" value="1"> 创建
-                </label>
-                <label class="checkbox inline">
-                    <input name="" type="checkbox" name="delete" id="" value="1"> 删除
-                </label>
+                <div class="controls col-sm-8">
+                    <label class="radio inline pow_padding_left_20">
+                        <input class="" type="radio" name="restful" value="1"
+                               onclick="$('#JRestful').removeClass('hide');" id=""/> 开启
+                    </label>
+                    <label class="radio inline pow_padding_left_20">
+                        <input class="" type="radio" onclick="$('#JRestful').addClass('hide');" name="restful"
+                               checked="checked" value="0" id=""/> 关闭
+                    </label>
+                </div>
+            </div>
+            <div id="JRestful" class=" hide form-group">
+                <label for="" class="control-label col-sm-3">可执行操作:</label>
+
+                <div class="controls col-sm-8">
+                    <label class="checkbox inline">
+                        <input type="checkbox" name="index" id="" value="1"> 读取
+                    </label>
+                    <label class="checkbox inline">
+                        <input type="checkbox" name="update" id="" value="1"> 编辑
+                    </label>
+                    <label class="checkbox inline">
+                        <input type="checkbox" name="create" id="" value="1"> 创建
+                    </label>
+                    <label class="checkbox inline">
+                        <input name="" type="checkbox" name="delete" id="" value="1"> 删除
+                    </label>
+                </div>
             </div>
         </div>
-    </div>
-    <div style="margin-left:148px;">
-        <button class="btn btn-primary" id="JS_Sub" type="submit">创建表</button>
-        <a href="javascript:void (0)" class="btn  btn-warning" onclick="history.back();">取消</a>
-    </div>
+        <div style="margin-left:148px;">
+            <button class="btn btn-primary" id="JS_Sub" type="submit">创建表</button>
+            <a href="javascript:void (0)" class="btn  btn-warning" onclick="history.back();">取消</a>
+        </div>
 
-</form>
-<?php echo \Utils\FormBuilderHelper::staticEnd('schema_form',
-    array( //表单规则
-        'table_name'  => array('required' => true),
-        'table_alias' => array('required' => true),
-    ),
-    URL::action('SchemaBuilderController@store'),
-    'POST',
-    '',
-    '$.validator.addMethod("filedName", function(value, element) {
-        return !this.optional(element);
-    }, "请填写字段名");
+    </form>
+    <?php echo \Utils\FormBuilderHelper::staticEnd('schema_form',
+        array( //表单规则
+            'table_name'  => array('required' => true),
+            'table_alias' => array('required' => true),
+        ),
+        URL::action('SchemaBuilderController@store'),
+        'POST',
+        '',
+        '$.validator.addMethod("filedName", function(value, element) {
+            return !this.optional(element);
+        }, "请填写字段名");
 
-    $.validator.addMethod("filedNameLetter", function(value, element) {
-          return parseInt(value.toLowerCase().charCodeAt())>=97 && parseInt(value.toLowerCase().charCodeAt())<=122;
-    },"字段名只能是字母");
+        $.validator.addMethod("filedNameLetter", function(value, element) {
+              return parseInt(value.toLowerCase().charCodeAt())>=97 && parseInt(value.toLowerCase().charCodeAt())<=122;
+        },"字段名只能是字母");
 
-    $.validator.addMethod("property", function(value, element) {
-        return !this.optional(element);
-    }, "请填写属性");'
-);//注册表单JS
-?>
+        $.validator.addMethod("property", function(value, element) {
+            return !this.optional(element);
+        }, "请填写属性");'
+    );//注册表单JS
+    ?>
 
 </div>
 
@@ -262,7 +262,6 @@
             $('#path_name').val($(this).find("option:selected").text());
         })
         $("body").on("click", ".glyphicon-remove", function () {
-            console.log("you click me");
             if ($('tbody tr').length == 4) {
                 alert('至少 添加一个字段 ');
                 return false;

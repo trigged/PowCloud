@@ -37,12 +37,18 @@ class SchemaBuilderController extends SystemController
             Input::all());
 
         $table = new SchemaBuilder($input);
+
         $table->scene = 'create';
         //TODO add event for after validator
         if ((int)$table->path_id !== -1) {
-            if (SchemaBuilder::where('path_id', '=', $table->path_id)->get()->count() > 0)
-                $this->ajaxResponse(array('path_id' => '路径已被绑定,请重新选择路径'), 'fail', '创建失败');
+            if ($value = SchemaBuilder::where('path_id', '=', $table->path_id)->orWhere('table_name', $table->table_name)->count()) {
+                $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
+//                $this->ajaxResponse(array('path_id' => '路径已被绑定,请重新选择路径'), 'fail', '创建失败');
+            }
+        } elseif (SchemaBuilder::whereExists('table_name', $table->table_name)->count()) {
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
         }
+
         if ($table->save()) {
             Log::info(Auth::user()->name . '更新表' . $table->table_name);
             //set group option
@@ -53,9 +59,12 @@ class SchemaBuilderController extends SystemController
             $g_option->edit = (int)GroupOperation::HAS_RIGHT;
             $g_option->models_id = (int)$table->id;
             $g_option->save();
-            $this->ajaxResponse(array(), 'success', '添加成功', URL::action('SchemaBuilderController@index'));
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', URL::action('SchemaBuilderController@index'));
+//            $this->ajaxResponse(array(), 'success', '添加成功', URL::action('SchemaBuilderController@index'));
+
         }
-        $this->ajaxResponse($table->errors, 'fail', json_encode($table->errors), '创建失败');
+
+        $this->ajaxResponse(BaseController::$FAILED, json_encode($table->errors));;
     }
 
     /**
@@ -76,8 +85,10 @@ class SchemaBuilderController extends SystemController
                 Input::all());
 
         if (Input::get('path_id') != $schema->path_id && Input::get('path_id') != -1) {
-            if (SchemaBuilder::where('path_id', '=', Input::get('path_id'))->get()->count() > 0)
-                $this->ajaxResponse(array('path_id' => '路径已被绑定,请重新选择路径'), 'fail', '创建失败');
+            if (SchemaBuilder::where('path_id', '=', Input::get('path_id'))->get()->count() > 0) {
+                $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
+//                $this->ajaxResponse(array('path_id' => '路径已被绑定,请重新选择路径'), 'fail', '创建失败');
+            }
         }
 
         //rename filed
@@ -123,10 +134,11 @@ class SchemaBuilderController extends SystemController
         });
 
         if ($schema->update(array_except($input, array('property')))) {
-            $this->ajaxResponse(array(), 'success', '更新成功');
+            $this->ajaxResponse(BaseController::$_SUCCESS_TEMPLATE);
+//            $this->ajaxResponse(array(), 'success', '更新成功');
         }
-
-        $this->ajaxResponse(array(), 'fail', '更新失败');
+        $this->ajaxResponse(BaseController::$_FAILED_TEMPLATE);
+//        $this->ajaxResponse(array(), 'fail', '更新失败');
     }
 
     /**
@@ -140,10 +152,12 @@ class SchemaBuilderController extends SystemController
     {
 
         if (SchemaBuilder::find($id)->delete()) {
-            $this->ajaxResponse(array(), 'success');
+            $this->ajaxResponse(BaseController::$_SUCCESS_TEMPLATE);
+//            $this->ajaxResponse(array(), 'success');
         }
         Log::info(Auth::user()->name . '删除表' . $id);
-        $this->ajaxResponse(array(), 'fail', '删除失败');
+        $this->ajaxResponse(BaseController::$_FAILED_TEMPLATE);
+//        $this->ajaxResponse(array(), 'fail', '删除失败');
 
     }
 
@@ -151,9 +165,11 @@ class SchemaBuilderController extends SystemController
     {
 
         if (SchemaBuilder::find(Input::get('id'))->restore()) {
-            $this->ajaxResponse(array(), 'success');
+            $this->ajaxResponse(BaseController::$_SUCCESS_TEMPLATE);
+//            $this->ajaxResponse(array(), 'success');
         }
-        $this->ajaxResponse(array(), 'fail', '恢复失败');
+        $this->ajaxResponse(BaseController::$_FAILED_TEMPLATE);
+//        $this->ajaxResponse(array(), 'fail', '恢复失败');
     }
 
     public function edit($id)
@@ -224,7 +240,8 @@ class SchemaBuilderController extends SystemController
         if ($field && $property) {
             $schema = json_decode($table->property, true);
             if (isset($schema[$field])) {
-                $this->ajaxResponse(array('field' => '字段已经存在'), 'fail', '字段已经存在', '');
+                $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
+//                $this->ajaxResponse(array('field' => '字段已经存在'), 'fail', '字段已经存在', '');
             }
             $schema [$field] = $table->analyzeFieldValue($property);
             $r = DB::transaction(function () use ($id, $schema, $table, $field) {
@@ -236,11 +253,12 @@ class SchemaBuilderController extends SystemController
                 } else
                     return '添加出错,请联系管理员！';
             });
-            if ($r === true)
-                $this->ajaxResponse(array(), 'success', '添加成功',
-                    URL::action('SchemaBuilderController@tableSchema', array('table' => $id)));
-            $this->ajaxResponse(array('field' => $r), 'fail', '添加失败',
-                URL::action('SchemaBuilderController@tableSchema', array('table' => $id)));
+            if ($r === true) {
+                $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', URL::action('SchemaBuilderController@tableSchema', array('table' => $id)));
+//                $this->ajaxResponse(array(), 'success', '添加成功',URL::action('SchemaBuilderController@tableSchema', array('table' => $id)));
+            }
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, '', URL::action('SchemaBuilderController@tableSchema', array('table' => $id)));
+//            $this->ajaxResponse(array('field' => $r), 'fail', '添加失败', URL::action('SchemaBuilderController@tableSchema', array('table' => $id)));
         }
 
         return $this->render('schema.addField', array(
@@ -254,13 +272,18 @@ class SchemaBuilderController extends SystemController
     public function destroyField($id, $field)
     {
         $table = SchemaBuilder::find($id);
-        if (!$table)
-            $this->ajaxResponse(array(), 'fail', '表名不存在');
+        if (!$table) {
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
+//            $this->ajaxResponse(array(), 'fail', '表名不存在');
+        }
         $schema = json_decode($table->property, true);
-        if (!isset($schema[$field]))
-            $this->ajaxResponse(array(), 'fail', '要删除的字段不存在此表中');
+        if (!isset($schema[$field])) {
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
+//            $this->ajaxResponse(array(), 'fail', '要删除的字段不存在此表中');
+        }
         if (in_array($field, SchemaBuilder::$keyField)) {
-            $this->ajaxResponse(array(), 'fail', '此字段不可删除,如要删除请联系管理员');
+            $this->ajaxResponse(BaseController::$FAILED, '此字段不可删除,如要删除请联系管理员');
+//            $this->ajaxResponse(array(), 'fail', '此字段不可删除,如要删除请联系管理员');
         }
         unset($schema[$field]);
         $r = DB::transaction(function () use ($id, $schema, $table, $field) {
@@ -271,9 +294,12 @@ class SchemaBuilderController extends SystemController
             DB::table('forms')->whereRaw('field=? AND models_id=?', array($field, $id))->delete();
             return true;
         });
-        if ($r === true)
-            $this->ajaxResponse(array(), 'success', '删除成功', URL::action('SchemaBuilderController@tableSchema', array('table' => $id)));
-        $this->ajaxResponse(array('field' => $r), 'fail', '删除失败', URL::action('SchemaBuilderController@tableSchema', array('table' => $id)));
+        if ($r === true) {
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', URL::action('SchemaBuilderController@tableSchema', array('table' => $id)));
+//            $this->ajaxResponse(array(), 'success', '删除成功', URL::action('SchemaBuilderController@tableSchema', array('table' => $id)));
+        }
+        $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, '', URL::action('SchemaBuilderController@tableSchema', array('table' => $id)));
+//        $this->ajaxResponse(array('field' => $r), 'fail', '删除失败', URL::action('SchemaBuilderController@tableSchema', array('table' => $id)));
     }
 
     public function docs($table)

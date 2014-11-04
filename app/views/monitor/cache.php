@@ -27,8 +27,4 @@
             </tbody>
         </table>
     </div>
-    <script>
-        console.log('test');
-        console.log("<?php echo 'miss :'.$miss;?>");
-    </script>
 <?php echo $footer; ?>
