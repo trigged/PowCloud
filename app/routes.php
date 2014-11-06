@@ -26,6 +26,9 @@ Route::get('nginx', function () {
     return Route::dispatch($request)->getContent();
 });
 
+
+
+
 Route::resource('dashboard', 'DashBoardController');
 Route::resource('app', 'AppController');
 Route::resource('team', 'UserController');

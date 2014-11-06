@@ -52,8 +52,9 @@ class BaseController extends Controller
             $this->app_id = $app_id;
         }
         if (!$this->userHasAppRight()) {
-            Auth::logout();
-            exit(1);
+            \Utils\CMSLog::debug('userHasAppRight false exit');
+//            Auth::logout();
+//            exit(1);
         }
 
         \Utils\AppChose::updateConf();
@@ -92,9 +93,9 @@ class BaseController extends Controller
     }
 
     /**
-     * @param string $status  请求是否处理成功
+     * @param $status 请求是否处理成功
      * @param string $message 需要返回的信息
-     * @param array $data  返回的ajax的json数据
+     * @param string $data 返回的ajax的数据
      * @param string $redirect 是否需要跳转，如是要跳转需设置这个值
      */
     public static function ajaxResponse($status, $message = '', $data = '', $redirect = '')
@@ -129,6 +130,39 @@ class BaseController extends Controller
         App::shutdown();
 
         exit(1);
+    }
+
+    public function location($code = 1, $message = '', $url = '' )
+    {
+        if(empty($url)){
+            $url = URL::action('DashBoardController@index');
+        }
+        return self::render('layout.location', array('code' => $code, 'message' => $message, 'url' => $url));
+    }
+
+    protected function render($view, $data = array(), $header = array())
+    {
+        $header['navs'] = $this->navs;
+        $header['leftMenu'] = $this->getSide($this->nav);
+        $header['menu'] = $this->menu;
+        $header['nav'] = $this->nav;
+        return View::make($view, $data)
+            ->nest('header', 'layout.header', $header)
+            ->nest('footer', 'layout.footer');
+    }
+
+    public function getSide($where)
+    {
+
+        if (isset($this->navs[$where]) && isset($this->side[$where]))
+            return $this->side[$where];
+        return array();
+    }
+
+    public function setSide($side = array())
+    {
+
+        $this->side = array_merge_recursive(Config::get('menu.side'), $side);
     }
 
     public function dispatch()
@@ -209,30 +243,5 @@ class BaseController extends Controller
         if (!is_null($this->layout)) {
             $this->layout = View::make($this->layout);
         }
-    }
-
-    protected function render($view, $data = array(), $header = array())
-    {
-        $header['navs'] = $this->navs;
-        $header['leftMenu'] = $this->getSide($this->nav);
-        $header['menu'] = $this->menu;
-        $header['nav'] = $this->nav;
-        return View::make($view, $data)
-            ->nest('header', 'layout.header', $header)
-            ->nest('footer', 'layout.footer');
-    }
-
-    public function getSide($where)
-    {
-
-        if (isset($this->navs[$where]) && isset($this->side[$where]))
-            return $this->side[$where];
-        return array();
-    }
-
-    public function setSide($side = array())
-    {
-
-        $this->side = array_merge_recursive(Config::get('menu.side'), $side);
     }
 }

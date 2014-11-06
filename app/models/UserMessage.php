@@ -103,15 +103,42 @@ class UserMessage extends Eloquent
 
     static function sendMail($send_to, $msg_id)
     {
-        $token = \Utils\UseHelper::makeToken(time(), \Utils\UseHelper::$default_key);
-        $token .= $msg_id;
-        //todo user may send many times so you need check first
-        $url = URL::action('UserMessageController@receive') . '?sed=' . urlencode($token);
-        \Utils\CMSLog::debug(sprintf('we send mail to %s,and build token was :%s,encode token :%s', $send_to, $token, urlencode($token)));
-        return Mail::send('emails.info', array('url' => $url), function ($message) use ($send_to) {
+        return Mail::send('emails.info', array('url' => self::buildSedUrl('UserMessageController@receive', $send_to, $msg_id, true)), function ($message) use ($send_to) {
             $message->to($send_to)->subject('Pow Server 邀请!');
         });
 
+    }
+
+    static function buildSedUrl($url, $send_to, $msg_id, $action = false)
+    {
+        $token = \Utils\UseHelper::makeToken(time(), \Utils\UseHelper::$default_key);
+        $token .= $msg_id;
+        if ($action) {
+            $url = URL::action('UserMessageController@receive');
+        }
+        $sed_url = $url . '?sed=' . urlencode($token);
+        \Utils\CMSLog::debug(sprintf('we send mail to %s,and build token was :%s,encode token :%s', $send_to, $token, urlencode($token)));
+        return $sed_url;
+    }
+
+
+    static function checkSed($sed,$delete_msg_b = false){
+        $sed = urldecode($sed);
+        $message_id = substr($sed, -1);
+        $timespan = \Utils\UseHelper::checkToken(substr($sed, 0, -1), \Utils\UseHelper::$default_key);
+        $current = time();
+        if ($current - $timespan > 60 * 15) {
+            return '连接已经过了安全期,已经失效,请重新提交请求 :(';
+        }
+
+        $user_message = UserMessage::find($message_id);
+        if (!$user_message->exists) {
+            return '连接已经被使用过了,请重新提交请求 :(';
+        }
+        if($delete_msg_b){
+            $user_message->delete();
+        }
+        return $user_message;
     }
 
     public static function checkMessageExists($from_id, $to_id, $action)

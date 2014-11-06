@@ -26,6 +26,24 @@ class User extends Eloquent implements UserInterface, RemindableInterface
 
     protected $connection = 'base';
 
+    public static function checkExistsByMail($mail)
+    {
+        $user = User::where("email", $mail)->first();
+        if ($user && $user->exists) {
+            return $user;
+        }
+        return false;
+    }
+
+    public static function checkExistsByID($id)
+    {
+        $user = User::find($id);
+        if ($user && $user->exists) {
+            return $user;
+        }
+        return false;
+    }
+
     /**
      * Get the unique identifier for the user.
      *
@@ -70,23 +88,5 @@ class User extends Eloquent implements UserInterface, RemindableInterface
     public function getDisplayModifyTime()
     {
         return \Utils\Time::qTime($this->updated_at);
-    }
-
-    public static function checkExistsByMail($mail)
-    {
-        $user = User::where("email", $mail)->first();
-        if ($user->exists) {
-            return $user;
-        }
-        return false;
-    }
-
-    public static function checkExistsByID($id)
-    {
-        $user = User::find($id);
-        if ($user->exists) {
-            return $user;
-        }
-        return false;
     }
 }
