@@ -32,7 +32,7 @@
     <?php if ($apps): ?>
         <ul class="nav pow_sidebar">
             <?php foreach ($apps as $app): ?>
-                <li class=""><a href="#appItem-<?php echo $app->id; ?>"><i
+                <li class=""><a href="<?php echo URL::action('CmsController@index', array('app_id' => $app->id)) ?>"><i
                             class="glyphicon glyphicon-chevron-right"></i> <?php echo $app->name; ?></a></li>
             <?php endforeach; ?>
         </ul>
