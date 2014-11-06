@@ -51,6 +51,6 @@
         </div>
     </div>
 </div>
-<div class="container-fluid">
+<div style="overflow:hidden;">
     <div class="">
 

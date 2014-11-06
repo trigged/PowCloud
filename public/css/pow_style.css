@@ -336,7 +336,18 @@ input[type="file"]{
 .pow_label{
     padding:.2em .2em .3em;
 }
-
+.pow_item_title{
+    background: #3071a9;
+    display: block;
+    color:#fff;
+    padding:0 10px;
+}
+.pow_item_title:hover{
+    text-decoration: none;
+    font-style: normal;
+    color:#fff;
+    background:#285e8e;
+}
 
 
 
