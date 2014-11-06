@@ -44,6 +44,8 @@ Route::post('updateApp', 'DashBoardController@updateApp');
 //user message
 Route::any('user_message/invite', 'UserMessageController@invite');
 Route::any('user_message/receive', 'UserMessageController@receive');
+Route::any('user_message/forget', 'UserMessageController@forget');
+Route::any('user_message/resetPassword', 'UserMessageController@resetPassword');
 
 
 //login

@@ -5,7 +5,6 @@
         echo 'warning';
     } ?>">
         <h4 class="block">提示</h4>
-
         <p>
             <?php echo $message ?>
         </p>

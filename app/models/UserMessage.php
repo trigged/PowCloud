@@ -13,6 +13,8 @@ class UserMessage extends Eloquent
 
     const ACTION_REMOVE = 1002;
 
+    const ACTION_FORGET_PASSWORD = 1003;
+
     const CAN_READE = 1010;
 
     const CANT_READE = 1011;
@@ -51,10 +53,10 @@ class UserMessage extends Eloquent
 
     public static function sendMsgByID($from_id, $app_id, $to_id, $mail_address, $action)
     {
-        return self::saveMsg($from_id, $app_id, $to_id, $mail_address, $action);
+        return self::buildMsg($from_id, $app_id, $to_id, $mail_address, $action);
     }
 
-    static function saveMsg($from_id, $app_id, $to_id, $mail_address, $action)
+    static function buildMsg($from_id, $app_id, $to_id, $mail_address, $action)
     {
         $message = new UserMessage();
         $message->user_from = $from_id;
@@ -80,7 +82,7 @@ class UserMessage extends Eloquent
             //todo send invite mail
             return '江湖上找不到此人!!!';
         }
-        self::saveMsg($from_id, $app_id, $invited_user->id, $invited_user->email, $action);
+        self::buildMsg($from_id, $app_id, $invited_user->id, $invited_user->email, $action);
         return '处理成功';
     }
 
@@ -89,7 +91,8 @@ class UserMessage extends Eloquent
         $invited_user = User::checkExistsByMail($mail_address);
         if ($invited_user === false) {
             //todo send invite mail
-            self::sendMail($mail_address, self::saveMsg($from_id, $app_id, -1, $mail_address, $action));
+            $msg_id = self::buildMsg($from_id, $app_id, -1, $mail_address, $action);
+            self::sendMail(self::buildSedUrl(URL::action('UserMessageController@receive'), $mail_address, $msg_id), $msg_id);
             return '对方还不是我们的用户呀,请少侠放心,我们已经通过龙门镖局快马加鞭的把邮件发送到对方信箱了!';
         } else {
             $atu = new ATURelationModel();
@@ -98,31 +101,27 @@ class UserMessage extends Eloquent
             $atu->save();
             return "添加成功";
         }
-//        return self::saveMsg($from_id, $app_id, $invited_user->id, $mail_address, $action);
     }
 
-    static function sendMail($send_to, $msg_id)
+    static function sendMail($url, $send_to)
     {
-        return Mail::send('emails.info', array('url' => self::buildSedUrl('UserMessageController@receive', $send_to, $msg_id, true)), function ($message) use ($send_to) {
-            $message->to($send_to)->subject('Pow Server 邀请!');
+        return Mail::send('emails.info', array('url' => $url), function ($message) use ($send_to) {
+            $message->to($send_to)->subject('Pow Cloud 信使!');
         });
 
     }
 
-    static function buildSedUrl($url, $send_to, $msg_id, $action = false)
+    static function buildSedUrl($url, $send_to, $msg_id)
     {
         $token = \Utils\UseHelper::makeToken(time(), \Utils\UseHelper::$default_key);
         $token .= $msg_id;
-        if ($action) {
-            $url = URL::action('UserMessageController@receive');
-        }
         $sed_url = $url . '?sed=' . urlencode($token);
         \Utils\CMSLog::debug(sprintf('we send mail to %s,and build token was :%s,encode token :%s', $send_to, $token, urlencode($token)));
         return $sed_url;
     }
 
-
-    static function checkSed($sed,$delete_msg_b = false){
+    static function checkSed($sed, $delete_msg_b = false)
+    {
         $sed = urldecode($sed);
         $message_id = substr($sed, -1);
         $timespan = \Utils\UseHelper::checkToken(substr($sed, 0, -1), \Utils\UseHelper::$default_key);
@@ -135,7 +134,7 @@ class UserMessage extends Eloquent
         if (!$user_message->exists) {
             return '连接已经被使用过了,请重新提交请求 :(';
         }
-        if($delete_msg_b){
+        if ($delete_msg_b) {
             $user_message->delete();
         }
         return $user_message;

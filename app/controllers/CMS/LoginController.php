@@ -20,19 +20,16 @@ class LoginController extends Controller
         $email = Input::get('email');
         if (empty($username)) {
             $this->ajaxResponse(BaseController::$FAILED, '用户名不可以写空');
-//            $this->ajaxResponse(array(), 'fail', '用户名不可以写空');
         }
         //check username
         $name_count = User::where('name', $username)->count();
         if ($name_count > 0) {
             $this->ajaxResponse(BaseController::$FAILED, '用户名已经被注册过了-, -!');
-//            $this->ajaxResponse(array(), 'fail', '用户名已经被注册过了-, -!');
         }
 //        check email exists
         $email_count = User::where('email', $email)->count();
         if ($email_count > 0) {
             $this->ajaxResponse(BaseController::$FAILED, '此邮箱已经注册过了，大侠还是换一个吧或者直接登录-, -!');
-//            $this->ajaxResponse(array(), 'fail', '此邮箱已经注册过了，大侠还是换一个吧或者直接登录-, -!');
         }
         $tel = Input::get('tel');
         $user = new User();
@@ -50,7 +47,6 @@ class LoginController extends Controller
             $message = UserMessage::find($message_id);
             UserMessage::processUserMessage($message, $user->id);
         }
-//        $this->ajaxResponse(array(), 'success', '注册成功', 'DashBoardController@index');
         header('Location:' . URL::action('DashBoardController@index'));
     }
 
@@ -73,14 +69,14 @@ class LoginController extends Controller
 
     public function login()
     {
-        return View::make('cms.login');
+        return View::make('user.login');
     }
 
     public function register()
     {
         $msg_id = Input::get('msg_id', -1);
         $email = Input::get('email');
-        return View::make('cms.register', array('msg_id' => $msg_id, 'email' => $email))
+        return View::make('user.register', array('msg_id' => $msg_id, 'email' => $email))
             ->nest('header', 'dashboard.header')
             ->nest('footer', 'dashboard.footer');
     }
@@ -93,7 +89,6 @@ class LoginController extends Controller
         $user = User::where('name', $username)->where('pwd', $pwd)->get()->first();
         if (!$user) {
             $this->ajaxResponse(BaseController::$FAILED, '江湖榜找不到大侠~');
-//            $this->ajaxResponse(array(), 'success', '江湖榜找不到大侠~');
         } else {
             $user->last_time = $user->updated_at;
             $area = $this->getLoginArea();
@@ -106,8 +101,6 @@ class LoginController extends Controller
             Auth::login($user);
         }
         $this->ajaxResponse(BaseController::$SUCCESS, '', '', URL::action('DashBoardController@index'));
-//        $this->ajaxResponse(array(), 'success', '', URL::action('DashBoardController@index'));
-//        return Redirect::action('DashBoardController@index');
     }
 
     public function getLoginArea()
@@ -144,14 +137,13 @@ class LoginController extends Controller
             exit;
         }
 
-        return View::make('cms.login');
+        return View::make('user.login');
     }
 
     public function logout()
     {
         Auth::logout();
         Session::clear();
-//        PHPCas::logout();
         return Redirect::to('/dashboard');
     }
 }

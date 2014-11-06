@@ -45,9 +45,7 @@ class UserMessageController extends BaseController
         if (gettype($user_message) == 'object') {
             header('Location:' . URL::action('LoginController@register', array('msg_id' => $user_message->id, 'email' => $user_message->mail_address)));
         }
-        return $this->location(-1,$user_message);
-//        header('Location:' . URL::action('LoginController@register', array('msg_id' => $user_message->id, 'email' => $user_message->mail_address)));
-//        $this->ajaxResponse(BaseController::$FAILED, $user_message, '', URL::action('DashBoardController@index'));
+        return $this->location(-1, $user_message);
     }
 
     public function forget()
@@ -58,29 +56,21 @@ class UserMessageController extends BaseController
         if (!$user) {
             $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
         }
-
-
+        $msg_id = UserMessage::buildMsg($user->id, -1, -1, $email, UserMessage::ACTION_FORGET_PASSWORD);
+        $url = UserMessage::buildSedUrl(URL::action('UserMessageController@resetPassword'), $email, $msg_id);
+        UserMessage::sendMail($url, $email);
+        $this->ajaxResponse(BaseController::$SUCCESS, '邮件发送成功,稍后请检查邮箱,若长时间没有收到,请查看垃圾箱!');
     }
 
     public function resetPassword()
     {
         $sed = Input::get('sed');
-        if (empty($sed)) {
-            return 'error';
+        if ($sed) {
+            $user_message = UserMessage::checkSed($sed, true);
+            if ($user_message == UserMessage::ACTION_FORGET_PASSWORD) {
+
+            }
         }
-
-
-        $type = Input::get('type');
-        //reset
-        if ($type == 1) {
-
-        } else {
-            //forget
-
-
-        }
-
-
     }
 
     public function index()
