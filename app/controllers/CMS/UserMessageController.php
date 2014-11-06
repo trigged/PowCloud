@@ -48,6 +48,10 @@ class UserMessageController extends BaseController
         return $this->location(-1, $user_message);
     }
 
+    public function viewForget(){
+        return $this->render('user.forget');
+    }
+
     public function forget()
     {
         $email = Input::get('email');
