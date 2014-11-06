@@ -53,11 +53,11 @@
         </div>
     </div>
     <?php if ($apps):foreach ($apps as $app): ?>
-        <section id="appItem-<?php echo $app->id; ?>" class="pow_item">
+        <section id="appItem-<?php echo $app->id; ?>">
             <!--app item begin-->
             <div class="item clearfix">
                 <div class="col-md-6">
-                    <a class="clearfix btn btn-primary btn-xs" style="margin:10px 0;"
+                    <a class="clearfix pow_item_title" style="margin:10px 0;"
                        href="<?php echo URL::action('CmsController@index', array('app_id' => $app->id)) ?>">
 
                         <h4>
@@ -84,6 +84,12 @@
                             </blockquote>
                         <?php endif; ?>
                     </div>
+
+                    <?php if ($app->Author === Auth::user()->name): ?>
+                        <a href="<?php echo URL::action('DashBoardController@editApp', array('app_id' => $app->id)) ?>"
+                           class="btn btn-primary btn-x" type="button">修改应用</a>
+                    <?php endif; ?>
+                    <div class="mt20"></div>
                 </div>
 
                 <div class="col-md-6">
@@ -125,16 +131,17 @@
                     </div>
                 </div>
             </div>
-            <?php if ($app->Author === Auth::user()->name): ?>
-                <div class="row" style="margin-bottom: 10px;">
-                    <div class="span-12">
-                        <div class="pull-right">
-                            <a href="<?php echo URL::action('DashBoardController@editApp', array('app_id' => $app->id)) ?>"
-                               class="btn btn-sm" type="button">修改应用</a>
-                        </div>
-                    </div>
-                </div>
-            <?php endif; ?>
+            <div class="mt20"></div>
+<!--            --><?php //if ($app->Author === Auth::user()->name): ?>
+<!--                <div class="row" style="margin-bottom: 10px;">-->
+<!--                    <div class="span-12">-->
+<!--                        <div class="pull-right">-->
+<!--                            <a href="--><?php //echo URL::action('DashBoardController@editApp', array('app_id' => $app->id)) ?><!--"-->
+<!--                               class="btn btn-sm" type="button">修改应用</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            --><?php //endif; ?>
 
         </section>
     <?php endforeach;endif; ?>

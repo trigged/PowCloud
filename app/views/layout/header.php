@@ -57,10 +57,10 @@
     </div>
 </div>
 
-<div class="container-fluid">
+<div style="overflow:hidden;">
     <div class="">
         <?php if ($leftMenu): ?>
-            <div class="col-md-2">
+            <div class="col-md-2" style="padding-left:0px;">
                 <div class="sidebar-nav">
                     <ul class="nav nav-list">
                         <?php foreach ($leftMenu as $group => $other): ?>

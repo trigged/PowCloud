@@ -734,6 +734,18 @@ ul, ol, li {
 /* ================================== END =================================== */
 
 /*登录和注册*/
+.register_login_bg .form_bg input[type="text"]{
+    border:2px solid #5d5e6c;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.register_login_bg .form_bg input[type="password"]{
+    border:2px solid #5d5e6c;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
 .register_login_bg {
     background: url(../images/register_login_bg.jpg) no-repeat;
     overflow: hidden;
@@ -756,7 +768,7 @@ ul, ol, li {
 
 /*注册表格的文字label*/
 .reigster_bg form {
-    margin: 123px 0 0 0;
+    margin: 120px 0 0 0;
 }
 
 .reigster_bg .item {
@@ -778,7 +790,6 @@ ul, ol, li {
     margin: 0 0 0 24px;
     width: 290px;
     background: none;
-    border: none;
     color: #fff;
     font-size: 18px;
     vertical-align: middle;
@@ -788,7 +799,6 @@ ul, ol, li {
     margin: 0 0 0 24px;
     width: 290px;
     background: none;
-    border: none;
     color: #fff;
     font-size: 18px;
     vertical-align: middle;
@@ -814,30 +824,53 @@ ul, ol, li {
     margin: 30px auto 0;
     overflow: hidden;
 }
-
+.bg_login .item{
+    position: relative;
+}
+.bg_login .item .icon_user{
+    display: block;
+    width:20px;
+    height:21px;
+    position: absolute;
+    left:65px;
+    top: 13px;
+    background: url("../images/icon_user.png");
+}
+.bg_login .item .icon_password{
+    display: block;
+    width:20px;
+    height:21px;
+    position: absolute;
+    left:65px;
+    top: 13px;
+    background: url("../images/icon_password.png");
+}
 .bg_login form {
     margin: 129px 0 0 0;
 }
 
 .bg_login .item input[type="text"] {
-    padding:13px 10px;
-    margin: 0 0 0 96px;
+    padding:13px 30px;
+    margin: 0 auto;
     width: 270px;
     background: none;
-    border: none;
+    border: 2px solid #5d5e6c;
     color: #fff;
     font-size: 18px;
     vertical-align: middle;
+    display: block;
 }
 .bg_login .item input[type="password"] {
-    padding:13px 10px;
-    margin: 0 0 0 96px;
+    padding:13px 30px;
+    margin: 0 auto;
     width: 270px;
     background: none;
-    border: none;
+    border:2px solid #5d5e6c;
     color: #fff;
     font-size: 18px;
     vertical-align: middle;
+    display: block;
+
 }
 
 
