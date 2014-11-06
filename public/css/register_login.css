@@ -872,9 +872,6 @@ ul, ol, li {
     display: block;
 
 }
-
-
-
 .bg_login .item {
     margin: 0 0 9px 0;
 }
@@ -886,7 +883,6 @@ ul, ol, li {
     display: block;
     text-decoration: none;
 }
-
 .bg_login input[type="submit"] {
     color: #fff;
     font-size: 24px;
