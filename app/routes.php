@@ -27,8 +27,6 @@ Route::get('nginx', function () {
 });
 
 
-
-
 Route::resource('dashboard', 'DashBoardController');
 Route::resource('app', 'AppController');
 Route::resource('team', 'UserController');
@@ -44,8 +42,10 @@ Route::post('updateApp', 'DashBoardController@updateApp');
 //user message
 Route::any('user_message/invite', 'UserMessageController@invite');
 Route::any('user_message/receive', 'UserMessageController@receive');
-Route::any('user_message/forget', 'UserMessageController@forget');
-Route::any('user_message/resetPassword', 'UserMessageController@resetPassword');
+Route::get('user_message/forget', 'UserMessageController@viewForget');
+Route::post('user_message/forget', 'UserMessageController@forget');
+Route::get('user_message/reset', 'UserMessageController@viewReset');
+Route::post('user_message/reset', 'UserMessageController@resetPassword');
 
 
 //login

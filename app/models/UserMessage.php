@@ -62,12 +62,7 @@ class UserMessage extends Eloquent
         $message->user_from = $from_id;
         $message->user_to = $to_id;
         $message->app_id = $app_id;
-        if ($action === self::ACTION_INVITE) {
-            $message->action_type = self::ACTION_INVITE;
-        } elseif ($action === self::ACTION_REMOVE) {
-
-            $message->action_type = self::ACTION_REMOVE;
-        }
+        $message->action_type = $action;
         $message->mail_address = $mail_address;
         $message->save();
         //todo update cache
@@ -113,8 +108,7 @@ class UserMessage extends Eloquent
 
     static function buildSedUrl($url, $send_to, $msg_id)
     {
-        $token = \Utils\UseHelper::makeToken(time(), \Utils\UseHelper::$default_key);
-        $token .= $msg_id;
+        $token = \Utils\UseHelper::makeToken(time() . $msg_id, \Utils\UseHelper::$default_key);
         $sed_url = $url . '?sed=' . urlencode($token);
         \Utils\CMSLog::debug(sprintf('we send mail to %s,and build token was :%s,encode token :%s', $send_to, $token, urlencode($token)));
         return $sed_url;
@@ -122,9 +116,10 @@ class UserMessage extends Eloquent
 
     static function checkSed($sed, $delete_msg_b = false)
     {
-        $sed = urldecode($sed);
-        $message_id = substr($sed, -1);
-        $timespan = \Utils\UseHelper::checkToken(substr($sed, 0, -1), \Utils\UseHelper::$default_key);
+
+        $message = \Utils\UseHelper::checkToken($sed, \Utils\UseHelper::$default_key);
+        $message_id = substr($message, 10);
+        $timespan = substr($message, 0, 10);
         $current = time();
         if ($current - $timespan > 60 * 15) {
             return '连接已经过了安全期,已经失效,请重新提交请求 :(';

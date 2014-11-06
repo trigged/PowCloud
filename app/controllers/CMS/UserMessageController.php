@@ -48,8 +48,27 @@ class UserMessageController extends BaseController
         return $this->location(-1, $user_message);
     }
 
-    public function viewForget(){
+    public function viewForget()
+    {
+
         return $this->render('user.forget');
+    }
+
+    public function viewReset()
+    {
+        $sed = Input::get('sed');
+        $params = array();
+        if ($sed) {
+            $user_message = UserMessage::checkSed($sed);
+            if ($user_message->action_type == UserMessage::ACTION_FORGET_PASSWORD) {
+                $params['action'] = UserMessage::ACTION_FORGET_PASSWORD;
+                $params['msg_id'] = $user_message->id;
+                $params['user_id'] = $user_message->user_from;
+            }
+        } else if (!Auth::check()) {
+            return $this->location(-1, '请先登录!');
+        }
+        return $this->render('user.reset', $params);
     }
 
     public function forget()
@@ -58,23 +77,39 @@ class UserMessageController extends BaseController
 
         $user = User::checkExistsByMail($email);
         if (!$user) {
-            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
+            $this->ajaxResponse(BaseController::$FAILED, '找不到用户!');
         }
         $msg_id = UserMessage::buildMsg($user->id, -1, -1, $email, UserMessage::ACTION_FORGET_PASSWORD);
-        $url = UserMessage::buildSedUrl(URL::action('UserMessageController@resetPassword'), $email, $msg_id);
+        $url = UserMessage::buildSedUrl(URL::action('UserMessageController@viewReset'), $email, $msg_id);
         UserMessage::sendMail($url, $email);
+        \Utils\CMSLog::debug($url);
         $this->ajaxResponse(BaseController::$SUCCESS, '邮件发送成功,稍后请检查邮箱,若长时间没有收到,请查看垃圾箱!');
     }
 
     public function resetPassword()
     {
-        $sed = Input::get('sed');
-        if ($sed) {
-            $user_message = UserMessage::checkSed($sed, true);
-            if ($user_message == UserMessage::ACTION_FORGET_PASSWORD) {
-
+        $msg_id = Input::get('msg_id');
+        $pwd = Input::get('new_pwd');
+        $pwd = sha1($pwd);
+        if ($msg_id) {
+            $user_message = UserMessage::find($msg_id);
+            if ($user_message && $user_message->action_type == UserMessage::ACTION_FORGET_PASSWORD) {
+                if ($user = User::find($user_message->user_from)) {
+                    $user->pwd = $pwd;
+                    $user->save();
+                    $this->ajaxResponse(BaseController::$SUCCESS, '修改成功,请重新登陆,请妥善保管您的密码', '', URL::action('DashBoardController@index'));
+                }
+                $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
             }
         }
+        if ($user = Auth::user()) {
+            $user->pwd = $pwd;
+            $user->save();
+            LoginController::logout();
+            $this->ajaxResponse(BaseController::$SUCCESS, '修改成功,请重新登陆,请妥善保管您的密码', '', URL::action('DashBoardController@index'));
+        }
+        return $this->location(-1, '请先登录!');
+
     }
 
     public function index()

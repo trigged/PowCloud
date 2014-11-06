@@ -29,7 +29,6 @@
         var body_h = $("body").height();
         var window_h = $(window).height();
         var or_height = $(".sidebar-nav").height();
-
         var max_h = Math.max(body_h, window_h, or_height);
         if (or_height < max_h) {
             $(".sidebar-nav").height(max_h);
@@ -39,7 +38,6 @@
             var body_h = $("body").height();
             var window_h = $(window).height();
             var or_height = $(".sidebar-nav").height();
-
             var max_h = Math.max(body_h, window_h, or_height);
             if (or_height < max_h) {
                 $(".sidebar-nav").height(max_h);

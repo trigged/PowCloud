@@ -25,7 +25,7 @@
                 <i class="icon_password"></i>
                 <input type="password" name="password" placeholder="请输入密码"/>
             </div>
-            <a href="#" class="fotget_password">忘记密码？</a>
+            <a href="<?php echo URL::action('UserMessageController@viewForget') ?>" class="fotget_password">忘记密码？</a>
             <?php echo \Utils\FormBuilderHelper::staticEnd('login',
                 array(),
                 URL::action('LoginController@loginStore'),
@@ -39,7 +39,7 @@
         <span><em>其他登录方式</em><a href="#" class="icon_sina"><img src="images/icon_sina.png"></a><a href="#"
                                                                                                   class="icon_qq"><img
                     src="images/icon_qq.png"></a></span>
-        <a href="<?php echo URL::action('LoginController@register')?>" class="free_reigster">免费注册</a>
+        <a href="<?php echo URL::action('LoginController@register') ?>" class="free_reigster">免费注册</a>
     </div>
 </div>
 </body>

@@ -140,7 +140,7 @@ class LoginController extends Controller
         return View::make('user.login');
     }
 
-    public function logout()
+    public static function logout()
     {
         Auth::logout();
         Session::clear();

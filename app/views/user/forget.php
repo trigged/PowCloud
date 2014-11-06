@@ -1,34 +1,25 @@
-<?php echo $header?>
+<?php echo $header ?>
 
+    <div class="note note-success">
+        <h4 class="block">密码找回</h4>
 
+        <p>
+            目前我们仅支持邮箱找回 ,如果少侠忘记了此信息,可与我们联系
+        </p>
+    </div>
 <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
-    <form data-status="0" id="shortcut_form" class="form-horizontal" method="post">
+    <form data-status="0" id="forget" class="form-horizontal" method="post">
         <fieldset>
-            <div class="note note-success">
-                <h4 class="block">:)</h4>
-
-                <p>
-                    在这里填写的是主数据源,创建完成后可以编辑此数据,然后就可以和其他数据建立链接关系了
-                </p>
-            </div>
-            <legend>数据链接</legend>
             <div class="form-group">
-                <label for="name" class="control-label">表名(不是表别名!):</label>
+                <label for="name" class="control-label">请输入邮箱 :</label>
 
                 <div class="controls">
-                    <input name="table_name" class="form-control" type="text" placeholder="数据变更" id="filed">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="name" class="control-label">数据ID:</label>
-
-                <div class="controls">
-                    <input name="data_id" class="form-control" type="text" placeholder="数据变更" id="filed">
+                    <input name="email" class="form-control" type="text" placeholder="请输入邮箱" id="filed">
                 </div>
             </div>
 
             <div class="form-actions">
-                <button class="btn btn-primary" id="JS_Sub" type="submit">创建链接</button>
+                <button class="btn btn-primary" id="JS_Sub" data-loading-text="Loading..." type="submit">确定</button>
                 <a class="btn  btn-warning" onclick="history.back()">取消</a>
             </div>
         </fieldset>
@@ -36,13 +27,13 @@
     <script>
 
     </script>
-<?php echo \Utils\FormBuilderHelper::staticEnd('shortcut_form',
+<?php echo \Utils\FormBuilderHelper::staticEnd('forget',
     array( //表单规则
         'filed' => array('required' => true),
     ),
-    URL::action('DataLinkController@store'),
+    URL::action('UserMessageController@forget'),
     'POST'
 );//注册表单JS
 ?>
 
-<?php echo $footer?>
+<?php echo $footer ?>
