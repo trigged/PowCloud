@@ -5,6 +5,24 @@
 class BaseController extends Controller
 {
 
+    static $SUCCESS = 1;
+
+    static $_SUCCESS_TEMPLATE = 10;
+
+    static $FAILED = -1;
+
+    static $_FAILED_TEMPLATE = -10;
+
+    static $MESSAGE_NOT_EXISTS = '数据不存在';
+
+    static $MESSAGE_HAS_EXISTS = '数据已经存在';
+
+    static $MESSAGE_DO_SUCCESS = '操作成功';
+
+    static $MESSAGE_DO_FAILED = '操作失败,请检查填写数据';
+
+    static $MESSAGE_DATA_ERROR = '数据出错';
+
     protected $navs = array();
 
     protected $side = '';
@@ -71,6 +89,46 @@ class BaseController extends Controller
             return false;
         }
         return false;
+    }
+
+    /**
+     * @param string $status  请求是否处理成功
+     * @param string $message 需要返回的信息
+     * @param array $data  返回的ajax的json数据
+     * @param string $redirect 是否需要跳转，如是要跳转需设置这个值
+     */
+    public static function ajaxResponse($status, $message = '', $data = '', $redirect = '')
+    {
+
+        if ($status == self::$_SUCCESS_TEMPLATE) {
+            $return = array(
+                'status'   => self::$SUCCESS,
+                'message'  => self::$MESSAGE_DO_SUCCESS,
+                'data'     => $data,
+                'redirect' => $redirect,
+            );
+        } elseif ($status == self::$_FAILED_TEMPLATE) {
+            $return = array(
+                'status'   => self::$FAILED,
+                'message'  => self::$MESSAGE_DO_FAILED,
+                'data'     => $data,
+                'redirect' => $redirect,
+            );
+        } else {
+            $return = array(
+                'status'   => $status,
+                'message'  => $message,
+                'data'     => $data,
+                'redirect' => $redirect,
+            );
+        }
+
+        echo json_encode($return);
+
+        //在强制退出支 触发结束事件
+        App::shutdown();
+
+        exit(1);
     }
 
     public function dispatch()
@@ -176,32 +234,5 @@ class BaseController extends Controller
     {
 
         $this->side = array_merge_recursive(Config::get('menu.side'), $side);
-    }
-
-    /**
-     *
-     * @param array $data  返回的ajax的json数据
-     * @param string $status 返回的状态
-     * @param string $message 需要返回的信息
-     * @param string $redirect 是否需要跳转，如是要跳转需设置这个值
-     */
-    protected function ajaxResponse($data = array(), $status = 'success', $message = '', $successRedirect = '', $failRedirect = '')
-    {
-        $return = array(
-            'status'          => $status,
-            'message'         => $message,
-            'data'            => $data,
-            'successRedirect' => $successRedirect,
-            'failRedirect'    => $failRedirect
-        );
-        if ($successRedirect || $failRedirect)
-            \Utils\Env::messageTip("messageTip", $status, $message);
-
-        echo json_encode($return);
-
-        //在强制退出支 触发结束事件
-        App::shutdown();
-
-        exit(1);
     }
 }

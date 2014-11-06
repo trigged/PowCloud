@@ -73,10 +73,7 @@
         $('#loading-example-btn').click(function () {
             var btn = $(this);
             btn.button('loading');
-            console.log(this.value);
-
             if (this.value == '开启') {
-                console.log('on');
                 btn.val('关闭');
                 $.ajax({
                     type: "get",
@@ -87,7 +84,6 @@
                     });
             }
             else if (this.value == '关闭') {
-                console.log('off');
                 btn.val('开启');
 
                 $.ajax({

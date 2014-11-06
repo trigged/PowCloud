@@ -167,7 +167,7 @@ EOT;
         return $js . $input . $label;
     }
 
-    public static function textArea($form, $value = '', $class = "input-large")
+    public static function textArea($form, $value = '', $class = "form-control")
     {
         $value = is_array($value) ? json_encode($value) : $value;
         $name = self::getFieldName($form->field);
@@ -183,7 +183,7 @@ EOT;
         );
     }
 
-    public static function image($form, $value = '', $class = "input-xxlarge")
+    public static function image($form, $value = '', $class = "form-control")
     {
         $value = $value ? $value : $form->default_value;
         $input = '';
@@ -191,11 +191,11 @@ EOT;
             return self::imageArray($form, $value, $class);
         } else {
 
-            return '<input type="text" name="' . self::getFieldName($form->field) . '" placeholder="有效图片地址" value="' . $value . '"  class="' . $class . ' image-uploader" data-validate="' . $form->field . '" />';
+            return '<input class="form-control"  type="text" name="' . self::getFieldName($form->field) . '" placeholder="有效图片地址" value="' . $value . '"  class="' . $class . ' image-uploader" data-validate="' . $form->field . '" />';
         }
     }
 
-    public static function imageArray($form, $value, $class = "input-xxlarge")
+    public static function imageArray($form, $value, $class = "form-control")
     {
         $input = '';
         if ($value && is_array($value)) {
@@ -293,19 +293,33 @@ EOT;
                             $('#JS_Sub').attr('disabled',true);
                         },
                         success: function(re){
+                            console.log("re",re)
                             re = $.parseJSON(re);
-                            if(re.status =='fail'){
-                                var errors = re.data;
-//                                validate.showErrors(errors);
-                                alert(re.message);
+                            if(re.status){
+                                 var errors = re.data;
+                                 if(!errors){
+                                     errors = re.message
+                                 }
+                                 if(errors){
+
+
+                                try
+                                    {
+                                       errors = JSON.parse(this.responseText);
+                                       console.log("json")
+                                    }
+                                    catch(e)
+                                    {
+                                        console.log("not json")
+                                    }
+                                    alert(errors)
+                                }
                                 $('#JS_Sub').attr('disabled',false);
-                                return false;
                             }
-                            if(re.message){
-                                alert(re.message);
-                            }
-                            if(re.successRedirect){
-                            location.href = re.successRedirect;
+
+                            if(re.redirect){
+
+                                location.href = re.redirect;
                             }
 
                         }
@@ -478,8 +492,6 @@ CHECKSCRIPT;
 
 </script>
 EOT;
-
-
 
 
         $dataPicker = sprintf('<div class="input-group date form_datetime  col-md-5" id="start_date" >

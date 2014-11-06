@@ -1,10 +1,10 @@
 // Some general UI pack related JS
 // Extend JS String with repeat method
-String.prototype.repeat = function(num) {
-    return new Array(num + 1).join(this);
+String.prototype.repeat = function (num) {
+  return new Array(num + 1).join(this);
 };
 
-(function($) {
+(function ($) {
 
   // Add segments to a slider
   $.fn.addSliderSegments = function (amount) {
@@ -15,11 +15,11 @@ String.prototype.repeat = function(num) {
     });
   };
 
-  $(function() {
-  
+  $(function () {
+
     // Todo list
-    $(".todo li").click(function() {
-        $(this).toggleClass("todo-done");
+    $(".todo li").click(function () {
+      $(this).toggleClass("todo-done");
     });
 
     // Custom Select
@@ -47,11 +47,11 @@ String.prototype.repeat = function(num) {
     $("input, textarea").placeholder();
 
     // Make pagination demo work
-    $(".pagination a").on('click', function() {
+    $(".pagination a").on('click', function () {
       $(this).parent().siblings("li").removeClass("active").end().addClass("active");
     });
 
-    $(".btn-group a").on('click', function() {
+    $(".btn-group a").on('click', function () {
       $(this).siblings().removeClass("active").end().addClass("active");
     });
 
@@ -62,7 +62,7 @@ String.prototype.repeat = function(num) {
 
     // Switch
     //$("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
-    
+    $('select').selectpicker();
   });
-  
+
 })(jQuery);

@@ -75,7 +75,7 @@ class CmsController extends CmsBaeController
         $vm = new ApiModel($table->table_name);
         $vm = $vm->newQueryWithDeleted()->find($id);
         if (!$vm->exists) {
-            $this->ajaxResponse(array(), 'fail', '数据不存在');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
         }
 
         $vm->setTable($table->table_name);
@@ -85,10 +85,11 @@ class CmsController extends CmsBaeController
         $return = $vm->delete();
 
         if ($return || $return === null) {
-            $this->ajaxResponse(array(), 'success', '删除成功');
+            $this->ajaxResponse(BaseController::$SUCCESS, '删除成功');
+//            $this->ajaxResponse(array(), 'success', '删除成功');
         }
-
-        $this->ajaxResponse(array(), 'fail', '删除失败');
+        $this->ajaxResponse(BaseController::$FAILED, '删除失败');
+//        $this->ajaxResponse(array(), 'fail', '删除失败');
     }
 
     /**
@@ -99,12 +100,14 @@ class CmsController extends CmsBaeController
     public function restore($tableId, $id)
     {
         $table = SchemaBuilder::find($tableId);
-        if (!$table)
-            $this->ajaxResponse(array(), 'fail', '表不存在');
+        if (!$table) {
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
+        }
+//            $this->ajaxResponse(array(), 'fail', '表不存在');
         $vm = ApiModel::find($table->table_name, $id);
-//        $vm = $vm->newQueryWithDeleted()->find($id);
-        if (!$vm)
-            $this->ajaxResponse(array(), 'fail', '访问的数据不存在');
+        if (!$vm) {
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
+        }
         $vm->oldData = $vm->toArray();
         $vm->processGeo = false;
         if ($vm->children) {
@@ -122,22 +125,23 @@ class CmsController extends CmsBaeController
                     $vmForeign->restore();
                 }
             }
-//            $vm->setTable($table->table_name);
             if (isset($vm->timing_state)) {
                 $vm->timing_state = RedisKey::PUB_ONLINE;
             }
             $vm->restore();
-            $this->ajaxResponse(array(), 'success', '恢复成功');
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS);
+//            $this->ajaxResponse(array(), 'success', '恢复成功');
         } else {
-//            $vm->setTable($table->table_name);
+
             if (isset($vm->timing_state)) {
                 $vm->timing_state = RedisKey::PUB_ONLINE;
             }
             $vm->restore();
-            $this->ajaxResponse(array(), 'success', '恢复成功');
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS);
+//            $this->ajaxResponse(array(), 'success', '恢复成功');
         }
-
-        $this->ajaxResponse(array(), 'fail', '恢复失败');
+        $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
+//        $this->ajaxResponse(array(), 'fail', '恢复失败');
     }
 
     public function edit($id)
@@ -188,10 +192,12 @@ class CmsController extends CmsBaeController
         $vm = new ApiModel($table->table_name);
         $vm = $vm->newQueryWithDeleted()->find($id);
         if (!$vm->exists) {
-            $this->ajaxResponse(array(), 'fail', '数据不存在');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
+//            $this->ajaxResponse(array(), 'fail', '数据不存在');
         }
         if (!isset($vm->timing_state)) {
-            $this->ajaxResponse(array(), 'fail', '数据出错');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DATA_ERROR);
+//            $this->ajaxResponse(array(), 'fail', '数据出错');
         }
         $vm->setTable($table->table_name);
         $vm->rank = time();
@@ -199,10 +205,11 @@ class CmsController extends CmsBaeController
         $vm->processGeo = false;
         $return = $vm->restore();
         if ($return || $return === null) {
-            $this->ajaxResponse(array(), 'success', '上线成功');
+//            $this->ajaxResponse(array(), 'success', '上线成功');
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS);
         }
-
-        $this->ajaxResponse(array(), 'fail', '上线失败');
+        $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
+//        $this->ajaxResponse(array(), 'fail', '上线失败');
     }
 
     public function  offline()
@@ -213,11 +220,13 @@ class CmsController extends CmsBaeController
         $vm = new ApiModel($table->table_name);
         $vm = $vm->newQueryWithDeleted()->find($id);
         if (!$vm->exists) {
-            $this->ajaxResponse(array(), 'fail', '数据不存在');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
+//            $this->ajaxResponse(array(), 'fail', '数据不存在');
         }
 
         if (!isset($vm->timing_state)) {
-            $this->ajaxResponse(array(), 'fail', '数据出错');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DATA_ERROR);
+//            $this->ajaxResponse(array(), 'fail', '数据出错');
         }
         $vm->setTable($table->table_name);
         $vm->cascadeDelete = false;
@@ -229,11 +238,11 @@ class CmsController extends CmsBaeController
         $return = $vm->save();
 
         if ($return || $return === null) {
-
-            $this->ajaxResponse(array(), 'success', '下线成功');
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS);
+//            $this->ajaxResponse(array(), 'success', '下线成功');
         }
-
-        $this->ajaxResponse(array(), 'fail', '下线失败');
+        $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
+//        $this->ajaxResponse(array(), 'fail', '下线失败');
     }
 
     public function create()
@@ -299,15 +308,19 @@ class CmsController extends CmsBaeController
     {
         if (!($tableId = Input::get('table', ''))
             || !($table = SchemaBuilder::find($tableId))
-        )
-            $this->ajaxResponse(array(), 'fail', '找不到对应的更新表', URL::action('CmsController@index', array('id' => $tableId)));
+        ) {
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS, URL::action('CmsController@index', array('id' => $tableId)));
+//            $this->ajaxResponse(array(), 'fail', '找不到对应的更新表', URL::action('CmsController@index', array('id' => $tableId)));
+        }
 
         //调用事件
         Event::fire('widget', array($table->table_name, 'update'));
         $tableStore = Input::get($table->table_name);
 
-        if (!array_filter(array_except($tableStore, array('geo'))))
-            $this->ajaxResponse(array(), 'fail', '添加失败:请添写表单', URL::action('CmsController@index', array('id' => $tableId)));
+        if (!array_filter(array_except($tableStore, array('geo')))) {
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS, URL::action('CmsController@index', array('id' => $tableId)));
+//            $this->ajaxResponse(array(), 'fail', '添加失败:请添写表单', URL::action('CmsController@index', array('id' => $tableId)));
+        }
 
         $vm = new ApiModel($table->table_name);
         $tableData = $vm->newQueryWithDeleted()->find($id);
@@ -326,10 +339,12 @@ class CmsController extends CmsBaeController
         if (count($childStore) >= 1)
             $tableData->setChildSets($childStore);
 
-        if ($tableData->XUpdate($table, $children_field, $tableStore))
-            $this->ajaxResponse(array(), 'success', '修改成功', URL::action('CmsController@index', array('id' => $tableId)));
-
-        $this->ajaxResponse(array(), 'fail', '修改失败', URL::action('CmsController@index', array('id' => $tableId)));
+        if ($tableData->XUpdate($table, $children_field, $tableStore)) {
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$SUCCESS, URL::action('CmsController@index', array('id' => $tableId)));
+//            $this->ajaxResponse(array(), 'success', '修改成功', URL::action('CmsController@index', array('id' => $tableId)));
+        }
+        $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, URL::action('CmsController@index', array('id' => $tableId)));
+//        $this->ajaxResponse(array(), 'fail', '修改失败', URL::action('CmsController@index', array('id' => $tableId)));
 
     }
 
@@ -405,7 +420,8 @@ class CmsController extends CmsBaeController
         if ($vm = $vm->newQuery()->find($target)) {
             \Operator\CacheController::update($table, $vm->toArray());
         }
-        $this->ajaxResponse(array(), 'success', '更新缓存成功', true);
+        $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS);
+//        $this->ajaxResponse(array(), 'success', '更新缓存成功', true);
     }
 
     public function search($table_name, $filed, $condition)

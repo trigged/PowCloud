@@ -18,9 +18,11 @@
         <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
         <form method="post" id="login">
             <div class="item">
+                <i class="icon_user"></i>
                 <input type="text" name="username" placeholder="请输入账号"/>
             </div>
             <div class="item">
+                <i class="icon_password"></i>
                 <input type="password" name="password" placeholder="请输入密码"/>
             </div>
             <a href="#" class="fotget_password">忘记密码？</a>

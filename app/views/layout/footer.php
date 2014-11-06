@@ -6,7 +6,7 @@
 <script src="<?php echo URL::asset('js/jquery-ui-1.10.3.custom.min.js'); ?>"></script>
 <script src="<?php echo URL::asset('js/jquery.ui.touch-punch.min.js'); ?>"></script>
 <script src="<?php echo URL::asset('js/bootstrap.min.js'); ?> "></script>
-<script src="<?php echo URL::asset('js/bootstrap-select.js'); ?>"></script>
+<script src="<?php echo URL::asset('bower_components/bootstrap-select/dist/js/bootstrap-select.min.js'); ?>"></script>
 <script src="<?php echo URL::asset('js/bootstrap-switch.js'); ?>"></script>
 <script src="<?php echo URL::asset('js/jquery.tagsinput.js'); ?>"></script>
 <script src="<?php echo URL::asset('js/jquery.placeholder.js'); ?>"></script>
@@ -30,7 +30,7 @@
         var window_h = $(window).height();
         var or_height = $(".sidebar-nav").height();
 
-        var max_h =  Math.max(body_h,window_h,or_height);
+        var max_h = Math.max(body_h, window_h, or_height);
         if (or_height < max_h) {
             $(".sidebar-nav").height(max_h);
         }
@@ -40,7 +40,7 @@
             var window_h = $(window).height();
             var or_height = $(".sidebar-nav").height();
 
-            var max_h =  Math.max(body_h,window_h,or_height);
+            var max_h = Math.max(body_h, window_h, or_height);
             if (or_height < max_h) {
                 $(".sidebar-nav").height(max_h);
             }

@@ -41,8 +41,10 @@ class CodeFragmentController extends SystemController
     public function updateWidget($id)
     {
 
-        if (!$id || !($widget = Widget::find($id)))
-            $this->ajaxResponse(array(''), 'fail', '更新的数据不存在');
+        if (!$id || !($widget = Widget::find($id))) {
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
+//            $this->ajaxResponse(array(''), 'fail', '更新的数据不存在');
+        }
 
 
         if ($widget->name !== Input::get('name', '') || $widget->table_name !== Input::get('table_name', '') || $widget->action !== Input::get('action', '')) {
@@ -197,20 +199,20 @@ class CodeFragmentController extends SystemController
     public function mysql()
     {
         $this->menu = 'codeFragment.mysql';
-        $data['connection'] = Input::get('connection','mysql');
+        $data['connection'] = Input::get('connection', 'mysql');
 
         if (($sql = Input::get('sql')) && !(preg_match($this->_mysqlFilter, $sql, $match))) {
             $data['error']['errorMessage'] = '输入sql 有误,只能执行select|desc|explain';
             $data ['sql'] = $sql;
             return $this->render('codeFragment.execute.mysql', array('data' => $data));
         }
-        if($sql && strpos($sql,'limit')===false && strpos($sql,'update')===false){
+        if ($sql && strpos($sql, 'limit') === false && strpos($sql, 'update') === false) {
             $sql = $sql . ' limit 0 ,10';
         }
         $data['sql'] = htmlentities($sql);
-        if($data['sql']){
+        if ($data['sql']) {
             try {
-                if(strpos($sql,'update')!==false)
+                if (strpos($sql, 'update') !== false)
                     $returns = DB::connection($data['connection'])->update($sql);
                 else
                     $returns = DB::connection($data['connection'])->select($sql);
@@ -219,7 +221,7 @@ class CodeFragmentController extends SystemController
                     foreach ($returns as $return) {
                         $data['return'][] = (array)$return;
                     }
-                }else{
+                } else {
                     $data['return'][] = array('无结果');
                 }
             } catch (\Exception $e) {
@@ -259,10 +261,11 @@ class CodeFragmentController extends SystemController
         'debug segfault',
         'shutdown'
     );
+
     public function redis()
     {
         $this->menu = 'codeFragment.redis';
-        $redisCommandStr = Input::get('redis_command','');
+        $redisCommandStr = Input::get('redis_command', '');
         $data['redis_command'] = $redisCommandStr;
 
         if (!$redisCommandStr) {
@@ -294,7 +297,7 @@ class CodeFragmentController extends SystemController
         $redis = \Operator\ReadApi::redis();
         try {
             $data['return'] = call_user_func_array(array($redis, $redisCommandArray[0]), array_slice($redisCommandArray, 1));
-            $data['return'] = $data['return']===null?'nil':$data['return'];
+            $data['return'] = $data['return'] === null ? 'nil' : $data['return'];
         } catch (\Exception $e) {
             $data['return'] = '报错：' . $e->getMessage();
         }

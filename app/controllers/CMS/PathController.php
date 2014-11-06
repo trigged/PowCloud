@@ -97,13 +97,16 @@ class PathController extends SystemController
     public function update($id)
     {
         $path = (int)$id === 0 ? '/' : Path::find($id);
-        if (!$path)
-            $this->ajaxResponse(array(), 'fail', '更新的path不存');
+        if (!$path) {
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
+//            $this->ajaxResponse(array(), 'fail', '更新的path不存');
+        }
         if ($path === '/' || $path->update(array_except(Input::all(), array('id')))) {
             $pathName = $path === '/' ? '/' : $path->name;
             $expire = $path === '/' ? Input::get('expire', '0') : $path->expire;
             RouteManager::updateRoute($pathName, $expire);
-            $this->ajaxResponse(array(), 'success', '更新path成功');
+            $this->ajaxResponse(BaseController::$_SUCCESS_TEMPLATE);
+//            $this->ajaxResponse(array(), 'success', '更新path成功');
         }
 
     }

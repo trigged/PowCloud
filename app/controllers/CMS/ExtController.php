@@ -54,7 +54,8 @@ class ExtController extends BaseController
         $table = Input::get('table', '');
         $ids = Input::get('id', '');
         if (!$rank || !$table || !$ids)
-            $this->ajaxResponse(array(), 'success', '更新成功');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
+//            $this->ajaxResponse(array(), 'success', '更新成功');
 
         try {
             DB::connection('models')->getPdo()->beginTransaction();
@@ -69,10 +70,12 @@ class ExtController extends BaseController
                 }
             }
             DB::connection('models')->getPdo()->commit();
-            $this->ajaxResponse(array(), 'success', '更新成功');
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS);
+//            $this->ajaxResponse(array(), 'success', '更新成功');
         } catch (Exception $e) {
             DB::connection('models')->getPdo()->rollBack();
-            $this->ajaxResponse(array(), 'fail', '更新失败');
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
+//            $this->ajaxResponse(array(), 'fail', '更新失败');
         }
     }
 
