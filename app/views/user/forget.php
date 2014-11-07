@@ -11,14 +11,14 @@
     <form data-status="0" id="forget" class="form-horizontal" method="post">
         <fieldset>
             <div class="form-group">
-                <label for="name" class="control-label">请输入邮箱 :</label>
+                <label for="name" class="col-sm-2 control-label">请输入邮箱 :</label>
 
-                <div class="controls">
+                <div class="col-sm-6">
                     <input name="email" class="form-control" type="text" placeholder="请输入邮箱" id="filed">
                 </div>
             </div>
 
-            <div class="form-actions">
+            <div class="form-actions" style="margin-left:10px;">
                 <button class="btn btn-primary" id="JS_Sub" data-loading-text="Loading..." type="submit">确定</button>
                 <a class="btn  btn-warning" onclick="history.back()">取消</a>
             </div>

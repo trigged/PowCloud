@@ -12,31 +12,31 @@
         <fieldset>
             <?php if (!$action && $action !== UserMessage::ACTION_FORGET_PASSWORD): ?>
                 <div class="form-group">
-                    <label for="name" class="control-label">旧密码 :</label>
+                    <label for="name" class="control-label col-sm-2">旧密码 :</label>
 
-                    <div class="controls">
+                    <div class="controls col-sm-10">
                         <input name="old_pwd" class="form-control" type="text" placeholder="请输入邮箱" id="filed">
                     </div>
                 </div>
             <?php endif ?>
             <div class="form-group">
-                <label for="name" class="control-label">新密码 :</label>
+                <label for="name" class="control-label col-sm-2">新密码 :</label>
 
-                <div class="controls">
+                <div class="controls col-sm-10">
                     <input name="new_pwd" class="form-control" type="text" placeholder="请输入邮箱" id="filed">
                 </div>
             </div>
 
 
             <div class="form-group">
-                <label for="name" class="control-label">新密码确认 :</label>
+                <label for="name" class="control-label col-sm-2">新密码确认 :</label>
 
-                <div class="controls">
+                <div class="controls col-sm-10">
                     <input name="new_pwd" class="form-control" type="text" placeholder="请输入邮箱" id="filed">
                 </div>
             </div>
 
-            <div class="form-actions">
+            <div class="form-actions" style="margin-left:10px;">
                 <button class="btn btn-primary" id="JS_Sub" data-loading-text="Loading..." type="submit">确定</button>
                 <a class="btn  btn-warning" onclick="history.back()">取消</a>
             </div>

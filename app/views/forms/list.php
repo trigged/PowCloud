@@ -28,7 +28,6 @@
                 <th>操作</th>
             </tr>
             </thead>
-            <tbody
             <tbody data-table="forms_table"
                    data-rank="<?php echo URL::action('FormsController@rank', array('form' => $table->id)); ?>">
             <?php
@@ -65,6 +64,7 @@
                 </tr>
             <?php endforeach; ?>
             </tbody>
+
         </table>
 
         <?php echo $forms ? $forms->appends(array('table' => $table->id))->links() : ''; ?>

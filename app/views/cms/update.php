@@ -3,7 +3,7 @@
     <form id="cms_form" class="form-horizontal" onsubmit="">
         <fieldset class="">
 
-            <legend>更新数据 ：#<?php echo $tableData->id ?></legend>
+            <legend>更新数据:#<?php echo $tableData->id ?></legend>
             <?php foreach ($forms as $form): ?>
             <?php if ((int)$form->visibleByGroup !== 0 && (int)$form->visibleByGroup !== (int)Auth::user()->group_id) {
                 echo \Utils\FormBuilderHelper::hidden($form, $tableData->{$form->field});
@@ -45,7 +45,7 @@
                         <div class="form-group">
                             <label for="name" class="control-label col-sm-3"><?php echo $form->label ?>:</label>
 
-                            <div class="controls col-md-5 form-inline">
+                            <div class="controls col-md-6 form-inline">
                                 <?php
                                 \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules); //注册验证规则 以便JS可以验证
                                 $time = '';
@@ -143,10 +143,6 @@
                 </fieldset>
             <?php endforeach; ?>
         <?php endif; ?>
-
-
-
-
 
 
         <div class="form-actions pow_ml100">
