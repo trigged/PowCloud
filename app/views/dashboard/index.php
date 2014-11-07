@@ -135,42 +135,42 @@
     <?php endforeach;endif; ?>
 
 
-    <div class="modal fade pow_modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true"
-         hidden="true">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">随我闯江湖 title</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="jumbotron">
+                        <h2>APP权限设置</h2>
+                        <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
+                        <form class="form-horizontal" method="post" id="invite">
+                            <fieldset>
+                                <p>
+                                    <input class="feedback-input" name="email" id="email_input" placeholder="小伙伴的邮箱地址"/>
+                                    <input class="feedback-input" name="app_id" id="app_input" value="" type="hidden"/>
+                                    <input class="feedback-input" name="action" id="user_action" value=""
+                                           type="hidden"/>
+                                </p>
+                                <?php echo \Utils\FormBuilderHelper::staticEnd('invite',
+                                    array( //表单规则
+                                        'email' => array('required' => true),
+                                    ),
+                                    URL::action('UserMessageController@invite'),
+                                    'POST'
+                                );//注册表单JS
+                                ?>
+                                <p>
+                                    <button id="JS_Sub" class="btn btn-primary btn-lg"></button>
+                                </p>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
 
-        
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">随我闯江湖</h4>
-        </div>
-        <div class="modal-body">
-
-            <div class="jumbotron">
-                <h2>APP权限设置</h2>
-                <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
-                <form class="form-horizontal" method="post" id="invite">
-                    <fieldset>
-                        <p>
-                            <input class="feedback-input" name="email" id="email_input" placeholder="小伙伴的邮箱地址"/>
-                            <input class="feedback-input" name="app_id" id="app_input" value="" type="hidden"/>
-                            <input class="feedback-input" name="action" id="user_action" value="" type="hidden"/>
-                        </p>
-                        <?php echo \Utils\FormBuilderHelper::staticEnd('invite',
-                            array( //表单规则
-                                'email' => array('required' => true),
-                            ),
-                            URL::action('UserMessageController@invite'),
-                            'POST'
-                        );//注册表单JS
-                        ?>
-                        <p>
-                            <button id="JS_Sub" class="btn btn-primary btn-lg"></button>
-                        </p>
-                    </fieldset>
-                </form>
             </div>
-
         </div>
     </div>
 
