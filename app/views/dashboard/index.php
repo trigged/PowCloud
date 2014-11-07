@@ -41,14 +41,20 @@
 <!--right menu end-->
 <div class="col-md-10" style="padding-bottom:20px">
     <div class="" style="height:30px;"></div>
+    <?php if($enable != 'true'):?>
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <strong>提示!</strong> 请先激活账户,若没有收到邮件可以查阅垃圾箱 或者点用户进入个人中心重新发送邮件
+        </div>
+    <?php endif;?>
     <div class="row" style="margin-bottom: 10px;">
         <div class="span-12">
             <div class="pull-right">
                 <?php
                 if ($enable != 'false') {
                     echo '<a href="' . URL::action('DashBoardController@addApp') . '" class="btn btn-sm btn-primary"type="button">添加应用</a>';
-                }
-                ?>
+
+                }   ?>
             </div>
         </div>
     </div>
@@ -104,11 +110,7 @@
                                         <li class="fl">
                                             <a title="<?php echo $user->name; ?>" class="user_info"
 
-                                               data-toggle="modal" data-target="#myModal"
-                                               data-header-title="移除成员" data-footer-title="移除"
-                                               data-app-id="<?php echo $app->id; ?>"
-                                               data-user-id="<?php echo $user->id; ?>"
-                                               type="button" href="#" class="show-member">
+                                             class="show-member">
                                                 <!-- <span class="JAvatar"><?php echo md5($user->id); ?></span>-->
                                                 <span class="JAvatar pow_user_letter">l</span>
                                             </a>

@@ -37,9 +37,7 @@
             </div>
         </fieldset>
     </form>
-    <script>
 
-    </script>
 <?php echo \Utils\FormBuilderHelper::staticEnd('forget',
     array( //表单规则
         'old_pwd'       => array('required' => true),
@@ -51,11 +49,22 @@
 );//注册表单JS
 ?>
 
-<?php //if ($state && $state == User::DISABLE ): ?>
+<?php if ($status && $status == User::DISABLE ): ?>
     <div style="height:20px; "></div>
+<?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
+<form data-status="0" id="resend" class="form-horizontal" method="post">
     <h4>重发激活邮件</h4>
     <div class="col-sm-4">
-        <button class="btn btn-primary btn-lg btn-block" href="#">重发激活邮件</button>
+        <button type="submit" id="JS_Sub" data-loading-text="请求中..." class="btn btn-primary" autocomplete="off" >重发激活邮件</button>
     </div>
-<?php //endif; ?>
+
+    <?php echo \Utils\FormBuilderHelper::staticEnd('resend',
+        array(),
+        URL::action('UserMessageController@reSendActiveMail'),
+        'POST'
+    );
+?>
+<?php endif; ?>
+
+
 <?php echo $footer ?>

@@ -46,6 +46,7 @@ Route::get('user_message/forget', 'UserMessageController@viewForget');
 Route::post('user_message/forget', 'UserMessageController@forget');
 Route::get('user/info', 'UserMessageController@viewReset');
 Route::post('user_message/reset', 'UserMessageController@resetPassword');
+Route::any('user/resend', 'UserMessageController@reSendActiveMail');
 
 
 //login

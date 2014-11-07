@@ -43,18 +43,28 @@ class UserMessageController extends BaseController
         $sed = Input::get('sed');
         $user_message = UserMessage::checkSed($sed);
         if (gettype($user_message) == 'object') {
-            if ($user_message->action_type = UserMessage::ACTION_ACTIVE) {
+            if ($user_message->action_type == UserMessage::ACTION_INVITE) {
                 header('Location:' . URL::action('LoginController@register', array('msg_id' => $user_message->id, 'email' => $user_message->mail_address)));
-            } elseif ($user_message->action_type = UserMessage::ACTION_ACTIVE) {
-                $user = User::find($user_message->send_from);
+            } elseif ($user_message->action_type == UserMessage::ACTION_ACTIVE) {
+                $user = User::find($user_message->user_from);
                 if ($user) {
-                    $user->state = User::ENABLE;
+                    $user->status = User::ENABLE;
+                    $user->save();
                     return $this->location(1, '激活成功,欢迎少侠到来');
                 }
             }
 
         }
         return $this->location(-1, $user_message);
+    }
+
+    public function reSendActiveMail()
+    {
+        if (!$user = Auth::user()) {
+            return $this->location(-1, '请先登录!');
+        }
+        UserMessage::buildActiveEmail($user->id, $user->email);
+        $this->ajaxResponse(BaseController::$SUCCESS, '邮件发送成功,稍后请检查邮箱,若长时间没有收到,请查看垃圾箱!','','index');
     }
 
     public function viewForget()
@@ -77,7 +87,7 @@ class UserMessageController extends BaseController
         } else if (!Auth::check()) {
             return $this->location(-1, '请先登录!');
         }
-        $params['state'] = Auth::user()->state;
+        $params['status'] = Auth::user()->status;
         return $this->render('user.reset', $params);
     }
 
