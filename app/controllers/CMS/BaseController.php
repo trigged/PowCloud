@@ -100,7 +100,9 @@ class BaseController extends Controller
      */
     public static function ajaxResponse($status, $message = '', $data = '', $redirect = '')
     {
-
+        if($redirect == 'index'){
+            $redirect = URL::action('DashBoardController@index');
+        }
         if ($status == self::$_SUCCESS_TEMPLATE) {
             $return = array(
                 'status'   => self::$SUCCESS,

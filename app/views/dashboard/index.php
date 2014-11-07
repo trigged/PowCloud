@@ -59,7 +59,6 @@
                 <div class="col-md-6">
                     <a class="clearfix pow_item_title" style="margin:10px 0;"
                        href="<?php echo URL::action('CmsController@index', array('app_id' => $app->id)) ?>">
-
                         <h4>
                             <?php echo $app->name; ?>
                         </h4>
@@ -132,17 +131,6 @@
                 </div>
             </div>
             <div class="mt20"></div>
-<!--            --><?php //if ($app->Author === Auth::user()->name): ?>
-<!--                <div class="row" style="margin-bottom: 10px;">-->
-<!--                    <div class="span-12">-->
-<!--                        <div class="pull-right">-->
-<!--                            <a href="--><?php //echo URL::action('DashBoardController@editApp', array('app_id' => $app->id)) ?><!--"-->
-<!--                               class="btn btn-sm" type="button">修改应用</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            --><?php //endif; ?>
-
         </section>
     <?php endforeach;endif; ?>
 
@@ -150,6 +138,8 @@
     <div class="modal fade pow_modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true"
          hidden="true">
+
+        
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title" id="myModalLabel">随我闯江湖</h4>
@@ -195,8 +185,6 @@
                 $('#user_action').val(<?php echo UserMessage::ACTION_INVITE?>);
                 $('#JS_Sub').text("发送邀请");
                 $('#email_input').show();
-
-
                 //change html contnet
 
             });

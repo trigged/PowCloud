@@ -90,11 +90,15 @@ class UserMessage extends Eloquent
             self::sendMail(self::buildSedUrl(URL::action('UserMessageController@receive'), $mail_address, $msg_id), $mail_address);
             return '对方还不是我们的用户呀,请少侠放心,我们已经通过龙门镖局快马加鞭的把邮件发送到对方信箱了!';
         } else {
-            $atu = new ATURelationModel();
-            $atu->user_id = $invited_user->id;
-            $atu->app_id = $app_id;
-            $atu->save();
-            return "添加成功";
+            if(!ATURelationModel::hasAccessRight($app_id,$invited_user->id)){
+                $atu = new ATURelationModel();
+                $atu->user_id = $invited_user->id;
+                $atu->app_id = $app_id;
+                $atu->save();
+                return "添加成功";
+            }
+            return "用户已经加入此APP, 请不要重复添加";
+
         }
     }
 

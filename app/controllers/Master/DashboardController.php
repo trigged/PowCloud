@@ -66,29 +66,25 @@ class DashBoardController extends MasterController
     public function storeMember()
     {
         $app_id = Input::get('app_id');
-        $user_ids = Input::get('user_ids');
+        $user_id = Input::get('user_id');
 
         if (empty($app_id)) {
             BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
-//            $this->ajaxResponse(array(), 'fail', 'app_id 为空');
+
         }
         if (empty($user_ids)) {
             BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
-//            $this->ajaxResponse(array(), 'fail', 'user_ids 为空');
         }
-
-        foreach ($user_ids as $user_id) {
-            $atu = new ATURelationModel();
-            $atu->user_id = $user_id;
-            $atu->app_id = $app_id;
-
-            if (!$atu->save()) {
-                BaseController::ajaxResponse(BaseController::$_FAILED_TEMPLATE);
-//                $this->ajaxResponse(array(), 'fail', '不能保存');
-            }
+        if(ATURelationModel::where('user_id',$user_id)->where('app_id',$app_id)->count() > 0){
+            BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
         }
-        BaseController::ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', url::action('DashBoardController@index'));
-//        $this->ajaxResponse(array(), 'success', '保存成功', 'DashBoardController@index');
+        $atu = new ATURelationModel();
+        $atu->user_id = $user_id;
+        $atu->app_id = $app_id;
+        if ($atu->save()) {
+            BaseController::ajaxResponse(BaseController::$_SUCCESS_TEMPLATE);
+        }
+        BaseController::ajaxResponse(BaseController::$_FAILED_TEMPLATE);
     }
 
     public function delete()
@@ -96,20 +92,17 @@ class DashBoardController extends MasterController
 
         $app_id = Input::get('app_id');
         if (empty($app_id)) {
-            BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS, '', url::action('DashBoardController@index'));
-//            $this->ajaxResponse(array(), 'fail', 'app_id is empty', 'DashBoardController@index');
+            BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS, '', 'index');
         }
         $user_id = Input::get('user_id');
         if (empty($user_id)) {
-            BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS, '', url::action('DashBoardController@index'));
-//            $this->ajaxResponse(array(), 'success', 'user_id is empty', 'DashBoardController@index');
+            BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS, '', 'index');
         }
 
         $model = ATURelationModel::where('app_id', '=', $app_id)->where('user_id', '=', $user_id)->first();
         if (isset($model)) {
             $model->delete();
-            BaseController::ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', url::action('DashBoardController@index'));
-//            $this->ajaxResponse(array(), 'success', 'delete成功', 'DashBoardController@index');
+            BaseController::ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', 'index');
         }
 
     }
@@ -146,26 +139,21 @@ class DashBoardController extends MasterController
                 DB::connection('base')->commit();
                 $result = \Utils\DBMaker::createDataBase(\Utils\AppChose::getDbModelsName($app->id));
                 if ($result !== true) {
-                    BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, URL::action('DashBoardController@index'));
-//                    $this->ajaxResponse(array(), 'fail', $result, URL::action('DashBoardController@index'));
+                    BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, 'index');
                 }
                 $result = \Utils\DBMaker::createDataBase(\Utils\AppChose::getDbDataName($app->id), true);
                 if ($result !== true) {
-                    BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, URL::action('DashBoardController@index'));
-//                    $this->ajaxResponse(array(), 'fail', $result, URL::action('DashBoardController@index'));
+                    BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, 'index');
                 }
-                BaseController::ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', URL::action('DashBoardController@index'));
-//                $this->ajaxResponse(array(), 'success', '添加应用' . $app->name . '成功', URL::action('DashBoardController@index'));
+                BaseController::ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', 'index');
             } catch (\Exception $e) {
                 DB::connection('base')->rollBack();
-                BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $e->getMessage(), URL::action('DashBoardController@index'));
-//                $this->ajaxResponse(array(), 'fail', $e->getMessage(), URL::action('DashBoardController@index'), URL::action('DashBoardController@index'));
+                BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $e->getMessage(), 'index');
             }
         } else {
             $error = '请填写应用名称';
         }
-        BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $error, URL::action('DashBoardController@index'));
-//        $this->ajaxResponse(array(), 'fail', $error, URL::action('DashBoardController@index'), URL::action('DashBoardController@index'));
+        BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $error, 'index');
     }
 
     public function updateApp()
