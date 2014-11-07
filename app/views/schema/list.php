@@ -51,7 +51,8 @@
                                 <!--                        </a>-->
                     </td>
                     <td>
-                        <span class="pow_label label label-<?php echo $table->index === null ? 'warning' : 'success'; ?>">list</span>
+                        <span
+                            class="pow_label label label-<?php echo $table->index === null ? 'warning' : 'success'; ?>">list</span>
                         <span
                             class="pow_label label label-<?php echo $table->update === null ? 'warning' : 'success'; ?>">edit</span>
                         <span
@@ -83,16 +84,26 @@
 
         <?php echo $tables ? $tables->links() : ''; ?>
 
-        <div id="docs" style="height: 500px;;" class="modal hide fade" tabindex="-1" role="dialog"
-             aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">文档</h3>
-            </div>
-            <div class="modal-body" style="height: 100%">
-                <p></p>
+        <div class="modal fade" id="docs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="height: 500px;;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                                class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">文档</h4>
+                    </div>
+                    <div class="modal-body" style="height: 100%">
+                        <p></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
             </div>
         </div>
+
+
     </div>
 
     <script>

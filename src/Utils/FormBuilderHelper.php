@@ -309,7 +309,24 @@ EOT;
                                     {
                                         console.log("not json")
                                     }
-                                    alert(errors)
+
+                                    if($('#alerts').length >0 ){
+                                        if(re.code == 1){
+                                            $("#alerts").attr('class',"alert alert-dismissible  alert-success");
+                                        }
+                                        else{
+                                             $("#alerts").attr('class',"alert alert-dismissible  alert-danger");
+                                        }
+
+                                        $("#alert_title").html(re.message);
+                                        $("#alert_content").html(re.data);
+                                        $("#alerts").fadeTo(4000, 500).slideUp(500, function(){
+                                                $("#alerts").alert();
+                                            });
+                                    }
+                                    else{
+                                        alert(errors);
+                                    }
                                 }
                                 $('#JS_Sub').attr('disabled',false);
                             }

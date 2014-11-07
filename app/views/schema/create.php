@@ -253,8 +253,9 @@
     </div>
 
 </div>
-
 <script>
+
+
     $(function () {
         $('#path_id').change(function () {
             var val = $(this).val();

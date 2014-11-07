@@ -28,6 +28,13 @@
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
+        <div class="alert alert-dismissible  alert-danger" role="alert" id="alerts" hidden="">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <strong id="alert_title">Warning!</strong>
+            <span id="alert_content">Better check yourself, you're not looking too good.</span>
+            <span>(信息3秒后自动消失)</span>
+        </div>
         <div class="container-fluid">
             <!--            <a data-target=".navbar-collapse" data-toggle="collapse" class="btn navbar-btn">-->
             <!--                <span class="glyphicon glyphicon-bar"></span>-->
@@ -80,4 +87,5 @@
 
         <?php endif; ?>
         <div class="col-md-10" style="padding-bottom:20px">
+
 
