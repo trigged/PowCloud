@@ -15,6 +15,8 @@ class UserMessage extends Eloquent
 
     const ACTION_FORGET_PASSWORD = 1003;
 
+    const ACTION_ACTIVE = 1004;
+
     const CAN_READE = 1010;
 
     const CANT_READE = 1011;
@@ -34,7 +36,6 @@ class UserMessage extends Eloquent
             if ($user_message->user_to == -1 && $user_message->action_type == self::ACTION_INVITE) {
                 $atu = ATURelationModel::withTrashed()->where('user_id', $use_id)->where('app_id', $user_message->app_id)->first();
                 if (!$atu || !$atu->exists) {
-                    //atu not exists create first
                     $atu = new ATURelationModel();
                     $atu->user_id = $use_id;
                     $atu->app_id = $user_message->app_id;
@@ -65,7 +66,6 @@ class UserMessage extends Eloquent
         $message->action_type = $action;
         $message->mail_address = $mail_address;
         $message->save();
-        //todo update cache
         return $message->id;
 
     }
@@ -87,7 +87,7 @@ class UserMessage extends Eloquent
         if ($invited_user === false) {
             //todo send invite mail
             $msg_id = self::buildMsg($from_id, $app_id, -1, $mail_address, $action);
-            self::sendMail(self::buildSedUrl(URL::action('UserMessageController@receive'), $mail_address, $msg_id), $msg_id);
+            self::sendMail(self::buildSedUrl(URL::action('UserMessageController@receive'), $mail_address, $msg_id), $mail_address);
             return '对方还不是我们的用户呀,请少侠放心,我们已经通过龙门镖局快马加鞭的把邮件发送到对方信箱了!';
         } else {
             $atu = new ATURelationModel();
@@ -100,6 +100,7 @@ class UserMessage extends Eloquent
 
     static function sendMail($url, $send_to)
     {
+        \Utils\CMSLog::debug(sprintf('send mail to: %s, url :%s', $send_to, $url));
         return Mail::send('emails.info', array('url' => $url), function ($message) use ($send_to) {
             $message->to($send_to)->subject('Pow Cloud 信使!');
         });

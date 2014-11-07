@@ -13,13 +13,20 @@ class LoginController extends Controller
 
     const AREA_IP = 'http://ip.taobao.com/service/getIpInfo.php?ip=';
 
+    public static function logout()
+    {
+        Auth::logout();
+        Session::clear();
+        return Redirect::to('/dashboard');
+    }
+
     public function registerUser()
     {
         $username = Input::get('username');
         $pwd = Input::get('password');
         $email = Input::get('email');
-        if (empty($username)) {
-            $this->ajaxResponse(BaseController::$FAILED, '用户名不可以写空');
+        if (empty($username) || empty($pwd) || empty($email)) {
+            $this->ajaxResponse(BaseController::$FAILED, '不可以写空');
         }
         //check username
         $name_count = User::where('name', $username)->count();
@@ -47,7 +54,9 @@ class LoginController extends Controller
             $message = UserMessage::find($message_id);
             UserMessage::processUserMessage($message, $user->id);
         }
-        header('Location:' . URL::action('DashBoardController@index'));
+        $user_active = UserMessage::buildMsg($user->id, -1, -1, $email, UserMessage::ACTION_ACTIVE);
+        UserMessage::sendMail(UserMessage::buildSedUrl(URL::action('UserMessageController@receive'), $email, $user_active->id), $email);
+        $this->ajaxResponse(BaseController::$SUCCESS, '注册成功,激活邮件稍后发完少侠邮箱,请注意查收!', '', URL::action('DashBoardController@index'));
     }
 
     protected function ajaxResponse($status, $message = '', $data = '', $redirect = '')
@@ -138,12 +147,5 @@ class LoginController extends Controller
         }
 
         return View::make('user.login');
-    }
-
-    public static function logout()
-    {
-        Auth::logout();
-        Session::clear();
-        return Redirect::to('/dashboard');
     }
 }

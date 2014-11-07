@@ -43,10 +43,20 @@ class UserMessageController extends BaseController
         $sed = Input::get('sed');
         $user_message = UserMessage::checkSed($sed);
         if (gettype($user_message) == 'object') {
-            header('Location:' . URL::action('LoginController@register', array('msg_id' => $user_message->id, 'email' => $user_message->mail_address)));
+            if ($user_message->action_type = UserMessage::ACTION_ACTIVE) {
+                header('Location:' . URL::action('LoginController@register', array('msg_id' => $user_message->id, 'email' => $user_message->mail_address)));
+            } elseif ($user_message->action_type = UserMessage::ACTION_ACTIVE) {
+                $user = User::find($user_message->send_from);
+                if ($user) {
+                    $user->state = User::ENABLE;
+                    return $this->location(1, '激活成功,欢迎少侠到来');
+                }
+            }
+
         }
         return $this->location(-1, $user_message);
     }
+
 
     public function viewForget()
     {
