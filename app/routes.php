@@ -44,7 +44,7 @@ Route::any('user_message/invite', 'UserMessageController@invite');
 Route::any('user_message/receive', 'UserMessageController@receive');
 Route::get('user_message/forget', 'UserMessageController@viewForget');
 Route::post('user_message/forget', 'UserMessageController@forget');
-Route::get('user_message/reset', 'UserMessageController@viewReset');
+Route::get('user/info', 'UserMessageController@viewReset');
 Route::post('user_message/reset', 'UserMessageController@resetPassword');
 
 

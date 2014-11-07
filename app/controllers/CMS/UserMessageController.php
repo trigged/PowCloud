@@ -57,7 +57,6 @@ class UserMessageController extends BaseController
         return $this->location(-1, $user_message);
     }
 
-
     public function viewForget()
     {
 
@@ -78,13 +77,13 @@ class UserMessageController extends BaseController
         } else if (!Auth::check()) {
             return $this->location(-1, '请先登录!');
         }
+        $params['state'] = Auth::user()->state;
         return $this->render('user.reset', $params);
     }
 
     public function forget()
     {
         $email = Input::get('email');
-
         $user = User::checkExistsByMail($email);
         if (!$user) {
             $this->ajaxResponse(BaseController::$FAILED, '找不到用户!');
@@ -99,8 +98,9 @@ class UserMessageController extends BaseController
     public function resetPassword()
     {
         $msg_id = Input::get('msg_id');
-        $pwd = Input::get('new_pwd');
-        $pwd = sha1($pwd);
+        $pwd = sha1(Input::get('new_pwd'));
+        $old_pwd = sha1(Input::get('old_pwd'));
+
         if ($msg_id) {
             $user_message = UserMessage::find($msg_id);
             if ($user_message && $user_message->action_type == UserMessage::ACTION_FORGET_PASSWORD) {
@@ -112,7 +112,11 @@ class UserMessageController extends BaseController
                 $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
             }
         }
+
         if ($user = Auth::user()) {
+            if ($user->pwd != $old_pwd) {
+                $this->ajaxResponse(BaseController::$FAILED, '旧密码错误');
+            }
             $user->pwd = $pwd;
             $user->save();
             LoginController::logout();

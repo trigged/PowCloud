@@ -55,7 +55,9 @@
                     <?php endforeach; ?>
                 </ul>
                 <p class="navbar-text pull-right">
-                    欢迎 <a href="javascript:void(0);"><?php echo Auth::user()->name; ?></a> 登陆，<a
+                    欢迎 <a
+                        href="<?php echo URL::action('UserMessageController@viewReset') ?>"><?php echo Auth::user()->name; ?></a>
+                    登陆，<a
                         href="<?php echo URL::action('LoginController@logout') ?>">注销</a>
                 </p>
             </div>
