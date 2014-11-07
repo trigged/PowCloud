@@ -285,7 +285,6 @@ EOT;
                         data : $(form).serialize(),
                         type : '{$requestMethod}',
                         beforeSend : function(){
-
                             var bs = '{$beforeSend}'?(typeof({$beforeSend})=='function'?true:false):false;
                             if(bs){
                                return {$beforeSend};
@@ -301,8 +300,6 @@ EOT;
                                      errors = re.message
                                  }
                                  if(errors){
-
-
                                 try
                                     {
                                        errors = JSON.parse(this.responseText);
@@ -316,9 +313,7 @@ EOT;
                                 }
                                 $('#JS_Sub').attr('disabled',false);
                             }
-
                             if(re.redirect){
-
                                 location.href = re.redirect;
                             }
 

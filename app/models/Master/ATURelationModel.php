@@ -27,4 +27,5 @@ class ATURelationModel extends Eloquent
         return $this->belongsTo('User');
     }
 
+
 }
