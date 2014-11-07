@@ -18,20 +18,21 @@
                 </div>
                 <legend>变更链接设置</legend>
                 <div class="form-group">
-                    <label for="name" class="control-label">主数据:</label>
+                    <label for="name" class="control-label col-sm-2">主数据:</label>
 
-                    <div class="controls">
+                    <div class="controls col-sm-6">
                         <input name="data_info" class="form-control" type="text" placeholder="数据变更" id="filed" readonly
                                value="<?php echo $data_link->table_name . '.' . $data_link->data_id ?>">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="name" class="control-label">添加链接数据:</label>
+                    <label for="name" class="control-label col-sm-2">添加链接数据:</label>
 
-                    <div class="controls">
-                        <input class="form-control" id="add_itmes" type="text" placeholder="table_name:data_id">
-                        <a class="btn btn-info" onclick="addItmes()">add </a>
+                    <div class="controls col-sm-6">
+                        <input class="form-control " id="add_itmes" type="text" placeholder="table_name:data_id">
+
                     </div>
+                    <a class="btn btn-info" onclick="addItmes()">add </a>
                 </div>
 
                 <div class="form-group" id='items'>
