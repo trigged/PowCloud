@@ -88,11 +88,11 @@ EOT;
         return self::$namespace ? self::$namespace . '[' . $field . ']' : $field;
     }
 
-    public static function text($form, $value = '', $class = "")
+    public static function text($form, $value = '', $class = "form-control")
     {
         $value = is_array($value) ? json_encode($value) : $value;
 
-        $class = $form->dataType == 'Integer' ? ' input-mini' : '';
+//        $class = $form->dataType == 'Integer' ? ' input-mini' : '';
 
         $name = self::getFieldName($form->field);
 
