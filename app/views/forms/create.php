@@ -6,9 +6,9 @@
             <legend style="margin-bottom: 0px;">表单选项</legend>
             <div class="form-group">
                 <input type="hidden" name="tableId" value="<?php echo $table->id; ?>">
-                <label for="" class="control-label" style="width: 60px;">定时发布</label>
+                <label for="" class="control-label col-sm-2">定时发布</label>
 
-                <div class="controls" style="margin-left: 0px;">
+                <div class="controls col-sm-6" style="margin-left: 0px;">
                     <label class="radio inline">
                         <input type="radio" name="timing_time" id="" value="1"> 开启
                     </label>
@@ -28,6 +28,7 @@
                     <th>类型</th>
                     <th>验证规则</th>
                     <th>默认值</th>
+                    <th>是否可见</th>
                     <th>排序</th>
                 </tr>
                 </thead>
@@ -50,11 +51,15 @@
                             <?php echo Form::select('field[' . $index . '][type]', Config::get('params.formField'), '', array('class' => 'form-control')); ?>
                         </td>
                         <td>
-                            <?php echo Form::textarea('field[' . $index . '][rules]'); ?>
-
+                            <input type="text" class="form-control" name="field[<?php echo $index; ?>][rules]"
+                                   value=""/>
                         </td>
                         <td>
-                            <input type="text" name="field[<?php echo $index; ?>][default_value]" value=""/>
+                            <input type="text" class="form-control" name="field[<?php echo $index; ?>][default_value]"
+                                   value=""/>
+                        </td>
+                        <td>
+                            <?php echo Form::select('field[' . $index . '][isVisible]', array(1 => '可见', 0 => '不可见'), 1, array('class' => 'form-control')); ?>
                         </td>
                         <td>
                             <input type="text" class="form-control" name="field[<?php echo $index; ?>][rank]" value=""/>
