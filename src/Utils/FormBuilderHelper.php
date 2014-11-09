@@ -88,11 +88,11 @@ EOT;
         return self::$namespace ? self::$namespace . '[' . $field . ']' : $field;
     }
 
-    public static function text($form, $value = '', $class = "")
+    public static function text($form, $value = '', $class = "form-control")
     {
         $value = is_array($value) ? json_encode($value) : $value;
 
-        $class = $form->dataType == 'Integer' ? ' input-mini' : '';
+//        $class = $form->dataType == 'Integer' ? ' input-mini' : '';
 
         $name = self::getFieldName($form->field);
 
@@ -310,12 +310,16 @@ EOT;
                                         console.log("not json")
                                     }
                                      $('#alerts').on('closed.bs.alert', function () {
-                                         console.log("finish")
-                                         location.href = re.redirect;
+                                         if(re.redirect){
+                                            location.href = re.redirect;
+                                         }
+
                                      })
                                     if($('#alerts').length >0 ){
                                          setTimeout(function(){
-                                            location.href = re.redirect;
+                                           if(re.redirect){
+                                                location.href = re.redirect;
+                                            }
                                          }, 3000);
 
                                         if(re.status == 1){
@@ -340,7 +344,9 @@ EOT;
                             }
                             if(re.redirect){
                               if($('#alerts').length <=0 ){
-                                 location.href = re.redirect;
+                                 if(re.redirect){
+                                    location.href = re.redirect;
+                                 }
                               }
 
                             }

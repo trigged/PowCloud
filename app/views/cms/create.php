@@ -24,7 +24,7 @@
                 <div class="form-group timing-radio">
                     <label for="name" class="control-label" style="display:none"><?php echo $form->label ?>:</label>
 
-                    <div class="controls">
+                    <div class="controls pow_gap">
                         <?php
                         echo \Utils\FormBuilderHelper::timingState($form);
                         echo "</div>";
@@ -39,9 +39,9 @@
                             ?>
                             <?php foreach ($label_val as $sub): ?>
                                 <div class="form-group">
-                                    <label for="name" class="control-label"><?php echo $sub ?>:</label>
+                                    <label for="name" class="control-label col-sm-3"><?php echo $sub ?>:</label>
 
-                                    <div class="controls">
+                                    <div class="controls col-sm-5">
                                         <?php
                                         if ($form->rules)
                                             \Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules);
@@ -56,9 +56,9 @@
                             <?php endforeach; ?>
                         <?php elseif ($form->field && $form->type !== 'formTip') : ?>
                             <div class="form-group">
-                                <label for="name" class="control-label"><?php echo $form->label ?>:</label>
+                                <label for="name" class="control-label col-sm-3"><?php echo $form->label ?>:</label>
 
-                                <div class="controls">
+                                <div class="controls col-md-6 form-inline">
                                     <?php
                                     if ($form->rules)
                                         Utils\FormBuilderHelper::registerValidateRules($form->field, $form->rules);

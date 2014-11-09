@@ -52,13 +52,11 @@ class FormsController extends SystemController
         if ($field) {
             if (Forms::whereRaw('models_id=? AND field= ?', array($id, $field))->count() > 0) {
                 $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
-//                $this->ajaxResponse(array('field' => '字段名称已经存在'), 'fail', '更新失败', '');
             }
         }
         $forms = new Forms(Input::all());
         if ($forms->save()) {
             $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', URL::action('FormsController@index', array('table' => $id)));
-//            $this->ajaxResponse(array(), 'success', '更新成功', URL::action('FormsController@index', array('table' => $id)));
         }
     }
 

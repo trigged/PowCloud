@@ -24,28 +24,28 @@
         <div class="form-group">
             <label for="table_name" class="control-label col-sm-3">表名*:</label>
 
-            <div class="controls col-sm-8">
+            <div class="controls col-sm-8 form-inline">
                 <input name="table_name" class="form-control" type="text" placeholder="表名" id="table_name">
             </div>
         </div>
         <div class="form-group">
             <label for="table_alias" class="control-label col-sm-3">表别名*:</label>
 
-            <div class="controls col-sm-8">
+            <div class="controls col-sm-8 form-inline">
                 <input name="table_alias" class="form-control" type="text" placeholder="表别名" id="table_alias">
             </div>
         </div>
         <div class="form-group">
             <label for="group_name" class="control-label col-sm-3">组名:</label>
 
-            <div class="controls col-sm-8">
+            <div class="controls col-sm-8 form-inline">
                 <input name="group_name" class="form-control" type="text" placeholder="组名" id="group_name">
             </div>
         </div>
         <div class="form-group">
             <label for="path" class="control-label col-sm-3">API 地址绑定*:</label>
 
-            <div class="controls col-sm-8">
+            <div class="controls col-sm-8 form-inline">
                 <?php echo Form::select('path_id', $pathTreeListOptions, '', array('id' => 'path_id')) ?>
             </div>
             <input type="hidden" id="path_name" name="path_name" value="">
@@ -54,7 +54,7 @@
         <div class="form-group">
             <label for="name" class="control-label col-sm-3">属性*:</label>
 
-            <div class="controls col-sm-8">
+            <div class="controls col-sm-8 form-inline">
                 <table class="table" style="width: 500px;">
                     <thead>
                     <tr>

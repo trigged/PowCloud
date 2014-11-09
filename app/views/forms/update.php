@@ -4,25 +4,25 @@
         <fieldset>
             <legend>修改字段:<?php echo $field->field ?></legend>
             <div class="form-group">
-                <label for="label" class="control-label">标签*:</label>
+                <label for="label" class="control-label col-sm-2">标签*:</label>
 
-                <div class="controls">
+                <div class="controls col-sm-6">
                     <input name="label" class="form-control" value="<?php echo $field->label; ?>" type="text"
                            placeholder="标签" id="label">
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="type" class="control-label">类型*:</label>
+                <label for="type" class="control-label col-sm-2">类型*:</label>
 
-                <div class="controls">
+                <div class="controls col-sm-6">
                     <?php echo Form::select('type', Config::get('params.formField'), $field->type, array('class' => 'form-control JFieldType')); ?>
                 </div>
             </div>
             <div class="form-group">
-                <label for="default_value" class="control-label">默认值:</label>
+                <label for="default_value" class="control-label col-sm-2">默认值:</label>
 
-                <div class="controls JDefaultValue">
+                <div class="controls JDefaultValue col-sm-6">
                     <?php if ($field->type == 'ajaxInput' && $field->default_value): ?>
                         <table class="table">
                             <thead>
@@ -126,39 +126,39 @@
             </div>
 
             <div class="form-group">
-                <label for="rules" class="control-label">验证规则:</label>
+                <label for="rules" class="control-label col-sm-2">验证规则:</label>
 
-                <div class="controls">
+                <div class="controls col-sm-6">
                     <?php echo Form::textarea('rules', $field->rules, array('class' => 'form-control')) ?>
                 </div>
             </div>
             <div class="form-group">
-                <label for="rank" class="control-label">排序:</label>
+                <label for="rank" class="control-label col-sm-2">排序:</label>
 
-                <div class="controls">
+                <div class="controls col-sm-6">
                     <input name="rank" class="form-control" type="text" value="<?php echo $field->rank ?>"
                            placeholder="默认值" id="rank">
                 </div>
             </div>
             <div class="form-group">
-                <label for="isVisible" class="control-label">列表是否可见:</label>
+                <label for="isVisible" class="control-label col-sm-2">列表是否可见:</label>
 
-                <div class="controls">
+                <div class="controls col-sm-6">
                     <?php echo Form::select('isVisible', array(1 => '可见', 0 => '不可见'), (int)$field->isVisible, array('class' => 'form-control')); ?>
                 </div>
             </div>
             <div class="form-group">
-                <label for="isEditable" class="control-label">是否可输入:</label>
+                <label for="isEditable" class="control-label col-sm-2">是否可输入:</label>
 
-                <div class="controls">
+                <div class="controls col-sm-6">
                     <?php echo Form::select('isEditable', array(1 => '可输入', 0 => '不可输入'), (int)$field->isEditable, array('class' => 'form-control')); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="isEditable" class="control-label">角色可见:</label>
+                <label for="isEditable" class="control-label col-sm-2">角色可见:</label>
 
-                <div class="controls">
+                <div class="controls col-sm-6">
                     <?php echo Form::select('visibleByGroup', array('0' => '无限制') + Group::getGroups(), (int)$field->visibleByGroup, array('class' => 'form-control')); ?>
                 </div>
             </div>
