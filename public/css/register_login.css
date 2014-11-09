@@ -772,7 +772,7 @@ ul, ol, li {
 }
 
 .reigster_bg .item {
-    margin: 0 0 19px 74px;
+    margin: 0 0 38px 74px;
     position: relative;
 }
 
@@ -786,24 +786,7 @@ ul, ol, li {
     padding: 0 0 0 40px;
 }
 
-.reigster_bg .item input[type="text"]{
-    padding:18px 18px;
-    margin: 0 0 0 24px;
-    width: 290px;
-    background: none;
-    color: #fff;
-    font-size: 18px;
-    vertical-align: middle;
-}
-.reigster_bg .item input[type="password"]{
-    padding:18px 18px;
-    margin: 0 0 0 24px;
-    width: 290px;
-    background: none;
-    color: #fff;
-    font-size: 18px;
-    vertical-align: middle;
-}
+
 .reigster_bg input[type="submit"] {
     color: #fff;
     font-size: 24px;
@@ -825,16 +808,14 @@ ul, ol, li {
     margin: 30px auto 0;
     overflow: hidden;
 }
-.bg_login .item{
-    position: relative;
-}
+
 .bg_login .item .icon_user{
     display: block;
     width:20px;
     height:21px;
     position: absolute;
-    left:65px;
-    top: 13px;
+    left:56px;
+    top: 7px;
     background: url("../images/icon_user.png");
 }
 .bg_login .item .icon_password{
@@ -842,8 +823,8 @@ ul, ol, li {
     width:20px;
     height:21px;
     position: absolute;
-    left:65px;
-    top: 13px;
+    left:56px;
+    top: 7px;
     background: url("../images/icon_password.png");
 }
 .bg_login form {
@@ -851,9 +832,9 @@ ul, ol, li {
 }
 
 .bg_login .item input[type="text"] {
-    padding:13px 30px;
+    padding:4px 30px;
     margin: 0 auto;
-    width: 270px;
+    width: 290px;
     background: none;
     border: 2px solid #5d5e6c;
     color: #fff;
@@ -862,9 +843,9 @@ ul, ol, li {
     display: block;
 }
 .bg_login .item input[type="password"] {
-    padding:13px 30px;
+    padding:4px 30px;
     margin: 0 auto;
-    width: 270px;
+    width: 290px;
     background: none;
     border:2px solid #5d5e6c;
     color: #fff;
@@ -874,13 +855,14 @@ ul, ol, li {
 
 }
 .bg_login .item {
-    margin: 0 0 9px 0;
+    margin: 0 0 38px 0;
+    position: relative;
 }
 
 .fotget_password {
     color: #e2e2e2;
     font-size: 18px;
-    margin: 18px 0 0 306px;
+    margin: 18px 0 0 278px;
     display: block;
     text-decoration: none;
 }
@@ -899,7 +881,7 @@ ul, ol, li {
 }
 
 .normal_input{
-    padding:18px 18px;
+    padding:4px 18px;
     margin: 0 0 0 24px;
     width: 290px;
     background: none;
@@ -914,8 +896,8 @@ ul, ol, li {
 span.help-inline{
     position:absolute;
     color:red;
-    bottom:20px;
-    right:20px;
+    top: 40px; ;
+    left:147px;
 }
 
 .login_footer {
