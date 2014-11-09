@@ -54,8 +54,9 @@ class LoginController extends Controller
             $message = UserMessage::find($message_id);
             UserMessage::processUserMessage($message, $user->id);
         }
-        $user_active = UserMessage::buildMsg($user->id, -1, -1, $email, UserMessage::ACTION_ACTIVE);
-        UserMessage::sendMail(UserMessage::buildSedUrl(URL::action('UserMessageController@receive'), $email, $user_active->id), $email);
+        UserMessage::buildActiveEmail($user->id,$email);
+//        $user_active = UserMessage::buildMsg($user->id, -1, -1, $email, UserMessage::ACTION_ACTIVE);
+//        UserMessage::sendMail(UserMessage::buildSedUrl(URL::action('UserMessageController@receive'), $email, $user_active->id), $email);
         $this->ajaxResponse(BaseController::$SUCCESS, '注册成功,激活邮件稍后发完少侠邮箱,请注意查收!', '', URL::action('DashBoardController@index'));
     }
 

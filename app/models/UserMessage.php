@@ -149,4 +149,10 @@ class UserMessage extends Eloquent
         return true;
     }
 
+
+    public  static function buildActiveEmail($user_id,$email){
+        $user_active = self::buildMsg($user_id, -1, -1, $email, self::ACTION_ACTIVE);
+        self::sendMail(UserMessage::buildSedUrl(URL::action('UserMessageController@receive'), $email, $user_active), $email);
+    }
+
 }

@@ -33,7 +33,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
 
-    <div class="container-fluid">
+        <div class="container-fluid">
             <!--            <a data-target=".navbar-collapse" data-toggle="collapse" class="btn navbar-btn">-->
             <!--                <span class="glyphicon glyphicon-bar"></span>-->
             <!--                <span class="glyphicon glyphicon-bar"></span>-->
@@ -43,7 +43,9 @@
 
             <div class="pull-right">
                 <p class="navbar-text">
-                    欢迎 <a href="javascript:void(0);"><?php echo Auth::user()->name; ?></a> 登陆，<a
+                    欢迎 <a
+                        href="<?php echo URL::action('UserMessageController@viewReset') ?>"><?php echo Auth::user()->name; ?></a>
+                    登陆，<a
                         href="<?php echo URL::action('LoginController@logout') ?>">注销</a>
                 </p>
             </div>
