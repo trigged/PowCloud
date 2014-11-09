@@ -19,11 +19,11 @@
         <form method="post" id="login">
             <div class="item">
                 <i class="icon_user"></i>
-                <input type="text" name="username" placeholder="请输入账号"/>
+                <input class="normal_input" type="text" name="username" placeholder="请输入账号"/>
             </div>
             <div class="item">
                 <i class="icon_password"></i>
-                <input type="password" name="password" placeholder="请输入密码"/>
+                <input class="normal_input" type="password" name="password" placeholder="请输入密码"/>
             </div>
             <a href="<?php echo URL::action('UserMessageController@viewForget') ?>" class="fotget_password">忘记密码？</a>
             <?php echo \Utils\FormBuilderHelper::staticEnd('login',
@@ -36,9 +36,9 @@
         </form>
     </div>
     <div class="login_footer clearfix">
-        <span><em>其他登录方式</em><a href="#" class="icon_sina"><img src="images/icon_sina.png"></a><a href="#"
-                                                                                                  class="icon_qq"><img
-                    src="images/icon_qq.png"></a></span>
+<!--        <span><em>其他登录方式</em><a href="#" class="icon_sina"><img src="images/icon_sina.png"></a><a href="#"-->
+<!--                                                                                                  class="icon_qq"><img-->
+<!--                    src="images/icon_qq.png"></a></span>-->
         <a href="<?php echo URL::action('LoginController@register') ?>" class="free_reigster">免费注册</a>
     </div>
 </div>

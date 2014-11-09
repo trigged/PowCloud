@@ -19,15 +19,15 @@
         <form method="post" id="register">
             <div class="item">
                 <label>用户名</label>
-                <input type="text" name="username" placeholder="请输入您的用户名"/>
+                <input class="normal_input" type="text" name="username" placeholder="请输入您的用户名"/>
             </div>
             <div class="item">
                 <label>密码</label>
-                <input type="password" placeholder="请输入您的密码" name="password"/>
+                <input class="normal_input" type="password" placeholder="请输入您的密码" name="password"/>
             </div>
             <div class="item">
                 <label>邮箱</label>
-                <input name="email" type="text"   <?php if (!empty($email)) {
+                <input class="normal_input" name="email" type="email"   <?php if (!empty($email)) {
                     echo 'readonly';
                 } ?> class="feedback-input" id="email" placeholder="您的邮箱地址" value="<?php echo $email ?>"/>
             </div>

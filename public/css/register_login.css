@@ -773,6 +773,7 @@ ul, ol, li {
 
 .reigster_bg .item {
     margin: 0 0 19px 74px;
+    position: relative;
 }
 
 .reigster_bg .item label {
@@ -895,6 +896,26 @@ ul, ol, li {
     border: none;
     margin: 50px auto 0;
     display: block;
+}
+
+.normal_input{
+    padding:18px 18px;
+    margin: 0 0 0 24px;
+    width: 290px;
+    background: none;
+    color: #fff;
+    font-size: 18px;
+    vertical-align: middle;
+    border:2px solid #5d5e6c;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+span.help-inline{
+    position:absolute;
+    color:red;
+    bottom:-26px;
+    left:143px;
 }
 
 .login_footer {
