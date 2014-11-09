@@ -1,24 +1,24 @@
 <?php echo $header; ?>
     <div class="">
-        <div class="">
+        <div class="" style="padding-left:15px; padding-right:15px;">
             <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
             <form data-status="0" id="addAppForm" class="form-horizontal"
                   action="<?php echo URL::action('DashBoardController@updateApp') ?>" method="post">
                 <fieldset>
                     <legend>修改应用:<?php echo $app->name; ?></legend>
-                    <div class="">
-                        <label for="app_id" class="control-label" style="margin-top:12px;">应用名称*:</label>
+                    <div class="form-group">
+                        <label for="app_id" class="control-label col-sm-2" ">应用名称*:</label>
 
-                        <div class="controls inline">
+                        <div class="controls col-sm-6">
                         <input type="hidden" name="app_id" value="<?php echo $app->id; ?>">
                             <input name="name" class="form-control" value="<?php echo $app->name ?>" type="text"
                                    placeholder="应用名称" id="name">
                         </div>
                     </div>
-                    <div class="">
-                        <label for="info" class="control-label" style="margin-top:12px;">信息*:</label>
+                    <div class="form-group">
+                        <label for="info" class="control-label col-sm-2" >信息*:</label>
 
-                        <div class="controls inline">
+                        <div class="controls col-sm-6">
                             <input name="info" class="form-control inline" value="" type="text" placeholder="信息"
                                    id="info">
                         </div>

@@ -1,5 +1,5 @@
 <?php echo $header; ?>
-    <div class="">
+    <div style="padding:0 15px;">
         <div class="">
             <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
             <form data-status="0" id="addAppForm" class="form-horizontal"
