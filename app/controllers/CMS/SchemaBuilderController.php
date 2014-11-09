@@ -45,7 +45,7 @@ class SchemaBuilderController extends SystemController
                 $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
 //                $this->ajaxResponse(array('path_id' => '路径已被绑定,请重新选择路径'), 'fail', '创建失败');
             }
-        } elseif (SchemaBuilder::whereExists('table_name', $table->table_name)->count()) {
+        } elseif (SchemaBuilder::where('table_name', $table->table_name)->count()) {
             $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
         }
 
