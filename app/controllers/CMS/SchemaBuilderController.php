@@ -42,7 +42,7 @@ class SchemaBuilderController extends SystemController
         //TODO add event for after validator
         if ((int)$table->path_id !== -1) {
             if ($value = SchemaBuilder::where('path_id', '=', $table->path_id)->orWhere('table_name', $table->table_name)->count()) {
-                $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
+                $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS, '路径已被绑定,请重新选择路径');
 //                $this->ajaxResponse(array('path_id' => '路径已被绑定,请重新选择路径'), 'fail', '创建失败');
             }
         } elseif (SchemaBuilder::whereExists('table_name', $table->table_name)->count()) {
@@ -252,7 +252,6 @@ class SchemaBuilderController extends SystemController
             });
             if ($r === true) {
                 $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', URL::action('SchemaBuilderController@tableSchema', array('table' => $id)));
-//                $this->ajaxResponse(array(), 'success', '添加成功',URL::action('SchemaBuilderController@tableSchema', array('table' => $id)));
             }
             $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, '', URL::action('SchemaBuilderController@tableSchema', array('table' => $id)));
 
