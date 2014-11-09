@@ -19,17 +19,17 @@
         <form method="post" id="register">
             <div class="item">
                 <label>用户名</label>
-                <input class="normal_input" type="text" name="username" placeholder="请输入您的用户名"/>
+                <input class="normal_input" type="text" name="username" placeholder="请输入您的用户名" required/>
             </div>
             <div class="item">
                 <label>密码</label>
-                <input class="normal_input" type="password" placeholder="请输入您的密码" name="password"/>
+                <input class="normal_input" type="password" placeholder="请输入您的密码" name="password" required/>
             </div>
             <div class="item">
                 <label>邮箱</label>
                 <input class="normal_input" name="email" type="email"   <?php if (!empty($email)) {
                     echo 'readonly';
-                } ?> class="feedback-input" id="email" placeholder="您的邮箱地址" value="<?php echo $email ?>"/>
+                } ?> class="feedback-input" id="email" placeholder="您的邮箱地址" value="<?php echo $email ?>" required/>
             </div>
 
             <input name="msg_id" type="hidden" value="<?php echo $msg_id ?>" "/>
@@ -43,6 +43,34 @@
         </form>
     </div>
 </div>
+<script type="text/javascript">
+    $(function () {
+        var state = false;
+        $('#txtEmail').focus(function () {
+            if (state == false) {
+                $(this).val('');
+            }
+        })
+        $('#txtEmail').blur(function () {
+            if ($(this).val() == '') {
+                $('#spinfo').text('邮箱不能为空');
+                $(this).focus();
+            }
+            else {
+                if (/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test($(this).val()) == false) {
+                    $('#spinfo').text('邮箱格式不正确，请重新输入');
+                    $(this).focus();
+                }
+                else {
+                    $('#spinfo').text('');
+                    $('#spinfo').append('<img src=images/onSuccess.gif/>');
+                    state = true;
+                }
+            }
+        })
 
+
+    })
+</script>
 </body>
 </html>

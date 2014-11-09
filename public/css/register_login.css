@@ -914,8 +914,8 @@ ul, ol, li {
 span.help-inline{
     position:absolute;
     color:red;
-    bottom:-26px;
-    left:143px;
+    bottom:20px;
+    right:20px;
 }
 
 .login_footer {
