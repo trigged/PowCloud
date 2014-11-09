@@ -10,7 +10,7 @@
                 <label for="field" class="control-label col-sm-3">字段名*:</label>
 
                 <div class="controls col-sm-8">
-                    <input name="field" class="filedNameLetter col-md-4" type="text" placeholder="字段名" id="field">
+                    <input name="field" class="filedNameLetter col-md-4 form-control" type="text" placeholder="字段名" id="field">
                 </div>
             </div>
             <div class="form-group">
