@@ -19,11 +19,11 @@
         <form method="post" id="login">
             <div class="item">
                 <i class="icon_user"></i>
-                <input class="normal_input" type="text" name="username" placeholder="请输入账号"/>
+                <input class="normal_input" type="text" name="username" placeholder="请输入账号" required/>
             </div>
             <div class="item">
                 <i class="icon_password"></i>
-                <input class="normal_input" type="password" name="password" placeholder="请输入密码"/>
+                <input class="normal_input" type="password" name="password" placeholder="请输入密码" required/>
             </div>
             <a href="<?php echo URL::action('UserMessageController@viewForget') ?>" class="fotget_password">忘记密码？</a>
             <?php echo \Utils\FormBuilderHelper::staticEnd('login',
