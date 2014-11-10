@@ -37,47 +37,43 @@
         </form>
     </div>
     <div class="login_footer clearfix">
-<!--        <span><em>其他登录方式</em><a href="#" class="icon_sina"><img src="images/icon_sina.png"></a><a href="#"-->
-<!--                                                                                                  class="icon_qq"><img-->
-<!--                    src="images/icon_qq.png"></a></span>-->
+        <!--        <span><em>其他登录方式</em><a href="#" class="icon_sina"><img src="images/icon_sina.png"></a><a href="#"-->
+        <!--                                                                                                  class="icon_qq"><img-->
+        <!--                    src="images/icon_qq.png"></a></span>-->
         <a href="<?php echo URL::action('LoginController@register') ?>" class="free_reigster">免费注册</a>
     </div>
 </div>
 <script>
-    $(function(){
+    $(function () {
 
-        var ok1=false;
-        var ok2=false;
-        // 验证用户名
-        $('input[name="username"]').blur(function(){
-            if($(this).val().length >= 3 && $(this).val().length <=12 && $(this).val()!=''){
-                $(".input_alert").hide();
-                ok1=true;
-            }else{
+
+        function check_username() {
+            var user_name = $('input[name="username"]').val();
+            if (user_name.length <= 0) {
                 $(".input_alert").show().html("请输入正确的用户名");
+                return false
             }
+            $(".input_alert").hide();
+            return true;
 
-        });
+        }
 
-        //验证密码
-        $('input[name="password"]').focus(function(){
-            $(".input_alert").show().html("请输入正确的密码");
-        }).blur(function(){
-                if($(this).val().length >= 6 && $(this).val().length <=20 && $(this).val()!=''){
-                    $(".input_alert").hide();
-                    ok2=true;
-                }else{
-                    $(".input_alert").show().html("请输入正确的密码");
-                }
+        function check_password() {
+            var pwd = $('input[name="password"]').val();
+            if (pwd.length < 6) {
+                $(".input_alert").show().html("请输入正确的密码 长度必须大于6为");
+                return false
+            }
+            $(".input_alert").hide();
+            return true;
 
-            });
+        }
 
-        //提交按钮,所有验证通过方可提交
+        $('.submit_button').click(function () {
 
-        $('.submit_button').click(function(){
-            if(ok1 && ok2){
+            if (check_username() && check_password()) {
                 $('form').submit();
-            }else{
+            } else {
 
                 $(".input_alert").show().html("请输入正确的用户名和密码");
                 return false;
