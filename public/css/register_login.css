@@ -797,7 +797,8 @@ ul, ol, li {
     -webkit-border-radius: 5px;
     border-radius: 5px;
     border: none;
-    margin: 30px 0 0 188px;
+    margin: 30px auto;
+    display: block;
 }
 
 
@@ -855,14 +856,14 @@ ul, ol, li {
 
 }
 .bg_login .item {
-    margin: 0 0 38px 0;
+    margin: 0 0 30px 0;
     position: relative;
 }
 
 .fotget_password {
     color: #e2e2e2;
     font-size: 18px;
-    margin: 18px 0 0 278px;
+    margin: 0px 0 8px 278px;
     display: block;
     text-decoration: none;
 }
@@ -876,12 +877,12 @@ ul, ol, li {
     -webkit-border-radius: 5px;
     border-radius: 5px;
     border: none;
-    margin: 50px auto 0;
+    margin: 20px auto 0;
     display: block;
 }
 
 .normal_input{
-    padding:4px 18px;
+    padding:3px 18px;
     margin: 0 0 0 24px;
     width: 290px;
     background: none;
@@ -893,11 +894,21 @@ ul, ol, li {
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
-span.help-inline{
-    position:absolute;
-    color:red;
-    top: 40px; ;
-    left:147px;
+.input_alert{
+    width:350px;
+    display: block;
+    color:#a94442;
+    margin:0 auto;
+    text-align: center;
+    font-size: 14px;
+    font-family: arial, sans-serif;
+    padding:10px 0;
+    border:1px solid #dca7a7;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px ;
+    background: #f2dede;
+    display: none;
 }
 
 .login_footer {
