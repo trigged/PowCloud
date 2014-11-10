@@ -165,14 +165,59 @@
                     $('#JS_Sub').attr('disabled', true);
                 },
                 success: function (re) {
+                    console.log("re", re)
                     re = $.parseJSON(re);
-                    if (re.status == 'fail') {
-                        alert(re.message);
+                    if (re.status) {
+                        var errors = re.data;
+                        if (!errors) {
+                            errors = re.message
+                        }
+                        if (errors) {
+                            try {
+                                errors = JSON.parse(this.responseText);
+                                console.log("json")
+                            }
+                            catch (e) {
+                                console.log("not json")
+                            }
+                            $('#alerts').on('closed.bs.alert', function () {
+                                if (re.redirect) {
+                                    location.href = re.redirect;
+                                }
+
+                            })
+                            if ($('#alerts').length > 0) {
+                                setTimeout(function () {
+                                    if (re.redirect) {
+                                        location.href = re.redirect;
+                                    }
+                                }, 3000);
+                                if (re.status == 1) {
+                                    $("#alerts").attr('class', "alert alert-dismissible  alert-success");
+                                }
+                                else {
+                                    $("#alerts").attr('class', "alert alert-dismissible  alert-danger");
+                                }
+                                $("#alert_title").html(re.message);
+                                $("#alert_content").html(re.data);
+                                $("#alerts").fadeTo(4000, 500).slideUp(500, function () {
+                                    $("#alerts").alert();
+                                });
+                            }
+                            else {
+                                alert(errors);
+                            }
+                        }
                         $('#JS_Sub').attr('disabled', false);
-                        return false;
                     }
-                    alert('更新数据成功');
-                    location.href = re.successRedirect;
+                    if (re.redirect) {
+                        if ($('#alerts').length <= 0) {
+                            if (re.redirect) {
+                                location.href = re.redirect;
+                            }
+                        }
+
+                    }
                 }
             }).complete(function () {
                     $('#JS_Sub').attr('disabled', false);

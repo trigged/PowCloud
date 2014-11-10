@@ -46,7 +46,7 @@ if ($field !== null && is_array($field->default_value)) {
 <script>
     $(function () {
         var tableIndex = <?php echo $tableIndex; ?>;
-        $('.JAjaxInput').live('click', function () {
+        $('.JAjaxInput').on('click', function () {
             var type = $(this).attr('data-type');
             var target = $(this).attr('data-target');
             var trTpl = '<tr><td><input type="text" value="" name="default_value[data][{tableIndex}][data]">&nbsp;&nbsp;<a style="cursor:pointer;" data-mapIndex="2" data-tableIndex="{data-tableIndex}" data-type="td" class="JAjaxInput" href="javascript:;"><i class="glyphicon glyphicon-plus"></i></a>&nbsp;&nbsp;<a href="javascript:;"  class="JAjaxInput" data-type="delete-tr" style="cursor:pointer;"><i class="glyphicon glyphicon-remove"></i></a></td><td><div style="margin-bottom: 5px;"><input type="text" value="" class="form-control" name="default_value[data][{tableIndex}][map][{mapIndex}][localField]">&nbsp;&nbsp;&nbsp;<input type="text" value="" class="form-control" name="default_value[data][{tableIndex}][map][{mapIndex}][remoteField]">&nbsp;&nbsp;<a href="javascript:;"  class="JAjaxInput" data-type="delete-td" style="cursor:pointer;"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';

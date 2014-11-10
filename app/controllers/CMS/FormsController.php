@@ -165,11 +165,9 @@ class FormsController extends SystemController
         if (!$field = Forms::find($id))
             App::abort(404);
         if ($field->update(Input::except(array('form'))))
-            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_HAS_EXISTS, '', URL::action('FormsController@index', array('table' => $field->models_id)));
-//            $this->ajaxResponse(array(), 'success', '更新成功', URL::action('FormsController@index', array('table' => $field->models_id)));
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', URL::action('FormsController@index', array('table' => $field->models_id)));
         else {
             $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
-//            $this->ajaxResponse($field->errors, 'fail', '更新主机失败');
         }
     }
 
