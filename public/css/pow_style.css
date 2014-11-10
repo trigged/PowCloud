@@ -108,7 +108,10 @@ li {
     color: #d14836;
     background: none;
 }
+.nav-list li.active a:hover {
 
+    color:#fff;
+}
 .table_list_title {
     margin: 15px 0 10px 0px;
 }
@@ -129,7 +132,9 @@ li {
     color: #d14836;
     background: none;
 }
-
+.pow_main_nav li.active a:hover{
+    color:#fff;
+}
 .nav {
     line-height: 30px;
 }
@@ -166,9 +171,7 @@ li {
     background-color: #d14836;
 }
 
-.nav li.active a:hover {
-    color: #fff;
-}
+
 
 .sidebar-nav {
     padding: 19px 0;

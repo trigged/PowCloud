@@ -4,7 +4,7 @@
     <form data-status="0" id="group_form" class="form-horizontal" method="post"
           action="<?php echo URL::action('LimitController@store'); ?>" onsubmit="return check_form(this)">
         <div class="form-group">
-            <label for="GroupName" class="control-label">用户组名*:</label>
+            <label for="GroupName" class="control-label col-md-2">用户组名*:</label>
 
             <div class="controls col-md-5">
             <input name="group[groupName]" class="form-control" value="" type="text" placeholder="用户组名称"
@@ -13,16 +13,16 @@
         </div>
         <?php foreach ($models as $model): ?>
             <div class="form-group">
-                <label class="control-label"
+                <label class="control-label col-md-2"
                        for="<?php echo $model->table_name ?>"><?php echo $model->table_alias; ?></label>
 
-                <div class="controls">
+                <div class="controls col-md-5">
                     <?php echo Form::radio('limit[' . $model->table_name . ']', 1, true, array('class' => 'radio')); ?>
-                    <span class="inline">无权限</span>
+                    <span class="">无权限</span>
                     <?php echo Form::radio('limit[' . $model->table_name . ']', 2, '', array('class' => 'radio')); ?>
-                    <span class="inline">只看权限</span>
+                    <span>只看权限</span>
                     <?php echo Form::radio('limit[' . $model->table_name . ']', 3, '', array('class' => 'radio')); ?>
-                    <span class="inline">修改权限</span>
+                    <span>修改权限</span>
                 </div>
             </div>
         <?php endforeach; ?>
