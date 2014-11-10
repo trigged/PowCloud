@@ -19,11 +19,11 @@
         <form method="post" id="login">
             <div class="item">
                 <i class="icon_user"></i>
-                <input class="normal_input" type="text" name="username" placeholder="请输入账号" required/>
+                <input class="normal_input" type="text" name="username" placeholder="请输入账号"/>
             </div>
             <div class="item">
                 <i class="icon_password"></i>
-                <input class="normal_input" type="password" name="password" placeholder="请输入密码" required/>
+                <input class="normal_input" type="password" name="password" placeholder="请输入密码"/>
             </div>
             <a href="<?php echo URL::action('UserMessageController@viewForget') ?>" class="fotget_password">忘记密码？</a>
             <?php echo \Utils\FormBuilderHelper::staticEnd('login',
@@ -32,7 +32,8 @@
                 'POST'
             );//注册表单JS
             ?>
-            <input id="JS_Sub" type="submit" value="立即登录" class="submit_button"/>
+            <div class="input_alert">请输入正确的密码</div>
+            <input id="JS_Sub" type="submit" data-loading-text="登录中..." value="立即登录" class="submit_button"/>
         </form>
     </div>
     <div class="login_footer clearfix">
@@ -42,5 +43,48 @@
         <a href="<?php echo URL::action('LoginController@register') ?>" class="free_reigster">免费注册</a>
     </div>
 </div>
+<script>
+    $(function(){
+
+        var ok1=false;
+        var ok2=false;
+        // 验证用户名
+        $('input[name="username"]').blur(function(){
+            if($(this).val().length >= 3 && $(this).val().length <=12 && $(this).val()!=''){
+                $(".input_alert").hide();
+                ok1=true;
+            }else{
+                $(".input_alert").show().html("请输入正确的用户名");
+            }
+
+        });
+
+        //验证密码
+        $('input[name="password"]').focus(function(){
+            $(".input_alert").show().html("请输入正确的密码");
+        }).blur(function(){
+                if($(this).val().length >= 6 && $(this).val().length <=20 && $(this).val()!=''){
+                    $(".input_alert").hide();
+                    ok2=true;
+                }else{
+                    $(".input_alert").show().html("请输入正确的密码");
+                }
+
+            });
+
+        //提交按钮,所有验证通过方可提交
+
+        $('.submit_button').click(function(){
+            if(ok1 && ok2){
+                $('form').submit();
+            }else{
+
+                $(".input_alert").show().html("请输入正确的用户名和密码");
+                return false;
+            }
+        });
+
+    });
+</script>
 </body>
 </html>
