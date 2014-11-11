@@ -123,6 +123,8 @@ class ModelController extends Controller
 
     public $max_count = null;
 
+    public $action = null;
+
     //endregion
 
     public function __construct()
@@ -704,7 +706,7 @@ class ModelController extends Controller
                     $table_model = $vm->newQueryWithDeleted()->find($result[0]->id);
                     $table_model->setTable($this->table_name);
                     $table_model->update($data);
-                    return $this->getResult(1, 'success', $this->process($table_model->toArray()));
+                    return $this->getResult(1, 'success', $this->process($table_model->toArray(),false));
 
                 }
             }
