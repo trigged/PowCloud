@@ -141,7 +141,11 @@ class ModelController extends Controller
             \Utils\AppChose::updateConf($that->app_pool);
 
             $name = Route::currentRouteName();
-            $methods = explode('.', $name);
+            $name = explode(' ', $name);
+            $methods = explode('.', end($name));
+            if(count($methods) == 1){
+                $methods = explode('/', end($methods));
+            }
             $method = end($methods);
             $that->format = Input::get('format');
             //字段 加减
@@ -185,7 +189,8 @@ class ModelController extends Controller
             $that->expire = (int)Request::get('expire');
             $that->right = Request::get('right');
             //权限检查
-            if (!$method or !isset($that->right[$method]) or $that->right[$method] !== 1) {
+            if (!$method || !isset($that->right[$method]) || $that->right[$method] !== 1) {
+                if($methods[0] !== 'api_user')
                 return $that->getResult(-1, 'not allow', null);
             }
         });

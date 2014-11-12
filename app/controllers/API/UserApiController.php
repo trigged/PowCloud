@@ -15,6 +15,32 @@ class UserApiController extends ModelController
 
 
     ## region user
+    public function login(){
+        $name = Input::get('name');
+        $pwd = Input::get('password');
+        if(empty($name) || empty($pwd) ){
+            return  $this->getResult(-1,'用户名或密码不能为空');
+        }
+        $user  = new ApiModel('user');
+        if($user = $user->where('name',$name)->where('password',sha1($pwd))->first()){
+            return  $this->getResult(1,'登陆成功',$this->process($user->toArray(),false));
+        }
+        return  $this->getResult(-1,'登陆失败,用户名或者密码错误');
+    }
+
+    public function userNameCheck(){
+        $name = Input::get('name');
+        if(empty($name)  ){
+            return  $this->getResult(-1,'用户名不能为空');
+        }
+        $user  = new ApiModel('user');
+        if($user->where('name',$name)->count()){
+            return  $this->getResult(-1,'用户名已经被注册');
+        }
+
+        return  $this->getResult(1,'用户名尚未被注册');
+    }
+
     function user_create(){
         $name = Input::get('name');
         $nick_name = Input::get('nick_name',$name);
@@ -24,29 +50,56 @@ class UserApiController extends ModelController
         $email = Input::get('email');
         $phone = Input::get('phone');
         $address = Input::get('address');
-        $active = Input::get('active');
-
 
         if(empty($name) || empty($pwd) ){
-
+            return  $this->getResult(-1,'用户名或密码不能为空');
         }
+        $user  = new ApiModel('user');
+        if($user->where('name',$name)->count()){
+            return  $this->getResult(-1,'昵称已经被占用');
+        }
+        $user ->name = $name;
+        $user->nick_name = $nick_name;
+        $user->password = sha1($pwd);
+        $user->sex = $sex;
+        $user->age = $age;
+        $user->email = $email;
+        $user->phone = $phone;
+        $user->address = $address;
+        $user->save();
+        return $this->getResult(1,'',$this->process($user->toArray(),false));
+          //todo mail active check
 
-
-        $pwd = sha1($pwd);
+//        $active = Input::get('active',false);
+//        $user->status = !$active;
+//        if($active){
+//            UserMessage::sendMail()
+//        }
 
     }
 
-    function user_update(){
+    function user_update($id){
+        $data = $data = json_decode(Input::get('data'), true);
+        if(empty($id) || empty($data) ){
+            return  $this->getResult(-1,'请输入用户ID 和要修改的数据');
+        }
+        $user  = ApiModel::Find('user',$id);
 
-    }
-
-    function user_info(){
-
-    }
-
-
-    function user_delete(){
-
+        if(isset($data['password']) && empty($data['password']) ){
+            return  $this->getResult(-1,'密码不能为空');
+        }
+        if(isset($data['name'])){
+            return  $this->getResult(-1,'不能修改 name');
+        }
+        $data['password'] = sha1($data['password']);
+        try{
+            $user->update($data);
+        }
+        catch (Exception $e) {
+            \Utils\CMSLog::debug(sprintf('update user error :%s',$e->getMessage()));
+            return $this->getResult(-1,'出现错误,请检查');
+        }
+        return $this->getResult(1,'',$this->process($user->toArray(),false));
     }
     ## endregion
     /**
@@ -74,15 +127,7 @@ class UserApiController extends ModelController
      */
     public function create()
     {
-        if ($this->action == self::$ACTION_USER) {
-            $$this->user_create();
-        }
-        elseif($this->action == self::$ACTION_FRIENDS) {
-            $this->friends_create();
-        }
-        elseif($this->action == self::$ACTION_XXX) {
-            $$this->user_xx_create();
-        }
+
     }
 
     /**
@@ -92,7 +137,15 @@ class UserApiController extends ModelController
      */
     public function store()
     {
-        //
+        if($this->action == self::$ACTION_FRIENDS) {
+            $this->friends_create();
+        }
+        elseif($this->action == self::$ACTION_XXX) {
+            $this->user_xx_create();
+        }
+        else{
+           return  $this->user_create();
+        }
     }
 
     /**
@@ -125,7 +178,16 @@ class UserApiController extends ModelController
      */
     public function update($id)
     {
-        //
+        $name = Input::get('data');
+        if($this->action == self::$ACTION_FRIENDS) {
+            return $this->friends_create();
+        }
+        elseif($this->action == self::$ACTION_XXX) {
+            return $this->user_xx_create();
+        }
+        else{
+            return  $this->user_update($id);
+        }
     }
 
     /**

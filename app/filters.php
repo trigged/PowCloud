@@ -47,7 +47,7 @@ App::before(function (\Illuminate\Http\Request $request) {
         $request->request->set('model', $result['model']);
         $request->request->set('right', $result['right']);
         $request->request->set('expire', $result['expire']);
-    } elseif ($token) {
+    } elseif ($token && !starts_with($path,'/api_user')) {
         return Response::json(array(
             'code'    => -1,
             'message' => 'request not found  or path missing',

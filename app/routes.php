@@ -49,6 +49,11 @@ Route::post('user_message/reset', 'UserMessageController@resetPassword');
 Route::any('user/resend', 'UserMessageController@reSendActiveMail');
 
 
+//api user
+Route::any('api_user/login','UserApiController@login');
+Route::any('api_user/name_check','UserApiController@userNameCheck');
+Route::resource('api_user','UserApiController');
+
 //login
 Route::get('register', 'LoginController@register');
 Route::get('logout', 'LoginController@logout');

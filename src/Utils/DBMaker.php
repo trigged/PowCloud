@@ -15,7 +15,29 @@ class DBMaker
 {
     //ALTER TABLE `cms_2_data`.`data_link_item`  ADD COLUMN `options` VARCHAR(45) NULL AFTER `deleted_at`;
 
-    const DB_CREATE = 'CREATE DATABASE `%s`;';
+    const DB_CREATE = 'CREATE DATABASE `%s`;
+    USE `%s`;
+    CREATE TABLE IF NOT EXISTS  `user` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `nick_name` VARCHAR(45) NULL,
+  `password` VARCHAR(45) NULL,
+  `sex` VARCHAR(45) NULL,
+  `age` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `phone` VARCHAR(45) NULL,
+  `address` TEXT NULL,
+  `status` VARCHAR(45) NULL,
+  `user_name` VARCHAR(45) NULL,
+  `rank` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `name` (`name` ASC))
+ENGINE = InnoDB
+
+    ';
 
     const DB_CREATE_DATA = "
     CREATE DATABASE  IF NOT EXISTS `%s` /*!40100 DEFAULT CHARACTER SET utf8 */;
@@ -81,9 +103,9 @@ CREATE TABLE `data_link` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_name` varchar(45) DEFAULT NULL,
   `data_id` varchar(45) DEFAULT NULL,
-  `created_at` varchar(45) DEFAULT NULL,
-  `updated_at` varchar(45) DEFAULT NULL,
-  `deleted_at` varchar(45) DEFAULT NULL,
+  `created_at`  datetime DEFAULT NULL,
+  `updated_at`  datetime DEFAULT NULL,
+  `deleted_at`  datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -102,9 +124,9 @@ CREATE TABLE `data_link_item` (
   `table_name` varchar(45) DEFAULT NULL,
   `table_alias` varchar(45) DEFAULT NULL,
   `data_id` int(11) DEFAULT NULL,
-  `created_at` varchar(45) DEFAULT NULL,
-  `updated_at` varchar(45) DEFAULT NULL,
-  `deleted_at` varchar(45) DEFAULT NULL,
+  `created_at`  datetime DEFAULT NULL,
+  `updated_at`  datetime DEFAULT NULL,
+  `deleted_at`  datetime DEFAULT NULL,
   `options` text,
   PRIMARY KEY (`id`),
   KEY `fk_data_changelog_data_change1_idx` (`data_link_id`)
@@ -209,7 +231,7 @@ CREATE TABLE `group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `groupName` varchar(45) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `created_at` varchar(45) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -509,7 +531,7 @@ CREATE TABLE `widget` (
             if ($flag) {
                 \DB::connection('base')->getPdo()->exec(sprintf(self::DB_CREATE_DATA, $data_base, $data_base));
             } else {
-                \DB::connection('base')->statement(sprintf(self::DB_CREATE, $data_base));
+                \DB::connection('base')->statement(sprintf(self::DB_CREATE, $data_base, $data_base));
             }
             return true;
         } catch (\Exception $e) {

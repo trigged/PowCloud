@@ -79,7 +79,7 @@ class ApiModel extends Eloquent
                 }
             }
             if (Auth::user())
-                $model->user_name = Auth::user()->name;
+                $model->user_name = Auth::user()->name ?Auth::user()->name : 'API' ;
             if (!$model->exists) //新创建的数据 会更新rank
             $model->rank = time() + $model->rankTail;
 
