@@ -101,8 +101,23 @@ class UserApiController extends ModelController
         }
         return $this->getResult(1,'',$this->process($user->toArray(),false));
     }
+
+    function user_info($id){
+        $user  = ApiModel::Find('user',$id);
+        if($user->exists){
+            return $this->getResult(1,'',$this->process($user->toArray(),false));
+        }
+        return $this->getResult(-1,'用户不存在');
+    }
     ## endregion
 
+
+    #region friends
+    function friends_create(){
+
+    }
+
+    #endregion
 
     /**
      * Display a listing of the resource.
@@ -158,7 +173,15 @@ class UserApiController extends ModelController
      */
     public function show($id)
     {
-        //
+        if($this->action == self::$ACTION_FRIENDS) {
+            return $this->friends_create();
+        }
+        elseif($this->action == self::$ACTION_XXX) {
+            return $this->user_xx_create();
+        }
+        else{
+            return  $this->user_info($id);
+        }
     }
 
     /**
@@ -169,7 +192,7 @@ class UserApiController extends ModelController
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -180,7 +203,6 @@ class UserApiController extends ModelController
      */
     public function update($id)
     {
-        $name = Input::get('data');
         if($this->action == self::$ACTION_FRIENDS) {
             return $this->friends_create();
         }
