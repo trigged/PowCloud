@@ -102,21 +102,23 @@ class UserApiController extends ModelController
         return $this->getResult(1,'',$this->process($user->toArray(),false));
     }
     ## endregion
+
+
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
     public function index()
-    {
-        if ($this->action == self::$ACTION_USER) {
-            return parent::index();
-        }
-        elseif($this->action == self::$ACTION_FRIENDS) {
+    { if($this->action == self::$ACTION_FRIENDS) {
 
         }
         elseif($this->action == self::$ACTION_XXX) {
 
+        }
+        else{
+            $this->table_name = 'user';
+            return parent::index();
         }
     }
 
