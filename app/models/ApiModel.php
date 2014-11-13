@@ -54,6 +54,14 @@ class ApiModel extends Eloquent
         parent::__construct($attributes);
     }
 
+
+    /**
+     * return Eloquent element,just go db
+     * @param mixed $table_name
+     * @param array $id
+     * @param array $columns
+     * @return mixed
+     */
     public static function Find($table_name, $id, $columns = array('*'))
     {
         $instance = new static($table_name);
@@ -61,6 +69,17 @@ class ApiModel extends Eloquent
         $instance->table = $table_name;
         return $instance;
 
+    }
+
+
+    /**
+     * return array ,and will write to cache
+     * @param $table_name
+     * @param $id
+     * @return array|mixed|string|static
+     */
+    public static function APIFind($table_name,$id){
+        return \Operator\ReadApi::getTableObject($table_name,$id,true,true);
     }
 
     public static function boot()

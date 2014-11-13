@@ -97,6 +97,12 @@ class WriteApi
         return self::redis()->set(RedisKey::sprintf(RedisKey::MORE_DATA, $table_name), $state);
     }
 
+    #region zset operator
+    public static function zsetAdd($key,$score,$member){
+        self::redis()->zadd($key, $score, $member);
+    }
+
+    #endregion
     /**
      * 加入定时发布数据
      * @param $table_name
@@ -107,10 +113,10 @@ class WriteApi
     public static function addTimingData($type, $table_name, $content_id, $title, $pub_time)
     {
         $key = RedisKey::buildKey($table_name, $content_id);
-        self::redis()->zadd(RedisKey::sprintf(RedisKey::TIMING_PUB), $pub_time, $key);
+        self::zsetAdd(RedisKey::sprintf(RedisKey::TIMING_PUB), $pub_time, $key);
         return self::redis()->hmset(RedisKey::sprintf(RedisKey::TIMING_PUB_INFO), $key, RedisKey::buildKeys(array($type, $table_name, $content_id, $title)));
-//        return self::redis()->zadd(RedisKey::TIMING_PUB, $pub_time, RedisKey::buildKeys(array($type, $table_name, $content_id, $title)));
     }
+
 
     /**
      * 删除定时发布的数据
@@ -148,4 +154,9 @@ class WriteApi
         self::redis()->HINCRBY(RedisKey::buildKey($model, $data_id), $filed, $value);
     }
 
+
+    public static function addDataInRange($table_name,$value ,$rank,$id){
+        self::zsetAdd(RedisKey::sprintf(RedisKey::Index, $table_name), $rank,$id);
+        self::setTableObject(RedisKey::buildKey($table_name,$id), $value);
+    }
 }

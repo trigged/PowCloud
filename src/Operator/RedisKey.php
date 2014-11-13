@@ -46,6 +46,15 @@ class RedisKey
 
     /**
      * zset
+     * to user friends id
+     * the value is user id field
+     */
+    const USER_FRIENDS = '%s::friends';
+
+
+
+    /**
+     * zset
      * to pub timing data
      * table_name:id
      *

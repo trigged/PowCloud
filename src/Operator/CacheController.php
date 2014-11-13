@@ -37,20 +37,22 @@ class CacheController
      * @param $name
      * @param $value
      */
-    private static function addDataInRange($name, $value)
+    private static function addDataInRange($table_name, $value)
     {
         if (is_array($value) && isset($value['id']) && isset($value['rank'])) {
-            WriteApi::redis()->zadd(RedisKey::sprintf(RedisKey::Index, $name), $value['rank'], $value['id']);
-            WriteApi::setTableObject(RedisKey::buildKey($name, $value['id']), $value);
-            WriteApi::redis()->expire(RedisKey::sprintf(RedisKey::Index, $name), 3600 * 24 * 7);
+            WriteApi::addDataInRange($table_name,$value,$value['rank'],$value['id']);
+//            WriteApi::redis()->zadd(RedisKey::sprintf(RedisKey::Index, $name), $value['rank'], $value['id']);
+//            WriteApi::setTableObject(RedisKey::buildKey($name, $value['id']), $value);
+//            WriteApi::redis()->expire(RedisKey::sprintf(RedisKey::Index, $name), 3600 * 24 * 7);
         } elseif (is_object($value) && isset($value->id) && isset($value->rank)) {
-            WriteApi::redis()->zadd(RedisKey::sprintf(RedisKey::Index, $name), $value->rank, $value->id);
-            WriteApi::setTableObject(RedisKey::buildKey($name, $value->id), (array)$value);
-            WriteApi::redis()->expire(RedisKey::sprintf(RedisKey::Index, $name), 3600 * 24 * 7);
+            WriteApi::addDataInRange($table_name,$value,$value->rank,$value->id);
+//            WriteApi::redis()->zadd(RedisKey::sprintf(RedisKey::Index, $name), $value->rank, $value->id);
+//            WriteApi::setTableObject(RedisKey::buildKey($name, $value->id), (array)$value);
+//            WriteApi::redis()->expire(RedisKey::sprintf(RedisKey::Index, $name), 3600 * 24 * 7);
         } else {
             return 'miss arguments in model';
         }
-        WriteApi::setTableCountState($name, '');
+        WriteApi::setTableCountState($table_name, '');
         return true;
     }
 

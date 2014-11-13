@@ -50,9 +50,16 @@ Route::any('user/resend', 'UserMessageController@reSendActiveMail');
 
 
 //api user
-Route::any('api_user/login','UserApiController@login');
+Route::post('api_user/login','UserApiController@login');
 Route::any('api_user/name_check','UserApiController@userNameCheck');
-Route::resource('api_user','UserApiController');
+Route::get('api_user','UserApiController@users');
+Route::post('api_user','UserApiController@userCreate');
+Route::get('api_user/{id}','UserApiController@userInfo');
+Route::put('api_user/{id}','UserApiController@userUpdate');
+Route::delete('api_user/{id}','UserApiController@userDelete');
+
+
+//Route::resource('api_user','UserApiController');
 
 //login
 Route::get('register', 'LoginController@register');

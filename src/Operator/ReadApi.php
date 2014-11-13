@@ -50,23 +50,43 @@ class ReadApi
         return $value;
     }
 
-    public static function countZset($key)
+
+    public static function getTimingInfo($member)
     {
-        return self::redis()->zcount(RedisKey::sprintf($key), '-inf', '+inf');
+        return self::redis()->hget(RedisKey::sprintf(RedisKey::TIMING_PUB_INFO), $member);
     }
+
+
+    #region zset options
 
     public static function getTimingData($pub_time, $withScores = null)
     {
-        if ($withScores) {
-            return self::redis()->ZREVRANGEBYSCORE(RedisKey::sprintf(RedisKey::TIMING_PUB), $pub_time, '-inf', 'withscores');
-        }
-        return self::redis()->ZREVRANGEBYSCORE(RedisKey::sprintf(RedisKey::TIMING_PUB), $pub_time, '-inf');
+        return self::zsetGet(RedisKey::sprintf(RedisKey::TIMING_PUB), $pub_time, '-inf', $withScores);
     }
 
-    public static function getTimingInfo($key)
+    public static function zsetGet($key, $star = '+inf', $end = '-inf', $withScores = null, $offset = 0, $limit = 20)
     {
-        return self::redis()->hget(RedisKey::sprintf(RedisKey::TIMING_PUB_INFO), $key);
+        if ($withScores) {
+            if ($offset === null) {
+                return self::redis()->ZREVRANGEBYSCORE($key, $star, $end, 'withscores');
+            }
+            return self::redis()->ZREVRANGEBYSCORE($key, $star, $end, 'withscores', 'limit', $offset * $limit, $limit);
+        }
+        if ($offset === null) {
+            return self::redis()->ZREVRANGEBYSCORE($key, $star, $end);
+        }
+        return self::redis()->ZREVRANGEBYSCORE($key, $star, $end, 'limit', $offset * $limit, $limit);
     }
+
+    public static function zsetCount($redis_key, $key_sprint = null)
+    {
+        return self::redis()->zcount(RedisKey::sprintf($redis_key, $key_sprint), '-inf', '+inf');
+    }
+
+    public static function zsetCheck($redis_key,$key_sprint,$member){
+        return self::redis()->zrank(RedisKey::sprintf($redis_key, $key_sprint),$member);
+    }
+    #endregion
 
     public static function getAllTableObject($table_name, $flash = false)
     {
@@ -98,7 +118,7 @@ class ReadApi
         return $result;
     }
 
-    public static function getTableObject($table_name, $id, $failBack = false)
+    public static function getTableObject($table_name, $id, $failBack = false, $inRange = false)
     {
         $key = RedisKey::buildKey($table_name, $id);
         $value = self::redis()->hgetall($key);
@@ -111,14 +131,19 @@ class ReadApi
             if (is_object($value)) {
                 $value = (array)$value;
             }
-            WriteApi::setTableObject($key, $value);
+            if ($inRange) {
+                WriteApi::addDataInRange($table_name, $value, $value['rank'], $value['id']);
+            } else {
+                WriteApi::setTableObject($key, $value);
+            }
+
         }
         return $value;
     }
 
     public static function getLimitTableObject($table_name, $offset = 1000, $count = 100)
     {
-        $cache_count = ReadApi::getCacheCount($table_name);
+        $cache_count = ReadApi::zsetCount(RedisKey::Index, $table_name);
         //redis has cached some some data not need load this again~
         for ($i = $cache_count; $i <= $offset * $count; $i += self::LOAD_COUNT) {
             $value = self::loadDatas($table_name, $i);
@@ -129,11 +154,7 @@ class ReadApi
         }
     }
 
-    public static function getCacheCount($table_name)
-    {
-//        ZCOUNT special::index  -inf +inf
-        return self::redis()->ZCOUNT(RedisKey::sprintf(RedisKey::Index, $table_name), '-inf', '+inf');
-    }
+
 
     public static function loadDatas($table_name, $offset = 0, $count = self::LOAD_COUNT)
     {
@@ -152,11 +173,6 @@ class ReadApi
         return true;
     }
 
-    public static function getKey($key, $value)
-    {
-        return RedisKey::sprintf($key, $value);
-    }
-
     public static function getRoutes($path)
     {
         return self::redis()->hgetall(RedisKey::sprintf(RedisKey::ROUTE, $path));
@@ -170,6 +186,12 @@ class ReadApi
     public static function get($key)
     {
         return self::redis()->get(RedisKey::sprintf($key));
+    }
+
+    public static function getUserFriends($uid)
+    {
+        return self::redis()->get(RedisKey::sprintf(RedisKey::USER_FRIENDS, $uid));
+
     }
 
 }

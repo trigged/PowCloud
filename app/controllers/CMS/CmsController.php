@@ -47,7 +47,7 @@ class CmsController extends CmsBaeController
             case false:
                 return $this->render('cms.index', array(
                     'timing_data'  => \Operator\ReadApi::getTimingData('+inf', true),
-                    'timing_count' => \Operator\ReadApi::countZset(RedisKey::TIMING_PUB),
+                    'timing_count' => \Operator\ReadApi::zsetCount(RedisKey::TIMING_PUB),
                     'options'      => $this->getOption(),
                     'roles'        => $this->getRoles(),
                     'user'         => $user->toArray()

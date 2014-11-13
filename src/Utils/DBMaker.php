@@ -34,8 +34,29 @@ class DBMaker
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `name` (`name` ASC))
-ENGINE = InnoDB
+  INDEX `name` (`name` ASC)
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+  CREATE TABLE `user_friends` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `from_id` int(11) DEFAULT NULL,
+  `target_id` int(11) DEFAULT NULL,
+  `type` int(11) DEFAULT NULL ,
+  `user_name` varchar(45) DEFAULT NULL,
+  `rank` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `friends` (`target_id`,`from_id`,`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+
+
 
     ';
 
