@@ -98,8 +98,14 @@ class WriteApi
     }
 
     #region zset operator
-    public static function zsetAdd($key,$score,$member){
+    public static function zsetAdd($key, $score, $member)
+    {
         self::redis()->zadd($key, $score, $member);
+    }
+
+    public static function zsetRem($key, $member)
+    {
+        self::redis()->zrem($key, $member);
     }
 
     #endregion
@@ -155,8 +161,9 @@ class WriteApi
     }
 
 
-    public static function addDataInRange($table_name,$value ,$rank,$id){
-        self::zsetAdd(RedisKey::sprintf(RedisKey::Index, $table_name), $rank,$id);
-        self::setTableObject(RedisKey::buildKey($table_name,$id), $value);
+    public static function addDataInRange($table_name, $value, $rank, $id)
+    {
+        self::zsetAdd(RedisKey::sprintf(RedisKey::Index, $table_name), $rank, $id);
+        self::setTableObject(RedisKey::buildKey($table_name, $id), $value);
     }
 }

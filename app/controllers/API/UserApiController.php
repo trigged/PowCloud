@@ -1,5 +1,6 @@
 <?php
 
+use Operator\CacheController;
 use Operator\ReadApi;
 use Operator\RedisKey;
 use Operator\WriteApi;
@@ -16,17 +17,15 @@ class UserApiController extends ModelController
     static $USER_TABLE = 'user';
 
     static $FRIENDS_FLOW = 1;
+
     static $FRIENDS_Double_FLOW = 2;
+
     static $FRIENDS_UN_FLOW = -1;
-
-
-
-    public $user_id;
-
 
     ## region user
 
-    public function users(){
+    public function users()
+    {
         $this->table_name = 'user';
         return parent::index();
     }
@@ -67,7 +66,7 @@ class UserApiController extends ModelController
             return $this->getResult(-1, '请输入用户ID 和要修改的数据');
         }
         $user = ApiModel::APIFind('user', $id);
-        if(!$user){
+        if (!$user) {
             return $this->getResult(-1, '用户不存在');
         }
         $user->hidden = array('password');
@@ -134,7 +133,8 @@ class UserApiController extends ModelController
 
     }
 
-    public function userDelete($id){
+    public function userDelete($id)
+    {
 
         //todo delete relations
 
@@ -144,33 +144,45 @@ class UserApiController extends ModelController
 
     #endregion
 
-
     #region friends
-
-    public function friends()
+    public function friends($user_id)
     {
-        $user_id = Input::get("user_id");
-
+        if (!$user_id) {
+            return $this->getResult(-1, '请输入用户');
+        }
+        $data = ReadApi::zsetGet(RedisKey::sprintf(RedisKey::USER_FRIENDS, $user_id), '+inf', '-inf', null, null);
+        //todo paging friends
+//        $data = ReadApi::zsetGet(RedisKey::sprintf(RedisKey::USER_FRIENDS,$user_id),'+inf','-inf',null,$this->page,$this->count);
+        //load from cache ignore default count
+//        if (count($data) < $this->count) {
+//            $value = CacheController::handlerPaging($this->table_name, $this->page, $this->count);
+//            if ($value !== false) {
+//                $data = $value;
+//            }
+//        }
+        $this->table_name = 'user';
+        $data = ReadApi::getDataByIDs($this->table_name, $data);
+        return $this->getResult(1, 'success', $this->process($data));
     }
 
     public function friendsCreate()
     {
         $user_id = Input::get("user_id");
         $target_id = Input::get("target_id");
-        $each  =  Input::get("each");
+        $each = Input::get("each");
 
         if (!$user_id || !$target_id) {
             return $this->getResult(-1, '请输入用户');
         }
-        $user = ApiModel::APIFind('user',$user_id);
-        if(!$user){
+        $user = ApiModel::APIFind('user', $user_id);
+        if (!$user) {
             return $this->getResult(-1, '用户不存在');
         }
-        $target = ApiModel::APIFind('user',$target_id);
-        if(!$target){
+        $target = ApiModel::APIFind('user', $target_id);
+        if (!$target) {
             return $this->getResult(-1, '用户不存在');
         }
-        if($state = ReadApi::zsetCheck(RedisKey::USER_FRIENDS,$user_id,$target_id)){
+        if ($state = ReadApi::zsetCheck(RedisKey::USER_FRIENDS, $user_id, $target_id)) {
             //todo check  if target flow current user ,need set state = double_flow
             return $this->getResult(-1, '已经是好友了,请不要重复添加');
         }
@@ -179,24 +191,57 @@ class UserApiController extends ModelController
         $friends->target_id = $target_id;
         $friends->type = self::$FRIENDS_FLOW;
         $friends->save();
-        WriteApi::zsetAdd(RedisKey::sprintf(RedisKey::USER_FRIENDS,$user_id),self::$FRIENDS_FLOW,$target_id);
-        if($each){
+        WriteApi::zsetAdd(RedisKey::sprintf(RedisKey::USER_FRIENDS, $user_id), self::$FRIENDS_FLOW, $target_id);
+        if ($each) {
             $friends = new ApiModel('user_friends');
             $friends->from_id = $target;
             $friends->target_id = $user_id;
             $friends->type = self::$FRIENDS_Double_FLOW;
             $friends->save();
-            WriteApi::zsetAdd(RedisKey::sprintf(RedisKey::USER_FRIENDS,$target_id),self::$FRIENDS_FLOW,$user_id);
+            WriteApi::zsetAdd(RedisKey::sprintf(RedisKey::USER_FRIENDS, $target_id), self::$FRIENDS_FLOW, $user_id);
         }
-        return $this->getResult(1,'添加成功');
+        return $this->getResult(1, '添加成功');
     }
 
+    public function friendsDelete()
+    {
+        $user_id = Input::get("uid");
+        $target_id = Input::get("target_id");
+        $each = Input::get("each");
+
+        if (!$user_id || !$target_id) {
+            return $this->getResult(-1, '请输入用户');
+        }
+        $user = ApiModel::APIFind('user', $user_id);
+        if (!$user) {
+            return $this->getResult(-1, '用户不存在');
+        }
+        $target = ApiModel::APIFind('user', $target_id);
+        if (!$target) {
+            return $this->getResult(-1, '用户不存在');
+        }
+        if (!ReadApi::zsetCheck(RedisKey::USER_FRIENDS, $user_id, $target_id)) {
+            //todo check  if target flow current user ,need set state = double_flow
+            return $this->getResult(-1, '取消成功,请不要重复提交');
+        }
+        $friends = new ApiModel('user_friends');
+        $friends->from_id = $user_id;
+        $friends->target_id = $target_id;
+        $friends->type = self::$FRIENDS_UN_FLOW;
+        $friends->save();
+        WriteApi::zsetRem(RedisKey::sprintf(RedisKey::USER_FRIENDS, $user_id), $target);
+        if ($each) {
+            $friends = new ApiModel('user_friends');
+            $friends->from_id = $target;
+            $friends->target_id = $user_id;
+            $friends->type = self::$FRIENDS_UN_FLOW;
+            $friends->save();
+            WriteApi::zsetRem(RedisKey::sprintf(RedisKey::USER_FRIENDS, $target_id), $user_id);
+        }
+        return $this->getResult(1, '取消成功');
+    }
 
     ## endregion
-
-
-
-
 
 
     /**
@@ -260,7 +305,6 @@ class UserApiController extends ModelController
             return $this->userInfo($id);
         }
     }
-
 
 
     /**

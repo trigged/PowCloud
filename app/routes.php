@@ -50,16 +50,18 @@ Route::any('user/resend', 'UserMessageController@reSendActiveMail');
 
 
 //api user
-Route::post('api_user/login','UserApiController@login');
-Route::any('api_user/name_check','UserApiController@userNameCheck');
-Route::get('api_user','UserApiController@users');
-Route::post('api_user','UserApiController@userCreate');
-Route::get('api_user/{id}','UserApiController@userInfo');
-Route::put('api_user/{id}','UserApiController@userUpdate');
-Route::delete('api_user/{id}','UserApiController@userDelete');
+Route::post('api_user/login', 'UserApiController@login');
+Route::any('api_user/name_check', 'UserApiController@userNameCheck');
+Route::get('api_user', 'UserApiController@users');
+Route::post('api_user', 'UserApiController@userCreate');
+Route::get('api_user/{id}', 'UserApiController@userInfo');
+Route::put('api_user/{id}', 'UserApiController@userUpdate');
+Route::delete('api_user/{id}', 'UserApiController@userDelete');
+//api friends
+Route::get('api_friends/{id}', 'UserApiController@friends');
+Route::post('api_friends', 'UserApiController@friendsCreate');
+Route::delete('api_friends/{id}', 'UserApiController@friendsCreate');
 
-
-//Route::resource('api_user','UserApiController');
 
 //login
 Route::get('register', 'LoginController@register');

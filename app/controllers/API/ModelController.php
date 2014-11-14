@@ -143,7 +143,7 @@ class ModelController extends Controller
             $name = Route::currentRouteName();
             $name = explode(' ', $name);
             $methods = explode('.', end($name));
-            if(count($methods) == 1){
+            if (count($methods) == 1) {
                 $methods = explode('/', end($methods));
             }
             $method = end($methods);
@@ -190,8 +190,8 @@ class ModelController extends Controller
             $that->right = Request::get('right');
             //权限检查
             if (!$method || !isset($that->right[$method]) || $that->right[$method] !== 1) {
-                if($methods[0] !== 'api_user')
-                return $that->getResult(-1, 'not allow', null);
+                if (!starts_with($methods[0], 'api_'))
+                    return $that->getResult(-1, 'not allow', $methods[0]);
             }
         });
     }
@@ -711,7 +711,7 @@ class ModelController extends Controller
                     $table_model = $vm->newQueryWithDeleted()->find($result[0]->id);
                     $table_model->setTable($this->table_name);
                     $table_model->update($data);
-                    return $this->getResult(1, 'success', $this->process($table_model->toArray(),false));
+                    return $this->getResult(1, 'success', $this->process($table_model->toArray(), false));
 
                 }
             }
@@ -737,7 +737,7 @@ class ModelController extends Controller
 
             }
         }
-        $query =  $query->where('deleted_at', '0000-00-00 00:00:00');
+        $query = $query->where('deleted_at', '0000-00-00 00:00:00');
         CMSLog::debug("find sql: " . $query->toSql());
         return $query->get();
 
