@@ -256,14 +256,7 @@ class UserApiController extends ModelController
      */
     public function index()
     {
-        if ($this->action == self::$ACTION_FRIENDS) {
 
-        } elseif ($this->action == self::$ACTION_XXX) {
-
-        } else {
-            $this->table_name = 'user';
-            return parent::index();
-        }
     }
 
     /**
@@ -284,13 +277,7 @@ class UserApiController extends ModelController
      */
     public function store()
     {
-        if ($this->action == self::$ACTION_FRIENDS) {
-            $this->friends_create();
-        } elseif ($this->action == self::$ACTION_XXX) {
-            $this->user_xx_create();
-        } else {
-            return $this->userCreate();
-        }
+
     }
 
 
@@ -302,13 +289,7 @@ class UserApiController extends ModelController
      */
     public function show($id)
     {
-        if ($this->action == self::$ACTION_FRIENDS) {
-            return $this->friends_create();
-        } elseif ($this->action == self::$ACTION_XXX) {
-            return $this->user_xx_create();
-        } else {
-            return $this->userInfo($id);
-        }
+
     }
 
 
@@ -331,13 +312,7 @@ class UserApiController extends ModelController
      */
     public function update($id)
     {
-        if ($this->action == self::$ACTION_FRIENDS) {
-            return $this->friends_create();
-        } elseif ($this->action == self::$ACTION_XXX) {
-            return $this->user_xx_create();
-        } else {
-            return $this->userUpdate($id);
-        }
+
     }
 
 
