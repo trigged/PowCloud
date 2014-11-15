@@ -59,8 +59,8 @@ Route::put('api_user/{id}', 'UserApiController@userUpdate');
 Route::delete('api_user/{id}', 'UserApiController@userDelete');
 //api friends
 Route::get('api_friends/{id}', 'UserApiController@friends');
-Route::post('api_friends', 'UserApiController@friendsCreate');
-Route::delete('api_friends/{id}', 'UserApiController@friendsCreate');
+Route::post('api_friends/delete', 'UserApiController@friendDelete');
+Route::any('api_friends', 'UserApiController@friendsCreate');
 
 
 //login

@@ -415,7 +415,7 @@ class ModelController extends Controller
                 unset($data['action_limit']);
                 unset($data['action_flag']);
             }
-
+            unset($data['password']);
 
             //check children
             $this->processChildrenData($data);
