@@ -1,4 +1,4 @@
-# API 攻略
+    # API 攻略
 
 
 
@@ -50,6 +50,21 @@
 
 如果你不希望接口输出 `id` 和`created_at`字段
 那么请求的时候加上  `&less=id,created_at`  那么接口就不会输出这些字段,
+
+## 字段+N
+`incrby&incrva`
+
+在很多场景下我们经常会用到+1这种操作 , 比如喜欢数,点赞数 ;或者加或者减,在 Pow 中只需要在调用 API 的时候多加上2个参数即可
+
+`incrby` 指定被修改的字段,字段属性必须是数字类型
+
+`incrva` 指定被修改的值,任任意数字, incrva=2 执行加2操作,incrva= -1 ,执行减一操作
+
+例如 http://xxx?xxxx&incrby=like_count&incrva=1
+在这里我们将对 linke_count 这个字段执行+1的动作
+
+
+
 
 
 to be more!

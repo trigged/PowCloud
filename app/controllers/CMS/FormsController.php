@@ -127,7 +127,6 @@ class FormsController extends SystemController
         $ids = Input::get('id', '');
         if (!$table || !$ids) {
             $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS);
-//            $this->ajaxResponse(array(), 'success', '更新成功');
         }
 
         $idsCount = count($ids);
@@ -138,11 +137,9 @@ class FormsController extends SystemController
             }
             DB::connection()->getPdo()->commit();
             $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS);
-//            $this->ajaxResponse(array(), 'success', '更新成功');
         } catch (Exception $e) {
             DB::connection()->getPdo()->rollBack();
             $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
-//            $this->ajaxResponse(array(), 'fail', '更新失败');
         }
     }
 
@@ -179,10 +176,8 @@ class FormsController extends SystemController
     {
         if (Forms::find($id)->forceDelete()) {
             $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS);
-//            $this->ajaxResponse(array(), 'success');
         }
         $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
-//        $this->ajaxResponse(array(), 'fail', '删除失败');
     }
 
     /**
@@ -194,10 +189,8 @@ class FormsController extends SystemController
 
         if (Forms::find(Input::get('id'))->restore()) {
             $this->ajaxResponse(BaseController::$_SUCCESS_TEMPLATE);
-//            $this->ajaxResponse(array(), 'success');
         }
         $this->ajaxResponse(BaseController::$_FAILED_TEMPLATE);
-//        $this->ajaxResponse(array(), 'fail', '恢复失败');
     }
 
     public function addTiming($models_id)

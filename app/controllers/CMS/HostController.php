@@ -46,15 +46,12 @@ class HostController extends SystemController
             if ($host->validator() && CreateVirtualHost::createHost($result[1])) {
                 if ($host->save()) {
                     $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', URL::action('HostController@index'));
-//                    $this->ajaxResponse(array(), 'success', '添加成功', URL::action('HostController@index'));
                 }
             }
 
             $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
-//            $this->ajaxResponse($host->errors, 'fail', '主机目录创建失败可能已存在,请联系管理员');
         }
         $this->ajaxResponse(BaseController::$_FAILED_TEMPLATE);
-//        $this->ajaxResponse(array('host' => '主机格式不对,请认真填写主机格式'), 'fail', '主机格式不对,请认真填写主机格式');
     }
 
     /**
@@ -106,7 +103,6 @@ class HostController extends SystemController
             $this->ajaxResponse(array(), 'success', '更新成功', URL::action('HostController@index'));
         } else {
             $this->ajaxResponse(BaseController::$_FAILED_TEMPLATE);
-//            $this->ajaxResponse($host->errors, 'fail', '更新主机失败');
         }
 
 
@@ -123,10 +119,8 @@ class HostController extends SystemController
 
         if (Host::find($id)->delete()) {
             $this->ajaxResponse(BaseController::$_SUCCESS_TEMPLATE);
-//            $this->ajaxResponse(array(), 'success');
         }
         $this->ajaxResponse(BaseController::$_FAILED_TEMPLATE);
-//        $this->ajaxResponse(array(), 'fail', '删除失败');
 
     }
 
@@ -135,10 +129,8 @@ class HostController extends SystemController
 
         if (Host::find(Input::get('id'))->restore()) {
             $this->ajaxResponse(BaseController::$_SUCCESS_TEMPLATE);
-//            $this->ajaxResponse(array(), 'success');
         }
         $this->ajaxResponse(BaseController::$_FAILED_TEMPLATE);
-//        $this->ajaxResponse(array(), 'fail', '恢复失败');
     }
 
 }

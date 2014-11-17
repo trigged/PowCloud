@@ -37,13 +37,11 @@ class SchemaBuilderController extends SystemController
             Input::all());
 
         $table = new SchemaBuilder($input);
-
         $table->scene = 'create';
         //TODO add event for after validator
         if ((int)$table->path_id !== -1) {
-            if ($value = SchemaBuilder::where('path_id', '=', $table->path_id)->orWhere('table_name', $table->table_name)->count()) {
+            if (SchemaBuilder::checkPathAndTableName($table->path_id,$table->table_name)) {
                 $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS, '路径已被绑定,请重新选择路径');
-//                $this->ajaxResponse(array('path_id' => '路径已被绑定,请重新选择路径'), 'fail', '创建失败');
             }
         } elseif (SchemaBuilder::where('table_name', $table->table_name)->count()) {
             $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);

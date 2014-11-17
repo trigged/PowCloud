@@ -16,6 +16,8 @@ class SchemaBuilder extends XEloquent
 {
 
 
+    public static $keyField = array('id', 'created_time', 'deleted_time', 'timing_state', 'timing_time');
+
     protected $table = 'models';
 
     protected $fillable = array('models_options', 'table_name', 'table_alias', 'path_id', 'restful', 'property', 'index', 'update', 'create', 'delete', 'group_name');
@@ -24,7 +26,27 @@ class SchemaBuilder extends XEloquent
 
     protected $softDelete = true;
 
-    public static $keyField = array('id', 'created_time', 'deleted_time', 'timing_state', 'timing_time');
+    public static function boot()
+    {
+        parent::boot();
+
+        self::saved(function ($model) {
+            $model->addRoute($model);
+        });
+    }
+
+    public static function getByTableName($table_name)
+    {
+        return SchemaBuilder::where('table_name', $table_name)->first();
+    }
+
+    //如果restful是1则加入api路由
+
+    public static function  checkPathAndTableName($path_id, $table_name)
+    {
+        return SchemaBuilder::where('path_id', '=', $path_id)->orWhere('table_name', $table_name)->count();
+    }
+
 
     public function rules()
     {
@@ -46,16 +68,6 @@ class SchemaBuilder extends XEloquent
 
     }
 
-    public static function boot()
-    {
-        parent::boot();
-
-        self::saved(function ($model) {
-            $model->addRoute($model);
-        });
-    }
-
-    //如果restful是1则加入api路由
     public function addRoute(Eloquent $model)
     {
         $path_id = (int)$model->path_id === -1 ? (empty($model->oldData['path_id']) ? $model->path_id : $model->oldData['path_id']) : $model->path_id;
@@ -99,11 +111,6 @@ class SchemaBuilder extends XEloquent
     {
 
         return $this->hasMany('Forms', 'models_id');
-    }
-
-    public static function getByTableName($table_name)
-    {
-        return SchemaBuilder::where('table_name', $table_name)->first();
     }
 
     /**

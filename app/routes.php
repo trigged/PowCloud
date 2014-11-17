@@ -31,6 +31,7 @@ Route::resource('dashboard', 'DashBoardController');
 Route::resource('app', 'AppController');
 Route::resource('team', 'UserController');
 
+
 Route::get('addMember', 'DashBoardController@addMember');
 Route::post('delete', 'DashBoardController@delete');
 Route::get('editApp', 'DashBoardController@editApp');
@@ -48,6 +49,8 @@ Route::get('user/info', 'UserMessageController@viewReset');
 Route::post('user_message/reset', 'UserMessageController@resetPassword');
 Route::any('user/resend', 'UserMessageController@reSendActiveMail');
 
+//UserBehaviorController
+Route::resource('user_behavior', 'UserBehaviorController');
 
 //api user
 Route::post('api_user/login', 'UserApiController@login');
