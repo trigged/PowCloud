@@ -98,6 +98,13 @@ class WriteApi
     }
 
     #region zset operator
+
+    public static function addUserBehavior($uid, $table_name, $data_id)
+    {
+        self::zsetAdd(RedisKey::sprintf(RedisKey::USER_BEHAVIOR, $uid, $table_name), time(), $data_id);
+//        return ReadApi::zsetGet(RedisKey::sprintf(RedisKey::USER_BEHAVIOR, $uid,$table_name), '+inf', '-inf', null, null);
+    }
+
     public static function zsetAdd($key, $score, $member)
     {
         self::redis()->zadd($key, $score, $member);
@@ -109,6 +116,7 @@ class WriteApi
     }
 
     #endregion
+
     /**
      * 加入定时发布数据
      * @param $table_name
@@ -122,7 +130,6 @@ class WriteApi
         self::zsetAdd(RedisKey::sprintf(RedisKey::TIMING_PUB), $pub_time, $key);
         return self::redis()->hmset(RedisKey::sprintf(RedisKey::TIMING_PUB_INFO), $key, RedisKey::buildKeys(array($type, $table_name, $content_id, $title)));
     }
-
 
     /**
      * 删除定时发布的数据
@@ -142,6 +149,17 @@ class WriteApi
         return self::redis()->set(RedisKey::sprintf($key), $value);
     }
 
+    public static function incrby($model, $data_id, $filed, $value)
+    {
+        self::redis()->HINCRBY(RedisKey::buildKey($model, $data_id), $filed, $value);
+    }
+
+    public static function addDataInRange($table_name, $value, $rank, $id)
+    {
+        self::zsetAdd(RedisKey::sprintf(RedisKey::Index, $table_name), $rank, $id);
+        self::setTableObject(RedisKey::buildKey($table_name, $id), $value);
+    }
+
     /**
      * table obj to redis hash
      * @param $key
@@ -153,17 +171,5 @@ class WriteApi
             self::redis()->hmset($key, $data);
             self::redis()->expire($key, 3600 * 24 * 7);
         }
-    }
-
-    public static function incrby($model, $data_id, $filed, $value)
-    {
-        self::redis()->HINCRBY(RedisKey::buildKey($model, $data_id), $filed, $value);
-    }
-
-
-    public static function addDataInRange($table_name, $value, $rank, $id)
-    {
-        self::zsetAdd(RedisKey::sprintf(RedisKey::Index, $table_name), $rank, $id);
-        self::setTableObject(RedisKey::buildKey($table_name, $id), $value);
     }
 }

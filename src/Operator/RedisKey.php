@@ -51,6 +51,14 @@ class RedisKey
      */
     const USER_FRIENDS = '%s::friends';
 
+    /**
+     * zset
+     * to user behavior
+     * uid, behavior_name
+     * the value is user id field
+     */
+    const USER_BEHAVIOR = '%s::users::%s';
+
 
 
     /**

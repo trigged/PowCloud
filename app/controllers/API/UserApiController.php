@@ -40,7 +40,7 @@ class UserApiController extends ModelController
         $user = new ApiModel('user');
         $user->hidden = array('password');
         if ($user = $user->where('name', $name)->where('password', sha1($pwd))->first()) {
-            
+
             return $this->getResult(1, '登陆成功', $this->process($user->toArray(), false));
         }
         return $this->getResult(-1, '登陆失败,用户名或者密码错误');
@@ -66,6 +66,7 @@ class UserApiController extends ModelController
         if (empty($id) || empty($data)) {
             return $this->getResult(-1, '请输入用户ID 和要修改的数据');
         }
+        //todo need chack cache first then update cache
         $user = ApiModel::Find('user', $id);
         if (!$user) {
             return $this->getResult(-1, '用户不存在');
@@ -80,20 +81,19 @@ class UserApiController extends ModelController
         $data['password'] = sha1($data['password']);
         try {
             $user->update($data);
-            
+
         } catch (Exception $e) {
             \Utils\CMSLog::debug(sprintf('update user error :%s', $e->getMessage()));
             return $this->getResult(-1, '出现错误,请检查');
         }
-        
+
         return $this->getResult(1, '', $this->process($user, false));
     }
- 
+
     public function userInfo($id)
     {
         $user = ApiModel::APIFind('user', $id);
         if ($user) {
-            
             return $this->getResult(1, '', $this->process($user, false));
         }
         return $this->getResult(-1, '用户不存在');
@@ -126,7 +126,7 @@ class UserApiController extends ModelController
         $user->phone = $phone;
         $user->address = $address;
         $user->save();
-        
+
         return $this->getResult(1, '', $this->process($user->toArray(), false));
         //todo mail active check
 
@@ -150,11 +150,13 @@ class UserApiController extends ModelController
     #endregion
 
     #region friends
+
     public function friends($uid)
     {
         if (!$uid) {
             return $this->getResult(-1, '请输入用户');
         }
+
         $data = ReadApi::zsetGet(RedisKey::sprintf(RedisKey::USER_FRIENDS, $uid), '+inf', '-inf', null, null);
         //todo paging friends
 //        $data = ReadApi::zsetGet(RedisKey::sprintf(RedisKey::USER_FRIENDS,$uid),'+inf','-inf',null,$this->page,$this->count);
@@ -248,7 +250,6 @@ class UserApiController extends ModelController
 
     ## endregion
 
-
     /**
      * Display a listing of the resource.
      *
@@ -256,7 +257,13 @@ class UserApiController extends ModelController
      */
     public function index()
     {
-
+        $uid = Input::get('uid');
+        if (!$uid) {
+            return $this->getResult(-1, '请传入uid 参数');
+        }
+        $data = ReadApi::getUserBehavior($uid, $this->table_name);
+        $data = ReadApi::getDataByIDs($this->table_name, $data);
+        return $this->getResult(1, 'success', $this->process($data));
     }
 
     /**
@@ -269,7 +276,6 @@ class UserApiController extends ModelController
 
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -277,9 +283,27 @@ class UserApiController extends ModelController
      */
     public function store()
     {
+        $format = $this->format;
+        $this->format = 'plan';
+        $uid = Input::get('uid');
+        $user = ApiModel::APIFind('user', $uid);
+        if (!$user) {
+            return $this->getResult(-1, '用户不存在');
+        }
+        $result = parent::store(true);
+        $this->format = $format;
+        if ($result['code'] == 1) {
+            $behavior_name = UserBehaviorController::getBehaviorName($this->table_name);
+            $model = new ApiModel($behavior_name);
+            $model->data_id = $result['data']['id'];
+            $model->user_id = $uid;
+            $model->user = $user->nick_name;
+            $model->save();
+            WriteApi::addUserBehavior($uid, $behavior_name, $model->id);
+        }
 
+        return $this->getResult($result['code'], $result['message'], $result['data']);
     }
-
 
     /**
      * Display the specified resource.
@@ -291,7 +315,6 @@ class UserApiController extends ModelController
     {
 
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -314,7 +337,6 @@ class UserApiController extends ModelController
     {
 
     }
-
 
     /**
      * Remove the specified resource from storage.

@@ -140,4 +140,9 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         //
     }
 
+    public static  function getBehaviorName($behavior){
+        return sprintf('user_%s',$behavior);
+    }
+
+
 }

@@ -79,6 +79,9 @@ class ApiModel extends Eloquent
      * @return array|mixed|string|static
      */
     public static function APIFind($table_name,$id){
+        if(empty($table_name) || empty($id)){
+            return false;
+        }
         return \Operator\ReadApi::getTableObject($table_name,$id,true,true);
     }
 

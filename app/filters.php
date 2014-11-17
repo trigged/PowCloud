@@ -44,8 +44,8 @@ App::before(function (\Illuminate\Http\Request $request) {
                 'data'    => array()), 404);
         }
         $request->request->add(array('_db' => 'user'));
-        $request->request->set('model', $result['model']);
-        $request->request->set('right', $result['right']);
+        $request->request->set('_model', $result['model']);
+        $request->request->set('_right', $result['right']);
         $request->request->set('expire', $result['expire']);
     } elseif ($token && !starts_with($path, '/api_')) {
         return Response::json(array(

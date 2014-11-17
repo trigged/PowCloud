@@ -185,9 +185,9 @@ class ModelController extends Controller
             }
             //统计监控
             $that->method = $method;
-            $that->table_name = Request::get('model');
-            $that->expire = (int)Request::get('expire');
-            $that->right = Request::get('right');
+            $that->table_name = Request::get('_model');
+            $that->expire = (int)Request::get('_expire');
+            $that->right = Request::get('_right');
             //权限检查
             if (!$method || !isset($that->right[$method]) || $that->right[$method] !== 1) {
                 if (!starts_with($methods[0], 'api_'))
@@ -208,6 +208,9 @@ class ModelController extends Controller
             $data = array_slice($data, 0, $this->max_count);
         }
         $this->result['data'] = $data;
+        if ($this->format === 'plan') {
+            return $this->result;
+        }
         $http_code = $code > 0 ? 200 : 404;
         $value = round(microtime(true) - $this->start, 3);
         CMSLog::debug(sprintf('runtime: %s:%s :%s', $this->table_name, $this->method, $value));
@@ -220,11 +223,6 @@ class ModelController extends Controller
         );
         if ($this->format === 'xml') {
             return Response::make($this->array_to_xml($this->result), $http_code, $header);
-        } elseif ($this->format === 'plan') {
-            if ($this->max_count = 1) {
-                $data = array($data);
-            }
-            return Response::view('output.plan', array('data' => $data));
         }
 
         if ($this->debug) {
@@ -683,17 +681,16 @@ class ModelController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store($plan = false)
     {
         $data = Input::get('data');
         if (empty($data)) {
-            return $this->getResult(-1, 'missing data');
+            return $plan ? false : $this->getResult(-1, 'missing data');
         }
         $data = json_decode($data, true);
         if (empty($data)) {
             return $this->getResult(-1, 'data was not standard json');
         }
-
         $flag = Input::get('flag');
         try {
             if (!empty($flag)) {
@@ -721,6 +718,7 @@ class ModelController extends Controller
             if ($model->save()) {
                 return $this->getResult(1, 'success', $model->toArray());
             }
+            CacheController::create($this->table_name, $model);
             return $this->getResult(-1, 'error', $model->toArray());
         } catch (Exception $e) {
             CMSLog::debug(sprintf('create error %s', $e));

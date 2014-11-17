@@ -64,6 +64,11 @@ class ReadApi
         return self::zsetGet(RedisKey::sprintf(RedisKey::TIMING_PUB), $pub_time, '-inf', $withScores);
     }
 
+
+    public static function getUserBehavior($uid,$table_name){
+        return ReadApi::zsetGet(RedisKey::sprintf(RedisKey::USER_BEHAVIOR, $uid,$table_name), '+inf', '-inf', null, null);
+    }
+
     public static function zsetGet($key, $star = '+inf', $end = '-inf', $withScores = null, $offset = 0, $limit = 20)
     {
         if ($withScores) {
