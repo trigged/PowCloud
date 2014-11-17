@@ -15,6 +15,7 @@ class DBMaker
 {
     //ALTER TABLE `cms_2_data`.`data_link_item`  ADD COLUMN `options` VARCHAR(45) NULL AFTER `deleted_at`;
 
+    ##region db sql
     const DB_CREATE = 'CREATE DATABASE `%s`;
     USE `%s`;
     CREATE TABLE IF NOT EXISTS  `user` (
@@ -468,6 +469,8 @@ CREATE TABLE `widget` (
 
 ";
 
+    ## endregion
+
     /**
      * 创建或者修改表结构
      * @param $table_name
@@ -485,7 +488,7 @@ CREATE TABLE `widget` (
         } catch (\Exception $e) {
             $msg = 'create table error :' . $table_name . ' strut :' . json_encode($table_strut) . ' error info :' . $e->getMessage();
             CMSLog::debug($msg);
-            return $e->getMessage();;
+            return $e->getMessage();
         }
 
     }
@@ -548,17 +551,24 @@ CREATE TABLE `widget` (
 
     public static function createDataBase($data_base, $flag = false)
     {
+        if ($flag) {
+            $result = self::runSql(sprintf(self::DB_CREATE_DATA, $data_base, $data_base));
+        } else {
+            $result = self::runSql(sprintf(self::DB_CREATE, $data_base, $data_base));
+        }
+        return $result;
+    }
+
+    public static function runSql($sql)
+    {
         try {
-            if ($flag) {
-                \DB::connection('base')->getPdo()->exec(sprintf(self::DB_CREATE_DATA, $data_base, $data_base));
-            } else {
-                \DB::connection('base')->statement(sprintf(self::DB_CREATE, $data_base, $data_base));
-            }
+            \DB::connection('base')->getPdo()->exec($sql);
             return true;
         } catch (\Exception $e) {
-            CMSLog::debug('创建库失败 : ' . $data_base . ' ---------- ' . $e->getMessage());
+            CMSLog::debug('执行SQL失败 : ' . $sql . ' ---------- ' . $e->getMessage());
             return '创建库失败';
         }
+
     }
 
     public static function reNameField($table_name, $fields)

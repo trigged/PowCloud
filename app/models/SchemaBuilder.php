@@ -77,7 +77,7 @@ class SchemaBuilder extends XEloquent
             $pathName = $path ? $path->name : '/';
             $pathExpire = $path ? $path->expire : 0;
             //todo before add check path has sub
-            RouteManager::addRouteWithRestFul($pathName, $model->table_name, $pathExpire, array(
+            RouteManager::addRouteWithRestFul($pathName, $model->table_name, $model->types,$pathExpire, array(
                     'index'  => (int)$model->index,
                     'store'  => (int)$model->create,
                     'update' => (int)$model->update,
@@ -155,7 +155,7 @@ class SchemaBuilder extends XEloquent
 
     public function fireXEloquentSavingEvent($model)
     {
-        $model->user_id = Auth::user()->id;
+//        $model->user_id = Auth::user()->id;
         if ($model->scene === 'create') {
             $model->transFormProperty();
             $pro = json_decode($model->property, true);
@@ -185,8 +185,8 @@ class SchemaBuilder extends XEloquent
             }
             $result = DBMaker::createTable($model->table_name, $pro);
             if ($result !== true) {
-                $model->errors['table_name'] = $result;
-                return false;
+//                $model->errors['table_name'] = $result;
+                return $result;
             }
 
             DBMaker::addIndex($model->table_name, 'id');

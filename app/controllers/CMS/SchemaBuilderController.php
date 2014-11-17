@@ -47,7 +47,7 @@ class SchemaBuilderController extends SystemController
             $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
         }
 
-        if ($table->save()) {
+        if ($re = $table->save()) {
             Log::info(Auth::user()->name . '更新表' . $table->table_name);
             //set group option
             $group_id = $this->getGroupID();
@@ -61,7 +61,7 @@ class SchemaBuilderController extends SystemController
 
         }
 
-        $this->ajaxResponse(BaseController::$FAILED, json_encode($table->errors));;
+        $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED,$re);;
     }
 
     /**

@@ -71,11 +71,9 @@ class ExtController extends BaseController
             }
             DB::connection('models')->getPdo()->commit();
             $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS);
-//            $this->ajaxResponse(array(), 'success', '更新成功');
         } catch (Exception $e) {
             DB::connection('models')->getPdo()->rollBack();
             $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED);
-//            $this->ajaxResponse(array(), 'fail', '更新失败');
         }
     }
 

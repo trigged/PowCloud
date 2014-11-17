@@ -17,7 +17,7 @@ class RouteManager
 
     protected static $controller = 'ModelController';
 
-    public static function addRouteWithRestFul($path, $model, $expire, $rights = array('index' => 1, 'store' => 1, 'update' => 1, 'delete' => 1))
+    public static function addRouteWithRestFul($path, $model, $expire, $type = 'model', $rights = array('index' => 1, 'store' => 1, 'update' => 1, 'delete' => 1))
     {
         if (empty($model)) {
             return false;
@@ -30,11 +30,27 @@ class RouteManager
             'base'   => $path,
             'right'  => $rights,
             'model'  => $model,
+            'type'   => $type,
             'expire' => $expire,
         );
         self::add_route($path, $data);
 
         return true;
+    }
+
+    /**
+     * @param $path
+     * @param $data
+     */
+    public static function add_route($path, $data)
+    {
+        self::addRoute($path, $data);
+        self::addRoute($path . '/store', $data);
+        self::addRoute($path . '/edit', $data);
+        self::addRoute($path . '/', $data);
+        self::addRoute($path . '/search', $data);
+        self::addRoute($path . '/incrby', $data);
+        Route::resource($path, self::$controller);
     }
 
     protected static function addRoute($path, $data)
@@ -69,21 +85,6 @@ class RouteManager
             return $value;
         }
         return false;
-    }
-
-    /**
-     * @param $path
-     * @param $data
-     */
-    public static function add_route($path, $data)
-    {
-        self::addRoute($path, $data);
-        self::addRoute($path . '/store', $data);
-        self::addRoute($path . '/edit', $data);
-        self::addRoute($path . '/', $data);
-        self::addRoute($path . '/search', $data);
-        self::addRoute($path . '/incrby', $data);
-        Route::resource($path, self::$controller);
     }
 
 
