@@ -45,7 +45,7 @@ class CacheController
 //            WriteApi::setTableObject(RedisKey::buildKey($name, $value['id']), $value);
 //            WriteApi::redis()->expire(RedisKey::sprintf(RedisKey::Index, $name), 3600 * 24 * 7);
         } elseif (is_object($value) && isset($value->id) && isset($value->rank)) {
-            WriteApi::addDataInRange($table_name,$value,$value->rank,$value->id);
+            WriteApi::addDataInRange($table_name, (array)$value,$value->rank,$value->id);
 //            WriteApi::redis()->zadd(RedisKey::sprintf(RedisKey::Index, $name), $value->rank, $value->id);
 //            WriteApi::setTableObject(RedisKey::buildKey($name, $value->id), (array)$value);
 //            WriteApi::redis()->expire(RedisKey::sprintf(RedisKey::Index, $name), 3600 * 24 * 7);
