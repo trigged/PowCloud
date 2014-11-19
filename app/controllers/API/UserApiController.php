@@ -276,6 +276,13 @@ class UserApiController extends ModelController
 
     }
 
+
+    function getUser(){
+        $uid = Input::get('uid');
+        return  ApiModel::APIFind('user', $uid);
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -285,10 +292,9 @@ class UserApiController extends ModelController
     {
         $format = $this->format;
         $this->format = 'plan';
-        $uid = Input::get('uid');
-        $user = ApiModel::APIFind('user', $uid);
-        if (!$user) {
-            return $this->getResult(-1, '用户不存在');
+
+        if(!$user = $this->getUser()){
+            return $this->getResult(-1,'用户不存在');
         }
         $result = parent::store(true);
         $this->format = $format;
@@ -296,12 +302,11 @@ class UserApiController extends ModelController
             $behavior_name = UserBehaviorController::getBehaviorName($this->table_name);
             $model = new ApiModel($behavior_name);
             $model->data_id = $result['data']['id'];
-            $model->user_id = $uid;
+            $model->user_id = $user['id'];
             $model->user = $user->nick_name;
             $model->save();
-            WriteApi::addUserBehavior($uid, $behavior_name, $model->id);
+            WriteApi::addUserBehavior($user['ud'], $behavior_name, $model->id);
         }
-
         return $this->getResult($result['code'], $result['message'], $result['data']);
     }
 
@@ -346,7 +351,18 @@ class UserApiController extends ModelController
      */
     public function destroy($id)
     {
-        //
+        $user = $this->getUser();
+        $data_id = Input::get('data_id');
+        if(! $user){
+            return $this->getResult(-1,'用户不存在');
+        }
+        $data = ApiModel::Find($this->table_name,$data_id);
+        if(!$data){
+            return $this->getResult(-1,'数据不存在');
+        }
+        $data->delete();
+
+
     }
 
 }
