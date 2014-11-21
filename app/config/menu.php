@@ -1,12 +1,12 @@
 <?php
 return array(
     'nav'  => array(
-        'cms'      => array('url' => URL::action('CmsController@index'), 'label' => '内容管理'),
-        'system'   => array('url' => URL::action('SystemController@system'), 'label' => '系统管理'),
+        'cms'    => array('url' => URL::action('CmsController@index'), 'label' => '内容管理'),
+        'system' => array('url' => URL::action('SystemController@system'), 'label' => '系统管理'),
 //        'advanced' => array('url' => URL::action('AdvancedController@index'), 'label' => '高级模式'),
-        'limit'    => array('url' => URL::action('LimitController@user'), 'label' => '权限管理'),
+        'limit'  => array('url' => URL::action('LimitController@user'), 'label' => '权限管理'),
 //        'monitor'  => array('url' => URL::action('MonitorController@index'), 'label' => '数据监控'),
-        'help'     => array('url' => 'http://doc.powapi.com', 'target' => '_blank', 'label' => '帮助文档'),
+        'help'   => array('url' => 'http://doc.powapi.com', 'target' => '_blank', 'label' => '帮助文档'),
     ),
 
     'side' => array(
@@ -26,7 +26,7 @@ return array(
             ),
             '内置模板'   => array(
 //                array('label' => '分类', 'url' => URL::action('FormsController@forms'), 'menu' => 'forms.list'),
-//                array('label' => '用户', 'url' => URL::action('FormsController@forms'), 'menu' => 'forms.list'),
+                array('label' => '用户', 'url' => URL::action('UserBehaviorController@index'), 'menu' => 'user.list'),
             ),
             '表单管理'   => array(
                 array('label' => '界面管理', 'url' => URL::action('FormsController@forms'), 'menu' => 'forms.list'),

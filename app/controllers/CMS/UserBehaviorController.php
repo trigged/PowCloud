@@ -23,6 +23,13 @@ class UserBehaviorController extends CmsBaeController
   INDEX `data_id` (`data_id` ASC))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
+    public $nav = 'system';
+
+    public static function getBehaviorName($behavior)
+    {
+        return sprintf('user_%s', $behavior);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +37,11 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8;";
      */
     public function index()
     {
-        return "hello";
+        $tables = SchemaBuilder::where('types', 'user')->get();
+        Path::getPathTree();
+        $paths = Path::$pathTreeListOptions;
+        unset($paths[-1]);
+        return $this->render('UserBehavior.index', array('tables' => $tables, 'pathTreeListOptions' => $paths));
     }
 
     /**
@@ -87,7 +98,7 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8;";
             $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS);
         } catch (Exception $e) {
             DB::connection('models')->getPdo()->rollBack();
-            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED,$e->getMessage());
+            $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $e->getMessage());
         }
 
 
@@ -138,10 +149,6 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8;";
     public function destroy($id)
     {
         //
-    }
-
-    public static  function getBehaviorName($behavior){
-        return sprintf('user_%s',$behavior);
     }
 
 
