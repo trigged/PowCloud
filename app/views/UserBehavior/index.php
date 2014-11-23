@@ -9,7 +9,7 @@
                 </li>
                 <?php foreach ($tables as $table): ?>
                     <li role="presentation"><a
-                            href="#"><?php echo $table->table_alias ? $table->table_alias : $table->table_name; ?></a>
+                            href="<?php echo URL::action('SchemaBuilderController@index');?>"><?php echo $table->table_alias ? $table->table_alias : $table->table_name; ?></a>
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -19,7 +19,6 @@
     <div class="row">
 
     <div class="col-md-7">
-
         <?php echo \Utils\FormBuilderHelper::begin(); //注册表单JS ?>
         <form id="schema_form" class="form-horizontal" method="post">
             <h4>创建表结构</h4>
@@ -174,7 +173,7 @@
                 'table_name'  => array('required' => true),
                 'table_alias' => array('required' => true),
             ),
-            URL::action('SchemaBuilderController@store'),
+            URL::action('UserBehaviorController@store'),
             'POST',
             '',
             '$.validator.addMethod("filedName", function(value, element) {
@@ -253,15 +252,16 @@
         </div>
 
     </div>
+
+
+    </div>
     <script>
-
-
         $(function () {
             $('#path_id').change(function () {
                 var val = $(this).val();
                 val == -1 ? $('#JRestCtrl').addClass('hide') : $('#JRestCtrl').removeClass('hide');
                 $('#path_name').val($(this).find("option:selected").text());
-            })
+            });
             $("body").on("click", ".glyphicon-remove", function () {
                 if ($('tbody tr').length == 4) {
                     alert('至少 添加一个字段 ');
@@ -270,8 +270,6 @@
                 var target = $(this).attr('data-row');
                 $('#' + target).remove();
             });
-
-
         });
         function addProperty() {
             var index = parseInt($(".propertyInput:last").attr('data-index')) + 1;
@@ -279,6 +277,4 @@
             $('table tbody').append(tpl);
         }
     </script>
-
-    </div>
 <?php echo $footer ?>

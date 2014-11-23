@@ -65,10 +65,11 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         $input = array_merge(array('index' => 1, 'update' => 1, 'delete' => 1, 'create' => 1),
             Input::all());
 
+
         $table = new SchemaBuilder($input);
         $table->scene = 'create';
         $table->types = 'user';
-
+        $table->restful = 1;
         //TODO add event for after validator
         if ((int)$table->path_id !== -1) {
             if (SchemaBuilder::checkPathAndTableName($table->path_id, $table->table_name)) {
@@ -95,16 +96,11 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8;";
             }
             \Utils\DBMaker::runSql(sprintf(self::$Sql, \Utils\AppChose::getDbModelsName($this->app_id), $table->table_name));
             DB::connection('models')->getPdo()->commit();
-            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS);
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS,'',URL::action('SchemaBuilderController@index'));
         } catch (Exception $e) {
             DB::connection('models')->getPdo()->rollBack();
             $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $e->getMessage());
         }
-
-
-        //todo create user_xx table
-
-        //
     }
 
     /**

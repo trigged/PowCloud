@@ -26,7 +26,7 @@ return array(
             ),
             '内置模板'   => array(
 //                array('label' => '分类', 'url' => URL::action('FormsController@forms'), 'menu' => 'forms.list'),
-                array('label' => '用户', 'url' => URL::action('UserBehaviorController@index'), 'menu' => 'user.list'),
+                array('label' => '用户行为', 'url' => URL::action('UserBehaviorController@index'), 'menu' => 'user.list'),
             ),
             '表单管理'   => array(
                 array('label' => '界面管理', 'url' => URL::action('FormsController@forms'), 'menu' => 'forms.list'),
