@@ -117,7 +117,7 @@ class LoginController extends Controller
             Auth::login($user);
         }
         if($demo_login && $demo_login == '9527' ){
-            header('Location:' . URL::action('DashBoardController@index'));
+            return Response::json(1)->setCallback(Input::get('callback'));
         }
         $this->ajaxResponse(BaseController::$SUCCESS, '', '', URL::action('DashBoardController@index'));
     }
