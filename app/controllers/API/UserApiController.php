@@ -127,7 +127,7 @@ class UserApiController extends ModelController
         $user->address = $address;
         $user->save();
 
-        return $this->getResult(1, '', $this->process($user->toArray(), false));
+        return $this->getResult(1, '注册成功', $this->process($user->toArray(), false));
         //todo mail active check
 
 //        $active = Input::get('active',false);

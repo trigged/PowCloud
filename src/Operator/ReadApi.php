@@ -105,7 +105,7 @@ class ReadApi
             }
             self::getLimitTableObject($table_name);
             CMSLog::debug(sprintf('key  not exists load from db key: %s', $table_name));
-            $value = DB::connection('models')->table($table_name)->where('deleted_at', '0000-00-00 00:00:00')->get();
+            $value = DB::connection('models')->table($table_name)->whereNull('deleted_at')->get();
             CacheController::setRange($table_name, $value);
         }
         return $value;
@@ -129,7 +129,8 @@ class ReadApi
         $value = self::redis()->hgetall($key);
         if (empty($value) && $failBack) {
             CMSLog::debug(sprintf('key  not exists load from db key: %s', $key));
-            $value = DB::connection('models')->table($table_name)->where('deleted_at', '0000-00-00 00:00:00')->where('id', $id)->first();
+
+            $value = DB::connection('models')->table($table_name)->whereNull('deleted_at')->where('id', $id)->first();
             if ($value == null) {
                 return '数据不存在';
             }
@@ -164,7 +165,7 @@ class ReadApi
     public static function loadDatas($table_name, $offset = 0, $count = self::LOAD_COUNT)
     {
         $query = DB::connection('models')->table($table_name)->orderBy('rank', 'desc');
-        $query = $query->skip($offset)->take($count)->where('deleted_at', '0000-00-00 00:00:00');
+        $query = $query->skip($offset)->take($count)->whereNull('deleted_at');
         $sql = $query->toSql();
         $data = $query->get();
         CacheController::setRange($table_name, $data);

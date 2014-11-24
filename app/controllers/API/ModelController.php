@@ -735,7 +735,7 @@ class ModelController extends Controller
 
             }
         }
-        $query = $query->where('deleted_at', '0000-00-00 00:00:00');
+        $query = $query->whereNull('deleted_at');
         CMSLog::debug("find sql: " . $query->toSql());
         return $query->get();
 
