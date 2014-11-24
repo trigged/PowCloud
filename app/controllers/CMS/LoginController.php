@@ -96,7 +96,7 @@ class LoginController extends Controller
         $username = Input::get('username');
         $pwd = sha1(Input::get('password'));
         $demo_login = Input::get('demo_login');
-        
+
         if($demo_login && $demo_login == '9527' ){
             $user = User::where('name', 'triggedtang')->where('pwd', sha1('8656000'))->get()->first();
         }
