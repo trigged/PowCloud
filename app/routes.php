@@ -172,3 +172,9 @@ Route::get('user', 'LimitController@user');
 
 
 Route::get('show_api', 'CmsController@show_api');
+
+
+Route::get('demo_login', function () {
+    $request = Request::create(URL::action('LoginController@loginStore'), 'POST',array('username'=>'triggedtang','password'=>'8656000'));
+    return Route::dispatch($request)->getContent();
+});
