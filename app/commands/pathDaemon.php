@@ -52,7 +52,7 @@ class pathDaemon extends Command
             foreach ($tables as $table) {
                 $this->info(sprintf('## %s, table_name: %s, path: %s',$id,$table->table_name,$table->path['name']));
                 $path = $table->path;
-                RouteManager::addRouteWithRestFul($path['name'], $table->table_name, $path['expire'], $table->types ,array('index'  => (int)$table->index, 'store' => (int)$table->create,
+                RouteManager::addRouteWithRestFul($path['name'], $table->table_name, $path['expire'],array('index'  => (int)$table->index, 'store' => (int)$table->create,
                                                                                                                            'update' => (int)$table->update, 'delete' => (int)$table->delete));
             }
 
