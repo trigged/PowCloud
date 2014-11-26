@@ -262,6 +262,14 @@ class UserApiController extends ModelController
             return $this->getResult(-1, '请传入uid 参数');
         }
         $data = ReadApi::getUserBehavior($uid, $this->table_name);
+        if (count($data) < $this->count) {
+            $value = CacheController::handlerUserPaging($this->table_name,$uid, $this->page, $this->count);
+            if ($value !== false) {
+                $data = $value;
+            }
+        }
+
+
         $data = ReadApi::getDataByIDs($this->table_name, $data);
         return $this->getResult(1, 'success', $this->process($data));
     }
@@ -303,7 +311,7 @@ class UserApiController extends ModelController
                 $model->user_id = $user['id'];
                 $model->user = $user->nick_name;
                 $model->save();
-                WriteApi::addUserBehavior($user['ud'], $behavior_name, $model->id);
+                WriteApi::addUserBehavior($user['id'], $behavior_name, $model->id);
                 return $this->getResult(1, '操作成功', $this->process($model->toArray(), false));
             }
         } else {
@@ -316,7 +324,7 @@ class UserApiController extends ModelController
                 $model->user_id = $user['id'];
                 $model->user = $user->nick_name;
                 $model->save();
-                WriteApi::addUserBehavior($user['ud'], $behavior_name, $model->id);
+                WriteApi::addUserBehavior($user['id'], $behavior_name, $model->id);
             }
             return $this->getResult($result['code'], $result['message'], $result['data']);
         }

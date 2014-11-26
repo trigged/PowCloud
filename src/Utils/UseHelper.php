@@ -110,8 +110,8 @@ class UseHelper
 //var_dump($secret_key);
 //$time = time();
 //var_dump($time);
-//$token = UseHelper::makeToken(time(), UseHelper::$default_key);
-//var_dump($token);
+$token = UseHelper::makeToken(95, UseHelper::$default_key);
+var_dump($token);
 //$token1 = urlencode($token);
 //var_dump($token1);
 //

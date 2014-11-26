@@ -72,6 +72,21 @@ class CacheController
     }
 
 
+    public static function handlerUserPaging($table_name,$uid ,$offset, $count){
+        $value = ReadApi::tableHasMore($table_name);
+        //result was null and cache not exists index key
+        if (!empty($value) && ReadApi::existsKey($table_name . '::index')) {
+            return false;
+        }
+        if ($offset * $count <= ReadApi::LOAD_COUNT) {
+            //first load ,just load the max count
+            ReadApi::loadUserDatas($table_name,$uid);
+        } else {
+            ReadApi::getLimitUserTableObject($table_name,$uid,  $offset, $count);
+        }
+        return self::getRange($table_name, $offset, $count);
+    }
+
     public static function handlerPaging($table_name, $offset, $count)
     {
         $value = ReadApi::tableHasMore($table_name);

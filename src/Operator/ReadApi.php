@@ -66,7 +66,8 @@ class ReadApi
 
 
     public static function getUserBehavior($uid,$table_name){
-        return ReadApi::zsetGet(RedisKey::sprintf(RedisKey::USER_BEHAVIOR, $uid,$table_name), '+inf', '-inf', null, null);
+        return ReadApi::zsetGet(RedisKey::sprintf(sprintf(RedisKey::USER_BEHAVIOR,$table_name, $uid)), '+inf', '-inf', null, null);
+
     }
 
     public static function zsetGet($key, $star = '+inf', $end = '-inf', $withScores = null, $offset = 0, $limit = 20)
@@ -159,8 +160,37 @@ class ReadApi
             }
         }
     }
+    public static function getLimitUserTableObject($table_name,$uid, $offset = 1000, $count = 100)
+    {
+        $cache_count = ReadApi::zsetCount(RedisKey::Index, $table_name);
+        //redis has cached some some data not need load this again~
+        for ($i = $cache_count; $i <= $offset * $count; $i += self::LOAD_COUNT) {
+            $value = self::loadDatas($table_name, $i);
+            if ($value !== true) {
+                CMSLog::debug(sprintf('already get all data table name %s, offset : %s,', $table_name, $i));
+                break;
+            }
+        }
+    }
+    public static function loadUserDatas($table_name,$uid, $offset = 0, $count = self::LOAD_COUNT)
+    {
+        $query = DB::connection('models')->table($table_name)->orderBy('rank', 'desc');
+        $query = $query->skip($offset)->take($count)->whereNull('deleted_at')->where('uid',$uid);
+        $sql = $query->toSql();
+        $datas = $query->lists('data_id','rank');
+        foreach($datas as $data_id =>$rank){
+            WriteApi::addUserBehavior($table_name,$uid,$data_id,$rank);
+        }
+//        CacheController::setRange($table_name, $data);
+        CMSLog::debug(sprintf('load data from db, sql : %s, count :%s, limit :%s', $sql, count($datas), $count));
+        if (count($datas) < $count) {
+            //no more data
+            WriteApi::setTableCountState($table_name);
+            return false;
 
-
+        }
+        return true;
+    }
 
     public static function loadDatas($table_name, $offset = 0, $count = self::LOAD_COUNT)
     {

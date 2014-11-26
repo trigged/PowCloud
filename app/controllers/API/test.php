@@ -191,20 +191,20 @@ $value = array(
 
 //echo json_encode($value);
 $test = array('a');
-var_dump(array_rand($test));
+@var_dump(array_rand($test));
 echo "today :";
-var_dump(date('y-m-d', time()));
+@var_dump(date('y-m-d', time()));
 echo "last week :";
-var_dump(date('y-m-d', strtotime("last week")));
+@var_dump(date('y-m-d', strtotime("last week")));
 
 echo "last end  week :";
-var_dump(date('y-m-d', strtotime("last  week +6 day")));
+@var_dump(date('y-m-d', strtotime("last  week +6 day")));
 
 echo "last month :";
-var_dump(date('y-m-d', strtotime("last month")));
+@var_dump(date('y-m-d', strtotime("last month")));
 
 echo "-1 month :";
-var_dump(date('y-m-t', strtotime("-1 month")));
+@var_dump(date('y-m-t', strtotime("-1 month")));
 
 $query = "insert into `forms` (`default_value`, `field`, `label`, `models_id`, `rank`, `rules`, `type`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?)) ";
 $values = array(0  => '""',
@@ -250,4 +250,6 @@ $value = 'hello %s';
 var_dump(printf($value, 'trigged'));
 var_dump(printf($value, null));
 var_dump($value . null);
+$value = '%s hello %s';
+
 ?>

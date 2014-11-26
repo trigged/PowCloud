@@ -99,13 +99,22 @@ class WriteApi
 
     #region zset operator
 
-    public static function addUserBehavior($uid, $table_name, $data_id)
+    public static function addUserBehavior($table_name,$uid, $data_id,$score = null)
     {
-        self::zsetAdd(RedisKey::sprintf(RedisKey::USER_BEHAVIOR, $uid, $table_name), time(), $data_id);
+        if($score == null){
+            $score = time();
+        }
+        self::zsetAdd(RedisKey::sprintf(sprintf(RedisKey::USER_BEHAVIOR,$table_name, $uid)), $score, $data_id);
 //        return ReadApi::zsetGet(RedisKey::sprintf(RedisKey::USER_BEHAVIOR, $uid,$table_name), '+inf', '-inf', null, null);
     }
 
     public static function zsetAdd($key, $score, $member)
+    {
+        self::redis()->zadd($key, $score, $member);
+    }
+
+
+    public static function zsetAdds($key, $score, $member)
     {
         self::redis()->zadd($key, $score, $member);
     }
