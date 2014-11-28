@@ -304,28 +304,31 @@ class UserApiController extends ModelController
         $behavior_name = UserBehaviorController::getBehaviorName($this->table_name);
         $model = new ApiModel($behavior_name);
         if ($flag) {
-            $count = $model->where('user_id', $user['id'])->where('data_id', $data_id)->count();
+            $count = $model->where('uid', $user['id'])->where('data_id', $data_id)->count();
             if ($count > 0) {
                 return $this->getResult(-1, '操作成功,请不要重复添加');
             } else {
                 $model->data_id = $data_id;
-                $model->user_id = $user['id'];
+                $model->uid = $user['id'];
                 $model->user = $user->nick_name;
+                $model->cache_flag = false;
                 $model->save();
-                WriteApi::addUserBehavior($user['id'], $behavior_name, $model->id);
+                //WriteApi::addUserBehavior($table_name, $uid, $data_id, $rank);  1 user_user_video::1
+                WriteApi::addUserBehavior($behavior_name, $user['id'], $model->id, $model->rank);
                 return $this->getResult(1, '操作成功', $this->process($model->toArray(), false));
             }
         } else {
             $result = parent::store(true);
+
+            \Utils\CMSLog::debug("#######");
             $this->format = $format;
             if ($result['code'] == 1) {
-
-
                 $model->data_id = $result['data']['id'];
-                $model->user_id = $user['id'];
+                $model->uid = $user['id'];
                 $model->user = $user->nick_name;
+                $model->cache_flag = false;
                 $model->save();
-                WriteApi::addUserBehavior($user['id'], $behavior_name, $model->id);
+                WriteApi::addUserBehavior($behavior_name, $user['id'], $model->id, $model->rank);
             }
             return $this->getResult($result['code'], $result['message'], $result['data']);
         }

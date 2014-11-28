@@ -28,6 +28,8 @@ class ApiModel extends Eloquent
 
     public $childSets = array();
 
+    public $cache_flag = true;
+
     /**
      * 保存更新之前的数据
      * @var array
@@ -78,11 +80,12 @@ class ApiModel extends Eloquent
      * @param $id
      * @return array|mixed|string|static
      */
-    public static function APIFind($table_name,$id){
-        if(empty($table_name) || empty($id)){
+    public static function APIFind($table_name, $id)
+    {
+        if (empty($table_name) || empty($id)) {
             return false;
         }
-        return \Operator\ReadApi::getTableObject($table_name,$id,true,true);
+        return \Operator\ReadApi::getTableObject($table_name, $id, true, true);
     }
 
     public static function boot()
@@ -101,7 +104,7 @@ class ApiModel extends Eloquent
                 }
             }
             if (Auth::user())
-                $model->user_name = Auth::user()->name ?Auth::user()->name : 'API' ;
+                $model->user_name = Auth::user()->name ? Auth::user()->name : 'API';
             if (!$model->exists) //新创建的数据 会更新rank
             $model->rank = time() + $model->rankTail;
 
@@ -120,8 +123,10 @@ class ApiModel extends Eloquent
                 }
                 WriteApi::addTimingData($timing_state, $model->getTable(), $model->id, isset($model->title) ? $model->title : '', strtotime($model->timing_time));
             } elseif (!isset($model->timing_state) || $model->hasNormalData() || $timing_state == RedisKey::PUB_ONLINE) {
-                CacheController::create($model->getTable(), $model->toArray());
-                Log::info('创建更新:' . $model->getTable() . ':' . $model->toJson());
+                if ($model->cache_flag) {
+                    CacheController::create($model->getTable(), $model->toArray());
+                    Log::info('创建更新:' . $model->getTable() . ':' . $model->toJson());
+                }
             }
             return true;
         });
