@@ -9,7 +9,7 @@ class UserBehaviorController extends CmsBaeController
   USE `%s`;
   CREATE TABLE IF NOT EXISTS `user_%s` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NULL,
+  `uid` INT NULL,
   `data_id` INT NULL,
   `user` VARCHAR(45) NULL COMMENT '冗余',
   `user_name` VARCHAR(45) NULL,
@@ -96,7 +96,7 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8;";
             }
             \Utils\DBMaker::runSql(sprintf(self::$Sql, \Utils\AppChose::getDbModelsName($this->app_id), $table->table_name));
             DB::connection('models')->getPdo()->commit();
-            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS,'',URL::action('SchemaBuilderController@index'));
+            $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', URL::action('SchemaBuilderController@index'));
         } catch (Exception $e) {
             DB::connection('models')->getPdo()->rollBack();
             $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $e->getMessage());

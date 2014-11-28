@@ -60,7 +60,6 @@ class RedisKey
     const USER_BEHAVIOR = '%s::users::%s';
 
 
-
     /**
      * zset
      * to pub timing data
@@ -140,9 +139,14 @@ class RedisKey
      * @param $name
      * @return string
      */
-    public static function buildKey($name, $id)
+    public static function buildKey($name, $id, $prefix = true)
     {
-        return self::$DB_KEY . $name . '::' . $id;
+
+        if ($prefix) {
+            return self::$DB_KEY . $name . '::' . $id;
+        }
+        return $name . '::' . $id;
+
     }
 
     /**
@@ -162,7 +166,7 @@ class RedisKey
 
     }
 
-    public static function buildKeys($value, $key = '::')
+    public static function buildKeys(array $value, $key = '::')
     {
         return self::$DB_KEY . join($key, $value);
     }

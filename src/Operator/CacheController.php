@@ -23,6 +23,30 @@ class CacheController
         self::handlerPaging($table_name, 0, 20);
     }
 
+    public static function handlerPaging($table_name, $offset, $count)
+    {
+        $value = ReadApi::tableHasMore($table_name);
+        //result was null and cache not exists index key
+        if (!empty($value) && ReadApi::existsKey($table_name . '::index')) {
+            return false;
+        }
+        if ($offset * $count <= ReadApi::LOAD_COUNT) {
+            //first load ,just load the max count
+            ReadApi::loadDatas($table_name);
+        } else {
+            ReadApi::getLimitTableObject($table_name, $offset, $count);
+        }
+        return self::getRange($table_name, $offset, $count);
+    }
+
+    public static function getRange($name, $offset = 0, $limit = 20)
+    {
+        if ($offset === null) {
+            return ReadApi::redis()->zrevrangebyscore(RedisKey::sprintf(RedisKey::Index, $name), '+inf', '-inf');
+        }
+        return ReadApi::redis()->zrevrangebyscore(RedisKey::sprintf(RedisKey::Index, $name), '+inf', '-inf', 'limit', $offset * $limit, $limit);
+    }
+
     public static function update($table_name, $model)
     {
         self::create($table_name, $model);
@@ -40,12 +64,12 @@ class CacheController
     private static function addDataInRange($table_name, $value)
     {
         if (is_array($value) && isset($value['id']) && isset($value['rank'])) {
-            WriteApi::addDataInRange($table_name,$value,$value['rank'],$value['id']);
+            WriteApi::addDataInRange($table_name, $value, $value['rank'], $value['id']);
 //            WriteApi::redis()->zadd(RedisKey::sprintf(RedisKey::Index, $name), $value['rank'], $value['id']);
 //            WriteApi::setTableObject(RedisKey::buildKey($name, $value['id']), $value);
 //            WriteApi::redis()->expire(RedisKey::sprintf(RedisKey::Index, $name), 3600 * 24 * 7);
         } elseif (is_object($value) && isset($value->id) && isset($value->rank)) {
-            WriteApi::addDataInRange($table_name, (array)$value,$value->rank,$value->id);
+            WriteApi::addDataInRange($table_name, (array)$value, $value->rank, $value->id);
 //            WriteApi::redis()->zadd(RedisKey::sprintf(RedisKey::Index, $name), $value->rank, $value->id);
 //            WriteApi::setTableObject(RedisKey::buildKey($name, $value->id), (array)$value);
 //            WriteApi::redis()->expire(RedisKey::sprintf(RedisKey::Index, $name), 3600 * 24 * 7);
@@ -71,54 +95,30 @@ class CacheController
         }
     }
 
-
-    public static function handlerUserPaging($table_name,$uid ,$offset, $count){
-        $value = ReadApi::tableHasMore($table_name);
-        //result was null and cache not exists index key
-        if (!empty($value) && ReadApi::existsKey($table_name . '::index')) {
-            return false;
-        }
-        if ($offset * $count <= ReadApi::LOAD_COUNT) {
-            //first load ,just load the max count
-            ReadApi::loadUserDatas($table_name,$uid);
-        } else {
-            ReadApi::getLimitUserTableObject($table_name,$uid,  $offset, $count);
-        }
-        return self::getRange($table_name, $offset, $count);
-    }
-
-    public static function handlerPaging($table_name, $offset, $count)
+    public static function handlerUserPaging($table_name, $uid, $offset, $count)
     {
-        $value = ReadApi::tableHasMore($table_name);
+        //user_user_like
+        $value = ReadApi::tableHasMore($table_name, $uid);
         //result was null and cache not exists index key
-        if (!empty($value) && ReadApi::existsKey($table_name . '::index')) {
+        if (!empty($value)) {
             return false;
         }
         if ($offset * $count <= ReadApi::LOAD_COUNT) {
             //first load ,just load the max count
-            ReadApi::loadDatas($table_name);
+            ReadApi::loadUserDatas($table_name, $uid);
         } else {
-            ReadApi::getLimitTableObject($table_name, $offset, $count);
+            ReadApi::getLimitUserTableObject($table_name, $uid, $offset, $count);
         }
-        return self::getRange($table_name, $offset, $count);
+        return ReadApi::getUserBehavior($table_name, $uid);
     }
 
+    //批量更数据
 
     public static function setRange($name, $data)
     {
         foreach ($data as $value) {
             self::addDataInRange($name, $value);
         }
-    }
-
-    //批量更数据
-
-    public static function getRange($name, $offset = 0, $limit = 20)
-    {
-        if ($offset === null) {
-            return ReadApi::redis()->zrevrangebyscore(RedisKey::sprintf(RedisKey::Index, $name), '+inf', '-inf');
-        }
-        return ReadApi::redis()->zrevrangebyscore(RedisKey::sprintf(RedisKey::Index, $name), '+inf', '-inf', 'limit', $offset * $limit, $limit);
     }
 
 }

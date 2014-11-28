@@ -261,9 +261,11 @@ class UserApiController extends ModelController
         if (!$uid) {
             return $this->getResult(-1, '请传入uid 参数');
         }
-        $data = ReadApi::getUserBehavior($uid, $this->table_name);
+        //user_like->user_user_like
+        $table_name = UserBehaviorController::getBehaviorName($this->table_name);
+        $data = ReadApi::getUserBehavior($table_name, $uid);
         if (count($data) < $this->count) {
-            $value = CacheController::handlerUserPaging($this->table_name,$uid, $this->page, $this->count);
+            $value = CacheController::handlerUserPaging($table_name, $uid, $this->page, $this->count);
             if ($value !== false) {
                 $data = $value;
             }
@@ -303,11 +305,10 @@ class UserApiController extends ModelController
         $model = new ApiModel($behavior_name);
         if ($flag) {
             $count = $model->where('user_id', $user['id'])->where('data_id', $data_id)->count();
-            if($count > 0){
+            if ($count > 0) {
                 return $this->getResult(-1, '操作成功,请不要重复添加');
-            }
-            else {
-                $model->data_id =$data_id;
+            } else {
+                $model->data_id = $data_id;
                 $model->user_id = $user['id'];
                 $model->user = $user->nick_name;
                 $model->save();

@@ -20,8 +20,12 @@ class ReadApi
 {
     const LOAD_COUNT = 100;
 
-    public static function tableHasMore($table_name)
+    public static function tableHasMore($table_name, $uid = null)
     {
+        //todo change table::more string ->table hash filed
+        if ($uid) {
+            return self::redis()->get(RedisKey::sprintf(RedisKey::MORE_DATA, RedisKey::buildKey($table_name, $uid, false)));
+        }
         return self::redis()->get(RedisKey::sprintf(RedisKey::MORE_DATA, $table_name));
     }
 
@@ -65,8 +69,10 @@ class ReadApi
     }
 
 
-    public static function getUserBehavior($uid,$table_name){
-        return ReadApi::zsetGet(RedisKey::sprintf(sprintf(RedisKey::USER_BEHAVIOR,$table_name, $uid)), '+inf', '-inf', null, null);
+    public static function getUserBehavior($table_name, $uid)
+    {
+        //user_user_like->'user_user_like::1
+        return ReadApi::zsetGet(RedisKey::buildKey($table_name, $uid), '+inf', '-inf', null, null);
 
     }
 
@@ -89,9 +95,11 @@ class ReadApi
         return self::redis()->zcount(RedisKey::sprintf($redis_key, $key_sprint), '-inf', '+inf');
     }
 
-    public static function zsetCheck($redis_key,$key_sprint,$member){
-        return self::redis()->zrank(RedisKey::sprintf($redis_key, $key_sprint),$member);
+    public static function zsetCheck($redis_key, $key_sprint, $member)
+    {
+        return self::redis()->zrank(RedisKey::sprintf($redis_key, $key_sprint), $member);
     }
+
     #endregion
 
     public static function getAllTableObject($table_name, $flash = false)
@@ -160,7 +168,8 @@ class ReadApi
             }
         }
     }
-    public static function getLimitUserTableObject($table_name,$uid, $offset = 1000, $count = 100)
+
+    public static function getLimitUserTableObject($table_name, $uid, $offset = 1000, $count = 100)
     {
         $cache_count = ReadApi::zsetCount(RedisKey::Index, $table_name);
         //redis has cached some some data not need load this again~
@@ -172,20 +181,20 @@ class ReadApi
             }
         }
     }
-    public static function loadUserDatas($table_name,$uid, $offset = 0, $count = self::LOAD_COUNT)
+
+    public static function loadUserDatas($table_name, $uid, $offset = 0, $count = self::LOAD_COUNT)
     {
         $query = DB::connection('models')->table($table_name)->orderBy('rank', 'desc');
-        $query = $query->skip($offset)->take($count)->whereNull('deleted_at')->where('uid',$uid);
+        $query = $query->skip($offset)->take($count)->whereNull('deleted_at')->where('uid', $uid);
         $sql = $query->toSql();
-        $datas = $query->lists('data_id','rank');
-        foreach($datas as $data_id =>$rank){
-            WriteApi::addUserBehavior($table_name,$uid,$data_id,$rank);
+        $datas = $query->lists('data_id', 'rank');
+        foreach ($datas as $rank => $data_id) {
+            WriteApi::addUserBehavior($table_name, $uid, $data_id, $rank);
         }
-//        CacheController::setRange($table_name, $data);
         CMSLog::debug(sprintf('load data from db, sql : %s, count :%s, limit :%s', $sql, count($datas), $count));
         if (count($datas) < $count) {
             //no more data
-            WriteApi::setTableCountState($table_name);
+            WriteApi::setTableCountState(RedisKey::buildKey($table_name, $uid, false));
             return false;
 
         }
