@@ -19,7 +19,7 @@ class RouteManager
 
     protected static $user_controller = 'UserApiController';
 
-    public static function addRouteWithRestFul($path, $model, $expire, $type = 'model', $rights = array('index' => 1, 'store' => 1, 'update' => 1, 'delete' => 1))
+    public static function addRouteWithRestFul($path, $model, $expire, $type = 'model', $rights = array('index' => 1, 'store' => 1, 'destroy' => 1, 'update' => 1))
     {
         if (empty($model)) {
             return false;
@@ -83,7 +83,7 @@ class RouteManager
             return self::$routes[$path];
         } elseif ($value = ReadApi::getRoutes($path)) {
             $value['right'] = json_decode($value['right'], true);
-            Route::resource($value['base'],isset($value['type']) && $value['type'] == 'user'?self::$user_controller :self::$controller);
+            Route::resource($value['base'], isset($value['type']) && $value['type'] == 'user' ? self::$user_controller : self::$controller);
             return $value;
         }
         return false;

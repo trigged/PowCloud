@@ -66,6 +66,9 @@ class ApiModel extends Eloquent
      */
     public static function Find($table_name, $id, $columns = array('*'))
     {
+        if (empty($id)) {
+            return false;
+        }
         $instance = new static($table_name);
         $instance = $instance->newQuery()->find($id, $columns);
         $instance->table = $table_name;

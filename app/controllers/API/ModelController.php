@@ -191,7 +191,7 @@ class ModelController extends Controller
             //权限检查
             if (!$method || !isset($that->right[$method]) || $that->right[$method] !== 1) {
                 if (!starts_with($methods[0], 'api_'))
-                    return $that->getResult(-1, 'not allow', $methods[0]);
+                    return $that->getResult(-1, 'method not allow', $methods[0]);
             }
         });
     }

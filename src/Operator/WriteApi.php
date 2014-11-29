@@ -107,6 +107,11 @@ class WriteApi
         self::zsetAdd(RedisKey::buildKey($table_name, $uid), $score, $data_id);
     }
 
+    public static function delUserBehavior($table_name, $uid, $data_id)
+    {
+        self::zsetRem(RedisKey::buildKey($table_name, $uid), $data_id);
+    }
+
     public static function zsetAdd($key, $score, $member)
     {
         self::redis()->zadd($key, $score, $member);

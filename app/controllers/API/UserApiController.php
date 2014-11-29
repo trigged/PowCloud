@@ -334,9 +334,11 @@ class UserApiController extends ModelController
         }
     }
 
-    function getUser()
+    function getUser($uid = null)
     {
-        $uid = Input::get('uid');
+        if ($uid == null) {
+            $uid = Input::get('uid');
+        }
         return ApiModel::APIFind('user', $uid);
 
     }
@@ -382,7 +384,7 @@ class UserApiController extends ModelController
      */
     public function destroy($id)
     {
-        $user = $this->getUser();
+        $user = $this->getUser($id);
         $data_id = Input::get('data_id');
         if (!$user) {
             return $this->getResult(-1, '用户不存在');
@@ -391,9 +393,12 @@ class UserApiController extends ModelController
         if (!$data) {
             return $this->getResult(-1, '数据不存在');
         }
-        $data->delete();
-
-
+        $behavior_name = UserBehaviorController::getBehaviorName($this->table_name);
+        $model = new ApiModel($behavior_name);
+        $model->where('data_id', $data_id)->where('uid', $user['id']);
+        $model->forceDelete();
+        WriteApi::delUserBehavior($behavior_name, $user['id'], $data_id);
+        return $this->getResult(1, '删除成功');
     }
 
 }

@@ -46,8 +46,8 @@ class pathDaemon extends Command
                 $this->info($table->table_name);
                 $this->info($table->path['name']);
                 $path = $table->path;
-                RouteManager::addRouteWithRestFul($path['name'], $table->table_name, $path['expire'], $table->types ,array('index'  => (int)$table->index, 'store' => (int)$table->create,
-                                                                                                            'update' => (int)$table->update, 'delete' => (int)$table->delete));
+                RouteManager::addRouteWithRestFul($path['name'], $table->table_name, $path['expire'], $table->types, array('index'  => (int)$table->index, 'store' => (int)$table->create,
+                                                                                                                           'update' => (int)$table->update, 'destroy' => (int)$table->delete));
             }
 
         }

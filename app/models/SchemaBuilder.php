@@ -77,11 +77,11 @@ class SchemaBuilder extends XEloquent
             $pathName = $path ? $path->name : '/';
             $pathExpire = $path ? $path->expire : 0;
             //todo before add check path has sub
-            RouteManager::addRouteWithRestFul($pathName, $model->table_name, $model->types,$pathExpire, array(
-                    'index'  => (int)$model->index,
-                    'store'  => (int)$model->create,
-                    'update' => (int)$model->update,
-                    'delete' => (int)$model->delete)
+            RouteManager::addRouteWithRestFul($pathName, $model->table_name, $model->types, $pathExpire, array(
+                    'index'   => (int)$model->index,
+                    'store'   => (int)$model->create,
+                    'update'  => (int)$model->update,
+                    'destroy' => (int)$model->delete)
             );
         }
     }
