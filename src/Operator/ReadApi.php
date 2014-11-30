@@ -41,10 +41,10 @@ class ReadApi
         return self::redis()->exists(RedisKey::sprintf($key));
     }
 
-    public static function getTableInfo($table_name, $flag = false)
+    public static function getTableInfo($table_name, $force = false)
     {
         $value = self::redis()->hgetall(RedisKey::sprintf(RedisKey::INFO, $table_name));
-        if ($value == null || $flag) {
+        if ($value == null || $force) {
             $value = SchemaBuilder::where('table_name', $table_name)->first();
             if (is_object($value)) {
                 $value = $value->toArray();
@@ -97,7 +97,7 @@ class ReadApi
 
     public static function zsetCheck($redis_key, $key_sprint, $member)
     {
-        return self::redis()->zrank(RedisKey::sprintf($redis_key, $key_sprint), $member);
+        return self::redis()->zrank(RedisKey::buildKey($redis_key, $key_sprint), $member);
     }
 
     #endregion
@@ -113,7 +113,7 @@ class ReadApi
                 WriteApi::flushTableCache($table_name);
             }
             self::getLimitTableObject($table_name);
-            CMSLog::debug(sprintf('key  not exists load from db key: %s', $table_name));
+            CMSLog::debug(sprintf('#getAllTableObject key  not exists load from db key: %s', $table_name));
             $value = DB::connection('models')->table($table_name)->whereNull('deleted_at')->get();
             CacheController::setRange($table_name, $value);
         }
@@ -137,7 +137,7 @@ class ReadApi
         $key = RedisKey::buildKey($table_name, $id);
         $value = self::redis()->hgetall($key);
         if (empty($value) && $failBack) {
-            CMSLog::debug(sprintf('key  not exists load from db key: %s', $key));
+            CMSLog::debug(sprintf('#getTableObject key  not exists load from db key: %s', $key));
 
             $value = DB::connection('models')->table($table_name)->whereNull('deleted_at')->where('id', $id)->first();
             if ($value == null) {
@@ -191,7 +191,7 @@ class ReadApi
         foreach ($datas as $rank => $data_id) {
             WriteApi::addUserBehavior($table_name, $uid, $data_id, $rank);
         }
-        CMSLog::debug(sprintf('load data from db, sql : %s, count :%s, limit :%s', $sql, count($datas), $count));
+        CMSLog::debug(sprintf('#loadUserDatas load data from db, sql : %s, count :%s, limit :%s', $sql, count($datas), $count));
         if (count($datas) < $count) {
             //no more data
             WriteApi::setTableCountState(RedisKey::buildKey($table_name, $uid, false));

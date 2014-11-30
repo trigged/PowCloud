@@ -213,7 +213,7 @@ class ModelController extends Controller
         }
         $http_code = $code > 0 ? 200 : 404;
         $value = round(microtime(true) - $this->start, 3);
-        CMSLog::debug(sprintf('runtime: %s:%s :%s', $this->table_name, $this->method, $value));
+        CMSLog::debug(sprintf('getResult runtime: %s:%s :%s', $this->table_name, $this->method, $value));
         \Operator\WriteApi::addApiMonitor($this->table_name, $this->method, $value * 1000);
         $header = array(
             'Expires'        => date(DATE_RFC822, time() + $this->expire) . ' GMT',

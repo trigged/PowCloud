@@ -150,24 +150,26 @@ class UserApiController extends ModelController
     #endregion
 
     #region friends
-
+    /*friends
+    1. 先创建关系
+    2. 离线计算 timeline
+    3. 计算消息通知
+    */
     public function friends($uid)
     {
         if (!$uid) {
             return $this->getResult(-1, '请输入用户');
         }
-
-        $data = ReadApi::zsetGet(RedisKey::sprintf(RedisKey::USER_FRIENDS, $uid), '+inf', '-inf', null, null);
-        //todo paging friends
-//        $data = ReadApi::zsetGet(RedisKey::sprintf(RedisKey::USER_FRIENDS,$uid),'+inf','-inf',null,$this->page,$this->count);
-        //load from cache ignore default count
-//        if (count($data) < $this->count) {
-//            $value = CacheController::handlerPaging($this->table_name, $this->page, $this->count);
-//            if ($value !== false) {
-//                $data = $value;
-//            }
-//        }
+        $this->table_name = 'user_friends';
+        $data = ReadApi::getUserBehavior($this->table_name, $uid);
+        if (count($data) < $this->count) {
+            $value = CacheController::handlerUserPaging($this->table_name, $uid, $this->page, $this->count);
+            if ($value !== false) {
+                $data = $value;
+            }
+        }
         $this->table_name = 'user';
+
         $data = ReadApi::getDataByIDs($this->table_name, $data);
         return $this->getResult(1, 'success', $this->process($data));
     }
@@ -189,24 +191,29 @@ class UserApiController extends ModelController
         if (!$target) {
             return $this->getResult(-1, '用户不存在');
         }
-        if ($state = ReadApi::zsetCheck(RedisKey::USER_FRIENDS, $uid, $target_id)) {
+
+        $table_name = 'user_friends';
+        if ($state = ReadApi::zsetCheck($table_name, $uid, $target_id)) {
             //todo check  if target flow current user ,need set state = double_flow
             return $this->getResult(-1, '已经是好友了,请不要重复添加');
         }
         $friends = new ApiModel('user_friends');
-        $friends->from_id = $uid;
-        $friends->target_id = $target_id;
-        $friends->type = self::$FRIENDS_FLOW;
+        $friends->uid = $uid;
+        $friends->data_id = $target_id;
+        $friends->type = $each ? self::$FRIENDS_Double_FLOW : self::$FRIENDS_FLOW;
         $friends->save();
-        WriteApi::zsetAdd(RedisKey::sprintf(RedisKey::USER_FRIENDS, $uid), self::$FRIENDS_FLOW, $target_id);
         if ($each) {
             $friends = new ApiModel('user_friends');
             $friends->from_id = $target_id;
             $friends->target_id = $uid;
             $friends->type = self::$FRIENDS_Double_FLOW;
             $friends->save();
-            WriteApi::zsetAdd(RedisKey::sprintf(RedisKey::USER_FRIENDS, $target_id), self::$FRIENDS_FLOW, $uid);
+            WriteApi::addUserBehavior($table_name, $uid, $target_id, self::$FRIENDS_Double_FLOW);
+            WriteApi::addUserBehavior($table_name, $target_id, $uid, self::$FRIENDS_Double_FLOW);
+        } else {
+            WriteApi::addUserBehavior($table_name, $uid, $target_id, self::$FRIENDS_FLOW);
         }
+        //todo add notification
         return $this->getResult(1, '添加成功');
     }
 
@@ -227,11 +234,13 @@ class UserApiController extends ModelController
         if (!$target) {
             return $this->getResult(-1, '用户不存在');
         }
-        if (!ReadApi::zsetCheck(RedisKey::USER_FRIENDS, $uid, $target_id)) {
+        $table_name = 'user_friends';
+        if (!$data = ReadApi::zsetCheck($table_name, $uid, $target_id)) {
             //todo check  if target flow current user ,need set state = double_flow
             return $this->getResult(-1, '取消成功,请不要重复提交');
         }
-        $friends = new ApiModel('user_friends');
+        $friends = new ApiModel($table_name);
+
         $friends->from_id = $uid;
         $friends->target_id = $target_id;
         $friends->type = self::$FRIENDS_UN_FLOW;
@@ -246,6 +255,7 @@ class UserApiController extends ModelController
             WriteApi::zsetRem(RedisKey::sprintf(RedisKey::USER_FRIENDS, $target_id), $uid);
         }
         return $this->getResult(1, '取消成功');
+        //todo delete friends timeline
     }
 
     ## endregion
