@@ -97,7 +97,7 @@
         });
 
         $(function () {
-            table.init('.sortable tbody tr', '<tr class="sortable-holder" style="height: 50px;"></tr>');
+//            table.init('.sortable tbody tr', '<tr class="sortable-holder" style="height: 50px;"></tr>');
             $('.comment').popover({trigger: 'hover'});
             $('.JS_hostOp').click(function () {
                 var hid = $(this).attr('data-target');
