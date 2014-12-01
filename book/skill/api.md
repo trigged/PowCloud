@@ -81,4 +81,24 @@ http://xxx/apple?version=1&token=8ch86oMZN6p1N1/TcSr9Fw==
 
 http://xxx/apple/ `search`?version=1&token=8ch86oMZN6p1N1/TcSr9Fw==& `name=app`
 
+## jsonp
+
+所有的接口都支持 jsonp, 下面是  jquery 调用示例
+```
+$.ajax({
+        type: 'GET',
+        url: 'xxxxxx',
+        jsonp: 'callback',
+        dataType: "jsonp",
+        crossOrigin: true,
+        success: function () {
+            console.log('success');
+        },
+        done: function () {
+            console.log('finish');
+
+        },
+    });
+```
+
 to be more!
