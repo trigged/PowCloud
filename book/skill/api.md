@@ -1,4 +1,4 @@
-    # API 攻略
+  # API 攻略
 
 
 
@@ -64,7 +64,21 @@
 在这里我们将对 linke_count 这个字段执行+1的动作
 
 
+## 返回格式
+目前支持 `json` 和`xml` 这两种
 
+使用 format=json/xml 不穿则默认 json
 
+例如 http://xxx?token=xxxxx&format=json
+则返回 json 格式
+
+## 搜索
+
+假设一个获取所有信息的请求接口为
+http://xxx/apple?version=1&token=8ch86oMZN6p1N1/TcSr9Fw==
+
+我们想搜索 name 含有 app 的数据 则请求如下:
+
+http://xxx/apple/ `search`?version=1&token=8ch86oMZN6p1N1/TcSr9Fw==& `name=app`
 
 to be more!

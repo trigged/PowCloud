@@ -11,5 +11,6 @@
    * [如何创建可以访问的API](skill/access_api.md)
    * [如何添加数据](skill/manage_data.md)
    * [API攻略](skill/api.md)
+   * [用户体系](skill/user_behaviorg.md)
 * [FAQ 常见问题](faq/README.md)
 
