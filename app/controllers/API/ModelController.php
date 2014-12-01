@@ -403,8 +403,8 @@ class ModelController extends Controller
                     unset($data[$less]);
                 }
                 unset($data['deleted_at']);
-                unset($data['updated_at']);
-                unset($data['created_at']);
+//                unset($data['updated_at']);
+//                unset($data['created_at']);
                 unset($data['timing_time']);
                 unset($data['timing_state']);
                 unset($data['user_name']);
