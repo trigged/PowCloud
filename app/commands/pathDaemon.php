@@ -41,13 +41,19 @@ class pathDaemon extends Command
         $ids = AppModel::all(array('id'))->lists('id');
         foreach ($ids as $id) {
             \Utils\AppChose::updateConf($id);
+            try{
+
+                DB::reconnect();
+            }
+            catch (Exception $e) {
+                continue;
+            }
             $tables = SchemaBuilder::all();
             foreach ($tables as $table) {
-                $this->info($table->table_name);
-                $this->info($table->path['name']);
+                $this->info(sprintf('## %s, table_name: %s, path: %s',$id,$table->table_name,$table->path['name']));
                 $path = $table->path;
-                RouteManager::addRouteWithRestFul($path['name'], $table->table_name, $path['expire'], $table->types, array('index'  => (int)$table->index, 'store' => (int)$table->create,
-                                                                                                                           'update' => (int)$table->update, 'destroy' => (int)$table->delete));
+                RouteManager::addRouteWithRestFul($path['name'], $table->table_name, $path['expire'], $table->types,array('index'  => (int)$table->index, 'store' => (int)$table->create,
+                                                                                                                           'update' => (int)$table->update, 'delete' => (int)$table->delete));
             }
 
         }

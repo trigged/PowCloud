@@ -19,7 +19,7 @@
         <form method="post" id="register">
             <div class="item">
                 <label>用户名</label>
-                <input class="normal_input" type="text" name="username" placeholder="请输入您的用户名" />
+                <input class="normal_input" type="text" name="username" placeholder="请输入您的用户名"/>
             </div>
             <div class="item">
                 <label>密码</label>
@@ -29,10 +29,10 @@
                 <label>邮箱</label>
                 <input class="normal_input" name="email" type="text"   <?php if (!empty($email)) {
                     echo 'readonly';
-                } ?> class="feedback-input" id="email" placeholder="您的邮箱地址" value="<?php echo $email ?>" />
+                } ?> class="feedback-input" id="email" placeholder="您的邮箱地址" value="<?php echo $email ?>"/>
             </div>
 
-                <div class="input_alert">请输入正确的密码</div>
+            <div class="input_alert">请输入正确的密码</div>
 
 
             <input name="msg_id" type="hidden" value="<?php echo $msg_id ?>" "/>
@@ -42,7 +42,7 @@
                 'POST'
             );//注册表单JS
             ?>
-            <input id="JS_Sub" type="submit" value="立即注册" data-loading-text="正在注册..."  class="submit_button"/>
+            <input id="JS_Sub" type="submit" value="立即注册" data-loading-text="正在注册..." class="submit_button"/>
         </form>
     </div>
 </div>
@@ -76,31 +76,31 @@
 <!--    })-->
 <!--</script>-->
 <script>
-    $(function(){
+    $(function () {
 
-        var ok1=false;
-        var ok2=false;
-        var ok3=false;
-        var ok4=false;
+        var ok1 = false;
+        var ok2 = false;
+        var ok3 = false;
+        var ok4 = false;
         // 验证用户名
-        $('input[name="username"]').blur(function(){
-                if($(this).val().length >= 3 && $(this).val().length <=12 && $(this).val()!=''){
-                    $(".input_alert").hide();
-                    ok1=true;
-                }else{
-                    $(".input_alert").show().html("请输入用户名");
-                }
+        $('input[name="username"]').blur(function () {
+            if ($(this).val().length >= 3 && $(this).val().length <= 12 && $(this).val() != '') {
+                $(".input_alert").hide();
+                ok1 = true;
+            } else {
+                $(".input_alert").show().html("请输入用户名");
+            }
 
-            });
+        });
 
         //验证密码
-        $('input[name="password"]').focus(function(){
+        $('input[name="password"]').focus(function () {
             $(".input_alert").show().html("请输入密码");
-        }).blur(function(){
-                if($(this).val().length >= 6 && $(this).val().length <=20 && $(this).val()!=''){
+        }).blur(function () {
+                if ($(this).val().length >= 6 && $(this).val().length <= 20 && $(this).val() != '') {
                     $(".input_alert").hide();
-                    ok2=true;
-                }else{
+                    ok2 = true;
+                } else {
                     $(".input_alert").show().html("密码应该为6-20位之");
                 }
 
@@ -120,27 +120,27 @@
 //            });
 
         //验证邮箱
-        $('input[name="email"]').focus(function(){
+        $('input[name="email"]').focus(function () {
             $(".input_alert").show().html("请输入正确的EMAIL格式");
-        }).blur(function(){
-                if($(this).val().search(/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/)==-1){
+        }).blur(function () {
+                if ($(this).val().search(/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/) == -1) {
                     $(".input_alert").show().html("请输入正确的EMAIL格式");
-                }else{
+                } else {
                     $(".input_alert").hide()
-                    ok4=true;
+                    ok4 = true;
                 }
 
             });
 
         //提交按钮,所有验证通过方可提交
 
-        $('.submit_button').click(function(){
-            if(ok1 && ok2 && ok4){
-                $('form').submit();
-            }else{
-                $(".input_alert").show().html("请完整填写信息");
-                return false;
-            }
+        $('.submit_button').click(function () {
+            $('form').submit();
+//            if(ok1 && ok2 && ok4){
+//            }else{
+//                $(".input_alert").show().html("请完整填写信息");
+//                return false;
+//            }
         });
 
     });

@@ -238,7 +238,7 @@ class ModelController extends Controller
             $this->result['debug']['field'] = $fields;
         }
 
-        return Response::json($this->result, $http_code, $header);
+        return Response::json($this->result, $http_code, $header)->setCallback(Input::get('callback'));
     }
 
     function array_to_xml($array, $xml = false)

@@ -70,7 +70,7 @@ Route::any('api_friends', 'UserApiController@friendsCreate');
 Route::get('register', 'LoginController@register');
 Route::get('logout', 'LoginController@logout');
 Route::get('login', 'LoginController@login');
-Route::post('login/loginStore', 'LoginController@loginStore');
+Route::any('login/loginStore', 'LoginController@loginStore');
 Route::post('login/registerUser', 'LoginController@registerUser');
 
 

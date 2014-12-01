@@ -1,6 +1,7 @@
 <?php
 
 
+use Operator\ReadApi;
 
 class SchemaBuilderController extends SystemController
 {
@@ -84,7 +85,6 @@ class SchemaBuilderController extends SystemController
         if (Input::get('path_id') != $schema->path_id && Input::get('path_id') != -1) {
             if (SchemaBuilder::where('path_id', '=', Input::get('path_id'))->get()->count() > 0) {
                 $this->ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
-//                $this->ajaxResponse(array('path_id' => '路径已被绑定,请重新选择路径'), 'fail', '创建失败');
             }
         }
 
@@ -131,6 +131,7 @@ class SchemaBuilderController extends SystemController
         });
 
         if ($schema->update(array_except($input, array('property')))) {
+            ReadApi::getTableInfo($schema->table_name, true);
             $this->ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', URL::action('SchemaBuilderController@index'));
         }
         $this->ajaxResponse(BaseController::$_FAILED_TEMPLATE);
