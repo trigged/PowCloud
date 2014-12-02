@@ -344,5 +344,52 @@ input[type="file"]{
     background:#285e8e;
 }
 
-
-
+.desc{
+    position: absolute;
+    right: 0px;
+    top: 20px;
+    background:#fff;
+    border:1px solid #ccc;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    -ms-border-radius:5px;
+    -o-border-radius:5px;
+    border-radius:5px;
+    padding:10px 20px 0px 10px;
+    z-index: 99;
+    display:none;
+}
+.desc ul{
+    padding:0;
+}
+.desc ul li{
+    font-style: normal;
+    text-decoration: none;
+    font-size:12px;
+    margin-bottom:5px;
+}
+.desc ul li a:hover{
+    text-decoration: none;
+}
+.desc_inner{
+    position: relative;
+}
+.desc_inner em{
+    position: absolute;
+    color:#fff;
+    background: #999;
+    border-radius: 8px;
+    display: block;
+    width:15px;
+    height: 15px;
+    text-align: center;
+    line-height: 15px;
+    font-style: normal;
+    right: -16px;
+    top:-5px;
+    
+}
+.desc_inner em:hover{
+    background: #333;
+    cursor: pointer;
+}
