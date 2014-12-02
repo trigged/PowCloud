@@ -12,12 +12,10 @@
             <div class="desc_inner">
                 <em>x</em>
                 <ul>
-                    <li><a href="">显示项显示项</a></li>
-                    <li><a href="">显示项</a></li>
-                    <li><a href="">显示项</a></li>
-                    <li><a href="">显示项</a></li>
-                    <li><a href="">显示项</a></li>
-                    <li><a href="">显示项</a></li>
+                    <li><label><input type="checkbox"/>&nbsp;显示项</label></li>
+                    <li><label><input type="checkbox"/>&nbsp;显示项</label></li>
+                    <li><label><input type="checkbox"/>&nbsp;显示项</label></li>
+                    <li><label><input type="checkbox"/>&nbsp;显示项</label></li>
                 </ul>
             </div>
         </div>
@@ -211,15 +209,48 @@
         });
     </script>
 <script>
-    $(function(){
-        $(".spot").click(function(){
-                $(".desc").css("display","block");
-        }
-        );
-        $(".desc em").click(function(){
-                $(this).parent().parent().hide();
-        }
-        );
-    })
+//    $(function(){
+//        var _target = 0 ;
+//        $("")
+//        document.onclick = function(){
+//            if()
+//        };
+//
+//        $(".spot").click(function(){
+//                $(".desc").css("display","block");
+//        }
+//        );
+//        $(".desc em").click(function(){
+//                $(this).parent().parent().hide();
+//        }
+//        );
+//    })
+
+        $(function () {
+            var tagfalg = 0;
+            $('.spot').hover(function () {
+                tagfalg = 1;
+            }, function () {
+                tagfalg = 0;
+            });
+            $(".desc").hover(function(){
+                tagfalg = 1;
+            },function(){
+                tagfalg = 0;
+            });
+            document.onclick = function () {
+                if (tagfalg == 0 && $('.desc').css('display') == 'block') {
+                    $(".desc").hide();
+                }
+            };
+            $(".spot").click(function(){
+                    $(".desc").css("display","block");
+                }
+            );
+            $(".desc em").click(function(){
+                    $(this).parent().parent().hide();
+                }
+            );
+        })
 </script>
 <?php echo $footer; ?>
