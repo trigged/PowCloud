@@ -23,6 +23,33 @@
 
 ## 如何调用
 
+### 用户注册[post]
+
+http://domain/api_user?version=1&token=8ch86oMZN6p1N1/TcSr9Fw==
+
+`[post data]`
+```
+"name": //用户名称不可重复,
+"nick_name": //用户昵称,若不传则该值等于 name
+"sex": //性别,
+"age": //岁数,
+"email": //邮箱,
+"phone": //电话,
+"address": //地址,
+"status": //状态
+"password" //我们会对密码自动加密保证用户数据安全性
+
+```
+
+举个栗子
+ ![sheet](../assets/user_create1.png)
+
+
+ ![sheet](../assets/user_create2.png)
+
+
+
+
 ### 获取所有用户 [get]
 
 http://domain/api_user?&token=xxx
@@ -61,11 +88,12 @@ http://domain/api_user/1?&token=xxx
 
 ### 用户名重复检测 [post]
 
-http://pow/api_user/name_check?version=1&token=8ch86oMZN6p1N1/TcSr9Fw==
+http://domain/api_user/name_check?version=1&token=8ch86oMZN6p1N1/TcSr9Fw==
 
 `[post data]`
-
+```
 name:xxxx
+```
 
 返回
 
@@ -87,15 +115,16 @@ name:xxxx
 
 ### 用户登录 [post]
 
-http://pow/api_user/login?version=1&token=8ch86oMZN6p1N1/TcSr9Fw==
+http://domain/api_user/login?version=1&token=8ch86oMZN6p1N1/TcSr9Fw==
 
 
 `[post data]`
 
+```
 name:xxxx
 
 password:xxx
-
+```
 返回
 
 ```
@@ -124,6 +153,8 @@ password:xxx
 ```
 
 
+
+
 ### 用户发布数据相关
 
 #### 创建用户发布数据
@@ -139,6 +170,8 @@ password:xxx
 
 建设我们创建了一张 `用户视频`, 并且我们绑定的 API 是 `user_video`
 表的属性只有
+
+`[post data]`
 ```
 name string
 imgs string 200
@@ -174,6 +207,7 @@ http://domain/user_video?version=1&token=8ch86oMZN6p1N1/TcSr9Fw==& `uid=1`
 
 http://domain/user_video?version=1&token=8ch86oMZN6p1N1/TcSr9Fw==
 
+`[post data]`
 ```
 uid:1
 
@@ -182,6 +216,7 @@ data:{"name":"测试1"}
 
 `或者直接关联到已经创建的数据,如果数据一已经创建可以直接传入数据 id 无需重新创建数据信息`
 
+`[post data]`
 ```
 flag:true
 data_id://数据 id
@@ -205,6 +240,8 @@ data_id://数据 id
 
 
 http://domain/user_video/ `1`?version=1&token=8ch86oMZN6p1N1/TcSr9Fw==
+
+`[post data]`
 ```
 data_id : 11
 ```
