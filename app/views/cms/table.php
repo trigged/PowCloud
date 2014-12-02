@@ -7,6 +7,10 @@
             <a href="<?php echo URL::action('CmsController@create', array('id' => $table->id)) ?>"
                class="btn btn-primary" type="button">添加数据</a>
         <?php endif ?>
+        <a href="" class="glyphicon glyphicon-th-list">显示列</a>
+        <div>
+            <input type="checkbox"  />
+        </div>
         <?php echo Event::fire('cms.hook', array($table->table_name, Hook::CMS_TABLE_HEAD_BUTTON), true); ?>
     </div>
     <div class="data-list" style="">
