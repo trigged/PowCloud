@@ -7,20 +7,8 @@
             <a href="<?php echo URL::action('CmsController@create', array('id' => $table->id)) ?>"
                class="btn btn-primary" type="button">添加数据</a>
         <?php endif ?>
-        <a href="#" class="glyphicon glyphicon-th-list spot" style="float:right">显示列</a>
-        <div class="desc">
-            <div class="desc_inner">
-                <em>x</em>
-                <ul>
-                    <li><a href="">显示项显示项</a></li>
-                    <li><a href="">显示项</a></li>
-                    <li><a href="">显示项</a></li>
-                    <li><a href="">显示项</a></li>
-                    <li><a href="">显示项</a></li>
-                    <li><a href="">显示项</a></li>
-                </ul>
-            </div>
-        </div>
+        <a href="<?php echo URL::action('FormsController@index', array('table' => $table->id)) ?>" class="glyphicon glyphicon-th-list spot" style="float:right">显示列</a>
+
         <?php echo Event::fire('cms.hook', array($table->table_name, Hook::CMS_TABLE_HEAD_BUTTON), true); ?>
     </div>
     <div class="data-list" style="">
@@ -71,9 +59,6 @@
                         <td>状态</td>
                     <?php endif; ?>
 
-<!--                    --><?php //if ($roles === 3): ?>
-<!--                        <td>缓存</td>-->
-<!--                    --><?php //endif; ?>
                     <?php if (!empty($table_options['list.table.modifier']) && $table_options['list.table.modifier'] == 1): ?>
                         <td>修改人</td>
                     <?php endif; ?>
@@ -210,16 +195,4 @@
             table.init('.sortable tbody tr', '<tr class="sortable-holder" style="height: 50px;"></tr>');
         });
     </script>
-<script>
-    $(function(){
-        $(".spot").click(function(){
-                $(".desc").css("display","block");
-        }
-        );
-        $(".desc em").click(function(){
-                $(this).parent().parent().hide();
-        }
-        );
-    })
-</script>
 <?php echo $footer; ?>
