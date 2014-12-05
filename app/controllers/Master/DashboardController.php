@@ -29,6 +29,26 @@ class DashBoardController extends MasterController
             ->nest('footer', 'dashboard.footer');
     }
 
+
+    public function testDB()
+    {
+        $host = Input::get('host');
+        $name = Input::get('name');
+        $pwd = Input::get('pwd');
+        try {
+            $connection = mysqli_connect($host, $name, $pwd);
+            if (mysqli_connect_errno() || !$connection) {
+//                return false;
+                BaseController::ajaxResponse(BaseController::$_FAILED_TEMPLATE);
+            } else {
+                BaseController::ajaxResponse(BaseController::$_SUCCESS_TEMPLATE);
+            }
+        } catch (Exception $e) {
+            BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $e->getMessage());
+
+        }
+    }
+
     public function addMember()
     {
 
@@ -75,7 +95,7 @@ class DashBoardController extends MasterController
         if (empty($user_ids)) {
             BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
         }
-        if(ATURelationModel::where('user_id',$user_id)->where('app_id',$app_id)->count() > 0){
+        if (ATURelationModel::where('user_id', $user_id)->where('app_id', $app_id)->count() > 0) {
             BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
         }
         $atu = new ATURelationModel();
@@ -116,10 +136,16 @@ class DashBoardController extends MasterController
 
     public function storeApp()
     {
-
+////        ALTER TABLE `x_cms`.`app`   ADD COLUMN `type` VARCHAR(45) NULL AFTER `user_id`, ADD COLUMN `config` VARCHAR(200) NULL AFTER `type`;
         $app = new AppModel();
         $appName = Input::get('name');
         $appInfo = Input::get('info');
+        $type = Input::get('database');
+        $host = Input::get('host');
+        $name = Input::get('name');
+        $password = Input::get('password');
+
+
         $error = '';
         if ($appName) {
             DB::connection('base')->beginTransaction();
@@ -129,6 +155,9 @@ class DashBoardController extends MasterController
                 $app->user_id = Auth::user()->id;
                 $app->name = $appName;
                 $app->info = $appInfo;
+                $app->type = $type;
+                $app->config = json_encode(array('name' => $name, 'host' => $host, 'password' => $password));
+
                 $app->save();
                 //保存对应关系
                 $atuRelation = new ATURelationModel();
@@ -137,14 +166,43 @@ class DashBoardController extends MasterController
                 $atuRelation->roles = 3;
                 $atuRelation->save();
                 DB::connection('base')->commit();
-                $result = \Utils\DBMaker::createDataBase(\Utils\AppChose::getDbModelsName($app->id));
-                if ($result !== true) {
-                    BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, 'index');
+
+                if ($type == 'self') {
+                    //todo change to self db
+
+
+                    $result = \Utils\DBMaker::createSelfDataBase(\Utils\AppChose::getDbModelsName($app->id));
+                    if ($result !== true) {
+                        BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, 'index');
+                    }
+                    $result = \Utils\DBMaker::createSelfDataBase(\Utils\AppChose::getDbDataName($app->id), true);
+                    if ($result !== true) {
+                        BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, 'index');
+                    }
+                    /*todo  add new conf in setting
+
+
+                     call db::name::reconnect
+                    then get connection pdo and run init sql
+                    set app_id:db_config
+
+                     * */
+
+
+//                    \DB::connection('base')->getPdo()->exec("");
+//                    \Utils\AppChose::updateConf($id);
+//                    DB::reconnect()
+                } else {
+                    $result = \Utils\DBMaker::createDataBase(\Utils\AppChose::getDbModelsName($app->id));
+                    if ($result !== true) {
+                        BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, 'index');
+                    }
+                    $result = \Utils\DBMaker::createDataBase(\Utils\AppChose::getDbDataName($app->id), true);
+                    if ($result !== true) {
+                        BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, 'index');
+                    }
                 }
-                $result = \Utils\DBMaker::createDataBase(\Utils\AppChose::getDbDataName($app->id), true);
-                if ($result !== true) {
-                    BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, 'index');
-                }
+
                 BaseController::ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', 'index');
             } catch (\Exception $e) {
                 DB::connection('base')->rollBack();

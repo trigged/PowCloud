@@ -559,6 +559,26 @@ CREATE TABLE `widget` (
         return $result;
     }
 
+    public static function createSelfDataBase($data_base, $flag = false)
+    {
+//        $template_connection = Config::get(Config::get('app.template_connection'));
+//        $app_data  = $template_connection;
+//        $app_data['host'] = $host;
+//        $app_data['username'] = $name;
+//        $app_data['password'] = $password;
+//        $app_data_name = \Utils\AppChose::getDbDataName($app->id);
+//        $app_data['database'] = $app_data_name;
+//        Config::set('database.connections.mysql', $app_data);
+        DB::connection('mysql')->getPdo()->exec("");
+        if ($flag) {
+            $result = self::runSql(sprintf(self::DB_CREATE_DATA, $data_base, $data_base));
+        } else {
+            $result = self::runSql(sprintf(self::DB_CREATE, $data_base, $data_base));
+        }
+        return $result;
+    }
+
+
     public static function runSql($sql)
     {
         try {
