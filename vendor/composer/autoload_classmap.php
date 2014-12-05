@@ -58,4 +58,5 @@ return array(
     'XEloquent'                     => $baseDir . '/app/models/XEloquent.php',
     'pathDaemon'                    => $baseDir . '/app/commands/pathDaemon.php',
     'timingData'                    => $baseDir . '/app/commands/timingData.php',
+    'updatedb'                    => $baseDir . '/app/commands/updatedb.php',
 );

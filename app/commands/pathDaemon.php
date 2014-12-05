@@ -19,7 +19,7 @@ class pathDaemon extends Command
      *
      * @var string
      */
-    protected $description = 'Command description.';
+    protected $description = 'fix path';
 
     /**
      * Create a new command instance.

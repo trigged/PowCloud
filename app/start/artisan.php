@@ -13,3 +13,4 @@
 
 Artisan::add(new pathDaemon());
 Artisan::add(new timingData());
+Artisan::add(new updatedb());
