@@ -9,6 +9,8 @@
 
 namespace Utils;
 
+use DB;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 
 class DBMaker
@@ -569,20 +571,22 @@ CREATE TABLE `widget` (
 //        $app_data_name = \Utils\AppChose::getDbDataName($app->id);
 //        $app_data['database'] = $app_data_name;
 //        Config::set('database.connections.mysql', $app_data);
-        DB::connection('mysql')->getPdo()->exec("");
+        Config::set('database.connections.mysql', $data_base);
+        DB::reconnect('mysql');
         if ($flag) {
-            $result = self::runSql(sprintf(self::DB_CREATE_DATA, $data_base, $data_base));
+            $result = self::runSql(sprintf(self::DB_CREATE_DATA, $data_base, $data_base),'mysql');
         } else {
-            $result = self::runSql(sprintf(self::DB_CREATE, $data_base, $data_base));
+            $result = self::runSql(sprintf(self::DB_CREATE, $data_base, $data_base),'mysql');
         }
         return $result;
     }
 
 
-    public static function runSql($sql)
+    public static function runSql($sql,$database = 'mysql')
     {
         try {
-            \DB::connection('base')->getPdo()->exec($sql);
+
+            \DB::connection($database)->getPdo()->exec($sql);
             return true;
         } catch (\Exception $e) {
             CMSLog::debug('执行SQL失败 : ' . $sql . ' ---------- ' . $e->getMessage());

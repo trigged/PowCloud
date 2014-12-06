@@ -29,7 +29,6 @@ class DashBoardController extends MasterController
             ->nest('footer', 'dashboard.footer');
     }
 
-
     public function testDB()
     {
         $host = Input::get('host');
@@ -169,13 +168,20 @@ class DashBoardController extends MasterController
 
                 if ($type == 'self') {
                     //todo change to self db
+                    $template_connection = Config::get(Config::get('app.template_connection'));
+                    $app_data = $template_connection;
+                    $app_data['host'] = $host;
+                    $app_data['username'] = $name;
+                    $app_data['password'] = $password;
+                    $app_data_name = \Utils\AppChose::getDbDataName($app->id);
+                    $app_data['database'] = $app_data_name;
 
 
-                    $result = \Utils\DBMaker::createSelfDataBase(\Utils\AppChose::getDbModelsName($app->id));
+                    $result = \Utils\DBMaker::createSelfDataBase($app_data);
                     if ($result !== true) {
                         BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, 'index');
                     }
-                    $result = \Utils\DBMaker::createSelfDataBase(\Utils\AppChose::getDbDataName($app->id), true);
+                    $result = \Utils\DBMaker::createSelfDataBase($app_data, true);
                     if ($result !== true) {
                         BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, 'index');
                     }
