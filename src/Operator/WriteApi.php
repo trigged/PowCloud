@@ -185,4 +185,11 @@ class WriteApi
             self::redis()->expire($key, 3600 * 24 * 7);
         }
     }
+
+    public static function setAppConf($app_id, $data)
+    {
+        if ($data !== null) {
+            self::redis()->hset(RedisKey::sprintf(RedisKey::APP_INFO), $app_id, $data);
+        }
+    }
 }

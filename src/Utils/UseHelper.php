@@ -110,7 +110,18 @@ class UseHelper
 //var_dump($secret_key);
 //$time = time();
 //var_dump($time);
-//$token = UseHelper::makeToken(95, UseHelper::$default_key);
+//for($i = 0; $i <= 1000;$i++){
+//    $token = UseHelper::makeToken($i, UseHelper::$default_key);
+//    echo sprintf("### %s: %s\n",$i,$token);
+//}
+//
+//$token = '8ch86oMZN6p1N1/TcSr9Fw==';
+//$token = 'b+G/k6tZaBRhjG9ezIAHRw==';
+//$token = urlencode($token);
+//var_dump($token);
+//var_dump(strpos($token,'%'));
+
+
 //var_dump($token);
 //$token1 = urlencode($token);
 //var_dump($token1);

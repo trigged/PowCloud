@@ -245,11 +245,8 @@ $bk = 'bangshuiguo';
 //
 //print_r($res);
 
+$str = 'testpow123.mysql.rds.aliyuncs.com';
 
-$value = 'hello %s';
-var_dump(printf($value, 'trigged'));
-var_dump(printf($value, null));
-var_dump($value . null);
-$value = '%s hello %s';
+var_dump(strpos($str, 'aliyun'));
 
 ?>

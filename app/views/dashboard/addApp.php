@@ -44,6 +44,10 @@
                             </p>
 
                             <p>
+                                - 云服务商因为权限限制我们无法自动创建数据库,请少侠手动创建数据,创建的SQL 脚本我们讲自动发往邮箱
+                            </p>
+
+                            <p>
                                 <a href="http://doc.powapi.com/" target="_blank"> 相关文档地址</a>.
                             </p>
 
@@ -53,7 +57,7 @@
                             <label for="app_id" class="control-label col-sm-3">服务器地址&nbsp;:</label>
 
                             <div class="controls col-sm-3">
-                                <input name="info" class="form-control" value="" type="text" placeholder="主机地址"
+                                <input name="host" class="form-control" value="" type="text" placeholder="主机地址"
                                        id="info">
                             </div>
                         </div>
@@ -63,7 +67,7 @@
                             <label for="app_id" class="control-label col-sm-3">数据库用户名&nbsp;:</label>
 
                             <div class="controls col-sm-3">
-                                <input name="info" class="form-control" value="" type="text" placeholder="请确保拥有权限"
+                                <input name="dbname" class="form-control" value="" type="text" placeholder="请确保拥有权限"
                                        id="info">
                             </div>
                         </div>
@@ -72,7 +76,7 @@
                             <label for="app_id" class="control-label col-sm-3">数据库密码&nbsp;:</label>
 
                             <div class="controls col-sm-3">
-                                <input name="info" class="form-control" value="" type="text" placeholder="主机地址"
+                                <input name="password" class="form-control" value="" type="password" placeholder="数据库密码"
                                        id="info">
                             </div>
                         </div>

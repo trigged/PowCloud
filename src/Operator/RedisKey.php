@@ -24,6 +24,13 @@ class RedisKey
      */
     const ROUTE = 'routes::%s';
 
+
+    /*
+     * HASH set app db conf
+     * */
+    const APP_INFO = 'app_conf';
+
+
     /**
      * design to store table struct
      * not use

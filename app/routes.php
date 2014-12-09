@@ -40,6 +40,7 @@ Route::get('addApp', 'DashBoardController@addApp');
 Route::post('storeApp', 'DashBoardController@storeApp');
 Route::post('updateApp', 'DashBoardController@updateApp');
 Route::post('test_db', 'DashBoardController@testDB');
+Route::any('init_db', 'DashBoardController@initDB');
 
 //user message
 Route::any('user_message/invite', 'UserMessageController@invite');
