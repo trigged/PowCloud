@@ -156,10 +156,10 @@ class RedisKey
      * @param null $value
      * @return string
      */
-    public static function sprintf($key, $value = null)
+    public static function sprintf($key, $value = null, $_ = null)
     {
         if ($value !== null) {
-            return self::$DB_KEY . sprintf($key, $value);
+            return self::$DB_KEY . sprintf($key, $value, $_);
         } else {
             return self::$DB_KEY . $key;
         }

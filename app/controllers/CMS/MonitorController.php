@@ -110,7 +110,7 @@ class MonitorController extends \BaseController
         }
 
         return $this->render('monitor.api', array(
-            'apiData'  => $apiData,
+            'apiData' => $apiData,
         ));
     }
 

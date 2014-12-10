@@ -16,6 +16,29 @@ class CmsController extends CmsBaeController
         $pageSize = Input::get('pageSize', 20);
         $pageSize = $pageSize > 1000 ? 1000 : $pageSize;
 
+
+        $methods = array('index', 'create', 'delete', 'show');
+        $tables_name = SchemaBuilder::lists('table_name', 'id');
+
+
+        $apiData = array();
+        $apiData_x = array();
+
+        //122api::apple::index
+        foreach ($tables_name as $table_name) {
+            foreach ($methods as $method) {
+                $apiInfo = \Operator\ReadApi::getApiInfo($table_name, $method);
+                foreach ($apiInfo as $key => $value) {
+                    list($date, $type) = explode(':', $key);
+                    if ($type == 'count') {
+                        $apiData[$table_name][$method][] = $value;
+                        $apiData_x[$table_name][$method][] = $date;
+                    }
+                }
+            }
+        }
+
+
         switch (!!$table_id) {
             case true:
                 $forms = Forms::where('models_id', '=', $table_id)->get();
@@ -40,7 +63,9 @@ class CmsController extends CmsBaeController
                         'options'       => $this->getOption(),
                         'status'        => $status,
                         'roles'         => $this->getRoles(),
-                        'pageSize'      => $pageSize
+                        'pageSize'      => $pageSize,
+                        'apiData'       => $apiData,
+                        'apiData_x'     => $apiData_x
                     )
                 );
                 break;
@@ -50,7 +75,9 @@ class CmsController extends CmsBaeController
                     'timing_count' => \Operator\ReadApi::zsetCount(RedisKey::TIMING_PUB),
                     'options'      => $this->getOption(),
                     'roles'        => $this->getRoles(),
-                    'user'         => $user->toArray()
+                    'user'         => $user->toArray(),
+                    'apiData'      => $apiData,
+                    'apiData_x'    => $apiData_x
                 ));
                 break;
         }

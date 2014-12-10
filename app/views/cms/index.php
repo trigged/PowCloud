@@ -98,7 +98,6 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
         </div>
 
 
-
         <!--        <div class="col-md-3" style="position: relative;">-->
         <!--            <div class="dashboard-stat purple">-->
         <!--                <div class="visual">-->
@@ -128,11 +127,17 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
         <!--            </div>-->
         <!--        </div>-->
     </div>
-    <div classs="echarts" id="main" style=" height:300px; width:90%%; border-top:1px solid #999;border-top:1px solid #999; padding:30px 0 0 0">
-
+    <div class="echarts" id="main"
+         style=" height:300px; width:90%%; border-top:1px solid #999;border-top:1px solid #999; padding:30px 0 0 0">
     </div>
     <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
     <script type="text/javascript">
+        var date_x = <?php echo json_encode($apiData_x); ?>;
+        var date = <?php echo json_encode($apiData); ?>;
+        console.log("date_x :", date_x);
+        console.log("date :", date);
+
+
         require.config({
             paths: {
                 echarts: 'http://echarts.baidu.com/build/dist'
@@ -148,64 +153,65 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
                 var myChart = ec.init(document.getElementById('main'));
 
                 var option = {
-                    tooltip : {
+
+                    tooltip: {
                         trigger: 'axis'
                     },
                     legend: {
-                        data:['index','update','create','delete']
+                        data: ['index', 'update', 'create', 'delete']
                     },
                     toolbox: {
-                        show : true,
-                        feature : {
-                            mark : {show: false},
-                            dataView : {show: false, readOnly: false},
-                            magicType : {show: false, type: ['line']},
-                            restore : {show: false},
-                            saveAsImage : {show: false}
+                        show: true,
+                        feature: {
+                            mark: {show: false},
+                            dataView: {show: false, readOnly: false},
+                            magicType: {show: false, type: ['line']},
+                            restore: {show: false},
+                            saveAsImage: {show: false}
                         }
                     },
-                    calculable : true,
-                    xAxis : [
+                    calculable: true,
+                    xAxis: [
                         {
-                            type : 'category',
-                            boundaryGap : false,
+                            type: 'category',
+                            boundaryGap: false,
 //                            data : ['周一','周二','周三','周四','周五','周六','周日']
-                            data : ['11','12','13','14','15','16','17']
+                            data: ['11', '12', '13', '14', '15', '16', '17']
                         }
                     ],
-                    yAxis : [
+                    yAxis: [
                         {
-                            type : 'value'
+                            type: 'value'
                         }
                     ],
-                    series : [
+                    series: [
                         {
-                            name:'index',
-                            type:'line',
-                            smooth:true,
+                            name: 'index',
+                            type: 'line',
+                            smooth: true,
                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data:[10, 12, 21, 54, 260, 830, 710]
+                            data: [10, 12, 21, 54, 260, 830, 710]
                         },
                         {
-                            name:'update',
-                            type:'line',
-                            smooth:true,
+                            name: 'update',
+                            type: 'line',
+                            smooth: true,
                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data:[30, 182, 434, 791, 390, 30, 10]
+                            data: [30, 182, 434, 791, 390, 30, 10]
                         },
                         {
-                            name:'create',
-                            type:'line',
-                            smooth:true,
+                            name: 'create',
+                            type: 'line',
+                            smooth: true,
                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data:[1320, 1132, 601, 234, 120, 90, 20]
+                            data: [1320, 1132, 601, 234, 120, 90, 20]
                         },
                         {
-                            name:'delete',
-                            type:'line',
-                            smooth:true,
+                            name: 'delete',
+                            type: 'line',
+                            smooth: true,
                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data:[222, 1100, 401, 634, 520, 10, 80]
+                            data: [222, 1100, 401, 634, 520, 10, 80]
                         }
                     ]
 

@@ -225,6 +225,7 @@ class ReadApi
 
     public static function getApiInfo($table, $method)
     {
+        //  self::redis()->HINCRBY(RedisKey::sprintf('api::' . $model . '::' . $method), $date . ':time', $time);
         return self::redis()->hgetall(RedisKey::sprintf(RedisKey::API_INFO, $table, $method));
     }
 
