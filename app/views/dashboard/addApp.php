@@ -53,7 +53,7 @@
 
                         </div>
 
-                        <div class="from-group">
+                        <div class="form-group">
                             <label for="app_id" class="control-label col-sm-3">服务器地址&nbsp;:</label>
 
                             <div class="controls col-sm-3">
@@ -63,7 +63,7 @@
                         </div>
 
 
-                        <div class="from-group">
+                        <div class="form-group">
                             <label for="app_id" class="control-label col-sm-3">数据库用户名&nbsp;:</label>
 
                             <div class="controls col-sm-3">
@@ -72,7 +72,7 @@
                             </div>
                         </div>
 
-                        <div class="from-group">
+                        <div class="form-group">
                             <label for="app_id" class="control-label col-sm-3">数据库密码&nbsp;:</label>
 
                             <div class="controls col-sm-3">
@@ -81,10 +81,10 @@
                             </div>
                         </div>
                     </div>
-                    <button id="loading-btn" class="btn btn-info" onclick="()">测试连接</button>
 
 
                     <div style="margin-left:330px;">
+                        <button id="loading-btn" class="btn btn-info" onclick="()">测试连接</button>
                         <button id="JS_Sub" class="btn btn-primary">提交</button>
                         <a href="javascript:void (0)" class="btn  btn-warning" onclick="history.back();">取消</a>
                     </div>
