@@ -130,33 +130,45 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
     <div class="echarts" id="main"
          style=" height:300px; width:90%%; border-top:1px solid #999;border-top:1px solid #999; padding:30px 0 0 0">
     </div>
-     <form action="" method="post">
-         <p>
-             <select class="echarts-select">
-                 <option>2</option>
-                 <option>3</option>
-                 <option>category</option>
-             </select>
-         </p>
-
-         <label>index:</label>
-         <input type="text" class="sel_in1" value="1"/>
-         <label>update:</label>
-         <input type="text" class="sel_in2" value="2"/>
-         <label>create:</label>
-         <input type="text" class="sel_in3" value="3"/>
-         <label>delete:</label>
-         <input type="text" class="sel_in4" value="4"/>
-         <input type="button" class="sel_btn btn" value="刷新"/>
-     </form>
+    <form action="" method="post">
+        <p>
+            <select class="echarts-select">
+                <option>2</option>
+                <option>3</option>
+                <option>category</option>
+            </select>
+        </p>
+        <div class="clearfix">
+            <div class="form-group" style="overflow: hidden;">
+                <label class="control-label col-md-1">index:</label>
+                <div class="controls col-md-5">
+                    <input type="text" class="form-control sel_in1">
+                </div>
+            </div>
+            <div class="form-group" style="overflow: hidden;">
+                <label class="control-label col-md-1">update:</label>
+                <div class="controls col-md-5">
+                    <input type="text" class="form-control sel_in2">
+                </div>
+            </div>
+            <div class="form-group" style="overflow: hidden;">
+                <label class="control-label col-md-1">create:</label>
+                <div class="controls col-md-5">
+                    <input type="text" class="form-control sel_in3">
+                </div>
+            </div>
+            <div class="form-group" style="overflow: hidden;">
+                <label class="control-label col-md-1">delete:</label>
+                <div class="controls col-md-5">
+                    <input type="text" class="form-control sel_in4">
+                </div>
+            </div>
+        </div>
+        <input type="button" class="sel_btn btn btn-primary" value="刷新"/>
+    </form>
 
     <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
     <script type="text/javascript">
-        var echarts_select =  $(".echarts-select").val();
-        var sel_in1 =  $(".sel_in1").val();
-        var sel_in2 =  $(".sel_in2").val();
-        var sel_in3 =  $(".sel_in3").val();
-        var sel_in4 =  $(".sel_in4").val();
         var date_x = <?php echo json_encode($apiData_x); ?>;
         var date = <?php echo json_encode($apiData); ?>;
         console.log("date_x :", date_x);
@@ -174,78 +186,57 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
             function (ec) {
                 // 基于准备好的dom，初始化echarts图表
                 var myChart = ec.init(document.getElementById('main'));
-
-
                 var option = {
 
-                    tooltip: {
+                    tooltip : {
                         trigger: 'axis'
                     },
                     legend: {
-                        data: ['index', 'update', 'create', 'delete']
+                        data:['index','creat','update','aaa']
                     },
-                    toolbox: {
-                        show: true,
-                        feature: {
-                            mark: {show: false},
-                            dataView: {show: false, readOnly: false},
-                            magicType: {show: false, type: ['line']},
-                            restore: {show: false},
-                            saveAsImage: {show: false}
-                        }
-                    },
-                    calculable: true,
-                    xAxis: [
+                    culable : true,
+                    xAxis : [
                         {
-                            type: 'category',
-                            boundaryGap: false,
-                            axisLabel : {
-                                show:true,
-                                interval: 'auto',    // {number}
-                                formatter: '星期{value}'
-                            },
-                            data : [
-                                '1','2','3','4','5','6'
-                            ]
+                            type : 'category',
+                            boundaryGap : false,
+                            data : ['周一','周二','周三','周四','周五','周六','周日']
                         }
                     ],
-
-                    yAxis: [
+                    yAxis : [
                         {
-                            type: 'value'
+                            type : 'value'
                         }
                     ],
-                    series: [
+                    series : [
                         {
-                            name: 'index',
-                            type: 'line',
-                            smooth: true,
+                            name:'index',
+                            type:'line',
+                            smooth:true,
                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data: [11,20,30,40,50,20]
-                        }
-                        {
-                            name: 'update',
-                            type: 'line',
-                            smooth: true,
-                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data: [21, 182, 434, 791, 390, 30]
+                            data:[10, 12, 21, 54, 260, 830, 710]
                         },
                         {
-                            name: 'create',
-                            type: 'line',
-                            smooth: true,
+                            name:'creat',
+                            type:'line',
+                            smooth:true,
                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data: [31, 1132, 601, 234, 120, 90]
+                            data:[30, 182, 434, 791, 390, 30, 10]
                         },
                         {
-                            name: 'delete',
-                            type: 'line',
-                            smooth: true,
+                            name:'update',
+                            type:'line',
+                            smooth:true,
                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data: [41, 1100, 401, 634, 520, 10]
+                            data:[1320, 1132, 601, 234, 120, 90, 20]
+                        },
+                        {
+                            name:'aaa',
+                            type:'line',
+                            smooth:true,
+                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                            data:[1320, 1132, 601, 234, 120, 90, 20]
                         }
                     ]
-
                 };
 
                 // 为echarts对象加载数据
