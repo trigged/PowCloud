@@ -130,14 +130,37 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
     <div class="echarts" id="main"
          style=" height:300px; width:90%%; border-top:1px solid #999;border-top:1px solid #999; padding:30px 0 0 0">
     </div>
+     <form action="" method="post">
+         <p>
+             <select class="echarts-select">
+                 <option>2</option>
+                 <option>3</option>
+                 <option>category</option>
+             </select>
+         </p>
+
+         <label>index:</label>
+         <input type="text" class="sel_in1" value="1"/>
+         <label>update:</label>
+         <input type="text" class="sel_in2" value="2"/>
+         <label>create:</label>
+         <input type="text" class="sel_in3" value="3"/>
+         <label>delete:</label>
+         <input type="text" class="sel_in4" value="4"/>
+         <input type="button" class="sel_btn btn" value="刷新"/>
+     </form>
+
     <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
     <script type="text/javascript">
+        var echarts_select =  $(".echarts-select").val();
+        var sel_in1 =  $(".sel_in1").val();
+        var sel_in2 =  $(".sel_in2").val();
+        var sel_in3 =  $(".sel_in3").val();
+        var sel_in4 =  $(".sel_in4").val();
         var date_x = <?php echo json_encode($apiData_x); ?>;
         var date = <?php echo json_encode($apiData); ?>;
         console.log("date_x :", date_x);
         console.log("date :", date);
-
-
         require.config({
             paths: {
                 echarts: 'http://echarts.baidu.com/build/dist'
@@ -151,6 +174,7 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
             function (ec) {
                 // 基于准备好的dom，初始化echarts图表
                 var myChart = ec.init(document.getElementById('main'));
+
 
                 var option = {
 
@@ -175,10 +199,17 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
                         {
                             type: 'category',
                             boundaryGap: false,
-//                            data : ['周一','周二','周三','周四','周五','周六','周日']
-                            data: ['11', '12', '13', '14', '15', '16', '17']
+                            axisLabel : {
+                                show:true,
+                                interval: 'auto',    // {number}
+                                formatter: '星期{value}'
+                            },
+                            data : [
+                                '1','2','3','4','5','6'
+                            ]
                         }
                     ],
+
                     yAxis: [
                         {
                             type: 'value'
@@ -190,36 +221,35 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
                             type: 'line',
                             smooth: true,
                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data: [10, 12, 21, 54, 260, 830, 710]
-                        },
+                            data: [11,20,30,40,50,20]
+                        }
                         {
                             name: 'update',
                             type: 'line',
                             smooth: true,
                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data: [30, 182, 434, 791, 390, 30, 10]
+                            data: [21, 182, 434, 791, 390, 30]
                         },
                         {
                             name: 'create',
                             type: 'line',
                             smooth: true,
                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data: [1320, 1132, 601, 234, 120, 90, 20]
+                            data: [31, 1132, 601, 234, 120, 90]
                         },
                         {
                             name: 'delete',
                             type: 'line',
                             smooth: true,
                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data: [222, 1100, 401, 634, 520, 10, 80]
+                            data: [41, 1100, 401, 634, 520, 10]
                         }
                     ]
 
                 };
 
                 // 为echarts对象加载数据
-                myChart.setOption(option);
-
+                    myChart.setOption(option);
             }
         );
     </script>
