@@ -132,7 +132,7 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
     </div>
     <form action="" method="post">
         <p>
-            <select class="echarts-select">
+            <select class="echarts_select">
                 <option>2</option>
                 <option>3</option>
                 <option>category</option>
@@ -152,7 +152,7 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
                 </div>
             </div>
             <div class="form-group" style="overflow: hidden;">
-                <label class="control-label col-md-1">create:</label>
+                <label class="control-label col-md-1">creat:</label>
                 <div class="controls col-md-5">
                     <input type="text" class="form-control sel_in3">
                 </div>
@@ -169,6 +169,11 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
 
     <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
     <script type="text/javascript">
+        var sel_in1 = $(".sel_in1").val();
+        var sel_in2 = $(".sel_in2").val();
+        var sel_in3 = $(".sel_in3").val();
+        var sel_in4 = $(".sel_in4").val();
+        var echarts_select = $(".echarts_select").val();
         var date_x = <?php echo json_encode($apiData_x); ?>;
         var date = <?php echo json_encode($apiData); ?>;
         console.log("date_x :", date_x);
@@ -192,7 +197,7 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
                         trigger: 'axis'
                     },
                     legend: {
-                        data:['index','creat','update','aaa']
+                        data:['index','creat','update','delete']
                     },
                     culable : true,
                     xAxis : [
