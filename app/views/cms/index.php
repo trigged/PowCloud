@@ -235,7 +235,7 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
                             data:[1320, 1132, 601, 234, 120, 90, 20]
                         },
                         {
-                            name:'aaa',
+                            name:'delete',
                             type:'line',
                             smooth:true,
                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
