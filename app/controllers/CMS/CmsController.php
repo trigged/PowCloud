@@ -32,7 +32,7 @@ class CmsController extends CmsBaeController
                     list($date, $type) = explode(':', $key);
                     if ($type == 'count') {
                         $apiData[$table_name][$method][] = $value;
-                        $apiData_x[$table_name][$method][] = $date;
+                        $apiData_x[$table_name][$date] = $date;
                     }
                 }
             }

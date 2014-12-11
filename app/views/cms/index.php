@@ -132,52 +132,64 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
     </div>
     <form action="" method="post">
         <p>
-            <select class="echarts_select">
-                <option>2</option>
-                <option>3</option>
-                <option>category</option>
-            </select>
+
+            <?php echo Form::select('echarts_select', array('3' => '请选择') + array_keys($apiData), '', array('class' => 'echarts_select')); ?>
+
         </p>
-        <div class="clearfix">
-            <div class="form-group" style="overflow: hidden;">
-                <label class="control-label col-md-1">index:</label>
-                <div class="controls col-md-5">
-                    <input type="text" class="form-control sel_in1">
-                </div>
-            </div>
-            <div class="form-group" style="overflow: hidden;">
-                <label class="control-label col-md-1">update:</label>
-                <div class="controls col-md-5">
-                    <input type="text" class="form-control sel_in2">
-                </div>
-            </div>
-            <div class="form-group" style="overflow: hidden;">
-                <label class="control-label col-md-1">creat:</label>
-                <div class="controls col-md-5">
-                    <input type="text" class="form-control sel_in3">
-                </div>
-            </div>
-            <div class="form-group" style="overflow: hidden;">
-                <label class="control-label col-md-1">delete:</label>
-                <div class="controls col-md-5">
-                    <input type="text" class="form-control sel_in4">
-                </div>
-            </div>
-        </div>
-        <input type="button" class="sel_btn btn btn-primary" value="刷新"/>
+
+
     </form>
 
     <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
     <script type="text/javascript">
-        var sel_in1 = $(".sel_in1").val();
-        var sel_in2 = $(".sel_in2").val();
-        var sel_in3 = $(".sel_in3").val();
-        var sel_in4 = $(".sel_in4").val();
+
+        function buildData(key) {
+            var val = date[key];
+            var result = [];
+
+            for (var prop in val) {
+                if (val.hasOwnProperty(prop)) {
+                    var series = {
+                        name: prop,
+                        data: val[prop],
+                        type: 'line',
+                        smooth: true,
+                        itemStyle: {normal: {areaStyle: {type: 'default'}}}
+                    };
+                    result.push(series);
+                }
+            }
+            return result;
+        }
+
+        function buildAxis(key) {
+            var val = date_x[key];
+            var result = [];
+
+            for (var prop in val) {
+                if (val.hasOwnProperty(prop)) {
+                    result.push(val[prop]);
+                }
+            }
+            return result;
+        }
+
+        $('.echarts_select').change(function () {
+            var echarts_select = $('option:selected', $(this)).text();
+            var result = buildData(echarts_select);
+            var result_x = buildAxis(echarts_select);
+            option.xAxis[0].data = result_x;
+            option.series = result;
+            myChart.setOption(option, true);
+            myChart.refresh();
+
+        });
+
         var echarts_select = $(".echarts_select").val();
         var date_x = <?php echo json_encode($apiData_x); ?>;
         var date = <?php echo json_encode($apiData); ?>;
-        console.log("date_x :", date_x);
-        console.log("date :", date);
+        var myChart;
+        var option;
         require.config({
             paths: {
                 echarts: 'http://echarts.baidu.com/build/dist'
@@ -190,62 +202,42 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
             ],
             function (ec) {
                 // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('main'));
-                var option = {
+                myChart = ec.init(document.getElementById('main'));
+                option = {
 
-                    tooltip : {
+                    tooltip: {
                         trigger: 'axis'
                     },
                     legend: {
-                        data:['index','creat','update','delete']
+                        data: ['index', 'creat', 'update', 'delete']
                     },
-                    culable : true,
-                    xAxis : [
+                    culable: true,
+                    xAxis: [
                         {
-                            type : 'category',
-                            boundaryGap : false,
-                            data : ['周一','周二','周三','周四','周五','周六','周日']
+                            type: 'category',
+                            boundaryGap: false
+//                            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
                         }
                     ],
-                    yAxis : [
+                    yAxis: [
                         {
-                            type : 'value'
+                            type: 'value'
                         }
                     ],
-                    series : [
+                    series: [
                         {
-                            name:'index',
-                            type:'line',
-                            smooth:true,
+                            name: 'index',
+                            type: 'line',
+                            smooth: true,
                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data:[10, 12, 21, 54, 260, 830, 710]
-                        },
-                        {
-                            name:'creat',
-                            type:'line',
-                            smooth:true,
-                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data:[30, 182, 434, 791, 390, 30, 10]
-                        },
-                        {
-                            name:'update',
-                            type:'line',
-                            smooth:true,
-                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data:[1320, 1132, 601, 234, 120, 90, 20]
-                        },
-                        {
-                            name:'aaa',
-                            type:'line',
-                            smooth:true,
-                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                            data:[1320, 1132, 601, 234, 120, 90, 20]
+//                            data: [10, 12, 21, 54, 260, 830, 710]
                         }
+
                     ]
                 };
 
                 // 为echarts对象加载数据
-                    myChart.setOption(option);
+                myChart.setOption(option);
             }
         );
     </script>
