@@ -108,10 +108,21 @@
                 type: "post",
                 data: {},
                 url: "<?php echo URL::action('DashBoardController@testDB'); ?>"
-            }).done(function () {
+            }).success(function (re) {
+                    re = $.parseJSON(re);
+                    if (re.status) {
+                        var errors = re.data;
+                        if (!errors) {
+                            errors = re.message
+                        }
+                        alert(errors);
+                    }
+                })
+                .done(function () {
                     btn.button('reset');
                 });
         });
+
 
         $(function () {
             $("#checkbox_system").change(function () {

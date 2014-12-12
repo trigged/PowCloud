@@ -39,7 +39,6 @@ class DashBoardController extends MasterController
         try {
             $connection = mysqli_connect($host, $name, $pwd);
             if (mysqli_connect_errno() || !$connection) {
-//                return false;
                 BaseController::ajaxResponse(BaseController::$_FAILED_TEMPLATE);
             } else {
                 BaseController::ajaxResponse(BaseController::$_SUCCESS_TEMPLATE);
