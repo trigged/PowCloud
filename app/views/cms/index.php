@@ -229,7 +229,7 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
                             name: 'index',
                             type: 'line',
                             smooth: true,
-                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                            itemStyle: {normal: {areaStyle: {type: 'default'}}}
 //                            data: [10, 12, 21, 54, 260, 830, 710]
                         }
 
