@@ -363,6 +363,7 @@ CREATE TABLE `models` (
   `create` tinyint(4) DEFAULT NULL,
   `delete` tinyint(4) DEFAULT NULL,
   `group_name` varchar(45) DEFAULT NULL,
+  `types` varchar(45) DEFAULT NULL,
   `models_options` text COMMENT '模型配置选项JSON数组',
   PRIMARY KEY (`id`),
   UNIQUE KEY `table_name_UNIQUE` (`table_name`)
