@@ -140,7 +140,7 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
 
     </form>
 
-    <script src="../../../public/js/echarts.js"></script>
+    <script src="<?php echo URL::asset('js/echarts.js'); ?>"></script>
     <script type="text/javascript">
 
         function buildData(key) {
