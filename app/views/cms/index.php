@@ -140,7 +140,7 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
 
     </form>
 
-    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+    <script src="../../../public/js/echarts.js"></script>
     <script type="text/javascript">
 
         function buildData(key) {
@@ -161,7 +161,6 @@ if ($options === false || (isset($options['no_right']) && $options['no_right']))
             }
             return result;
         }
-
         function buildAxis(key) {
             var val = date_x[key];
             var result = [];
