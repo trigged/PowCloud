@@ -11,13 +11,11 @@
 |
 */
 
-
 Route::get('mail', function () {
     return Response::view('emails.info', array());
 });
 
 Route::get('403', function () {
-
     return Response::view('errors.403', array(), 403);
 });
 
@@ -26,7 +24,7 @@ Route::get('nginx', function () {
     return Route::dispatch($request)->getContent();
 });
 
-
+Route::get('/', 'DashBoardController@index');
 Route::resource('dashboard', 'DashBoardController');
 Route::resource('app', 'AppController');
 Route::resource('team', 'UserController');
