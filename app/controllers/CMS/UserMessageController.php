@@ -22,7 +22,7 @@ class UserMessageController extends BaseController
         }
         if ($action === UserMessage::ACTION_REMOVE && $user_id = Input::get('user_id')) {
             //todo  notification not support ,so no need create message
-            ATURelationModel::where('user_id', $user_id)->where('aap_id', $app_id)->delete();
+            ATURelationModel::where('user_id', $user_id)->where('app_id', $app_id)->delete();
             $result = true;
         } else {
             //invite
