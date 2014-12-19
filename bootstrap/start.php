@@ -33,7 +33,6 @@ $app->redirectIfTrailingSlash();
 //));
 $env = $app->detectEnvironment(function () {
     $env = getenv('CMS_ENV') ? getenv('CMS_ENV') : null;
-    $env = 'local';
     if ($env) {
         return $env;
     }
