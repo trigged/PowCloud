@@ -3,7 +3,7 @@
 return array(
     'url'            => 'http://www.powapi.com/',
     'picture_upload' => array(
-        'url' => 'http://upload.vision.pptv.com',
+        'url' => '',
     ),
     'debug'          => false,
     'phpPath'        => '/usr/local/php5/bin/php',

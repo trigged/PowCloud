@@ -2,7 +2,7 @@
 
 return array(
     'picture_upload' => array(
-        'url' => 'http://upload1.vision.demo1.pptv.com',
+        'url' => '',
     ),
     'debug'          => true,
     'phpPath'        => '/usr/bin/php',
