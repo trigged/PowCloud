@@ -32,7 +32,7 @@ class DocGenerator
 
 ## About
 
-&copy; 2013 [PPTV](http://www.pptv.com)  [Invoation team](http://p.demo1.pptv.com/w/tv_collection/server_protocol/)
+&copy; 2013 [PowCloud](http://www.powcloud.net)  [PowCloud team]
 
     ';
 

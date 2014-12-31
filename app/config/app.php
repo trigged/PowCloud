@@ -184,7 +184,7 @@ return array(
     'nginx'               => '/Users/trigged/vhost/',
 
     'picture_upload'      => array(
-        'url' => 'http://upload.vision.pptv.com'
+        'url' => ''
     ),
     'allow_register'      => false,
     'template_connection' => 'database.connections.mysql',

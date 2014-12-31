@@ -54,19 +54,12 @@ class NetHelpers
         return false;
     }
 
-    public static function isUrl($url){
-        if(filter_var($url,FILTER_VALIDATE_URL))
+    public static function isUrl($url)
+    {
+        if (filter_var($url, FILTER_VALIDATE_URL))
             return true;
         return false;
     }
 }
 
-//$url = 'http://epg.api.pptv.com/detail.api?platform=androidphone&c=28&s=1&vid=17212076&auth=1&virtual=1&series=1&fb=333';
-//$url = 'http://epg.api.pptv.com/detail.api?platform=androidphone&c=28&s=1&vid=17212076&auth=1&virtual=1&series=1&fb=333';
-////for ($index = 0; $index < 100; $$index++) {
-////    var_dump(NetHelpers::call_api($url));
-////    var_dump(file_get_contents($url));
-////    var_dump(simplexml_load_file($url));
-////}
-//
-//var_dump(simplexml_load_file($url));
+
