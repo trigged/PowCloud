@@ -19,6 +19,9 @@ App::before(function (\Illuminate\Http\Request $request) {
     if (empty($token)) {
         \Utils\AppChose::updateCache((int)\Utils\UseHelper::checkToken(Config::get('app.default_token'), \Utils\UseHelper::$default_key));
     }
+    if (strpos($token, '%')) {
+        $token = urldecode($token);
+    }
     if ($token) {
         $app_id = (int)\Utils\UseHelper::checkToken($token, \Utils\UseHelper::$default_key);
         if (empty($app_id)) {
@@ -27,6 +30,7 @@ App::before(function (\Illuminate\Http\Request $request) {
                 'message' => 'request not found!',
                 'data'    => array()), 404);
         }
+        //todo check db type models
         \Utils\AppChose::updateConf($app_id);
     }
 

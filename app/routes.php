@@ -11,13 +11,11 @@
 |
 */
 
-
 Route::get('mail', function () {
     return Response::view('emails.info', array());
 });
 
 Route::get('403', function () {
-
     return Response::view('errors.403', array(), 403);
 });
 
@@ -39,6 +37,8 @@ Route::post('storeMember', 'DashBoardController@storeMember');
 Route::get('addApp', 'DashBoardController@addApp');
 Route::post('storeApp', 'DashBoardController@storeApp');
 Route::post('updateApp', 'DashBoardController@updateApp');
+Route::post('test_db', 'DashBoardController@testDB');
+Route::any('init_db', 'DashBoardController@initDB');
 
 //user message
 Route::any('user_message/invite', 'UserMessageController@invite');

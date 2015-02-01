@@ -1,6 +1,8 @@
 <?php
 
 
+use Utils\DBMaker;
+
 class DashBoardController extends MasterController
 {
 
@@ -27,6 +29,44 @@ class DashBoardController extends MasterController
         return View::make('dashboard.index', array('apps' => $apps, 'appIds' => $app_ids, 'enable' => $user->status))
             ->nest('header', 'dashboard.header')
             ->nest('footer', 'dashboard.footer');
+    }
+
+    public function testDB()
+    {
+        $host = Input::get('host');
+        $name = Input::get('name');
+        $pwd = Input::get('pwd');
+        try {
+            $connection = mysqli_connect($host, $name, $pwd);
+            if (mysqli_connect_errno() || !$connection) {
+                BaseController::ajaxResponse(BaseController::$_FAILED_TEMPLATE);
+            } else {
+                BaseController::ajaxResponse(BaseController::$_SUCCESS_TEMPLATE);
+            }
+        } catch (Exception $e) {
+            BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $e->getMessage());
+
+        }
+    }
+
+    public function initDB()
+    {
+        $id = Input::get('id');
+        if (\Utils\AppChose::checkDbConf($id, true)) {
+            $app_model_name = \Utils\AppChose::getDbModelsName($id);
+            $result = DBMaker::createSelfDataBase($app_model_name);
+            if ($result !== true) {
+                BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, '未知问题,请联系服务商!');
+            }
+            $app = AppModel::find($id);
+            if ($app) {
+                $app->init = 1;
+                $app->save();
+            }
+            BaseController::ajaxResponse(BaseController::$_SUCCESS_TEMPLATE);
+        }
+        BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, '');
+
     }
 
     public function addMember()
@@ -75,7 +115,7 @@ class DashBoardController extends MasterController
         if (empty($user_ids)) {
             BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_NOT_EXISTS);
         }
-        if(ATURelationModel::where('user_id',$user_id)->where('app_id',$app_id)->count() > 0){
+        if (ATURelationModel::where('user_id', $user_id)->where('app_id', $app_id)->count() > 0) {
             BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_HAS_EXISTS);
         }
         $atu = new ATURelationModel();
@@ -116,10 +156,14 @@ class DashBoardController extends MasterController
 
     public function storeApp()
     {
-
+////        ALTER TABLE `x_cms`.`app`   ADD COLUMN `type` VARCHAR(45) NULL AFTER `user_id`, ADD COLUMN `config` VARCHAR(200) NULL AFTER `type`;
         $app = new AppModel();
         $appName = Input::get('name');
         $appInfo = Input::get('info');
+        $type = Input::get('database');
+        $host = Input::get('host');
+        $name = Input::get('dbname');
+        $password = Input::get('password');
         $error = '';
         if ($appName) {
             DB::connection('base')->beginTransaction();
@@ -129,6 +173,9 @@ class DashBoardController extends MasterController
                 $app->user_id = Auth::user()->id;
                 $app->name = $appName;
                 $app->info = $appInfo;
+                $app->type = $type;
+                $app->config = json_encode(array('username' => $name, 'host' => $host, 'password' => $password));
+
                 $app->save();
                 //保存对应关系
                 $atuRelation = new ATURelationModel();
@@ -137,16 +184,50 @@ class DashBoardController extends MasterController
                 $atuRelation->roles = 3;
                 $atuRelation->save();
                 DB::connection('base')->commit();
-                $result = \Utils\DBMaker::createDataBase(\Utils\AppChose::getDbModelsName($app->id));
-                if ($result !== true) {
-                    BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, 'index');
-                }
-                $result = \Utils\DBMaker::createDataBase(\Utils\AppChose::getDbDataName($app->id), true);
-                if ($result !== true) {
-                    BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result, 'index');
+
+                if ($type == 'self') {
+                    //todo change to self db
+                    $app_models_conf = Config::get(Config::get('app.template_connection'));
+                    $app_models_conf['host'] = $host;
+                    $app_models_conf['username'] = $name;
+                    $app_models_conf['password'] = $password;
+                    $app_model_name = \Utils\AppChose::getDbModelsName($app->id);
+                    $app_models_conf['database'] = $app_model_name;
+                    \Utils\CMSLog::debug(json_encode($app_models_conf));
+
+                    //data in our db
+                    $result = DBMaker::createDataBase(\Utils\AppChose::getDbDataName($app->id), true);
+                    if ($result !== true) {
+                        BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result);
+                    }
+
+                    if (strpos($host, 'aliyun')) {
+                        //todo get create sql
+                        $sql = sprintf(DBMaker::DB_CREATE_MODELS, $app_model_name, $app_model_name);
+                        BaseController::ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', 'index');
+//                        return View::make('layout.location', array('code' => 1, 'message' => '因为阿里云权限问题我们数据库需要少侠手动创建','data'=>$sql)) ->nest('header', 'layout.header')->nest('footer', 'layout.footer');
+
+                    }
+                    //models in special db
+                    $result = DBMaker::createSelfDataBase($app_models_conf, $app_model_name);
+                    if ($result !== true) {
+                        BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result);
+                    }
+
+                    \Operator\WriteApi::setAppConf($app->id, $app_models_conf);
+                } else {
+                    $result = \Utils\DBMaker::createDataBase(\Utils\AppChose::getDbModelsName($app->id));
+                    if ($result !== true) {
+                        BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result);
+                    }
+                    $result = \Utils\DBMaker::createDataBase(\Utils\AppChose::getDbDataName($app->id), true);
+                    if ($result !== true) {
+                        BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $result);
+                    }
                 }
                 BaseController::ajaxResponse(BaseController::$SUCCESS, BaseController::$MESSAGE_DO_SUCCESS, '', 'index');
             } catch (\Exception $e) {
+                \Utils\CMSLog::debug(sprintf('### create database error, %s', $e->getMessage()));
                 DB::connection('base')->rollBack();
                 BaseController::ajaxResponse(BaseController::$FAILED, BaseController::$MESSAGE_DO_FAILED, $e->getMessage(), 'index');
             }

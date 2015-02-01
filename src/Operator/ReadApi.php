@@ -223,6 +223,11 @@ class ReadApi
         return self::redis()->hgetall(RedisKey::sprintf(RedisKey::ROUTE, $path));
     }
 
+    public static function getAppInfo($app_id)
+    {
+        return self::redis()->hget(RedisKey::sprintf(RedisKey::APP_INFO), $app_id);
+    }
+
     public static function getApiInfo($table, $method)
     {
         //  self::redis()->HINCRBY(RedisKey::sprintf('api::' . $model . '::' . $method), $date . ':time', $time);

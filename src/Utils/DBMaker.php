@@ -9,6 +9,8 @@
 
 namespace Utils;
 
+use DB;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 
 class DBMaker
@@ -16,7 +18,7 @@ class DBMaker
     //ALTER TABLE `cms_2_data`.`data_link_item`  ADD COLUMN `options` VARCHAR(45) NULL AFTER `deleted_at`;
 
     ##region db sql
-    const DB_CREATE = 'CREATE DATABASE `%s`;
+    const DB_CREATE_MODELS = 'CREATE DATABASE  IF NOT EXISTS `%s`;
     USE `%s`;
     CREATE TABLE IF NOT EXISTS  `user` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -39,7 +41,7 @@ class DBMaker
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-  CREATE TABLE `user_friends` (
+  CREATE TABLE IF NOT EXISTS `user_friends` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `from_id` int(11) DEFAULT NULL,
   `target_id` int(11) DEFAULT NULL,
@@ -555,20 +557,33 @@ CREATE TABLE `widget` (
         if ($flag) {
             $result = self::runSql(sprintf(self::DB_CREATE_DATA, $data_base, $data_base));
         } else {
-            $result = self::runSql(sprintf(self::DB_CREATE, $data_base, $data_base));
+            $result = self::runSql(sprintf(self::DB_CREATE_MODELS, $data_base, $data_base));
         }
         return $result;
     }
 
-    public static function runSql($sql)
+    public static function runSql($sql, $database = 'mysql')
     {
         try {
-            \DB::connection('base')->getPdo()->exec($sql);
+
+            \DB::connection($database)->getPdo()->exec($sql);
             return true;
         } catch (\Exception $e) {
             CMSLog::debug('执行SQL失败 : ' . $sql . ' ---------- ' . $e->getMessage());
             return '创建库失败';
         }
+
+    }
+
+    public static function createSelfDataBase($database, $conf = null)
+    {
+        if ($conf) {
+            Config::set('database.connections.models', $conf);
+        }
+        DB::reconnect('models');
+
+        return self::runSql(sprintf(self::DB_CREATE_MODELS, $database, $database), 'models');
+
 
     }
 

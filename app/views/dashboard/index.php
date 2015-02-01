@@ -41,12 +41,13 @@
 <!--right menu end-->
 <div class="col-md-10" style="padding-bottom:20px">
     <div class="" style="height:30px;"></div>
-    <?php if($enable != 'true'):?>
+    <?php if ($enable != 'true'): ?>
         <div class="alert alert-warning alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+                    class="sr-only">Close</span></button>
             <strong>提示!</strong> 请先激活账户,若没有收到邮件可以查阅垃圾箱 或者点用户进入个人中心重新发送邮件
         </div>
-    <?php endif;?>
+    <?php endif; ?>
     <div class="row" style="margin-bottom: 10px;">
         <div class="span-12">
             <div class="pull-right">
@@ -63,7 +64,10 @@
             <!--app item begin-->
             <div class="item clearfix">
                 <div class="col-md-6">
-                    <a class="clearfix pow_item_title" style="margin:10px 0;"
+                    <a class="clearfix pow_item_title " style="margin:10px 0;
+                    <?php  if ($app->type == 'self') {
+                        echo ' background-color:#397B8F';
+                    }?>;"
                        href="<?php echo URL::action('CmsController@index', array('app_id' => $app->id)) ?>">
                         <h4>
                             <?php echo $app->name; ?>
@@ -94,6 +98,11 @@
                         <a href="<?php echo URL::action('DashBoardController@editApp', array('app_id' => $app->id)) ?>"
                            class="btn btn-primary btn-x" type="button">修改应用</a>
                     <?php endif; ?>
+                    <?php if ($app->type == 'self' && $app->init != 1): ?>
+                        <button
+                            class=" btn btn-info btn-x init-btn" type="button" data-title="<?php echo $app->id ?>">初始化数据
+                        </button>
+                    <?php endif; ?>
                     <div class="mt20"></div>
                 </div>
 
@@ -110,7 +119,7 @@
                                         <li class="fl">
                                             <a title="<?php echo $user->name; ?>" class="user_info"
 
-                                             class="show-member">
+                                               class="show-member">
                                                 <!-- <span class="JAvatar"><?php echo md5($user->id); ?></span>-->
                                                 <span class="JAvatar pow_user_letter">l</span>
                                             </a>
@@ -141,7 +150,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="myModalLabel">随我闯江湖 title</h4>
                 </div>
                 <div class="modal-body">
@@ -179,6 +189,29 @@
 
     <script type="text/javascript">
         $(function () {
+            $('.init-btn').click(function () {
+                var btn = $(this);
+                var app_id = $(this).attr('data-title');
+                btn.button('检测中');
+                $.ajax({
+                    type: "get",
+                    data: {id: app_id},
+                    url: "<?php echo URL::action('DashBoardController@initDB'); ?>"
+                }).success(function (re) {
+                        re = $.parseJSON(re);
+                        if (re.status) {
+                            var errors = re.data;
+                            if (!errors) {
+                                errors = re.message
+                            }
+                            alert(errors);
+                        }
+                    })
+                    .done(function () {
+                        btn.hidden();
+                    });
+            });
+
             $('.handle-members').click(function () {
                 $('#JS_Sub').attr('disabled', false);
                 app_id = $(this).attr('data-app-id');
